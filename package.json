@@ -1,0 +1,10 @@
+{
+  "name": "@divvy/react-challenge",
+  "version": "0.0.0",
+  "description": "An interview challenge in React",
+  "main": "index.js",
+  "repository": "https://github.com/DivvyPayHQ/web-homework",
+  "author": "Lance Wintch <lance.wintch@divvypay.com>",
+  "license": "MIT",
+  "private": false
+}

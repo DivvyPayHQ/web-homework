@@ -1,0 +1,32 @@
+{
+  "name": "@divvy/react-challenge-server",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Lance Wintch <lance.wintch@divvypay.com>",
+  "keywords": [],
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "start": "./bin/app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "2.6.1",
+    "express": "^4.17.1",
+    "express-graphql": "0.8.0",
+    "graphql": "^14.3.1",
+    "http-errors": "^1.7.2",
+    "mongoose": "^5.5.15",
+    "pino": "^5.12.6",
+    "pino-http": "^4.2.0",
+    "pino-pretty": "^3.1.0",
+    "pug": "^2.0.3"
+  },
+  "devDependencies": {
+    "babel-eslint": "10.0.1",
+    "eslint": "5.16.0",
+    "eslint-config-divvy": "1.1.0",
+    "prettier": "1.18.2"
+  }
+}

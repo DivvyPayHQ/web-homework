@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" class="" <% if(htmlWebpackPlugin.files.manifest) { %> manifest="<%= htmlWebpackPlugin.files.manifest %>"
+    <% } %>>
+
+<head>
+    <meta charset="utf-8">
+    <% if (htmlWebpackPlugin.options.meta) { %>
+    <% for (var key in htmlWebpackPlugin.options.meta) { %>
+    <meta name="<%= key %>" content="<%= htmlWebpackPlugin.options.meta[key] %>">
+    <% } %>
+    <% } %>
+
+    <base href="/" />
+
+    <title><%= htmlWebpackPlugin.options.title || 'Webpack App'%></title>
+
+    <link rel="shortcut icon" href="//app.divvy.co/assets/icons/favicon.ico">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        body, ul, ol {
+            padding: 0;
+            margin: 0;
+        }
+
+    </style>
+
+    <% if (htmlWebpackPlugin.options.baseHref) { %>
+    <base href="<%= htmlWebpackPlugin.options.baseHref %>" />
+    <% } %>
+
+
+
+</head>
+
+<body>
+    <% if (htmlWebpackPlugin.options.appMountId) { %>
+    <div id="<%= htmlWebpackPlugin.options.appMountId%>"></div>
+    <% } %>
+</body>
+
+</html>
