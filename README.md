@@ -1,7 +1,9 @@
 # Divvy Front End Homework Assignment
 
 
-This repository provides a starting point for a basic React + GraphQL application.  All of the configuration boilerplate is complete so you can start by writing the code that you want us to see.
+This repository provides a starting point for a basic React + GraphQL application.  All of the configuration boilerplate is complete so you can start by writing the code that you want us to see.  
+
+Please **fork** this repo to your GitHub account.
 
 
 ## Project Setup
