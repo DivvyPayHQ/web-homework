@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import gql from 'graphql-tag'
 import { useMutation } from '@apollo/react-hooks'
 import { withRouter } from 'react-router'
+import { css } from '@emotion/core'
 
 const CREATE_TRANSACTION = gql`
   mutation AddTransaction(
@@ -41,7 +42,7 @@ export const CreateTransaction = () => {
   const [description, setDescription] = useState('')
 
   return (
-    <form onSubmit={(event) => {
+    <form css={formStyle} onSubmit={(event) => {
       event.preventDefault()
 
       createTransaction({
@@ -55,21 +56,41 @@ export const CreateTransaction = () => {
         }
       })
     }}>
-      <div>Merchant Id:</div>
-      <input onChange={({ target: { value } }) => setMerchantId(value)} type='number' value={merchantId} />
-      <div>User Id:</div>
-      <input onChange={({ target: { value } }) => setUserId(value)} value={userId} />
-      <div>Amount:</div>
-      <input onChange={({ target: { value } }) => setAmount(value)} type='number' value={amount} />
-      <div>Credit:</div>
-      <input checked={isCredit} onChange={() => setIsCredit(!isCredit)} type='checkbox' />
-      <div>Debit:</div>
-      <input checked={isDebit} onChange={() => setIsDebit(!isDebit)} type='checkbox' />
-      <div>Description:</div>
-      <input onChange={({ target: { value } }) => setDescription(value)} value={description} />
-      <button>Submit</button>
+      <label>
+        Merchant Id:
+        <input onChange={({ target: { value } }) => setMerchantId(value)} type='number' value={merchantId} />
+      </label>
+      <label>
+        User Id:
+        <input onChange={({ target: { value } }) => setUserId(value)} value={userId} />
+      </label>
+      <label>
+        Amount:
+        <input onChange={({ target: { value } }) => setAmount(value)} type='number' value={amount} />
+      </label>
+      <label>
+        Credit:
+        <input checked={isCredit} onChange={() => setIsCredit(!isCredit)} type='checkbox' />
+      </label>
+      <label>
+        Debit:
+        <input checked={isDebit} onChange={() => setIsDebit(!isDebit)} type='checkbox' />
+      </label>
+      <label>
+        Description:
+        <input onChange={({ target: { value } }) => setDescription(value)} value={description} />
+      </label>
+      <button>Create Transaction</button>
     </form>
   )
 }
 
 export default withRouter(CreateTransaction)
+
+const formStyle = css`
+  border-radius: 8px;
+  border: solid 1px black;
+  display: grid;
+  grid-gap: 16px;
+  padding: 12px;
+`

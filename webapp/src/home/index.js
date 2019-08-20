@@ -48,7 +48,6 @@ export const Home = () => {
 const transactionStyle = css`
   border: 1px solid black;
   border-radius: 8px;
-  cursor: pointer;
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 12px;

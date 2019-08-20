@@ -38,9 +38,9 @@ export const Transaction = ({ match: { params: { id } } }) => {
       <div>Amount:</div>
       <div>{amount}</div>
       <div>Credit:</div>
-      <div>{credit}</div>
+      <div>{`${credit}`}</div>
       <div>Debit:</div>
-      <div>{debit}</div>
+      <div>{`${debit}`}</div>
       <div>Description:</div>
       <div>{description}</div>
     </div>
