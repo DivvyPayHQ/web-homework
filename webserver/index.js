@@ -7,6 +7,7 @@ const httpErrors = require('http-errors')
 const path = require('path')
 const pino = require('pino')
 const pinoHttp = require('pino-http')
+const cors = require('cors')
 
 module.exports = function main(options, cb) {
   // Set default options
@@ -70,6 +71,7 @@ module.exports = function main(options, cb) {
   // Common middleware
   // app.use(/* ... */)
   app.use(pinoHttp({ logger }))
+  app.use(cors({ credentials: true, origin: true }))
 
   // Register routes
   // @NOTE: require here because this ensures that even syntax errors
