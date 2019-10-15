@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "ejs": "2.6.1",
     "express": "^4.17.1",
     "express-graphql": "0.8.0",
@@ -28,5 +29,8 @@
     "eslint": "5.16.0",
     "eslint-config-divvy": "1.1.0",
     "prettier": "1.18.2"
+  },
+  "engines": {
+    "node": ">=11.15.0 <12.0.0"
   }
 }

@@ -12,6 +12,8 @@ This repository is broken into a web app directory (eg `/webapp`) and a server d
 
 This project is intentionally not utilizing 3rd party services or create-react-app to give you the opportunity to showcase your talents wherever they are, be it the front end or the back end. 
 
+**Node** version **11.15.0** is the safest NodeJS release to use.  Node 12 has issues with node-gyp on OSX and anything less than 11 is missing some necessary es6 features.
+
 ## Instructions
 
 You do not have to complete all of these objectives, but as many as you can without feeling like you are wasting your time is ideal.

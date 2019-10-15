@@ -36,7 +36,6 @@ module.exports = {
 
     // Stage 3
     '@babel/plugin-syntax-dynamic-import',
-    ['dynamic-import-node', { noInterOp: false }],
     '@babel/plugin-syntax-import-meta',
     ['@babel/plugin-proposal-class-properties', { 'loose': false }],
     '@babel/plugin-proposal-json-strings',

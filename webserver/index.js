@@ -1,4 +1,5 @@
 'use strict'
+const cors = require('cors')
 const ejs = require('ejs')
 const express = require('express')
 const mongoose = require('mongoose')
@@ -8,7 +9,7 @@ const path = require('path')
 const pino = require('pino')
 const pinoHttp = require('pino-http')
 
-module.exports = function main(options, cb) {
+module.exports = function main (options, cb) {
   // Set default options
   const ready = cb || function () { }
   const opts = Object.assign(
@@ -34,7 +35,7 @@ module.exports = function main(options, cb) {
   })
 
   // Setup error handling
-  function unhandledError(err) {
+  function unhandledError (err) {
     // Log the errors
     logger.error(err)
 
@@ -71,6 +72,18 @@ module.exports = function main(options, cb) {
   // app.use(/* ... */)
   app.use(pinoHttp({ logger }))
 
+  // CORS
+  const corsOptions = {
+    'credentials': true,
+    'origin': 'http://localhost:3000',
+    'methods': 'GET,POST',
+    'preflightContinue': false,
+    'optionsSuccessStatus': 200
+  }
+
+  app.use(cors(corsOptions))
+  app.options('*', cors(corsOptions))
+
   // Register routes
   // @NOTE: require here because this ensures that even syntax errors
   // or other startup related errors are caught logged and debuggable.
@@ -82,10 +95,10 @@ module.exports = function main(options, cb) {
   app.use(bodyParser)
 
   // Common error handlers
-  app.use(function fourOhFourHandler(req, res, next) {
+  app.use(function fourOhFourHandler (req, res, next) {
     next(httpErrors(404, `Route not found: ${req.url}`))
   })
-  app.use(function fiveHundredHandler(err, req, res, next) { // eslint-disable-line no-unused-vars
+  app.use(function fiveHundredHandler (err, req, res, next) { // eslint-disable-line no-unused-vars
     if (err.status >= 500) {
       logger.error(err)
     }
