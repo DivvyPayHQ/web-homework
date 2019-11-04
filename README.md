@@ -28,7 +28,7 @@ For **junior engineers** please complete any 1 of these objectives and include a
 
 ## Objectives
 
- * Write a basic user inerface that allows users to enter, edit, and remove transactions.
+ * Write a basic user interface that allows users to enter, edit, and remove transactions.
 
    > Bonus points for adding other data models such as users and merchants that can be input as part of the transaction.
 
