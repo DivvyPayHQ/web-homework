@@ -13,7 +13,7 @@ const Nav = () => (
           <Link to='/'>DASHBOARD</Link>
         </li>
         <li>
-          <Link to='/report'>REPORT</Link>
+          <Link to='/upload'>UPLOAD</Link>
         </li>
       </ul>
     </nav>
@@ -28,13 +28,13 @@ const layoutStyle = css`
   color: #ffffff;
   display: grid;
   grid-template-columns: 80% 20%;
-  padding: 20px 25px;
+  padding: 20px 40px;
 `
 
 const navStyle = css`
   align-items: center;
   display: grid;
-  grid-template-columns: 7% 93%;
+  grid-template-columns: 8% 92%;
   
   & > ul {
     display: flex;

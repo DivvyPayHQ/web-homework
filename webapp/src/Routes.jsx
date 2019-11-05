@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { css } from '@emotion/core'
 import Dashboard from './components/dashboard/Dashboard'
 import Nav from './components/nav/Nav'
+import Upload from './components/upload/Upload'
 
 function AppRouter () {
   return (
@@ -11,7 +12,7 @@ function AppRouter () {
         <Nav />
         <div className='main-content' css={contentStyle}>
           <Route component={Dashboard} exact path='/' />
-          <Route component={() => (<h3>Report</h3>)} exact path='/report' />
+          <Route component={Upload} exact path='/upload' />
         </div>
       </section>
     </Router>
@@ -21,7 +22,8 @@ function AppRouter () {
 const contentStyle = css`
   background-color: #f9f8f0;
   grid-row: 2;
-  height: 100vh;
+  height: auto;
   padding: 20px 40px;
+  min-height: 100vh;
 `
 export default AppRouter
