@@ -35,21 +35,22 @@ const Transactions = ({ categoryType }) => {
   return (
     <Fragment>
       <h3>Transactions</h3>
-      {transactions.length ? transactions.map((trans, i) => {
+      {console.info('uploaded transactions', transactions)}
+      {transactions.length ? transactions.map((transaction, i) => {
         return (
           <div className='transaction-card' css={transactionStyle} key={i}>
             {editing ? (
               <div className='transaction-card-input-wrapper'>
-                <input defaultValue={trans.description} name='description' onChange={e => console.info(e.target.value)} type='text' />
-                <input defaultValue={trans.amount} name='amount' onChange={e => console.info(e.target.value)} type='number' />
+                <input defaultValue={transaction.description} name='description' onChange={e => console.info(e.target.value)} type='text' />
+                <input defaultValue={transaction.amount} name='amount' onChange={e => console.info(e.target.value)} type='number' />
               </div>
             ) : (
               <div className='transaction-description-wrapper'>
                 <div className='transaction-description'>
-                  {trans.description}
+                  {transaction.description}
                 </div>
                 <div className='transaction-amount negative'>
-                  -${trans.amount}
+                  -${transaction.amount}
                 </div>
               </div>
             )}
@@ -58,7 +59,7 @@ const Transactions = ({ categoryType }) => {
                 Category
               </div>
               <div className='transaction-date'>
-                Date
+                Date: {transaction.dateAdded}
               </div>
             </div>
             <div className='transaction-actions'>

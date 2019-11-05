@@ -12,18 +12,21 @@ const ADD_TRANSACTION = gql`
     $debit: Boolean!
     $credit: Boolean!
     $description: String!
+    $dateAdded: String!
   ) {
     addTransaction(
       amount: $amount
       debit: $debit
       credit: $credit
       description: $description
+      dateAdded: $dateAdded
     ) {
       amount
       id
       description
       credit
       debit
+      dateAdded
     }
   }
 `
@@ -43,9 +46,17 @@ const Upload = () => {
   }
 
   useEffect(() => {
-    transactions && transactions.map(d => addTransaction({
-      variables: { ...d, amount: parseFloat(d.amount) }
-    }))
+    transactions && transactions.map(d => {
+      const date = new Date()
+      const dateAdded = `${date.getUTCMonth() + 1}/${date.getUTCDate()}/${date.getUTCFullYear()}`
+      return addTransaction({
+        variables: {
+          ...d,
+          amount: parseFloat(d.amount),
+          dateAdded
+        }
+      })
+    })
   }, [transactions])
 
   return (
