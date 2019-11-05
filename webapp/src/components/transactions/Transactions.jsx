@@ -19,12 +19,12 @@ const GET_ADDED_TRANSACTIONS = gql`
 
 const Transactions = ({ categoryType }) => {
   const [editing, toggleEdit] = useState(false)
-  const [getTransactions, { data }] = useLazyQuery(GET_ADDED_TRANSACTIONS)
+  const [getAddedTransactions, { data }] = useLazyQuery(GET_ADDED_TRANSACTIONS)
   const [transactions, setTransactions] = useState([])
 
   useEffect(() => {
     if (categoryType) {
-      getTransactions({ variables: { category_type: categoryType } })
+      getAddedTransactions({ variables: { category_type: categoryType } })
     }
   }, [categoryType])
 
