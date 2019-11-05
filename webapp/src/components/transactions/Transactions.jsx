@@ -11,6 +11,8 @@ const GET_ADDED_TRANSACTIONS = gql`
       debit
       credit
       description
+      dateAdded
+      merchant_id
     }
   }
 `
