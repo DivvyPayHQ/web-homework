@@ -54,7 +54,7 @@ const navStyle = css`
     }
   }
   
-  & > ul > li:not(:first-child) {
+  & > ul > li:not(:first-of-type) {
     margin-left: 15px;
   }
 `

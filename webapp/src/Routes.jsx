@@ -27,7 +27,7 @@ const contentStyle = css`
     height: auto;
     padding: 20px 40px;
     margin: 0 auto;
-    max-width: 1400px;
+    max-width: 1300px;
     min-height: 100vh;
   }
 `
