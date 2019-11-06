@@ -9,7 +9,7 @@ let plugins = [
   new CleanWebpackPlugin(),
   new HtmlWebpackPlugin({
     template: './index.ejs',
-    title: 'Divvy Coding Challenge',
+    title: 'Spendify || Divvy Coding Challenge',
     appMountId: 'react-app'
   })
 ]

@@ -28,7 +28,7 @@ For **junior engineers** please complete any 1 of these objectives and include a
 
 ## Objectives
 
- * Write a basic user inerface that allows users to enter, edit, and remove transactions.
+ * Write a basic user interface that allows users to enter, edit, and remove transactions.
 
    > Bonus points for adding other data models such as users and merchants that can be input as part of the transaction.
 
@@ -36,7 +36,7 @@ For **junior engineers** please complete any 1 of these objectives and include a
 
  * Create a user setting that can convert the displayed numbers to Roman Numerals.  Please do not use the examples on StackOverflow for this.
 
- * Include a CSV file that can be uploaded through your application to seed the database.  You may also modify the web server post install script to ensure the databse is correctly seeded instead. 
+ * Include a CSV file that can be uploaded through your application to seed the database.  You may also modify the web server post install script to ensure the database is correctly seeded instead. 
 
  * Add an i18n setting via URL (eg `?i18n=true`) that turns all of the display text into gibberish (eg replace the front with something that does not use a latin based charset).
 
