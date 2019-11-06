@@ -51,9 +51,15 @@ const Transactions = ({ categoryType }) => {
                 <div className='transaction-description'>
                   {transaction.description}
                 </div>
-                <div className='transaction-amount negative'>
-                  -${transaction.amount}
-                </div>
+                {transaction.credit ? (
+                  <div className='transaction-amount positive'>
+                    ${transaction.amount}
+                  </div>
+                ) : (
+                  <div className='transaction-amount negative'>
+                    -${transaction.amount}
+                  </div>
+                )}
               </div>
             )}
             <div className='transaction-category-date-wrapper'>
