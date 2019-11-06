@@ -8,9 +8,9 @@ import Upload from './components/upload/Upload'
 function AppRouter () {
   return (
     <Router>
-      <section className='app-wrapper'>
+      <section className='app-wrapper' css={contentStyle}>
         <Nav />
-        <div className='main-content' css={contentStyle}>
+        <div className='main-content'>
           <Route component={Dashboard} exact path='/' />
           <Route component={Upload} exact path='/upload' />
         </div>
@@ -21,9 +21,14 @@ function AppRouter () {
 
 const contentStyle = css`
   background-color: #f9f8f0;
-  grid-row: 2;
-  height: auto;
-  padding: 20px 40px;
-  min-height: 100vh;
+  
+  .main-content {
+    grid-row: 2;
+    height: auto;
+    padding: 20px 40px;
+    margin: 0 auto;
+    max-width: 1400px;
+    min-height: 100vh;
+  }
 `
 export default AppRouter

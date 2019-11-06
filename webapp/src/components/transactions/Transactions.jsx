@@ -37,7 +37,6 @@ const Transactions = ({ categoryType }) => {
   return (
     <Fragment>
       <h3>Transactions</h3>
-      {console.info('uploaded transactions', transactions)}
       {transactions.length ? transactions.map((transaction, i) => {
         return (
           <div className='transaction-card' css={transactionStyle} key={i}>
