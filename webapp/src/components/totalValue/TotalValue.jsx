@@ -15,30 +15,40 @@ const GET_ADDED_TRANSACTIONS = gql`
 `
 
 const TotalValue = () => {
-  const [totalValue, setTotalValue] = useState('')
+  const [totals, setTotalValue] = useState({})
   const { data } = useQuery(GET_ADDED_TRANSACTIONS)
 
   useEffect(() => {
     if (data && data.transactions) {
       let total = 0
+      let creditTotal = 0
+      let debitTotal = 0
       data.transactions.forEach(t => {
         if (t.credit) {
-          total += t.amount
+          creditTotal += t.amount
         } else if (t.debit) {
-          total -= t.amount
+          debitTotal -= t.amount
         }
-
-        return total
       })
 
-      setTotalValue(total)
+      total = creditTotal - debitTotal
+
+      setTotalValue({
+        totalValue: total,
+        creditTotal,
+        debitTotal
+      })
     }
   }, [data])
 
   return (
     <div className='total-value-wrapper' css={totalValueStyle}>
       <span className='total-value-text'>Total Value:</span>
-      <span className={`total-value ${totalValue > 0 ? 'positive' : 'negative'}`}>${totalValue}</span>
+      <span className={`total-value ${totals.totalValue > 0 ? 'positive' : 'negative'}`}>${totals.totalValue}</span>
+      <div className='credit-debit-wrapper'>
+        <span className='credit-debit-total'>Credits: ${totals.creditTotal}</span>
+        <span className='credit-debit-total'>Debits: ${totals.debitTotal}</span>
+      </div>
     </div>
   )
 }
@@ -56,7 +66,7 @@ const totalValueStyle = css`
   width: 25%;
 
   .total-value {
-    font-size: 30px;
+    font-size: 32px;
 
     &.positive {
       color: #159D6C;
@@ -65,6 +75,16 @@ const totalValueStyle = css`
     &.negative {
       color: #9d152f;
     }
+  }
+
+  .credit-debit-wrapper {
+    display: flex;
+  }
+
+  .credit-debit-total {
+    color: #aeada8;
+    font-size: 13px;
+    margin-right: 5px;
   }
 `
 
