@@ -45,14 +45,16 @@ const addTransactionStyle = css`
   .add-transaction-btn {
     appearance: none;
     background-color: #ffffff;
-    border: 1px solid #aeada8;
+    border: none;
     border-radius: 3px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.08);
     font-family: 'Calibre-Regular';
     font-size: 18px;
     padding: 8px 15px;
 
     &:hover,
     &:focus {
+      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.12);
       cursor: pointer;
     }
   }
