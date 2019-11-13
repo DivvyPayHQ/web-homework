@@ -5,6 +5,7 @@ import gql from 'graphql-tag'
 import { useMutation } from '@apollo/react-hooks'
 
 import Transactions from '../transactions/Transactions'
+import { validateUploadedData } from '../../utilities/utilities'
 
 const ADD_TRANSACTION = gql`
   mutation(
@@ -33,6 +34,7 @@ const ADD_TRANSACTION = gql`
 
 const Upload = () => {
   const [transactions, setTransactions] = useState(null)
+  const [error, setError] = useState(false)
   const [addTransaction] = useMutation(ADD_TRANSACTION)
   const parseOptions = {
     header: true,
@@ -42,7 +44,14 @@ const Upload = () => {
   }
 
   const handleData = data => {
-    setTransactions(data)
+    const validData = validateUploadedData(data)
+
+    if (!validData) {
+      return setError(true)
+    }
+
+    setError(false)
+    return setTransactions(data)
   }
 
   useEffect(() => {
@@ -68,6 +77,7 @@ const Upload = () => {
         onFileLoaded={handleData}
         parserOptions={parseOptions}
       />
+      {error && <p className='upload-error'>There was an error uploading your file because one or more required fields are empty or null</p>}
       <Transactions
         categoryType='car'
       />
@@ -78,6 +88,13 @@ const Upload = () => {
 const layoutStyle = css`
   .upload-csv-input {
     margin-bottom: 20px;
+  }
+
+  .upload-error {
+    background-color: rgba(157, 21, 47, 0.06);
+    color: #9d152f;
+    padding: 8px 15px;
+    width: 50%;
   }
 `
 

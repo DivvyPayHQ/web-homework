@@ -1,3 +1,4 @@
+// This is where all the utlity or helper functions go so they can easily be tested
 export function calculateTotalValue (data) {
   if (!data) {
     return null
@@ -21,4 +22,29 @@ export function calculateTotalValue (data) {
     creditTotal,
     debitTotal
   }
+}
+
+export function validateUploadedData (data) {
+  let isValid = true
+  if (!data || !data.length) {
+    isValid = false
+    return isValid
+  }
+
+  data.forEach(t => {
+    // if any required fields on upload are null, return false
+    if (
+      t.amount === null ||
+      t.category === null ||
+      t.credit === null ||
+      t.debit === null ||
+      t.description === null ||
+      t.merchant_id === null ||
+      t.user_id === null
+    ) {
+      isValid = false
+    }
+  })
+
+  return isValid
 }
