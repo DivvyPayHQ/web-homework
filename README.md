@@ -1,9 +1,9 @@
 # SPENDIFY 💰
 
-- A budget app.
+- A budgeting app.
 
 ## Setup
-- First, make sure you have MongoDB running
+- First, make sure you have MongoDB running in the background.
 - Then do the following commands:
 ```bash 
     cd webapp/
@@ -18,5 +18,6 @@
 ```bash 
   yarn start
 ```
+- This will get the client and the server app running.
 
-A webpack dev server is already configured, with hot reloading.  You should have everything you need to get started at this point.
+And thats it! You can see the app on http://localhost:3000/ in your browser
