@@ -46,19 +46,21 @@ const Transactions = ({ categoryType }) => {
                 <input defaultValue={transaction.amount} name='amount' onChange={e => console.info(e.target.value)} type='number' />
               </div>
             ) : (
-              <div className='transaction-description-wrapper'>
-                <div className='transaction-description'>
-                  {transaction.description}
+              <div className='transaction-wrapper'>
+                <div className='transaction-description-wrapper'>
+                  <div className='transaction-description'>
+                    {transaction.description}
+                  </div>
+                  {transaction.credit ? (
+                    <div className='transaction-amount positive'>
+                      ${transaction.amount}
+                    </div>
+                  ) : (
+                    <div className='transaction-amount negative'>
+                      -${transaction.amount}
+                    </div>
+                  )}
                 </div>
-                {transaction.credit ? (
-                  <div className='transaction-amount positive'>
-                    ${transaction.amount}
-                  </div>
-                ) : (
-                  <div className='transaction-amount negative'>
-                    -${transaction.amount}
-                  </div>
-                )}
                 <div className='transaction-category-date-wrapper'>
                   <div className='transaction-category'>
                     Category: {transaction.category}
@@ -99,11 +101,29 @@ const transactionStyle = css`
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.08);
   }
 
+  .transaction-wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .transaction-description-wrapper {
+    min-width: 120px
+  }
+
+  .transaction-category-date-wrapper {
+    font-size: 14px;
+    margin-left: 15px;
+  }
+
   .transaction-description {
+    font-size: 20px;
     text-transform: capitalize;
   }
 
   .transaction-amount {
+    font-size: 20px;
+    
     &.positive {
       color: #159D6C;
     }

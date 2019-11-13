@@ -29,7 +29,7 @@ const TotalValue = () => {
 
   return (
     <div className='total-value-wrapper' css={totalValueStyle}>
-      <span className='total-value-text'>Total Value:</span>
+      <span className='total-value-text'>Expenses:</span>
       <span className={`total-value ${totals.totalValue > 0 ? 'positive' : 'negative'}`}>${totals.totalValue}</span>
       <div className='credit-debit-wrapper'>
         <span className='credit-debit-total'>Credits: ${totals.creditTotal}</span>
