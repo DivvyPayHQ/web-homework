@@ -12,7 +12,7 @@ const GET_ADDED_TRANSACTIONS = gql`
       credit
       description
       dateAdded
-      merchant_id
+      merchantId: merchant_id
     }
   }
 `
@@ -59,16 +59,16 @@ const Transactions = ({ categoryType }) => {
                     -${transaction.amount}
                   </div>
                 )}
+                <div className='transaction-category-date-wrapper'>
+                  <div className='transaction-category'>
+                    Category: {transaction.category}
+                  </div>
+                  <div className='transaction-date'>
+                    Date Added: {transaction.dateAdded}
+                  </div>
+                </div>
               </div>
             )}
-            <div className='transaction-category-date-wrapper'>
-              <div className='transaction-category'>
-                Category
-              </div>
-              <div className='transaction-date'>
-                Date: {transaction.dateAdded}
-              </div>
-            </div>
             <div className='transaction-actions'>
               {editing
                 ? <button className='save-btn' onClick={() => toggleEdit(false)}>SAVE</button>
@@ -97,6 +97,10 @@ const transactionStyle = css`
   &:hover,
   &:focus {
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.08);
+  }
+
+  .transaction-description {
+    text-transform: capitalize;
   }
 
   .transaction-amount {
