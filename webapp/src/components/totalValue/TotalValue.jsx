@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { css } from '@emotion/core'
-
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
+
+import { calculateTotalValue } from '../../utilities/utilities'
 
 const GET_ADDED_TRANSACTIONS = gql`
   {
@@ -20,24 +21,9 @@ const TotalValue = () => {
 
   useEffect(() => {
     if (data && data.transactions) {
-      let total = 0
-      let creditTotal = 0
-      let debitTotal = 0
-      data.transactions.forEach(t => {
-        if (t.credit) {
-          creditTotal += t.amount
-        } else if (t.debit) {
-          debitTotal -= t.amount
-        }
-      })
+      const totalValue = calculateTotalValue(data.transactions)
 
-      total = creditTotal - debitTotal
-
-      setTotalValue({
-        totalValue: total,
-        creditTotal,
-        debitTotal
-      })
+      setTotalValue(totalValue)
     }
   }, [data])
 
