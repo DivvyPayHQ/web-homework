@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react'
 import { string } from 'prop-types'
 import { css } from '@emotion/core'
 import gql from 'graphql-tag'
-import { useLazyQuery } from '@apollo/react-hooks'
+import { useLazyQuery, useMutation } from '@apollo/react-hooks'
 
 const GET_ADDED_TRANSACTIONS = gql`
   {
@@ -18,10 +18,24 @@ const GET_ADDED_TRANSACTIONS = gql`
   }
 `
 
+const DELETE_TRANSACTION = gql`
+  mutation(
+    $transactionId: String!
+  ) {
+    deleteTransaction(
+      transactionId: $transactionId
+    ) {
+      transactionId
+    }
+  }
+`
+
 const Transactions = ({ categoryType }) => {
   const [editing, toggleEdit] = useState(false)
   const [getAddedTransactions, { data }] = useLazyQuery(GET_ADDED_TRANSACTIONS)
+  const [deleteTransaction] = useMutation(DELETE_TRANSACTION)
   const [transactions, setTransactions] = useState([])
+  const handleDeletion = (id) => deleteTransaction({ variables: { transactionId: id } })
 
   useEffect(() => {
     if (categoryType) {
@@ -77,7 +91,7 @@ const Transactions = ({ categoryType }) => {
                 ? <button className='save-btn' onClick={() => toggleEdit(false)}>SAVE</button>
                 : <button className='edit-btn' onClick={() => toggleEdit(true)}>EDIT</button>
               }
-              <button className='remove-btn' onClick={() => console.info('transactionId', transaction.transactionId)}>REMOVE</button>
+              <button className='remove-btn' onClick={() => handleDeletion(transaction.transactionId)}>REMOVE</button>
             </div>
           </div>
         )
