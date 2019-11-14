@@ -3,6 +3,7 @@ import { css } from '@emotion/core'
 import CSVReader from 'react-csv-reader'
 import gql from 'graphql-tag'
 import { useMutation } from '@apollo/react-hooks'
+import uuidv4 from 'uuid/v4'
 
 import Transactions from '../transactions/Transactions'
 import { validateUploadedData } from '../../utilities/utilities'
@@ -13,21 +14,26 @@ const ADD_TRANSACTION = gql`
     $debit: Boolean!
     $credit: Boolean!
     $description: String!
+    $merchant_id: String!
     $dateAdded: String!
+    $transactionId: String!
   ) {
     addTransaction(
       amount: $amount
       debit: $debit
       credit: $credit
       description: $description
+      merchant_id: $merchant_id
       dateAdded: $dateAdded
+      transactionId: $transactionId
     ) {
       amount
-      id
-      description
-      credit
       debit
+      credit
+      description
+      merchant_id
       dateAdded
+      transactionId
     }
   }
 `
@@ -58,12 +64,16 @@ const Upload = () => {
     transactions && transactions.map(d => {
       const date = new Date()
       const dateAdded = `${date.getUTCMonth() + 1}/${date.getUTCDate()}/${date.getUTCFullYear()}`
+      const transactionId = uuidv4()
+      const builtVariable = {
+        ...d,
+        amount: parseFloat(d.amount),
+        merchant_id: d.merchant_id.toString(),
+        dateAdded,
+        transactionId
+      }
       return addTransaction({
-        variables: {
-          ...d,
-          amount: parseFloat(d.amount),
-          dateAdded
-        }
+        variables: builtVariable
       })
     })
   }, [transactions])

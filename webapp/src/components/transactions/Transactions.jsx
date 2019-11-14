@@ -11,8 +11,9 @@ const GET_ADDED_TRANSACTIONS = gql`
       debit
       credit
       description
-      dateAdded
       merchantId: merchant_id
+      dateAdded
+      transactionId
     }
   }
 `
@@ -76,7 +77,7 @@ const Transactions = ({ categoryType }) => {
                 ? <button className='save-btn' onClick={() => toggleEdit(false)}>SAVE</button>
                 : <button className='edit-btn' onClick={() => toggleEdit(true)}>EDIT</button>
               }
-              <button className='remove-btn'>REMOVE</button>
+              <button className='remove-btn' onClick={() => console.info('transactionId', transaction.transactionId)}>REMOVE</button>
             </div>
           </div>
         )
