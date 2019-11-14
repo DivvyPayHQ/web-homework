@@ -6,6 +6,7 @@ const TransactionType = require('./transaction-type')
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
+    // Add the transaction with the required values
     addTransaction: {
       type: TransactionType,
       args: {
@@ -23,6 +24,7 @@ const mutation = new GraphQLObjectType({
         return (new TransactionModel({ user_id, description, merchant_id, debit, credit, amount, dateAdded, transactionId })).save()
       }
     },
+    // Delete transaction using the transactionId
     deleteTransaction: {
       type: TransactionType,
       args: {
@@ -33,6 +35,7 @@ const mutation = new GraphQLObjectType({
         return TransactionModel.findOneAndDelete({ transactionId })
       }
     },
+    // Updated transaction using the transactionId
     updatedTransaction: {
       type: TransactionType,
       args: {
