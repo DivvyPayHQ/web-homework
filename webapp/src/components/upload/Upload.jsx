@@ -72,11 +72,15 @@ const Upload = () => {
     <div className='upload-wrapper' css={layoutStyle}>
       <h3>Upload</h3>
       <p className='upload-instructions'>Upload your CSV file of transactions below.</p>
-      <CSVReader
-        cssClass='upload-csv-input'
-        onFileLoaded={handleData}
-        parserOptions={parseOptions}
-      />
+      <label className='upload-csv-input' htmlFor='csv-input'>
+        <CSVReader
+          // onError={setError(true)}
+          inputId='csv-input'
+          onFileLoaded={handleData}
+          parserOptions={parseOptions}
+        />
+        File Upload
+      </label>
       {error && <p className='upload-error'>There was an error uploading your file because one or more required fields are empty or null</p>}
       <Transactions
         categoryType='car'
@@ -87,7 +91,31 @@ const Upload = () => {
 
 const layoutStyle = css`
   .upload-csv-input {
+    appearance: none;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.08);
+    display: inline-block;
+    font-family: 'Calibre-Regular';
+    font-size: 18px;
+    padding: 8px 15px;
     margin-bottom: 20px;
+
+    &:hover,
+    &focus {
+      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.12);
+      cursor: pointer;
+    }
+  }
+
+  #csv-input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
   }
 
   .upload-error {
