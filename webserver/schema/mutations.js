@@ -15,11 +15,32 @@ const mutation = new GraphQLObjectType({
         debit: { type: GraphQLBoolean },
         credit: { type: GraphQLBoolean },
         amount: { type: GraphQLFloat },
-        dateAdded: { type: GraphQLString }
+        dateAdded: { type: GraphQLString },
+        transactionId: { type: GraphQLString }
       },
       /* eslint-disable-next-line camelcase */
-      resolve (parentValue, { user_id, description, merchant_id, debit, credit, amount, dateAdded }) {
-        return (new TransactionModel({ user_id, description, merchant_id, debit, credit, amount, dateAdded })).save()
+      resolve (parentValue, { user_id, description, merchant_id, debit, credit, amount, dateAdded, transactionId }) {
+        return (new TransactionModel({ user_id, description, merchant_id, debit, credit, amount, dateAdded, transactionId })).save()
+      }
+    },
+    deleteTransaction: {
+      type: TransactionType,
+      args: {
+        transactionId: { type: GraphQLString }
+      },
+      /* eslint-disable-next-line camelcase */
+      resolve (parentValue, { transactionId }) {
+        return TransactionModel.findOneAndDelete({ transactionId })
+      }
+    },
+    updatedTransaction: {
+      type: TransactionType,
+      args: {
+        transactionId: { type: GraphQLString }
+      },
+      /* eslint-disable-next-line camelcase */
+      resolve (parentValue, { transactionId }) {
+        return TransactionModel.findOneAndUpdate({ transactionId })
       }
     }
   }

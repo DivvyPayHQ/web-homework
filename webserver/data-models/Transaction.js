@@ -8,7 +8,8 @@ const TransactionSchema = new Schema({
   debit: { type: Boolean, default: null },
   description: { type: String, default: null },
   merchant_id: { type: String, default: null },
-  dateAdded: { type: String, default: null }
+  dateAdded: { type: String, default: null },
+  transactionId: { type: String, default: null }
 })
 
 const TransactionModel = model('transaction', TransactionSchema)
