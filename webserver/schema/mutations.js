@@ -30,7 +30,6 @@ const mutation = new GraphQLObjectType({
       args: {
         transactionId: { type: GraphQLString }
       },
-      /* eslint-disable-next-line camelcase */
       resolve (parentValue, { transactionId }) {
         return TransactionModel.findOneAndDelete({ transactionId })
       }
@@ -41,7 +40,6 @@ const mutation = new GraphQLObjectType({
       args: {
         transactionId: { type: GraphQLString }
       },
-      /* eslint-disable-next-line camelcase */
       resolve (parentValue, { transactionId }) {
         return TransactionModel.findOneAndUpdate({ transactionId })
       }
