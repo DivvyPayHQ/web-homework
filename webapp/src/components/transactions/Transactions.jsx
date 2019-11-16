@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react'
 import { string } from 'prop-types'
 import { css } from '@emotion/core'
 import gql from 'graphql-tag'
-import { useLazyQuery } from '@apollo/react-hooks'
+import { useLazyQuery, useMutation } from '@apollo/react-hooks'
 
 const GET_ADDED_TRANSACTIONS = gql`
   {
@@ -11,8 +11,21 @@ const GET_ADDED_TRANSACTIONS = gql`
       debit
       credit
       description
+      merchantId: merchant_id
       dateAdded
-      merchant_id
+      transactionId
+    }
+  }
+`
+
+const DELETE_TRANSACTION = gql`
+  mutation(
+    $transactionId: String!
+  ) {
+    deleteTransaction(
+      transactionId: $transactionId
+    ) {
+      transactionId
     }
   }
 `
@@ -20,7 +33,9 @@ const GET_ADDED_TRANSACTIONS = gql`
 const Transactions = ({ categoryType }) => {
   const [editing, toggleEdit] = useState(false)
   const [getAddedTransactions, { data }] = useLazyQuery(GET_ADDED_TRANSACTIONS)
+  const [deleteTransaction] = useMutation(DELETE_TRANSACTION)
   const [transactions, setTransactions] = useState([])
+  const handleDeletion = (id) => deleteTransaction({ variables: { transactionId: id } })
 
   useEffect(() => {
     if (categoryType) {
@@ -46,35 +61,37 @@ const Transactions = ({ categoryType }) => {
                 <input defaultValue={transaction.amount} name='amount' onChange={e => console.info(e.target.value)} type='number' />
               </div>
             ) : (
-              <div className='transaction-description-wrapper'>
-                <div className='transaction-description'>
-                  {transaction.description}
+              <div className='transaction-wrapper'>
+                <div className='transaction-description-wrapper'>
+                  <div className='transaction-description'>
+                    {transaction.description}
+                  </div>
+                  {transaction.credit ? (
+                    <div className='transaction-amount positive'>
+                      ${transaction.amount}
+                    </div>
+                  ) : (
+                    <div className='transaction-amount negative'>
+                      -${transaction.amount}
+                    </div>
+                  )}
                 </div>
-                {transaction.credit ? (
-                  <div className='transaction-amount positive'>
-                    ${transaction.amount}
+                <div className='transaction-category-date-wrapper'>
+                  <div className='transaction-category'>
+                    Category: {transaction.category}
                   </div>
-                ) : (
-                  <div className='transaction-amount negative'>
-                    -${transaction.amount}
+                  <div className='transaction-date'>
+                    Date Added: {transaction.dateAdded}
                   </div>
-                )}
+                </div>
               </div>
             )}
-            <div className='transaction-category-date-wrapper'>
-              <div className='transaction-category'>
-                Category
-              </div>
-              <div className='transaction-date'>
-                Date: {transaction.dateAdded}
-              </div>
-            </div>
             <div className='transaction-actions'>
               {editing
                 ? <button className='save-btn' onClick={() => toggleEdit(false)}>SAVE</button>
                 : <button className='edit-btn' onClick={() => toggleEdit(true)}>EDIT</button>
               }
-              <button className='remove-btn'>REMOVE</button>
+              <button className='remove-btn' onClick={() => handleDeletion(transaction.transactionId)}>REMOVE</button>
             </div>
           </div>
         )
@@ -99,7 +116,29 @@ const transactionStyle = css`
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.08);
   }
 
+  .transaction-wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .transaction-description-wrapper {
+    min-width: 120px
+  }
+
+  .transaction-category-date-wrapper {
+    font-size: 14px;
+    margin-left: 15px;
+  }
+
+  .transaction-description {
+    font-size: 20px;
+    text-transform: capitalize;
+  }
+
   .transaction-amount {
+    font-size: 20px;
+    
     &.positive {
       color: #159D6C;
     }
