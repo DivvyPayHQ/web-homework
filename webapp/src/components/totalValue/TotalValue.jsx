@@ -32,8 +32,8 @@ const TotalValue = () => {
       <span className='total-value-text'>Expenses:</span>
       <span className={`total-value ${totals.totalValue > 0 ? 'positive' : 'negative'}`}>${totals.totalValue}</span>
       <div className='credit-debit-wrapper'>
-        <span className='credit-debit-total'>Credits: ${totals.creditTotal}</span>
-        <span className='credit-debit-total'>Debits: ${totals.debitTotal}</span>
+        <span className='credit-total'>Credits: ${totals.creditTotal}</span>
+        <span className='debit-total'>Debits: ${totals.debitTotal}</span>
       </div>
     </div>
   )
@@ -67,10 +67,21 @@ const totalValueStyle = css`
     display: flex;
   }
 
-  .credit-debit-total {
-    color: #aeada8;
+  .credit-total,
+  .debit-total {
+    border-radius: 3px;
+    color: #ffffff;
     font-size: 13px;
     margin-right: 5px;
+    padding: 3px 5px;
+  }
+
+  .credit-total {
+    background-color: #159D6C;
+  }
+
+  .debit-total {
+    background-color: #9d152f;
   }
 `
 

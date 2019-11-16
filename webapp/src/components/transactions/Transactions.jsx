@@ -192,7 +192,7 @@ const transactionStyle = css`
   .transaction-card-input-wrapper {
     > input {
       border-radius: 3px;
-      border: 1px solid #626262;
+      border: 1px solid #aeada8;
       font-size: 14px;
       padding: 8px 15px;
       margin-right: 15px;
