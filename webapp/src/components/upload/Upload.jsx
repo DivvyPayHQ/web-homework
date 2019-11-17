@@ -17,6 +17,7 @@ const ADD_TRANSACTION = gql`
     $merchant_id: String!
     $dateAdded: String!
     $transactionId: String!
+    $category: String!
   ) {
     addTransaction(
       amount: $amount
@@ -26,6 +27,7 @@ const ADD_TRANSACTION = gql`
       merchant_id: $merchant_id
       dateAdded: $dateAdded
       transactionId: $transactionId
+      category: $category
     ) {
       amount
       debit
@@ -34,6 +36,7 @@ const ADD_TRANSACTION = gql`
       merchant_id
       dateAdded
       transactionId
+      category
     }
   }
 `

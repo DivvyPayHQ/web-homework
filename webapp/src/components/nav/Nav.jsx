@@ -1,19 +1,19 @@
 import React from 'react'
 import { css } from '@emotion/core'
-import { Link } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 
 const Nav = () => (
   <header css={layoutStyle}>
     <nav css={navStyle}>
-      <Link css={logoStyle} to='/'>
+      <Link css={logoStyle} to='/dashboard'>
         <img alt='Divvy logo' id='divvy-logo' src='https://app.divvy.co/assets/icons/firefox_app_512x512.png' />
       </Link>
       <ul >
         <li>
-          <Link to='/'>DASHBOARD</Link>
+          <NavLink activeClassName='current' to='/dashboard'>DASHBOARD</NavLink>
         </li>
         <li>
-          <Link to='/upload'>UPLOAD</Link>
+          <NavLink activeClassName='current' to='/upload'>UPLOAD</NavLink>
         </li>
       </ul>
     </nav>
@@ -46,6 +46,10 @@ const navStyle = css`
       font-family: 'Calibre-Bold';
       font-size: 13px;
       text-decoration: none;
+
+      &.current {
+        border-bottom: 2px solid #ffffff;
+      }
 
       &:hover,
       &:focus {

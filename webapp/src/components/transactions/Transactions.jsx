@@ -14,6 +14,7 @@ const GET_ADDED_TRANSACTIONS = gql`
       merchantId: merchant_id
       dateAdded
       transactionId
+      category
     }
   }
 `
@@ -32,10 +33,27 @@ const DELETE_TRANSACTION = gql`
 
 const Transactions = ({ categoryType }) => {
   const [editing, toggleEdit] = useState(false)
-  const [getAddedTransactions, { data }] = useLazyQuery(GET_ADDED_TRANSACTIONS)
-  const [deleteTransaction] = useMutation(DELETE_TRANSACTION)
+  const [getAddedTransactions, { data }] = useLazyQuery(
+    GET_ADDED_TRANSACTIONS,
+    {
+      pollInterval: 200
+    }
+  )
+  const [deleteTransaction] = useMutation(
+    DELETE_TRANSACTION
+    // {
+    //   update (cache, { data: { deleteTransaction } }) {
+    //     const { transactions } = cache.readQuery({ query: GET_ADDED_TRANSACTIONS })
+    //     const newTransactions = transactions.filter(trans => trans.transactionId !== deleteTransaction.transactionId)
+    //     cache.writeQuery({
+    //       query: GET_ADDED_TRANSACTIONS,
+    //       data: { transactions: newTransactions }
+    //     })
+    //   }
+    // }
+  )
   const [transactions, setTransactions] = useState([])
-  const handleDeletion = (id) => deleteTransaction({ variables: { transactionId: id } })
+  const handleDeletion = (transactionId) => deleteTransaction({ variables: { transactionId } })
 
   useEffect(() => {
     if (categoryType) {
@@ -146,6 +164,10 @@ const transactionStyle = css`
     &.negative {
       color: #9d152f;
     }
+  }
+
+  .transaction-category {
+    text-transform: capitalize;
   }
 
   .transaction-actions button {

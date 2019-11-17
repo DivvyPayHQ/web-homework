@@ -11,7 +11,7 @@ function AppRouter () {
       <section className='app-wrapper' css={contentStyle}>
         <Nav />
         <div className='main-content'>
-          <Route component={Dashboard} exact path='/' />
+          <Route component={Dashboard} exact path='/dashboard' />
           <Route component={Upload} exact path='/upload' />
         </div>
       </section>

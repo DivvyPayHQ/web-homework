@@ -48,11 +48,12 @@ const totalValueStyle = css`
   flex-direction: column;
   font-size: 18px;
   justify-content: center;
-  padding-left: 40px;
+  padding: 0 40px 5px;
   width: 25%;
 
   .total-value {
     font-size: 32px;
+    margin: 3px 0 5px;
 
     &.positive {
       color: #159D6C;
