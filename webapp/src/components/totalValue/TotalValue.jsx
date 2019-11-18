@@ -44,7 +44,7 @@ const totalValueStyle = css`
   border-radius: 6px;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
   display: flex;
-  height: 100px;
+  height: 120px;
   flex-direction: column;
   font-size: 18px;
   justify-content: center;
@@ -53,8 +53,8 @@ const totalValueStyle = css`
   width: 50%;
 
   .total-value {
-    font-size: 32px;
-    margin: 3px 0 5px;
+    font-size: 36px;
+    margin: 5px 0 7px;
 
     &.positive {
       color: #159D6C;

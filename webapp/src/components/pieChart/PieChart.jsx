@@ -65,7 +65,7 @@ const PieChart = () => {
         labelPosition={50}
         labelStyle={{
           fill: '#000000',
-          fontFamily: 'sans-serif',
+          fontFamily: 'inherit',
           fontSize: '8px'
         }}
         lengthAngle={180}
@@ -79,7 +79,7 @@ const PieChart = () => {
         rounded={false}
         startAngle={180}
         style={{
-          height: '80px'
+          height: '100px'
         }}
       />
     </div>
@@ -91,7 +91,7 @@ const chartWrapperStyle = css`
   border-radius: 6px;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
   display: flex;
-  height: 100px;
+  height: 120px;
   flex-direction: column;
   font-size: 18px;
   justify-content: center;
