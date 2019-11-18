@@ -48,8 +48,9 @@ const totalValueStyle = css`
   flex-direction: column;
   font-size: 18px;
   justify-content: center;
+  margin-right: 10px;
   padding: 0 40px 5px;
-  width: 25%;
+  width: 50%;
 
   .total-value {
     font-size: 32px;
