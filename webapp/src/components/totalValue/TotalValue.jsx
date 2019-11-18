@@ -3,7 +3,7 @@ import { css } from '@emotion/core'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 
-import { calculateTotalValue } from '../../utilities/utilities'
+import { calculateTotalValue } from '../../helpers/helpers'
 
 const GET_ADDED_TRANSACTIONS = gql`
   {
@@ -48,11 +48,12 @@ const totalValueStyle = css`
   flex-direction: column;
   font-size: 18px;
   justify-content: center;
-  padding-left: 40px;
+  padding: 0 40px 5px;
   width: 25%;
 
   .total-value {
     font-size: 32px;
+    margin: 3px 0 5px;
 
     &.positive {
       color: #159D6C;

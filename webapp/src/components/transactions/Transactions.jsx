@@ -1,5 +1,4 @@
 import React, { Fragment, useState, useEffect } from 'react'
-import { string } from 'prop-types'
 import { css } from '@emotion/core'
 import gql from 'graphql-tag'
 import { useLazyQuery, useMutation } from '@apollo/react-hooks'
@@ -14,6 +13,7 @@ const GET_ADDED_TRANSACTIONS = gql`
       merchantId: merchant_id
       dateAdded
       transactionId
+      category
     }
   }
 `
@@ -30,18 +30,21 @@ const DELETE_TRANSACTION = gql`
   }
 `
 
-const Transactions = ({ categoryType }) => {
+const Transactions = () => {
   const [editing, toggleEdit] = useState(false)
-  const [getAddedTransactions, { data }] = useLazyQuery(GET_ADDED_TRANSACTIONS)
+  const [getAddedTransactions, { data }] = useLazyQuery(
+    GET_ADDED_TRANSACTIONS,
+    {
+      pollInterval: 200
+    }
+  )
   const [deleteTransaction] = useMutation(DELETE_TRANSACTION)
   const [transactions, setTransactions] = useState([])
-  const handleDeletion = (id) => deleteTransaction({ variables: { transactionId: id } })
+  const handleDeletion = (transactionId) => deleteTransaction({ variables: { transactionId } })
 
   useEffect(() => {
-    if (categoryType) {
-      getAddedTransactions({ variables: { category_type: categoryType } })
-    }
-  }, [categoryType])
+    getAddedTransactions()
+  }, [])
 
   useEffect(() => {
     if (data && data.transactions) {
@@ -148,6 +151,10 @@ const transactionStyle = css`
     }
   }
 
+  .transaction-category {
+    text-transform: capitalize;
+  }
+
   .transaction-actions button {
     appearance: none;
     background-color: #ffffff;
@@ -199,9 +206,5 @@ const transactionStyle = css`
     }
   }
 `
-
-Transactions.propTypes = {
-  categoryType: string.isRequired
-}
 
 export default Transactions

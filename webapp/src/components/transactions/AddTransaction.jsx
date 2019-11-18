@@ -1,38 +1,120 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { css } from '@emotion/core'
-
 import gql from 'graphql-tag'
-import { useQuery } from '@apollo/react-hooks'
+import { useMutation } from '@apollo/react-hooks'
+import uuidv4 from 'uuid/v4'
 
-const GET_ADDED_TRANSACTIONS = gql`
-  {
-    transactions {
+import { validateUploadedData } from '../../helpers/helpers.js'
+
+const ADD_TRANSACTION = gql`
+  mutation(
+    $amount: Float!
+    $debit: Boolean!
+    $credit: Boolean!
+    $description: String!
+    $merchant_id: String!
+    $dateAdded: String!
+    $transactionId: String!
+    $category: String!
+  ) {
+    addTransaction(
+      amount: $amount
+      debit: $debit
+      credit: $credit
+      description: $description
+      merchant_id: $merchant_id
+      dateAdded: $dateAdded
+      transactionId: $transactionId
+      category: $category
+    ) {
       amount
       debit
       credit
+      description
+      merchant_id
+      dateAdded
+      transactionId
+      category
     }
   }
 `
 
 const AddTransaction = () => {
   const [openForm, toggleForm] = useState(false)
-  const { data } = useQuery(GET_ADDED_TRANSACTIONS)
+  const [error, setError] = useState(false)
+  const [formData, setFormData] = useState({
+    amount: null,
+    debit: false,
+    credit: false,
+    description: null,
+    merchant_id: null,
+    dateAdded: null,
+    transactionId: null,
+    category: null,
+    user_id: '123'
+  })
+  const [addTransaction] = useMutation(ADD_TRANSACTION)
+  const transactionId = uuidv4()
+  const handleFormInput = (e) => setFormData({
+    ...formData,
+    transactionId,
+    [e.target.name]: e.target.name === 'amount' ? parseFloat(e.target.value) : e.target.value
+  })
+  const handleRadioButtons = (e) => setFormData({
+    ...formData,
+    [e.target.value]: e.target.checked
+  })
+  const handleSubmit = () => {
+    const validData = validateUploadedData([formData])
 
-  console.info(data)
+    if (!validData) {
+      return setError(true)
+    }
 
-  useEffect(() => {
-
-  }, [])
+    toggleForm(false)
+    return addTransaction({
+      variables: formData
+    })
+  }
 
   return (
     <div className='add-transaction-wrapper' css={addTransactionStyle}>
       <button className='add-transaction-btn' onClick={() => toggleForm(!openForm)}>
-        + Add Transaction
+        {openForm ? 'Cancel' : '+ Add Transaction'}
       </button>
       {openForm && (
-        <form className='add-transaction-form'>
-          <label htmlFor='amount'>Amount:</label>
-          <input id='amount' name='amount' type='number' />
+        <form className='add-transaction-form' css={addTransactionForm}>
+          <h4>Add New Transaction</h4>
+          {error && <p className='upload-error'>There was an error adding your transaction because one or more required fields are empty or null</p>}
+          <div className='add-transaction-form-wrapper'>
+            <div className='input-wrapper'>
+              <label htmlFor='amount'>Amount</label>
+              <input id='amount' name='amount' onChange={handleFormInput} type='number' />
+            </div>
+            <div className='input-wrapper'>
+              <label htmlFor='description'>Description</label>
+              <input id='description' name='description' onChange={handleFormInput} type='text' />
+            </div>
+            <div className='input-wrapper'>
+              <label htmlFor='category'>Category</label>
+              <input id='category' name='category' onChange={handleFormInput} type='text' />
+            </div>
+            <div className='input-wrapper'>
+              <label htmlFor='merchant_id'>Merchant ID</label>
+              <input id='merchant_id' name='merchant_id' onChange={handleFormInput} type='text' />
+            </div>
+            <div className='input-wrapper'>
+              <label htmlFor='dateAdded'>Date</label>
+              <input id='dateAdded' name='dateAdded' onChange={handleFormInput} type='date' />
+            </div>
+            <div className='input-wrapper debit-credit-wrapper'>
+              <label htmlFor='credit'>Credit</label>
+              <input id='credit' name='credit-debit' onChange={handleRadioButtons} type='radio' value='credit' />
+              <label htmlFor='debit'>Debit</label>
+              <input id='debit' name='credit-debit' onChange={handleRadioButtons} type='radio' value='debit' />
+            </div>
+          </div>
+          <button className='submit-btn' onClick={handleSubmit} type='button'>SUBMIT</button>
         </form>
       )}
     </div>
@@ -42,7 +124,8 @@ const AddTransaction = () => {
 const addTransactionStyle = css`
   margin-top: 10px;
 
-  .add-transaction-btn {
+  .add-transaction-btn,
+  .submit-btn {
     appearance: none;
     background-color: #ffffff;
     border: none;
@@ -59,10 +142,50 @@ const addTransactionStyle = css`
     }
   }
 
-  .add-transaction-form {
-    background-color: #ffffff;
-    padding: 20px;
-    margin: 20px 0;
+  .submit-btn {
+    border: 1px solid #000000;
+    box-shadow: none;
+    font-family: 'Calibre-Med';
+    font-size: 13px;
+  }
+`
+
+const addTransactionForm = css`
+  background-color: #ffffff;
+  border-radius: 6px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
+  padding: 1px 20px 20px;
+  margin: 10px 0;
+  width: 50%;
+  
+  .add-transaction-form-wrapper {
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+
+  .input-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 5px 0;
+  }
+
+  .debit-credit-wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  input {
+    border-radius: 3px;
+    border: 1px solid #aeada8;
+    font-size: 14px;
+    padding: 8px 15px;
+    margin-right: 15px;
+  }
+
+  .upload-error {
+    background-color: rgba(157, 21, 47, 0.06);
+    color: #9d152f;
+    padding: 8px 15px;
   }
 `
 

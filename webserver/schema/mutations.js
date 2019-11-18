@@ -17,11 +17,12 @@ const mutation = new GraphQLObjectType({
         credit: { type: GraphQLBoolean },
         amount: { type: GraphQLFloat },
         dateAdded: { type: GraphQLString },
-        transactionId: { type: GraphQLString }
+        transactionId: { type: GraphQLString },
+        category: { type: GraphQLString }
       },
       /* eslint-disable-next-line camelcase */
-      resolve (parentValue, { user_id, description, merchant_id, debit, credit, amount, dateAdded, transactionId }) {
-        return (new TransactionModel({ user_id, description, merchant_id, debit, credit, amount, dateAdded, transactionId })).save()
+      resolve (parentValue, { user_id, description, merchant_id, debit, credit, amount, dateAdded, transactionId, category }) {
+        return (new TransactionModel({ user_id, description, merchant_id, debit, credit, amount, dateAdded, transactionId, category })).save()
       }
     },
     // Delete transaction using the transactionId

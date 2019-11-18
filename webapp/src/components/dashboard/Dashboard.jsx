@@ -9,7 +9,7 @@ const Dashboard = () => {
   return (
     <div className='dashboard-wrapper' css={dashboardStyle}>
       <TotalValue />
-      <Transactions categoryType='car' />
+      <Transactions />
       <AddTransaction />
     </div>
   )

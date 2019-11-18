@@ -31,7 +31,8 @@ const RootQuery = new GraphQLObjectType({
         merchant_id: { type: GraphQLString },
         user_id: { type: GraphQLString },
         dateAdded: { type: GraphQLString },
-        transactionId: { type: GraphQLString }
+        transactionId: { type: GraphQLString },
+        category: { type: GraphQLString }
       },
       resolve (parentValue, args) {
         return Transactions.find(args)
