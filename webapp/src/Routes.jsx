@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom'
 import { css } from '@emotion/core'
 import Dashboard from './components/dashboard/Dashboard'
 import Nav from './components/nav/Nav'
@@ -7,7 +7,7 @@ import Upload from './components/upload/Upload'
 
 function AppRouter () {
   return (
-    <Router>
+    <BrowserRouter>
       <section className='app-wrapper' css={contentStyle}>
         <Nav />
         <div className='main-content'>
@@ -18,7 +18,7 @@ function AppRouter () {
           </Switch>
         </div>
       </section>
-    </Router>
+    </BrowserRouter>
   )
 }
 

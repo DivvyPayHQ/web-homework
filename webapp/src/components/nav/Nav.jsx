@@ -3,7 +3,7 @@ import { css } from '@emotion/core'
 import { NavLink, Link } from 'react-router-dom'
 
 const Nav = () => (
-  <header css={layoutStyle}>
+  <header css={layoutStyle} role='heading'>
     <nav css={navStyle}>
       <Link css={logoStyle} to='/dashboard'>
         <img alt='Divvy logo' id='divvy-logo' src='https://app.divvy.co/assets/icons/firefox_app_512x512.png' />

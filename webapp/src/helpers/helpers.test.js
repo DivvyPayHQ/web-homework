@@ -1,7 +1,7 @@
 import {
   calculateTotalValue,
   validateUploadedData
-} from './utilities'
+} from './helpers'
 
 describe('calculateTotalValue function', () => {
   it('Handles when nothing is passed into it', () => {

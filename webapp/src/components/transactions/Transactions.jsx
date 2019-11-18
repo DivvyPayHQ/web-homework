@@ -1,5 +1,4 @@
 import React, { Fragment, useState, useEffect } from 'react'
-import { string } from 'prop-types'
 import { css } from '@emotion/core'
 import gql from 'graphql-tag'
 import { useLazyQuery, useMutation } from '@apollo/react-hooks'
@@ -31,7 +30,7 @@ const DELETE_TRANSACTION = gql`
   }
 `
 
-const Transactions = ({ categoryType }) => {
+const Transactions = () => {
   const [editing, toggleEdit] = useState(false)
   const [getAddedTransactions, { data }] = useLazyQuery(
     GET_ADDED_TRANSACTIONS,
@@ -39,27 +38,13 @@ const Transactions = ({ categoryType }) => {
       pollInterval: 200
     }
   )
-  const [deleteTransaction] = useMutation(
-    DELETE_TRANSACTION
-    // {
-    //   update (cache, { data: { deleteTransaction } }) {
-    //     const { transactions } = cache.readQuery({ query: GET_ADDED_TRANSACTIONS })
-    //     const newTransactions = transactions.filter(trans => trans.transactionId !== deleteTransaction.transactionId)
-    //     cache.writeQuery({
-    //       query: GET_ADDED_TRANSACTIONS,
-    //       data: { transactions: newTransactions }
-    //     })
-    //   }
-    // }
-  )
+  const [deleteTransaction] = useMutation(DELETE_TRANSACTION)
   const [transactions, setTransactions] = useState([])
   const handleDeletion = (transactionId) => deleteTransaction({ variables: { transactionId } })
 
   useEffect(() => {
-    if (categoryType) {
-      getAddedTransactions({ variables: { category_type: categoryType } })
-    }
-  }, [categoryType])
+    getAddedTransactions()
+  }, [])
 
   useEffect(() => {
     if (data && data.transactions) {
@@ -221,9 +206,5 @@ const transactionStyle = css`
     }
   }
 `
-
-Transactions.propTypes = {
-  categoryType: string.isRequired
-}
 
 export default Transactions

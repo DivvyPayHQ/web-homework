@@ -155,7 +155,7 @@ const addTransactionForm = css`
   border-radius: 6px;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
   padding: 1px 20px 20px;
-  margin: 20px 0;
+  margin: 10px 0;
   width: 50%;
   
   .add-transaction-form-wrapper {
