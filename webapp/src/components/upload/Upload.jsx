@@ -6,7 +6,7 @@ import { useMutation } from '@apollo/react-hooks'
 import uuidv4 from 'uuid/v4'
 
 import Transactions from '../transactions/Transactions'
-import { validateUploadedData } from '../../utilities/utilities'
+import { validateUploadedData } from '../../helpers/helpers'
 
 const ADD_TRANSACTION = gql`
   mutation(

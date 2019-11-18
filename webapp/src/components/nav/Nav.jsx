@@ -51,8 +51,7 @@ const navStyle = css`
         border-bottom: 2px solid #ffffff;
       }
 
-      &:hover,
-      &:focus {
+      &:hover {
         opacity: 0.8;
       }
     }

@@ -3,7 +3,7 @@ import { css } from '@emotion/core'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 
-import { calculateTotalValue } from '../../utilities/utilities'
+import { calculateTotalValue } from '../../helpers/helpers'
 
 const GET_ADDED_TRANSACTIONS = gql`
   {
