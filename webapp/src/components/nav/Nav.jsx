@@ -17,9 +17,9 @@ const Nav = () => (
         </li>
       </ul>
     </nav>
-    <div css={userLayout}>
+    <button css={userLayout} onClick={() => window.alert('Sorry! But this functionality doesnt exist yet. (Also, I am sorry about this alert 😬)')}>
       USER
-    </div>
+    </button>
   </header>
 )
 
@@ -63,7 +63,11 @@ const navStyle = css`
 `
 
 const userLayout = css`
+  appearance: none;
   align-items: center;
+  background-color: transparent;
+  border: none;
+  color: #FFFFFF;
   display: flex;
   font-family: 'Calibre-Bold';
   font-size: 13px;

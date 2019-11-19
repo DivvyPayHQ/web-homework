@@ -60,7 +60,7 @@ const Upload = () => {
           onFileLoaded={handleData}
           parserOptions={parseOptions}
         />
-        {loading && <div className='loading-ring' css={loadingCircleStyles}><div /><div /><div /><div /></div>}File Upload
+        {loading && <div className='loading-ring' css={loadingCircleStyles}><div /><div /><div /><div /></div>}+ File Upload
       </label>
       {error && <p className='upload-error'>There was an error uploading your file because one or more required fieloading are empty or null</p>}
       <Transactions />

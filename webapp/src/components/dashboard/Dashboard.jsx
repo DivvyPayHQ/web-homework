@@ -22,7 +22,7 @@ const Dashboard = () => {
 const totalValueChartWrapper = css`
   display: grid;
   grid-column-gap: 15px;
-  grid-template-columns: 30% 70%;
+  grid-template-columns: 30% 69%;
 `
 
 export default Dashboard

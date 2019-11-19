@@ -35,7 +35,7 @@ const mutation = new GraphQLObjectType({
         return TransactionModel.findOneAndDelete({ transactionId })
       }
     },
-    // Updated transaction using the transactionId
+    // Update transaction using the transactionId
     updatedTransaction: {
       type: TransactionType,
       args: {
