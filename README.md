@@ -15,16 +15,16 @@
 ```
 
 ## To Run
-- In both the webapp and webserver folders run:
+1) In both the webapp and webserver folders run:
 ```bash 
   yarn start
 ```
-- This will get the client and the server app running.
-- To run tests: 
+2) This will get the client and the server app running.
+3) To run tests: 
 ```bash 
   yarn test
 ```
--  NOTE: You can use .csv file inside `/testFiles` folder to test out the Upload feature inside the app
+4) NOTE: You can use .csv file inside `/testFiles` folder to test out the Upload feature inside the app
 
 
 ## Cleaning Up the DB
