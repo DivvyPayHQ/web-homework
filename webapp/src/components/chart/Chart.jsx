@@ -38,7 +38,7 @@ const Chart = () => {
 
   return (
     <div className='pie-chart-wrapper' css={chartWrapperStyle}>
-      <h4>Where your spending is going: </h4>
+      <h4>What you&apos;re spending your money on: </h4>
       <BarChart
         data={chartData}
         height={150}

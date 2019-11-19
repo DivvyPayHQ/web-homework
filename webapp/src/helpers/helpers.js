@@ -49,18 +49,28 @@ export function validateUploadedData (data) {
   return isValid
 }
 
-export function buildDataForChart (data) {
-  if (!data || !data.length) {
+export function buildDataForChart (inputArray) {
+  if (!inputArray || !inputArray.length) {
     return null
   }
 
   const buildDataForChart = []
   const lookUpObj = {}
-  data.forEach(({ amount, category, debit }) => {
-    if (debit) {
-      (lookUpObj[category] || (lookUpObj[category] = buildDataForChart[buildDataForChart.length] = { category, amount: 0 })).amount += +amount
+
+  inputArray.forEach(t => {
+    if (t.debit) {
+      const categoryGroup = t.category
+      if (!lookUpObj[categoryGroup]) {
+        lookUpObj[categoryGroup] = 0
+      }
+
+      lookUpObj[categoryGroup] = lookUpObj[categoryGroup] + t.amount
     }
-  }, [])
+  })
+
+  for (let category in lookUpObj) {
+    buildDataForChart.push({ category, amount: lookUpObj[category] })
+  }
 
   return buildDataForChart
 }
