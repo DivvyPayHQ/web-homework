@@ -1,34 +1,8 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { css } from '@emotion/core'
-import gql from 'graphql-tag'
 import { useLazyQuery, useMutation } from '@apollo/react-hooks'
 
-const GET_ADDED_TRANSACTIONS = gql`
-  {
-    transactions {
-      amount
-      debit
-      credit
-      description
-      merchantId: merchant_id
-      dateAdded
-      transactionId
-      category
-    }
-  }
-`
-
-const DELETE_TRANSACTION = gql`
-  mutation(
-    $transactionId: String!
-  ) {
-    deleteTransaction(
-      transactionId: $transactionId
-    ) {
-      transactionId
-    }
-  }
-`
+import { GET_ADDED_TRANSACTIONS, DELETE_TRANSACTION } from '../../queries/queries'
 
 const Transactions = () => {
   const [getAddedTransactions, { data }] = useLazyQuery(

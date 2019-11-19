@@ -1,19 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { css } from '@emotion/core'
-import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 
 import { calculateTotalValue } from '../../helpers/helpers'
-
-const GET_ADDED_TRANSACTIONS = gql`
-  {
-    transactions {
-      amount
-      debit
-      credit
-    }
-  }
-`
+import { GET_ADDED_TRANSACTIONS } from '../../queries/queries'
 
 const TotalValue = () => {
   const [totals, setTotalValue] = useState({})

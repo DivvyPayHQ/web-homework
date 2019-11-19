@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { css } from '@emotion/core'
-import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import {
   BarChart,
@@ -12,18 +11,7 @@ import {
 } from 'recharts'
 
 import { buildDataForChart } from '../../helpers/helpers'
-
-const GET_ADDED_TRANSACTIONS = gql`
-  {
-    transactions {
-      amount
-      debit
-      credit
-      category
-      description
-    }
-  }
-`
+import { GET_ADDED_TRANSACTIONS } from '../../queries/queries'
 
 const Chart = () => {
   const [chartData, setChartData] = useState()
