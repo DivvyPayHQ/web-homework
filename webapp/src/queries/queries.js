@@ -39,7 +39,6 @@ export const UPDATE_TRANSACTION = gql`
     $category: String!
   ) {
     updatedTransaction(
-      transactionId: $transactionId
       amount: $amount
       debit: $debit
       credit: $credit
