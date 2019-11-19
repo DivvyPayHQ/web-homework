@@ -4,14 +4,14 @@ import { css } from '@emotion/core'
 import Transactions from '../transactions/Transactions'
 import AddTransaction from '../transactions/AddTransaction'
 import TotalValue from '../totalValue/TotalValue'
-import PieChart from '../pieChart/PieChart'
+import Chart from '../chart/Chart'
 
 const Dashboard = () => {
   return (
     <div className='dashboard-wrapper'>
-      <div className='top-info-bar-wrapper' css={topInfoStyle}>
+      <div className='total-value-chart-wrapper' css={totalValueChartWrapper}>
         <TotalValue />
-        <PieChart />
+        <Chart />
       </div>
       <Transactions />
       <AddTransaction />
@@ -19,8 +19,10 @@ const Dashboard = () => {
   )
 }
 
-const topInfoStyle = css`
-  display: flex;
+const totalValueChartWrapper = css`
+  display: grid;
+  grid-column-gap: 15px;
+  grid-template-columns: 30% 70%;
 `
 
 export default Dashboard

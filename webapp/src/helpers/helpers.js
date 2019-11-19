@@ -48,3 +48,19 @@ export function validateUploadedData (data) {
 
   return isValid
 }
+
+export function buildDataForChart (data) {
+  if (!data || !data.length) {
+    return null
+  }
+
+  const buildDataForChart = []
+  const lookUpObj = {}
+  data.forEach(({ amount, category, debit }) => {
+    if (debit) {
+      (lookUpObj[category] || (lookUpObj[category] = buildDataForChart[buildDataForChart.length] = { category, amount: 0 })).amount += +amount
+    }
+  }, [])
+
+  return buildDataForChart
+}

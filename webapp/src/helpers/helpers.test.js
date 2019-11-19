@@ -1,6 +1,7 @@
 import {
   calculateTotalValue,
-  validateUploadedData
+  validateUploadedData,
+  buildDataForChart
 } from './helpers'
 
 describe('calculateTotalValue function', () => {
@@ -66,5 +67,72 @@ describe('validateUploadedData function', () => {
       user_id: 321
     }]
     expect(validateUploadedData(data)).toEqual(false)
+  })
+})
+
+describe('buildDataForChart function', () => {
+  it('Handles when nothing is passed into it', () => {
+    expect(buildDataForChart()).toEqual(null)
+  })
+
+  it('Iterates the data and returns an array of added amounts per category', () => {
+    const data = [
+      {
+        'amount': 1000,
+        'debit': false,
+        'credit': true,
+        'category': 'income',
+        'description': 'paycheck'
+      },
+      {
+        'amount': 40,
+        'debit': true,
+        'credit': false,
+        'category': 'car',
+        'description': 'gas'
+      },
+      {
+        'amount': 30,
+        'debit': true,
+        'credit': false,
+        'category': 'household',
+        'description': 'groceries'
+      },
+      {
+        'amount': 40,
+        'debit': true,
+        'credit': false,
+        'category': 'car',
+        'description': 'gas'
+      },
+      {
+        'amount': 30,
+        'debit': true,
+        'credit': false,
+        'category': 'household',
+        'description': 'groceries'
+      },
+      {
+        'amount': 100,
+        'debit': true,
+        'credit': false,
+        'category': 'personal',
+        'description': 'Clothing'
+      }
+    ]
+    expect(buildDataForChart(data)).toEqual(
+      [{
+        amount: 80,
+        category: 'car'
+      },
+      {
+        amount: 60,
+        category: 'household'
+      },
+      {
+        amount: 100,
+        category: 'personal'
+      }]
+    )
   })
 })

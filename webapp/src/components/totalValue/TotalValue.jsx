@@ -28,32 +28,38 @@ const TotalValue = () => {
   }, [data])
 
   return (
-    <div className='total-value-wrapper' css={totalValueStyle}>
-      <span className='total-value-text'>Expenses:</span>
-      <span className={`total-value ${totals.totalValue > 0 ? 'positive' : 'negative'}`}>${totals.totalValue}</span>
-      <div className='credit-debit-wrapper'>
-        <span className='credit-total'>Credits: ${totals.creditTotal}</span>
-        <span className='debit-total'>Debits: ${totals.debitTotal}</span>
+    <div className='total-value' css={totalValueContainer}>
+      <div className='total-value-wrapper' css={totalValueStyle}>
+        <span className='total-value-text'>Expenses:</span>
+        <span className={`total-value ${totals.totalValue > 0 ? 'positive' : 'negative'}`}>${totals.totalValue}</span>
+        <div className='credit-debit-wrapper'>
+          <span className='credit-total'>Credits: ${totals.creditTotal}</span>
+          <span className='debit-total'>Debits: ${totals.debitTotal}</span>
+        </div>
       </div>
     </div>
   )
 }
 
-const totalValueStyle = css`
+const totalValueContainer = css`
+  align-items: center;
   background-color: #ffffff;
   border-radius: 6px;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
   display: flex;
-  height: 120px;
+  height: 200px;
+`
+
+const totalValueStyle = css`
+  display: flex;
   flex-direction: column;
-  font-size: 18px;
+  font-size: 20px;
   justify-content: center;
   margin-right: 10px;
-  padding: 0 40px 5px;
-  width: 50%;
+  padding: 0 30px 5px;
 
   .total-value {
-    font-size: 36px;
+    font-size: 44px;
     margin: 5px 0 7px;
 
     &.positive {
@@ -73,7 +79,7 @@ const totalValueStyle = css`
   .debit-total {
     border-radius: 3px;
     color: #ffffff;
-    font-size: 13px;
+    font-size: 14px;
     margin-right: 5px;
     padding: 3px 5px;
   }
