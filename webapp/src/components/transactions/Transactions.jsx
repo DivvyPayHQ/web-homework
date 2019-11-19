@@ -1,37 +1,10 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { css } from '@emotion/core'
-import gql from 'graphql-tag'
 import { useLazyQuery, useMutation } from '@apollo/react-hooks'
 
-const GET_ADDED_TRANSACTIONS = gql`
-  {
-    transactions {
-      amount
-      debit
-      credit
-      description
-      merchantId: merchant_id
-      dateAdded
-      transactionId
-      category
-    }
-  }
-`
-
-const DELETE_TRANSACTION = gql`
-  mutation(
-    $transactionId: String!
-  ) {
-    deleteTransaction(
-      transactionId: $transactionId
-    ) {
-      transactionId
-    }
-  }
-`
+import { GET_ADDED_TRANSACTIONS, DELETE_TRANSACTION } from '../../queries/queries'
 
 const Transactions = () => {
-  const [editing, toggleEdit] = useState(false)
   const [getAddedTransactions, { data }] = useLazyQuery(
     GET_ADDED_TRANSACTIONS,
     {
@@ -58,43 +31,32 @@ const Transactions = () => {
       {transactions.length ? transactions.map((transaction, i) => {
         return (
           <div className='transaction-card' css={transactionStyle} key={i}>
-            {editing ? (
-              <div className='transaction-card-input-wrapper'>
-                <input defaultValue={transaction.description} name='description' onChange={e => console.info(e.target.value)} type='text' />
-                <input defaultValue={transaction.amount} name='amount' onChange={e => console.info(e.target.value)} type='number' />
-              </div>
-            ) : (
-              <div className='transaction-wrapper'>
-                <div className='transaction-description-wrapper'>
-                  <div className='transaction-description'>
-                    {transaction.description}
-                  </div>
-                  {transaction.credit ? (
-                    <div className='transaction-amount positive'>
-                      ${transaction.amount}
-                    </div>
-                  ) : (
-                    <div className='transaction-amount negative'>
-                      -${transaction.amount}
-                    </div>
-                  )}
+            <div className='transaction-wrapper'>
+              <div className='transaction-description-wrapper' css={transactionWrapperStyle}>
+                <div className='transaction-description'>
+                  {transaction.description}
                 </div>
-                <div className='transaction-category-date-wrapper'>
-                  <div className='transaction-category'>
-                    Category: {transaction.category}
+                {transaction.credit ? (
+                  <div className='transaction-amount positive'>
+                    ${transaction.amount}
                   </div>
-                  <div className='transaction-date'>
-                    Date Added: {transaction.dateAdded}
+                ) : (
+                  <div className='transaction-amount negative'>
+                    -${transaction.amount}
                   </div>
+                )}
+              </div>
+              <div className='transaction-category-date-wrapper'>
+                <div className='transaction-category'>
+                  Category: {transaction.category}
+                </div>
+                <div className='transaction-date'>
+                  Date Added: {transaction.dateAdded}
                 </div>
               </div>
-            )}
+            </div>
             <div className='transaction-actions'>
-              {editing
-                ? <button className='save-btn' onClick={() => toggleEdit(false)}>SAVE</button>
-                : <button className='edit-btn' onClick={() => toggleEdit(true)}>EDIT</button>
-              }
-              <button className='remove-btn' onClick={() => handleDeletion(transaction.transactionId)}>REMOVE</button>
+              <button className='remove-btn' css={transactionActionsBtnStyle} onClick={() => handleDeletion(transaction.transactionId)}>REMOVE</button>
             </div>
           </div>
         )
@@ -124,10 +86,10 @@ const transactionStyle = css`
     display: flex;
     justify-content: space-between;
   }
+`
 
-  .transaction-description-wrapper {
-    min-width: 120px
-  }
+const transactionWrapperStyle = css`
+  min-width: 120px;
 
   .transaction-category-date-wrapper {
     font-size: 14px;
@@ -154,56 +116,46 @@ const transactionStyle = css`
   .transaction-category {
     text-transform: capitalize;
   }
+`
 
-  .transaction-actions button {
-    appearance: none;
-    background-color: #ffffff;
-    border: 1px solid #000;
-    border-radius: 3px;
-    font-family: 'Calibre-Med';
-    font-size: 13px;
-    padding: 8px 15px;
+const transactionActionsBtnStyle = css`
+  appearance: none;
+  background-color: #ffffff;
+  border: 1px solid #000;
+  border-radius: 3px;
+  font-family: 'Calibre-Med';
+  font-size: 13px;
+  padding: 8px 15px;
 
-    &.remove-btn {
-      &:hover,
-      &:focus {
-        background-color: #9d152f;
-        border: 1px solid #9d152f;
-        color: #ffffff;
-        cursor: pointer;
-      }
-    }
-
-    &.save-btn {
-      &:hover,
-      &:focus {
-        background-color: #159D6C;
-        border: 1px solid #159D6C;
-        color: #ffffff;
-        cursor: pointer;
-      }
-    }
-
+  &.remove-btn {
     &:hover,
     &:focus {
-      background-color: #000000;
+      background-color: #9d152f;
+      border: 1px solid #9d152f;
       color: #ffffff;
       cursor: pointer;
     }
+  }
 
-    &:first-of-type {
-      margin-right: 10px;
+  &.save-btn {
+    &:hover,
+    &:focus {
+      background-color: #159D6C;
+      border: 1px solid #159D6C;
+      color: #ffffff;
+      cursor: pointer;
     }
   }
 
-  .transaction-card-input-wrapper {
-    > input {
-      border-radius: 3px;
-      border: 1px solid #aeada8;
-      font-size: 14px;
-      padding: 8px 15px;
-      margin-right: 15px;
-    }
+  &:hover,
+  &:focus {
+    background-color: #000000;
+    color: #ffffff;
+    cursor: pointer;
+  }
+
+  &:first-of-type {
+    margin-right: 10px;
   }
 `
 

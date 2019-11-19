@@ -1,45 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { css } from '@emotion/core'
 import CSVReader from 'react-csv-reader'
-import gql from 'graphql-tag'
 import { useMutation } from '@apollo/react-hooks'
 import uuidv4 from 'uuid/v4'
 
 import Transactions from '../transactions/Transactions'
 import { validateUploadedData } from '../../helpers/helpers'
-
-const ADD_TRANSACTION = gql`
-  mutation(
-    $amount: Float!
-    $debit: Boolean!
-    $credit: Boolean!
-    $description: String!
-    $merchant_id: String!
-    $dateAdded: String!
-    $transactionId: String!
-    $category: String!
-  ) {
-    addTransaction(
-      amount: $amount
-      debit: $debit
-      credit: $credit
-      description: $description
-      merchant_id: $merchant_id
-      dateAdded: $dateAdded
-      transactionId: $transactionId
-      category: $category
-    ) {
-      amount
-      debit
-      credit
-      description
-      merchant_id
-      dateAdded
-      transactionId
-      category
-    }
-  }
-`
+import { ADD_TRANSACTION } from '../../queries/queries'
 
 const Upload = () => {
   const [transactions, setTransactions] = useState(null)

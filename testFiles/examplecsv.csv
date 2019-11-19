@@ -1,0 +1,4 @@
+﻿user_id,description,merchant_id,debit,credit,amount,category
+123,paycheck,431,FALSE,TRUE,1000,income
+123,gas,321,TRUE,FALSE,40,car
+123,groceries,312,TRUE,FALSE,30,household

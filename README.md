@@ -15,18 +15,27 @@
 ```
 
 ## To Run
-- In both the webapp and webserver folders run:
+1) In both the webapp and webserver folders run:
 ```bash 
   yarn start
 ```
-- This will get the client and the server app running.
-- To run tests: `yarn test`
+2) This will get the client and the server app running.
+3) To run tests: 
+```bash 
+  yarn test
+```
+4) NOTE: You can use .csv file inside `/testFiles` folder to test out the Upload feature inside the app
+5) And thats it! You can see the app on http://localhost:3000/ in your browser
 
-## Cleaning Up
-- If you want to clean up the DB, in your Terminal type in:
-  `mongo`
-  `use graphql`
-  `db.dropDatabase()`
-- This will wipe your DB so you can start clean
+## Cleaning Up the DB
+- If you want to clean up the DB, in your Terminal run the mongo comand fillowed by the `use` and `db`:
+  ```bash
+    mongo
+    use graphql
+    db.dropDatabase()
+  ```
+- This will wipe your DB of the data so you can start clean.
 
-And thats it! You can see the app on http://localhost:3000/ in your browser
+## TODOs
+- Write more/better tests
+- Edit Transaction button and functionality
