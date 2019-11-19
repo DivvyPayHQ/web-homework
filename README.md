@@ -25,22 +25,16 @@
   yarn test
 ```
 4) NOTE: You can use .csv file inside `/testFiles` folder to test out the Upload feature inside the app
-
+5) And thats it! You can see the app on http://localhost:3000/ in your browser
 
 ## Cleaning Up the DB
-- If you want to clean up the DB, in your Terminal type in:
+- If you want to clean up the DB, in your Terminal run the mongo comand fillowed by the `use` and `db`:
   ```bash
     mongo
-  ```
-  ```bash
     use graphql
-  ```
-  ```bash
     db.dropDatabase()
   ```
 - This will wipe your DB of the data so you can start clean.
-
-And thats it! You can see the app on http://localhost:3000/ in your browser
 
 ## TODOs
 - Write more/better tests
