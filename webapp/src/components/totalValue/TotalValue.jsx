@@ -43,7 +43,7 @@ const totalValueContainer = css`
 const totalValueStyle = css`
   display: flex;
   flex-direction: column;
-  font-size: 20px;
+  font-size: 24px;
   justify-content: center;
   margin-right: 10px;
   padding: 0 30px 5px;

@@ -33,7 +33,7 @@ const Upload = () => {
   useEffect(() => {
     transactions && transactions.map(d => {
       const date = new Date()
-      const dateAdded = `${date.getUTCMonth() + 1}/${date.getUTCDate()}/${date.getUTCFullYear()}`
+      const dateAdded = `${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-${date.getUTCDate()}`
       const transactionId = uuidv4()
       const builtVariable = {
         ...d,

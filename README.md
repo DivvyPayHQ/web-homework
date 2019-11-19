@@ -39,3 +39,4 @@
 ## TODOs
 - Write more/better tests
 - Edit Transaction button and functionality
+- Mobile friendly
