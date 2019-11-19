@@ -75,10 +75,14 @@ const AddTransaction = () => {
               <input id='dateAdded' name='dateAdded' onChange={handleFormInput} type='date' />
             </div>
             <div className='input-wrapper debit-credit-wrapper'>
-              <label htmlFor='credit'>Credit</label>
-              <input id='credit' name='credit-debit' onChange={handleRadioButtons} type='radio' value='credit' />
-              <label htmlFor='debit'>Debit</label>
-              <input id='debit' name='credit-debit' onChange={handleRadioButtons} type='radio' value='debit' />
+              <span className='credit-wrapper'>
+                <label htmlFor='credit'>Credit</label>
+                <input id='credit' name='credit-debit' onChange={handleRadioButtons} type='radio' value='credit' />
+              </span>
+              <span className='debit-wrapper'>
+                <label htmlFor='debit'>Debit</label>
+                <input id='debit' name='credit-debit' onChange={handleRadioButtons} type='radio' value='debit' />
+              </span>
             </div>
           </div>
           <button className='submit-btn' onClick={handleSubmit} type='button'>SUBMIT</button>
@@ -128,6 +132,7 @@ const addTransactionForm = css`
   .add-transaction-form-wrapper {
     display: grid;
     grid-template-columns: 50% 50%;
+    margin-bottom: 10px;
   }
 
   .input-wrapper {
@@ -137,8 +142,9 @@ const addTransactionForm = css`
   }
 
   .debit-credit-wrapper {
+    align-items: center;
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
   }
 
   input {

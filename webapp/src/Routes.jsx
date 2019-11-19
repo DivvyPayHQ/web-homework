@@ -5,22 +5,20 @@ import Dashboard from './components/dashboard/Dashboard'
 import Nav from './components/nav/Nav'
 import Upload from './components/upload/Upload'
 
-function AppRouter () {
-  return (
-    <BrowserRouter>
-      <section className='app-wrapper' css={contentStyle}>
-        <Nav />
-        <div className='main-content'>
-          <Switch>
-            <Redirect exact from='/' to='/dashboard' />
-            <Route component={Dashboard} exact path='/dashboard' />
-            <Route component={Upload} exact path='/upload' />
-          </Switch>
-        </div>
-      </section>
-    </BrowserRouter>
-  )
-}
+const AppRouter = () => (
+  <BrowserRouter>
+    <section className='app-wrapper' css={contentStyle}>
+      <Nav />
+      <div className='main-content'>
+        <Switch>
+          <Redirect exact from='/' to='/dashboard' />
+          <Route component={Dashboard} exact path='/dashboard' />
+          <Route component={Upload} exact path='/upload' />
+        </Switch>
+      </div>
+    </section>
+  </BrowserRouter>
+)
 
 const contentStyle = css`
   background-color: #f9f8f0;

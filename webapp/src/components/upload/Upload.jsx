@@ -33,7 +33,7 @@ const Upload = () => {
   useEffect(() => {
     transactions && transactions.map(d => {
       const date = new Date()
-      const dateAdded = `${date.getUTCMonth() + 1}/${date.getUTCDate()}/${date.getUTCFullYear()}`
+      const dateAdded = `${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-${date.getUTCDate()}`
       const transactionId = uuidv4()
       const builtVariable = {
         ...d,
@@ -60,7 +60,7 @@ const Upload = () => {
           onFileLoaded={handleData}
           parserOptions={parseOptions}
         />
-        {loading && <div className='loading-ring' css={loadingCircleStyles}><div /><div /><div /><div /></div>}File Upload
+        {loading && <div className='loading-ring' css={loadingCircleStyles}><div /><div /><div /><div /></div>}+ File Upload
       </label>
       {error && <p className='upload-error'>There was an error uploading your file because one or more required fieloading are empty or null</p>}
       <Transactions />
