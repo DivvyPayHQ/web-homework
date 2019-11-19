@@ -39,4 +39,6 @@
 ## TODOs
 - Write more/better tests
 - Edit Transaction button and functionality
-- Mobile friendly
+- Make app more mobile friendly
+- User functionality including auth
+- Predefined categories
