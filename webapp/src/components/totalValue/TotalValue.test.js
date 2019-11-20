@@ -7,7 +7,7 @@ import TotalValue from './TotalValue'
 test('loads and displays the TotalValue component', async () => {
   const { getByText } = render(<BrowserRouter><TotalValue /></BrowserRouter>, { wrapper: MockedProvider })
 
-  expect(getByText('Expenses:')).toBeInTheDocument()
+  expect(getByText('Balance:')).toBeInTheDocument()
   expect(getByText('Credits: $')).toBeInTheDocument()
   expect(getByText('Debits: $')).toBeInTheDocument()
   await wait()

@@ -7,7 +7,10 @@ import { validateUploadedData } from '../../helpers/helpers.js'
 import { ADD_TRANSACTION } from '../../queries/queries'
 
 const AddTransaction = () => {
-  const [openForm, toggleForm] = useState(false)
+  const [
+    openForm
+    // toggleForm
+  ] = useState(true)
   const [error, setError] = useState(false)
   const [formData, setFormData] = useState({
     amount: null,
@@ -38,7 +41,7 @@ const AddTransaction = () => {
       return setError(true)
     }
 
-    toggleForm(false)
+    // toggleForm(false)
     return addTransaction({
       variables: formData
     })
@@ -46,9 +49,6 @@ const AddTransaction = () => {
 
   return (
     <div className='add-transaction-wrapper' css={addTransactionStyle}>
-      <button className='add-transaction-btn' onClick={() => toggleForm(!openForm)}>
-        {openForm ? 'Cancel' : '+ Add Transaction'}
-      </button>
       {openForm && (
         <form className='add-transaction-form' css={addTransactionForm}>
           <h4>Add New Transaction</h4>
@@ -88,12 +88,15 @@ const AddTransaction = () => {
           <button className='submit-btn' onClick={handleSubmit} type='button'>SUBMIT</button>
         </form>
       )}
+      {/* <button className='add-transaction-btn' onClick={() => toggleForm(!openForm)}>
+        {openForm ? 'Cancel' : '+ Add Transaction'}
+      </button> */}
     </div>
   )
 }
 
 const addTransactionStyle = css`
-  margin-top: 10px;
+  margin-top: 50px;
 
   .add-transaction-btn,
   .submit-btn {
@@ -127,7 +130,10 @@ const addTransactionForm = css`
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
   padding: 1px 20px 20px;
   margin: 10px 0;
-  width: 50%;
+
+  h4 {
+    margin: 15px 0 10px;
+  }
   
   .add-transaction-form-wrapper {
     display: grid;
@@ -153,6 +159,13 @@ const addTransactionForm = css`
     font-size: 14px;
     padding: 8px 15px;
     margin-right: 15px;
+  }
+
+  .credit-wrapper,
+  .debit-wrapper {
+    label {
+      margin-right: 3px;
+    }
   }
 
   .upload-error {

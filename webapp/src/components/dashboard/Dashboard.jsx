@@ -13,8 +13,10 @@ const Dashboard = () => {
         <TotalValue />
         <Chart />
       </div>
-      <Transactions />
-      <AddTransaction />
+      <div className='transactions-add-transaction-wrapper' css={transactionsWrapper}>
+        <Transactions />
+        <AddTransaction />
+      </div>
     </div>
   )
 }
@@ -23,6 +25,12 @@ const totalValueChartWrapper = css`
   display: grid;
   grid-column-gap: 15px;
   grid-template-columns: 30% 69%;
+`
+
+const transactionsWrapper = css`
+  display: grid;
+  grid-column-gap: 15px;
+  grid-template-columns: 60% 39%;
 `
 
 export default Dashboard

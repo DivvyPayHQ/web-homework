@@ -19,6 +19,6 @@ test('loads and displays the Dashboard component', async () => {
   const { getByText } = render(<BrowserRouter><Dashboard /></BrowserRouter>, { wrapper: MockedProvider })
 
   // TODO: this needs to be a better test
-  expect(getByText('Expenses:')).toBeInTheDocument()
+  expect(getByText('Balance:')).toBeInTheDocument()
   await wait()
 })

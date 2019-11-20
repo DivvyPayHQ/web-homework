@@ -51,7 +51,11 @@ const mutation = new GraphQLObjectType({
       },
       /* eslint-disable-next-line camelcase */
       resolve (parentValue, { user_id, description, merchant_id, debit, credit, amount, dateAdded, transactionId, category }) {
-        return TransactionModel.findOneAndUpdate({ user_id, description, merchant_id, debit, credit, amount, dateAdded, transactionId, category })
+        return TransactionModel.findOneAndUpdate(
+          { transactionId },
+          { user_id, description, merchant_id, debit, credit, amount, dateAdded, category },
+          { new: true }
+        )
       }
     }
   }

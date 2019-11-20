@@ -6,8 +6,7 @@ import {
   Bar,
   XAxis,
   YAxis,
-  Tooltip,
-  Legend
+  Tooltip
 } from 'recharts'
 
 import { buildDataForChart } from '../../helpers/helpers'
@@ -35,7 +34,6 @@ const Chart = () => {
         }}
         width={500}
       >
-        <Legend />
         <XAxis dataKey='category' />
         <YAxis />
         <Tooltip />
