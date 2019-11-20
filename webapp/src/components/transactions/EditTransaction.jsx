@@ -1,22 +1,33 @@
 import React, { useState } from 'react'
 import { css } from '@emotion/core'
 import { useMutation } from '@apollo/react-hooks'
-import { string } from 'prop-types'
+import { string, number, bool, func } from 'prop-types'
 
 import { validateUploadedData } from '../../helpers/helpers.js'
 import { UPDATE_TRANSACTION } from '../../queries/queries'
 
-const EditTransaction = ({ transactionId }) => {
+const EditTransaction = ({
+  amount,
+  category,
+  credit,
+  dateAdded,
+  debit,
+  description,
+  merchantId,
+  setEditFormShow,
+  showEditFormId,
+  transactionId
+}) => {
   const [error, setError] = useState(false)
   const [formData, setFormData] = useState({
-    amount: null,
-    debit: false,
-    credit: false,
-    description: null,
-    merchant_id: null,
-    dateAdded: null,
-    transactionId: null,
-    category: null,
+    amount: amount,
+    debit: debit,
+    credit: credit,
+    description: description,
+    merchant_id: merchantId,
+    dateAdded: dateAdded,
+    transactionId: transactionId,
+    category: category,
     user_id: '123'
   })
   const [updateTransaction] = useMutation(UPDATE_TRANSACTION)
@@ -36,10 +47,14 @@ const EditTransaction = ({ transactionId }) => {
       return setError(true)
     }
 
-    // toggleForm(false)
+    setEditFormShow('')
     return updateTransaction({
       variables: formData
     })
+  }
+
+  if (showEditFormId !== transactionId) {
+    return null
   }
 
   return (
@@ -50,32 +65,32 @@ const EditTransaction = ({ transactionId }) => {
         <div className='edit-transaction-form-wrapper'>
           <div className='input-wrapper'>
             <label htmlFor='amount'>Amount</label>
-            <input id='amount' name='amount' onChange={handleFormInput} type='number' />
+            <input id='amount' name='amount' onChange={handleFormInput} type='number' value={formData.amount} />
           </div>
           <div className='input-wrapper'>
             <label htmlFor='description'>Description</label>
-            <input id='description' name='description' onChange={handleFormInput} type='text' />
+            <input id='description' name='description' onChange={handleFormInput} type='text' value={formData.description} />
           </div>
           <div className='input-wrapper'>
             <label htmlFor='category'>Category</label>
-            <input id='category' name='category' onChange={handleFormInput} type='text' />
+            <input id='category' name='category' onChange={handleFormInput} type='text' value={formData.category} />
           </div>
           <div className='input-wrapper'>
             <label htmlFor='merchant_id'>Merchant ID</label>
-            <input id='merchant_id' name='merchant_id' onChange={handleFormInput} type='text' />
+            <input id='merchant_id' name='merchant_id' onChange={handleFormInput} type='text' value={formData.merchant_id} />
           </div>
           <div className='input-wrapper'>
             <label htmlFor='dateAdded'>Date</label>
-            <input id='dateAdded' name='dateAdded' onChange={handleFormInput} type='date' />
+            <input id='dateAdded' name='dateAdded' onChange={handleFormInput} type='date' value={formData.dateAdded} />
           </div>
           <div className='input-wrapper debit-credit-wrapper'>
             <span className='credit-wrapper'>
               <label htmlFor='credit'>Credit</label>
-              <input id='credit' name='credit-debit' onChange={handleRadioButtons} type='radio' value='credit' />
+              <input checked={formData.credit} id='credit' name='credit-debit' onChange={handleRadioButtons} type='radio' value='credit' />
             </span>
             <span className='debit-wrapper'>
               <label htmlFor='debit'>Debit</label>
-              <input id='debit' name='credit-debit' onChange={handleRadioButtons} type='radio' value='debit' />
+              <input checked={formData.debit} id='debit' name='credit-debit' onChange={handleRadioButtons} type='radio' value='debit' />
             </span>
           </div>
         </div>
@@ -86,7 +101,7 @@ const EditTransaction = ({ transactionId }) => {
 }
 
 const editTransactionStyle = css`
-  margin-top: 50px;
+  margin: 15px 0;
 
   .edit-transaction-btn,
   .submit-btn {
@@ -119,7 +134,6 @@ const editTransactionForm = css`
   border-radius: 6px;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
   padding: 1px 20px 20px;
-  margin: 10px 0;
 
   h4 {
     margin: 15px 0 10px;
@@ -166,6 +180,15 @@ const editTransactionForm = css`
 `
 
 EditTransaction.propTypes = {
+  amount: number.isRequired,
+  category: string.isRequired,
+  credit: bool.isRequired,
+  dateAdded: string.isRequired,
+  debit: bool.isRequired,
+  description: string.isRequired,
+  merchantId: string.isRequired,
+  setEditFormShow: func.isRequired,
+  showEditFormId: string.isRequired,
   transactionId: string.isRequired
 }
 

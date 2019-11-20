@@ -62,12 +62,23 @@ const Transactions = () => {
                 {showEditFormId !== transaction.transactionId ? (
                   <button className='edit-btn' css={transactionActionsBtnStyle} onClick={() => setEditFormShow(transaction.transactionId)}>EDIT</button>
                 ) : (
-                  <button className='edit-btn' css={transactionActionsBtnStyle} onClick={() => setEditFormShow('')}>CANCEL</button>
+                  <button className='cancel-btn' css={transactionActionsBtnStyle} onClick={() => setEditFormShow('')}>CANCEL</button>
                 )}
                 <button className='remove-btn' css={transactionActionsBtnStyle} onClick={() => handleDeletion(transaction.transactionId)}>REMOVE</button>
               </div>
             </div>
-            {showEditFormId === transaction.transactionId && <EditTransaction transactionId={transaction.transactionId} />}
+            <EditTransaction
+              amount={transaction.amount}
+              category={transaction.category}
+              credit={transaction.credit}
+              dateAdded={transaction.dateAdded}
+              debit={transaction.debit}
+              description={transaction.description}
+              merchantId={transaction.merchantId}
+              setEditFormShow={setEditFormShow}
+              showEditFormId={showEditFormId}
+              transactionId={transaction.transactionId}
+            />
           </Fragment>
         )
       }) : 'No Transactions uploaded'}
@@ -99,7 +110,7 @@ const transactionStyle = css`
 `
 
 const transactionWrapperStyle = css`
-  min-width: 120px;
+  min-width: 150px;
 
   .transaction-category-date-wrapper {
     font-size: 14px;
@@ -137,7 +148,7 @@ const transactionActionsBtnStyle = css`
   font-size: 13px;
   padding: 8px 15px;
 
-  &.edit-btn,
+  &.cancel-btn,
   &.remove-btn {
     &:hover,
     &:focus {
@@ -148,7 +159,7 @@ const transactionActionsBtnStyle = css`
     }
   }
 
-  &.save-btn {
+  &.edit-btn {
     &:hover,
     &:focus {
       background-color: #159D6C;
