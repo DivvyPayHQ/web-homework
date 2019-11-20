@@ -37,7 +37,6 @@ const EditTransaction = ({
   const [updateTransaction] = useMutation(UPDATE_TRANSACTION)
   const handleFormInput = (e) => setFormData({
     ...formData,
-    transactionId,
     [e.target.name]: e.target.name === 'amount' ? parseFloat(e.target.value) : e.target.value
   })
   const handleRadioButtons = (e) => setFormData({
@@ -60,12 +59,13 @@ const EditTransaction = ({
   return (
     <div className='edit-transaction-wrapper' css={editTransactionStyle}>
       <form className='edit-transaction-form' css={editTransactionForm}>
+        {console.info('Editing:', description, amount, transactionId)}
         <h4>Edit Transaction</h4>
         {error && <p className='upload-error'>There was an error adding your transaction because one or more required fields are empty or null</p>}
         <div className='edit-transaction-form-wrapper'>
           <div className='input-wrapper'>
             <label htmlFor='amount'>Amount</label>
-            <input id='amount' name='amount' onChange={handleFormInput} type='number' value={formData.amount} />
+            <input id='amount' name='amount' onChange={handleFormInput} type='number' value={formData.amount || ''} />
           </div>
           <div className='input-wrapper'>
             <label htmlFor='description'>Description</label>
