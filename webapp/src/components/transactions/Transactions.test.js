@@ -7,5 +7,6 @@ import Transactions from './Transactions'
 test('loads and displays the Transactions component', async () => {
   const { getByText } = render(<BrowserRouter><Transactions /></BrowserRouter>, { wrapper: MockedProvider })
   expect(getByText('Transactions')).toBeInTheDocument()
+
   await wait()
 })
