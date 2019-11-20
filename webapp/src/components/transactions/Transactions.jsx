@@ -51,7 +51,7 @@ const Transactions = () => {
                 </div>
                 <div className='transaction-category-date-wrapper'>
                   <div className='transaction-category'>
-                    Category: {transaction.category}
+                    Category: <span>{transaction.category}</span>
                   </div>
                   <div className='transaction-date'>
                     Date Added: {transaction.dateAdded}
@@ -107,6 +107,10 @@ const transactionStyle = css`
     display: flex;
     justify-content: space-between;
   }
+
+  .transaction-category > span {
+    text-transform: capitalize;
+  }
 `
 
 const transactionWrapperStyle = css`
@@ -132,10 +136,6 @@ const transactionWrapperStyle = css`
     &.negative {
       color: #9d152f;
     }
-  }
-
-  .transaction-category {
-    text-transform: capitalize;
   }
 `
 
