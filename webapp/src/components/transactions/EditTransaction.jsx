@@ -18,6 +18,10 @@ const EditTransaction = ({
   showEditFormId,
   transactionId
 }) => {
+  if (showEditFormId !== transactionId) {
+    return null
+  }
+
   const [error, setError] = useState(false)
   const [formData, setFormData] = useState({
     amount: amount,
@@ -51,10 +55,6 @@ const EditTransaction = ({
     return updateTransaction({
       variables: formData
     })
-  }
-
-  if (showEditFormId !== transactionId) {
-    return null
   }
 
   return (

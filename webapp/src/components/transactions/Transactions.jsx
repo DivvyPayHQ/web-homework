@@ -148,10 +148,19 @@ const transactionActionsBtnStyle = css`
   font-size: 13px;
   padding: 8px 15px;
 
+  &:hover {
+    background-color: #000000;
+    color: #ffffff;
+    cursor: pointer;
+  }
+
+  &:first-of-type {
+    margin-right: 10px;
+  }
+
   &.cancel-btn,
   &.remove-btn {
-    &:hover,
-    &:focus {
+    &:hover {
       background-color: #9d152f;
       border: 1px solid #9d152f;
       color: #ffffff;
@@ -160,24 +169,12 @@ const transactionActionsBtnStyle = css`
   }
 
   &.edit-btn {
-    &:hover,
-    &:focus {
+    &:hover {
       background-color: #159D6C;
       border: 1px solid #159D6C;
       color: #ffffff;
       cursor: pointer;
     }
-  }
-
-  &:hover,
-  &:focus {
-    background-color: #000000;
-    color: #ffffff;
-    cursor: pointer;
-  }
-
-  &:first-of-type {
-    margin-right: 10px;
   }
 `
 
