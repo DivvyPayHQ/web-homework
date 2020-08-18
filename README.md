@@ -1,30 +1,31 @@
 # Divvy Front End Homework Assignment
 
 
-This repository provides a starting point for a basic React + GraphQL application.  All of the configuration boilerplate is complete so you can start by writing the code that you want us to see.  
+This repository provides a starting point for a basic React + GraphQL application.
+All of the configuration boilerplate is complete so you can start by writing the code that you want us to see.  
 
 Please **fork** this repo to your GitHub account.
 
 
 ## Project Setup
 
-This repository is broken into a web app directory (eg `/webapp`) and a server directory (eg `/webserver`).  
+This repository is split into a web app directory (eg `/webapp`) and a server directory (eg `/webserver`).  
 
 This project is intentionally not utilizing 3rd party services or create-react-app to give you the opportunity to showcase your talents wherever they are, be it the front end or the back end. 
 
-**Node** version **11.15.0** is the safest NodeJS release to use.  Node 12 has issues with node-gyp on OSX and anything less than 11 is missing some necessary es6 features.
+**Node** version **12** is the safest NodeJS release to use.  You can try version 14, but there can be node-gyp/python issues on OSX.  
 
 ## Instructions
 
-You do not have to complete all of these objectives, but as many as you can without feeling like you are wasting your time is ideal.
+You do not have to complete all of these objectives, but do as many as you can without wasting your time.
 
-The completed homework assignment must have a usable interface that load dynamically and is interactive.
+The completed homework assignment must have a usable interface that loads dynamically and is interactive.
 
-For **senior engineers**, please complete enough of the project to demonstrate your abilities as a senior.  This should be more than 3 objectives.  You can modify anything you need to with this project, so show us what you can do.
+For **senior engineers**, complete enough of the project to demonstrate your abilities as a senior.  This should be more than 3 objectives.  You can modify anything you need to with this project, so kick the tires and show us what you can do.
 
-For **mid-level engineers**, please complete any 3 objectives.
+For **mid-level engineers**, complete any 3 objectives.
 
-For **junior engineers** please complete any 1 of these objectives and include a basic Jest test.  These tasks are possible with limited or no prior knowledge of React within a very short amount of time.
+For **junior engineers** complete any 1 of these objectives and include a basic Jest test.  These tasks are possible with limited or no prior knowledge of React within a very short amount of time.
 
 ## Objectives
 
@@ -34,22 +35,31 @@ For **junior engineers** please complete any 1 of these objectives and include a
 
  * Provide a pie chart or histogram of the spend per category or spend per day, respectively.
 
- * Create a user setting that can convert the displayed numbers to Roman Numerals.  Please do not use the examples on StackOverflow for this.
+ * Create a user setting that can convert the displayed numbers to Roman Numerals.  This is a problem that we may cover in your interview, so be able to walk us through the code for this feature.
 
- * Include a CSV file that can be uploaded through your application to seed the database.  You may also modify the web server post install script to ensure the databse is correctly seeded instead. 
+ * Seed the database.  Possible solutions include:
+   * producing a CSV file and endpoint that allows the file to be uploaded through the web server
+   * modifying the web server post install script to ensure the databse is correctly seeded instead
 
- * Add an i18n setting via URL (eg `?i18n=true`) that turns all of the display text into gibberish (eg replace the front with something that does not use a latin based charset).
+ * Add an i18n setting.  This is easily done in a couple of ways. 
+   * Via URL (eg `?i18n=true`) that turns all of the display text into gibberish (eg replace the front with something that does not use a latin based charset).
+   * Utilize this path in the URL (eg `/i18n/app` ) to enable an obviously i18n'd display.  You will have to modify the existing route or SPA configuration in the web server to return the index file for both the main URL and the i18n url.
 
-   > Bonus points if you can utilize this setting in the URL (eg `/i18n/app` ).  You will have to modify the existing route or SPA configuration in the web server to return the index file for both the main URL and the i18n url.
-
- * Add a user experience that showcases your abilities on the front end.  
+ * Add a user experience that showcases your abilities on the front end such as:
+   * better navigation
+   * improved styling
+   * nested views
+   * multiple routes with content (budgets, vendors, users, etc)  
  
- If you are not very comfortable writing React code, import a funny gif (eg giphy) via keyboard shortcut or something just as simple.  
+ If you are uncomfortable writing React code, do something to make us laugh.  Maybe a couple of these:
+ * Import a funny gif (eg giphy) via keyboard shortcut.  
+ * Add the Konami code and have it do something unique as an easter egg.
+ * Remake an audio player UI (eg Winamp, Spotify, Pandora, etc).
  
- If your strengths are in the backend, feel free to modify anything with the webserver to demonstrate your strengths.
+ Should your strengths be in the backend, you are free to modify anything with the webserver to demonstrate them.
 
 
-## How to go about it
+## Getting Started
 
 * Add more routes to the Front End application (ie [React Router](https://github.com/ReactTraining/react-router)) 
 
@@ -61,4 +71,8 @@ For **junior engineers** please complete any 1 of these objectives and include a
 
    > Bonus for using [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) and using small snapshots and/or click events and asserting DOM changes.
 
-* Add more objects to the GraphQL schema and user interface (eg users, merchants, etc..)
+   > Cypress.io is coming to the web homework shortly, as an alternative option.  If you can add it on your own, that will be considered a feature.
+
+* Add more models to the GraphQL schema and user interface (eg users, merchants, etc..).
+  This will require modification of the GraphQL schema, and resolvers in the web server.
+  It should be straight-forward if you are already comfortable with JavaScript and GraphQL.
