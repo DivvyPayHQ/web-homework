@@ -4,45 +4,10 @@ defmodule HomeworkWeb.Schema do
   """
   use Absinthe.Schema
 
-  import_types(Absinthe.Type.Custom)
-  alias HomeworkWeb.MerchantsResolver
-  alias HomeworkWeb.TransactionsResolver
-  alias HomeworkWeb.UsersResolver
-
-  object :transaction do
-    field(:id, non_null(:id))
-    field(:user_id, :id)
-    field(:amount, :integer)
-    field(:credit, :boolean)
-    field(:debit, :boolean)
-    field(:description, :string)
-    field(:merchant_id, :id)
-    field(:inserted_at, :datetime)
-    field(:updated_at, :datetime)
-
-    field(:user, :user) do
-      resolve(&TransactionsResolver.user/3)
-    end
-
-    field(:merchant, :merchant) do
-      resolve(&TransactionsResolver.merchant/3)
-    end
-  end
-
-  object :user do
-    field(:id, non_null(:id))
-    field(:dob, :string)
-    field(:first_name, :string)
-    field(:last_name, :string)
-    field(:inserted_at, :datetime)
-    field(:updated_at, :datetime)
-  end
-
-  object :merchant do
-    field(:id, non_null(:id))
-    field(:name, :string)
-    field(:description, :string)
-  end
+  alias HomeworkWeb.Resolvers.MerchantsResolver
+  alias HomeworkWeb.Resolvers.TransactionsResolver
+  alias HomeworkWeb.Resolvers.UsersResolver
+  import_types(HomeworkWeb.Schemas.Types)
 
   query do
     @desc "Get all Transactions"
@@ -51,7 +16,7 @@ defmodule HomeworkWeb.Schema do
     end
 
     @desc "Get all Users"
-    field(:users, list_of(:transaction)) do
+    field(:users, list_of(:user)) do
       resolve(&UsersResolver.users/3)
     end
 
@@ -59,5 +24,11 @@ defmodule HomeworkWeb.Schema do
     field(:merchants, list_of(:merchant)) do
       resolve(&MerchantsResolver.merchants/3)
     end
+  end
+
+  mutation do
+    import_fields(:transaction_mutations)
+    import_fields(:user_mutations)
+    import_fields(:merchant_mutations)
   end
 end

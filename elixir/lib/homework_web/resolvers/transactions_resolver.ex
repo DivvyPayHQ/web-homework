@@ -1,4 +1,4 @@
-defmodule HomeworkWeb.TransactionsResolver do
+defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   alias Homework.Merchants
   alias Homework.Transactions
   alias Homework.Users
@@ -7,11 +7,21 @@ defmodule HomeworkWeb.TransactionsResolver do
     {:ok, Transactions.list_transactions(args)}
   end
 
-  def user(_root, args, %{source: %{user_id: user_id}} = info) do
+  def user(_root, _args, %{source: %{user_id: user_id}}) do
     {:ok, Users.get_user!(user_id)}
   end
 
-  def merchant(_root, args, %{source: %{merchant_id: merchant_id}} = info) do
+  def merchant(_root, _args, %{source: %{merchant_id: merchant_id}}) do
     {:ok, Merchants.get_merchant!(merchant_id)}
+  end
+
+  def create_transaction(_root, args, _info) do
+    case Transactions.create_transaction(args) do
+      {:ok, transaction} ->
+        {:ok, transaction}
+
+      error ->
+        {:error, "could not create transaction: #{inspect(error)}"}
+    end
   end
 end
