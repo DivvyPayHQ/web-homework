@@ -22,5 +22,21 @@ defmodule HomeworkWeb.Schemas.MerchantsSchema do
 
       resolve(&MerchantsResolver.create_merchant/3)
     end
+
+    @desc "Update a new merchant"
+    field :update_merchant, :merchant do
+      arg(:id, non_null(:id))
+      arg(:name, non_null(:string))
+      arg(:description, non_null(:string))
+
+      resolve(&MerchantsResolver.update_merchant/3)
+    end
+
+    @desc "delete an existing merchant"
+    field :delete_merchant, :merchant do
+      arg(:id, non_null(:id))
+
+      resolve(&MerchantsResolver.delete_merchant/3)
+    end
   end
 end

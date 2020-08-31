@@ -6,13 +6,12 @@ defmodule Homework.MerchantsTest do
   describe "merchants" do
     alias Homework.Merchants.Merchant
 
-    @valid_attrs %{description: "some description", location: "some location", name: "some name"}
+    @valid_attrs %{description: "some description", name: "some name"}
     @update_attrs %{
       description: "some updated description",
-      location: "some updated location",
       name: "some updated name"
     }
-    @invalid_attrs %{description: nil, location: nil, name: nil}
+    @invalid_attrs %{description: nil, name: nil}
 
     def merchant_fixture(attrs \\ %{}) do
       {:ok, merchant} =
@@ -23,9 +22,9 @@ defmodule Homework.MerchantsTest do
       merchant
     end
 
-    test "list_merchants/0 returns all merchants" do
+    test "list_merchants/1 returns all merchants" do
       merchant = merchant_fixture()
-      assert Merchants.list_merchants() == [merchant]
+      assert Merchants.list_merchants([]) == [merchant]
     end
 
     test "get_merchant!/1 returns the merchant with given id" do
@@ -36,7 +35,6 @@ defmodule Homework.MerchantsTest do
     test "create_merchant/1 with valid data creates a merchant" do
       assert {:ok, %Merchant{} = merchant} = Merchants.create_merchant(@valid_attrs)
       assert merchant.description == "some description"
-      assert merchant.location == "some location"
       assert merchant.name == "some name"
     end
 
@@ -48,7 +46,6 @@ defmodule Homework.MerchantsTest do
       merchant = merchant_fixture()
       assert {:ok, %Merchant{} = merchant} = Merchants.update_merchant(merchant, @update_attrs)
       assert merchant.description == "some updated description"
-      assert merchant.location == "some updated location"
       assert merchant.name == "some updated name"
     end
 
