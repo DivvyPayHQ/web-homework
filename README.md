@@ -20,6 +20,7 @@ This project is intentionally not utilizing 3rd party services or create-react-a
 ## Instructions
 
 See the [frontend instructions](frontend.md) for frontend focused instructions.
+
 See the [backend instructions](backend.md) for backend focused instructions.
 
 
