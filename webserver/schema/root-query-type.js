@@ -1,6 +1,10 @@
 const graphql = require('graphql')
 const TransactionType = require('./transaction-type')
 const Transactions = require('../query-resolvers/transaction-resolvers.js')
+const UserType = require('./user-type')
+const Users = require('../query-resolvers/user-resolvers.js')
+const MerchantType = require('./merchant-type')
+const Merchants = require('../query-resolvers/merchant-resolvers.js')
 
 const {
   GraphQLBoolean,
@@ -18,7 +22,7 @@ const RootQuery = new GraphQLObjectType({
         id: { type: GraphQLString }
       },
       resolve (parentValue, args) {
-        return Transactions.findOne(args.id)
+        return Transactions.findOneTransaction(args.id)
       }
     },
     transactions: {
@@ -29,10 +33,50 @@ const RootQuery = new GraphQLObjectType({
         debit: { type: GraphQLBoolean },
         description: { type: GraphQLString },
         merchant_id: { type: GraphQLString },
-        user_id: { type: GraphQLString }
+        user_id: { type: GraphQLString },
+        category: { type: GraphQLString }
       },
       resolve (parentValue, args) {
-        return Transactions.find(args)
+        return Transactions.findTransactions(args)
+      }
+    },
+    user: {
+      type: UserType,
+      args: {
+        id: { type: GraphQLString }
+      },
+      resolve (parentValue, args) {
+        return Users.findOneUser(args.id)
+      }
+    },
+    users: {
+      type: GraphQLList(UserType),
+      args: {
+        id: { type: GraphQLString },
+        firstName: { type: GraphQLString },
+        lastName: { type: GraphQLString }
+      },
+      resolve (parentValue, args) {
+        return Users.findUsers(args)
+      }
+    },
+    merchant: {
+      type: MerchantType,
+      args: {
+        id: { type: GraphQLString }
+      },
+      resolve (parentValue, args) {
+        return Merchants.findOneMerchant(args.id)
+      }
+    },
+    merchants: {
+      type: GraphQLList(MerchantType),
+      args: {
+        id: { type: GraphQLString },
+        merchantName: { type: GraphQLString }
+      },
+      resolve (parentValue, args) {
+        return Merchants.findMerchants(args)
       }
     }
   })

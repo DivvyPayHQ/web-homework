@@ -1,7 +1,7 @@
 const { TransactionModel } = require('../data-models/Transaction')
 const { packageModel } = require('./utils.js')
 
-async function find(criteria) {
+async function findTransactions (criteria) {
   const query = Object.keys(criteria).length
     ? TransactionModel.find(criteria)
     : TransactionModel.find()
@@ -11,14 +11,22 @@ async function find(criteria) {
   return packageModel(transactions)
 }
 
-async function findOne(id) {
+async function findOneTransaction (id) {
   const query = TransactionModel.findById(id)
   const transaction = await query.exec()
 
   return packageModel(transaction)[0] || null
 }
 
+async function editTransaction (criteria) {
+  const query = TransactionModel.findByIdAndUpdate(criteria.id, criteria, { new: true })
+  const transaction = await query.exec()
+
+  return packageModel(transaction)
+}
+
 module.exports = {
-  find,
-  findOne
+  findTransactions,
+  findOneTransaction,
+  editTransaction
 }

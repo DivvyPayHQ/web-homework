@@ -1,7 +1,10 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { css } from '@emotion/core'
-import { Home } from './home'
+import Dashboard from './pages/Dashboard'
+import AddUser from './pages/AddUser'
+import addMerchant from './pages/AddMerchant'
+import AddTransaction from './pages/AddTransaction'
 
 function AppRouter () {
   return (
@@ -10,16 +13,25 @@ function AppRouter () {
         <nav css={navStyle}>
           <ul >
             <li>
-              <Link to='/'>Home</Link>
+              <Link to='/'>Dashboard</Link>
             </li>
             <li>
-              <Link to='/another'>Another route</Link>
+              <Link to='/addUser'>Add User</Link>
+            </li>
+            <li>
+              <Link to='/addMerchant'>Add Merchant</Link>
+            </li>
+            <li>
+              <Link to='/addTransaction'>Add Transaction</Link>
             </li>
           </ul>
         </nav>
         <div className='main-content' css={contentStyle}>
-          <Route component={Home} exact path='/' />
-          <Route component={() => (<div>Content for /another route</div>)} exact path='/another' />
+          <Route component={Dashboard} exact path='/' />
+          <Route component={AddUser} exact path='/addUser' />
+          <Route component={addMerchant} exact path='/addMerchant' />
+          <Route component={AddTransaction} exact path='/addTransaction' />
+
         </div>
       </div>
     </Router>
