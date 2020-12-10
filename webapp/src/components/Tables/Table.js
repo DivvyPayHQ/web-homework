@@ -1,47 +1,103 @@
-import * as React from 'react'
-import { DataGrid } from '@material-ui/data-grid'
+/* eslint-disable no-unused-vars */
+import React, { Fragment, useState } from 'react'
+import { useQuery } from '@apollo/react-hooks'
+// import { Link } from 'react-router-dom'
+import gql from 'graphql-tag'
+import
+TransactionsTableRow
+  from './TransactionsTableRow'
+// import { TransactionHeader } from './transaction-components/transaction-header'
+// import { PieChart } from './transaction-components/pie-chart'
+// import { Select, Button, RadioBtn, Label } from './add-transactions'
+import styled from '@emotion/styled'
+import { css } from '@emotion/core'
 
-const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'firstName', headerName: 'First name', width: 130 },
-  { field: 'lastName', headerName: 'Last name', width: 130 },
-  {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 90
-  },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.getValue('firstName') || ''} ${
-        params.getValue('lastName') || ''
-      }`
+export const GET_TRANSACTIONS = gql`
+  query GetTransactions($user_id: String, $merchant_id: String) {
+    transactions(user_id: $user_id, merchant_id: $merchant_id) {
+        id
+        user_id
+        merchant_id
+        amount
+        description
+        credit
+        debit
+        category
+        user {
+            firstName
+            lastName
+        }
+        merchant {
+          merchantName
+        }
+    }
+    users {
+      id
+      firstName
+      lastName
   }
-]
+  merchants {
+    id
+    merchantName
+}
+  }
+`
 
-const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 }
-]
+function Table (props) {
+  const { loading: transactionsLoading, error: transactionsError, data: transactionData, refetch } = useQuery(GET_TRANSACTIONS)
+  if (transactionsLoading) return <h1> </h1>
 
-const Table = () => {
   return (
-    <div style={{ height: 400, width: '100%' }}>
-      <DataGrid checkboxSelection columns={columns} pageSize={5} rows={rows} />
-    </div>
+    <Fragment>
+
+      <h1>Transactions</h1>
+      <Fragment>
+        {/* <TransactionHeader /> */}
+        {
+          transactionData.transactions.map(transaction => (
+            <TransactionsTableRow key={transaction.id} transaction={transaction} />
+          ))
+        }
+      </Fragment>
+
+    </Fragment>
   )
 }
 
 export default Table
+
+const OuterSelectContainer = styled('div')`
+padding: 8px 10px 8px 10px;
+background: #F2ECF3;
+border: 1px solid #F2ECF3;
+position: relative;
+width: 80%;
+margin: 10px 0px 10px 0px;
+  `
+
+const innerRowFlex = css`
+width: 97%;
+`
+const flexColStyle = css`
+display: flex;
+justify-content: space-between;
+flex-direction: column;
+`
+const flex = css`
+display: flex;
+`
+const radioMargin = css`
+margin-right: 10px;
+`
+const innerColFlex = css`
+width: 50%;
+`
+const innerColPieFlex = css`
+width: 50%;
+margin-top: 1em;
+`
+const innerColFlexStyle = css`
+display: flex;
+justify-content: space-between;
+flex-direction: row;
+`

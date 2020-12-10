@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard'
 import AddUser from './pages/AddUser'
 import addMerchant from './pages/AddMerchant'
 import AddTransaction from './pages/AddTransaction'
+import EditTransaction from './pages/EditTransaction'
 
 function AppRouter () {
   return (
@@ -31,6 +32,7 @@ function AppRouter () {
           <Route component={AddUser} exact path='/addUser' />
           <Route component={addMerchant} exact path='/addMerchant' />
           <Route component={AddTransaction} exact path='/addTransaction' />
+          <Route component={EditTransaction} exact path='/UpdateTransaction/:transaction_id' />
 
         </div>
       </div>
