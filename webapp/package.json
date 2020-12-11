@@ -3,7 +3,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack -d",
-    "start": "webpack-dev-server -d --hot"
+    "start": "webpack-dev-server -d --hot",
+    "test": "jest --watch"
   },
   "jest": {
     "setupFiles": [
@@ -54,6 +55,7 @@
     "emotion-theming": "10.0.10",
     "graphql": "14.3.1",
     "graphql-tag": "^2.11.0",
+    "history": "^5.0.0",
     "prop-types": "^15.7.2",
     "react": "16.8.6",
     "react-apollo": "2.5.6",

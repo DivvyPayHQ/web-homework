@@ -1,15 +1,26 @@
-/* eslint-disable jsx-a11y/no-onchange */
+/* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable no-undef */
+/* eslint-disable react/jsx-sort-props */
 /* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
-import React, { Fragment, useState } from 'react'
-import { Link } from 'react-router-dom'
+
+import React, { useState } from 'react'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
-import { GET_TRANSACTIONS } from './ViewTransaction'
 import styled from '@emotion/styled'
 import { css } from '@emotion/core'
-import { RadioBtn } from './AddTransaction'
+import Button from '@material-ui/core/Button'
+import { useTheme } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
+import Radio from '@material-ui/core/Radio'
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem'
+import FormControl from '@material-ui/core/FormControl'
+import Select from '@material-ui/core/Select'
+import { GET_TRANSACTIONS } from './ViewTransaction'
+import { Categories, useStyles, getStyles } from './AddTransaction'
+import { Wrapper, PageWrapper, Title } from './AddUser'
 
 const GET_TRANSACTION = gql`
   query GetTransaction($id: String!) {
@@ -42,6 +53,24 @@ const GET_TRANSACTION = gql`
   }
 `
 
+const GET_USERS = gql`
+  query GetUsers {
+    users {
+        id
+        firstName
+        lastName
+    }
+  }
+`
+const GET_MERCHANT = gql`
+  query GetMerchant {
+    merchants {
+        id
+        merchantName
+    }
+  }
+`
+
 const UPDATE_TRANSACTION = gql`
   mutation UpdateTransactions($id: String, $user_id: String, $description: String, $merchant_id: String, $credit: Boolean, $debit: Boolean, $amount: Float, $category: String) {
     editTransaction(id: $id, user_id: $user_id, description: $description, merchant_id: $merchant_id, credit: $credit, debit: $debit, amount: $amount, category: $category) {
@@ -61,12 +90,19 @@ const EditTransaction = (props) => {
   const [useCategory, setCategory] = useState('')
   const [useDescription, setDescription] = useState('')
   const [useAmount, setAmount] = useState('')
-  const [selectedUser, setUser] = useState('')
+  // eslint-disable-next-line no-unused-vars
+  const [selectedUser, setSelectedUser] = useState('')
+  // eslint-disable-next-line no-unused-vars
   const [selectedMerchant, setMerchant] = useState('')
   const [creditOrDebit, setCreditOrDebit] = useState('')
+  const classes = useStyles()
+  const theme = useTheme()
+
   // eslint-disable-next-line camelcase
   // eslint-disable-next-line react/prop-types
   let { transaction_id } = props.match.params
+  const { loading: merchantLoading, data: merchantData } = useQuery(GET_MERCHANT)
+  const { loading: userLoading, data: userData } = useQuery(GET_USERS)
   const { loading: transactionLoading, error: transactionError, data: transactionData } = useQuery(GET_TRANSACTION, {
     variables: {
       id: transaction_id
@@ -80,7 +116,7 @@ const EditTransaction = (props) => {
     onCompleted: () => props.history.push('/')
   })
 
-  function handleUpdate () {
+  const handleUpdate = () => {
     let thisDescription = description
     let thisAmount = amount
     let thisMerchant = merchant_id
@@ -127,75 +163,70 @@ const EditTransaction = (props) => {
   // eslint-disable-next-line no-unused-vars
   const { id, user_id, merchant_id, amount, description, credit, debit, category } = transactionData.transaction
   return (
-    <div>
-      <div>
-        <Link to={`/`}><Icon className='material-icons'>clear</Icon></Link>
-        <h3>Edit transaction</h3>
-      </div>
-      <Fragment>
-        <p>MERCHANT</p>
-        {/* <OuterSelectContainer> */}
-        <div>
-          <select defaultValue={merchant_id} onChange={(e) => setMerchant(e.target.value)}>
-            <option value=''>Select...</option>
+    <Wrapper>
+      <PageWrapper>
+        <Title>Edit <br /> transaction</Title>
+        <FormControl className={classes.formControl}>
+          <InputLabel id='demo-mutiple-name-label'>Merchant</InputLabel>
+          <Select defaultValue={merchant_id} onChange={(e) => setMerchant(e.target.value)}>
             {transactionData.merchants.map(merchant => (
-              <option key={merchant.id} value={merchant.id}>{ merchant.merchantName }</option>
+              <MenuItem key={merchant.id} value={merchant.id}>{ merchant.merchantName }</MenuItem>
             ))
             }
-          </select>
-        </div>
-        {/* </OuterSelectContainer> */}
-      </Fragment>
-      <br />
-      <Fragment>
-        <p>USER</p>
-        {/* <OuterSelectContainer> */}
-        <div>
-          <select defaultValue={user_id} onChange={(e) => setUser(e.target.value)}>
-            <option value=''>Select...</option>
+          </Select>
+        </FormControl>
+        <FormControl className={classes.formControl}>
+          <InputLabel id='demo-mutiple-name-label'>User</InputLabel>
+          <Select defaultValue={user_id} onChange={(e) => setSelectedUser(e.target.value)}>
             {transactionData.users.map(user => (
-              <option key={user.id} value={user.id}>{ `${user.firstName} ${user.lastName}` }</option>
+              <MenuItem key={user.id} value={user.id}>{user.firstName} {user.lastName}</MenuItem>
             ))
             }
-          </select>
+          </Select>
+        </FormControl>
+
+        <FormControl className={classes.formControl}>
+          <InputLabel id='demo-mutiple-name-label'>Category</InputLabel>
+          <Select
+            onChange={(e) => setCategory(e.target.value)} defaultValue={category}
+          >
+            {Categories.map((category) => (
+              <MenuItem key={category} value={category}>
+                {category}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <TextField
+          id='standard-multiline-flexible'
+          label='Amount'
+          placeholder='$'
+          multiline
+          rowsMax={4}
+          defaultValue={amount}
+          onChange={(e) => setAmount(e.target.value)}
+        />
+        <div style={{ display: 'flex' }}>
+          <Radio checked={creditOrDebit === 'Credit'} id='radio-one' color='default' name='switch-one' onChange={(e) => setCreditOrDebit(e.target.value)} type='radio' value='Credit' />
+          <p htmlFor='radio-one' >Credit</p>
+          <Radio checked={creditOrDebit === 'Debit'} id='radio-two' color='default' name='switch-two' onChange={(e) => setCreditOrDebit(e.target.value)} type='radio' value='Debit' />
+          <p htmlFor='radio-two' >Debit</p>
         </div>
-        {/* </OuterSelectContainer> */}
-      </Fragment>
-      <br />
-      <p>DESCRIPTION</p>
-      <input defaultValue={description} onChange={(e) => setDescription(e.target.value)} />
-      <br />
-      <p>TYPE</p>
-      <div css={flex}>
-        <RadioBtn checked={creditOrDebit === 'Credit'} id='radio-one' name='switch-one' onChange={(e) => setCreditOrDebit(e.target.value)} type='radio' value='Credit' />
-        <p css={radioMargin} htmlFor='radio-one' >Credit</p>
-        <RadioBtn checked={creditOrDebit === 'Debit'} id='radio-two' name='switch-two' onChange={(e) => setCreditOrDebit(e.target.value)} type='radio' value='Debit' />
-        <p htmlFor='radio-two' >Debit</p>
-      </div>
-      <br />
-      <p>AMOUNT</p>
-      <input defaultValue={amount} onChange={(e) => setAmount(e.target.value)} />
-      <br />
-      <div>
-        <p>CATEGORY</p>
-        {/* <OuterSelectContainer> */}
-        <div>
-          <select defaultValue={category} onChange={(e) => setCategory(e.target.value)} >
-            <option value=''>Select...</option>
-            <option value='Travel'>Travel</option>
-            <option value='Equipment'>Equipment</option>
-            <option value='Supplies'>Supplies</option>
-            <option value='Misc'>Misc</option>
-          </select>
-        </div>
-        {/* </OuterSelectContainer> */}
-      </div>
-      <br />
-      <button onClick={() => handleUpdate()}>SAVE CHANGES</button>
-    </div>
+        <TextField
+          id='filled-multiline-static'
+          label='Description'
+          // placeholder="$"
+          multiline
+          rows={4}
+          defaultValue='Default Value'
+          variant='filled'
+          onChange={(e) => setDescription(e.target.value)} defaultValue={description}
+        />
+      </PageWrapper>
+      <Button style={{ width: '150px', color: 'gray', marginTop: '50px' }} onClick={() => handleUpdate()}variant='outlined'>SAVE</Button>
+    </Wrapper>
   )
 }
-
 export default EditTransaction
 
 const Icon = styled('i')`
@@ -205,7 +236,6 @@ color: black;
 cursor: pointer;
 margin-right: 5px;
 `
-// eslint-disable-next-line no-unused-vars
 const Flex = styled('div')`
 display: flex;
 align-items: center;

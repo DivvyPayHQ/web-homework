@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import Chart from 'chart.js'
 
-export class PieChart extends Component {
+export class BarChart extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -22,16 +22,16 @@ export class PieChart extends Component {
       const myChartRef = this.chartRef.current.getContext('2d')
 
       new Chart(myChartRef, {
-        type: 'pie',
+        type: 'bar',
         data: {
+          labels: ['Travel', 'Equipment', 'Supplies', 'Misc'],
           datasets: [
             {
               backgroundColor: ['#E5FCC2', '#9DE0AD ', '#45ADA8', '#547980'],
               label: 'Category',
               data: [travel, equipment, supplies, misc]
             }
-          ],
-          labels: ['Travel', 'Equipment', 'Supplies', 'Misc']
+          ]
         },
         options: {
         }

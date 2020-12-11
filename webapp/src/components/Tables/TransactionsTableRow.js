@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 /* eslint-disable react/prop-types */
 import React from 'react'
@@ -7,6 +8,8 @@ import { GET_TRANSACTIONS } from '../../pages/ViewTransaction'
 import gql from 'graphql-tag'
 import { css } from '@emotion/core'
 import styled from '@emotion/styled'
+import EditIcon from '@material-ui/icons/Edit'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 const REMOVE_TRANSACTION = gql`
   mutation RemoveTransaction($id: String!) {
@@ -16,7 +19,7 @@ const REMOVE_TRANSACTION = gql`
   }
 `
 
-function TransactionsTableRow ({
+function TransactionsTableRow ({ romanCheck,
   transaction: { id, description, credit, debit, merchant_id, user_id, amount, user, category, merchant }
 }) {
   // eslint-disable-next-line no-unused-vars
@@ -25,21 +28,47 @@ function TransactionsTableRow ({
       query: GET_TRANSACTIONS
     }]
   })
+  const convertNum = (num) => {
+    var roman = {
+      M: 1000,
+      CM: 900,
+      D: 500,
+      CD: 400,
+      C: 100,
+      XC: 90,
+      L: 50,
+      XL: 40,
+      X: 10,
+      IX: 9,
+      V: 5,
+      IV: 4,
+      I: 1
+    }
+    var result = ''
+
+    for (var key in roman) {
+      if (num >= roman[key]) {
+        result += key.repeat(Math.trunc(num / roman[key]))
+        num -= roman[key] * Math.trunc(num / roman[key])
+      }
+    }
+    return result
+  }
   return (
     <div css={grid}>
-      <GridCol1 debit={debit}>{debit ? 'Debit' : 'Credit'}</GridCol1>
+      <div css={gridCol1}>{romanCheck ? '$' + amount.toFixed(2) : convertNum(amount)}</div>
       <div css={gridCol2}>{user.firstName} {user.lastName}</div>
       <div css={gridCol3}>{merchant.merchantName}</div>
       <div css={gridCol4}>{category}</div>
       <div css={gridCol5}>{description}</div>
-      {/* <div css={gridCol6}>{romanCheck ? '$' + amount.toFixed(2) : convertNum(amount)}</div> */}
-      <Link css={gridCol7} to={`/UpdateTransaction/${id}`}><Icon className='material-icons'>edit</Icon></Link>
+      <div debit={debit}>{debit ? 'Debit' : 'Credit'}</div>
+      <Link css={gridCol7} to={`/UpdateTransaction/${id}`}><EditIcon style={{ color: 'gray' }} /></Link>
       <div css={gridCol8}>
-        <Icon className='material-icons' onClick={() => {
+        <DeleteIcon className='material-icons' onClick={() => {
           removeTransaction({
             variables: { 'id': id }
           })
-        }}>delete</Icon>
+        }} />
       </div>
     </div>
   )
@@ -49,18 +78,17 @@ export default TransactionsTableRow
 
 const grid = css`
 display: grid;
-grid-template-columns: 9% 22% 13% 13% 28% 9% 3% 3%;
+grid-template-columns: 9% 22% 13% 13% 28% 5% 7% 3%;
 border-bottom: 1px solid #F2ECF3;
 height: 40px;
 align-items: center;
 font-size: 14px;
 `
-const GridCol1 = styled('div')`
+const gridCol1 = css`
 grid-column: 1;
-background-color: ${props => props.debit ? `#6AACA3` : `#C7E872`};
-text-align: center;
-width: 60%;
-color: ${props => props.debit ? `white` : `black`};
+text-overflow: ellipsis;
+overflow: hidden; 
+white-space: nowrap;
 `
 const gridCol2 = css`
 grid-column: 2;

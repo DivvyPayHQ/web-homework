@@ -1,10 +1,20 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-onchange */
 /* eslint-disable no-unused-vars */
-import React, { Fragment, useState } from 'react'
+import React, { useState } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
-import { RadioBtn } from './AddTransaction'
+import styled from '@emotion/styled'
 import { PieChart } from '../components/Charts/PieChart'
+import { BarChart } from '../components/Charts/BarChart'
+import { CardPieChart } from '../components/Charts/CardPieChart'
+import { CardBarChart } from '../components/Charts/CardBarChart'
+import TransactionsTableRow from '../components/Tables/TransactionsTableRow'
+import Radio from '@material-ui/core/Radio'
+import BarChartIcon from '@material-ui/icons/BarChart'
+import PieChartIcon from '@material-ui/icons/PieChart'
+import TableHeader from '../components/Tables/TableHeader'
 
 export const GET_TRANSACTIONS = gql`
   query GetTransactions($user_id: String, $merchant_id: String) {
@@ -43,8 +53,24 @@ const TransactionView = (props) => {
   const [selectedMerchant, setSelectedMerchant] = useState('')
   const [numbersOrRoman, setNumbersOrRoman] = useState('Numbers')
   const [selectedUser, setSelectedUser] = useState('')
+  const [chart, setChart] = useState(true)
 
-  function handleFilter () {
+  const CategoryChartChooser = () => {
+    if (chart === true) {
+      return <PieChart transactions={transactionData.transactions} />
+    } else {
+      return <BarChart transactions={transactionData.transactions} />
+    }
+  }
+  const CardChartChooser = () => {
+    if (chart === true) {
+      return <CardPieChart transactions={transactionData.transactions} />
+    } else {
+      return <CardBarChart transactions={transactionData.transactions} />
+    }
+  }
+
+  const handleFilter = () => {
     var variable = {
       'user_id': selectedUser,
       'merchant_id': selectedMerchant
@@ -64,70 +90,75 @@ const TransactionView = (props) => {
   if (transactionsLoading) return <h1> </h1>
   if (transactionsError) return <h1> </h1>
   return (
-    <Fragment>
-      <div >
-        <div >
-          <div >
-            <h3>Filter</h3>
-            <p>MERCHANTS</p>
-            <Fragment>
-              <div>
-                <div>
-                  <select onChange={(e) => setSelectedMerchant(e.target.value)} value={selectedMerchant}>
-                    <option value=''>None</option>
-                    {transactionData.merchants.map(merchant => (
-                      <option key={merchant.id} value={merchant.id}>{ merchant.merchantName }</option>
-                    ))
-                    }
-                  </select>
-                </div>
-              </div>
-            </Fragment>
-            <br />
-            <p>USER</p>
-            <Fragment>
-              <div>
-                <div>
-                  <select onChange={(e) => setSelectedUser(e.target.value)} value={selectedUser}>
-                    <option value=''>None</option>
-                    {transactionData.users.map(user => (
-                      <option key={user.id} value={user.id}>{ `${user.firstName} ${user.lastName}` }</option>
-                    ))
-                    }
-                  </select>
-                </div>
-              </div>
-            </Fragment>
-            <br />
-            <button onClick={() => handleFilter()}>SUBMIT</button>
-            <br />
-            <br />
-            <p>TOGGLE</p>
-            <div>
-              <RadioBtn checked={numbersOrRoman === 'Numbers'} id='radio-one' name='switch-one' onChange={(e) => setNumbersOrRoman(e.target.value)} type='radio' value='Numbers' />
-              <label htmlFor='radio-one' >Numbers</label>
-              <RadioBtn checked={numbersOrRoman === 'Roman'} id='radio-two' name='switch-two' onChange={(e) => setNumbersOrRoman(e.target.value)} type='radio' value='Roman' />
-              <label htmlFor='radio-two' >Roman</label>
-            </div>
-          </div>
-          <div>
-            <PieChart transactions={transactionData.transactions} />
-          </div>
-        </div>
-        <br />
-        <div>
+    <Wrapper>
+      <GraphWrapper>
+        <Graphs>
+          <CategoryChartChooser />
+          <CardChartChooser />
+          <GraphIcons>
+            <h2 onClick={() => setChart(false)}><BarChartIcon /></h2>
+            <h2 onClick={() => setChart(true)}><PieChartIcon /></h2>
+          </GraphIcons>
+        </Graphs>
+      </GraphWrapper>
+      <TableWrapper>
+        <Header>
           <h1>Transactions</h1>
-          <Fragment>
-            <div />
-            {
-              transactionData.transactions.map(transaction => (
-                <div key={transaction.id} romanCheck={numbersOrRoman === 'Numbers'} transaction={transaction} />
-              ))
-            }
-          </Fragment>
-        </div>
-      </div>
-    </Fragment>
+          <div>
+            <Radio checked={numbersOrRoman === 'Numbers'}
+              color='default' id='radio-one' name='switch-one' onChange={(e) => setNumbersOrRoman(e.target.value)} type='radio' value='Numbers' />
+            <label htmlFor='radio-one' >Numbers</label>
+            <Radio checked={numbersOrRoman === 'Roman'}
+              color='default' id='radio-two' name='switch-two' onChange={(e) => setNumbersOrRoman(e.target.value)} type='radio' value='Roman' />
+            <label htmlFor='radio-two' >Roman</label>
+          </div>
+        </Header>
+        <TableHeader />
+        {
+          transactionData.transactions.map(transaction => (
+            <TransactionsTableRow key={transaction.id} romanCheck={numbersOrRoman === 'Numbers'} transaction={transaction} />
+          ))
+        }
+      </TableWrapper>
+    </Wrapper>
   )
 }
 export default TransactionView
+
+const GraphWrapper = styled('div')`
+width: 30%;
+font-size: 1.5rem;
+
+
+`
+const TableWrapper = styled('div')`
+width: 60%;
+min-height: 700px;
+
+}
+`
+const Wrapper = styled('div')`
+display: flex;
+justify-content: space-evenly;
+align-items: center;
+`
+const GraphIcons = styled('div')`
+display:flex;
+justify-content: center;
+h2{
+  margin: 10px;
+}
+`
+const Graphs = styled('div')`
+display:flex;
+justify-content: space-evenly;
+flex-direction: column;
+border-radius: 10px;
+min-height: 700px;
+box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+`
+const Header = styled('div')`
+display:flex;
+align-items:center;
+justify-content: space-between;
+`
