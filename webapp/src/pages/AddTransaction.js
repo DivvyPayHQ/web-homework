@@ -23,7 +23,6 @@ import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import TextField from '@material-ui/core/TextField'
 import Radio from '@material-ui/core/Radio'
-
 const ADD_TRANSACTION = gql`
   mutation AddTransactions($user_id: String, $description: String, $merchant_id: String, $credit: Boolean, $debit: Boolean, $amount: Float, $category: String) {
     addTransaction(user_id: $user_id, description: $description, merchant_id: $merchant_id, credit: $credit, debit: $debit, amount: $amount, category: $category) {
@@ -250,5 +249,5 @@ display:flex;
 justify-content: center;
 align-items: center;
 flex-direction: column;
-
+}
 `

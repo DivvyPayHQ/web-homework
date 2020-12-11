@@ -4,7 +4,8 @@
   "scripts": {
     "build": "webpack -d",
     "start": "webpack-dev-server -d --hot",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "postinstall": "node ../webserver/seed.js"
   },
   "jest": {
     "setupFiles": [
@@ -63,7 +64,8 @@
     "react-dom": "16.8.6",
     "react-hot-loader": "4.11.0",
     "react-minimal-pie-chart": "^8.1.0",
-    "react-router-dom": "5.0.1"
+    "react-router-dom": "5.0.1",
+    "styled-components": "^5.2.1"
   },
   "devDependencies": {
     "@babel/cli": "7.4.4",
