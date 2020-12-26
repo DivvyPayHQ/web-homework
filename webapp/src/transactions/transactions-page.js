@@ -5,7 +5,7 @@ const mockTransactions = [
   { id: 2, amount: '100.00', user: 'Joe', merchant: 'Target', description: 'Return', credit: true, debit: false }
 ]
 
-export function TransactionsPage (props) {
+export function TransactionsPage () {
   const [transactions, setTransactions] = useState(mockTransactions)
   const [currentTransaction, setCurrentTransaction] = useState({ amount: '', user: '', merchant: '', description: '', credit: false, debit: false })
 
