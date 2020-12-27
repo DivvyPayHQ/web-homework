@@ -60,6 +60,7 @@ merchant_data = [
 
 transaction_data = [
     %{
+        id: "6ad67dea-0ca8-4b75-84e0-0ce702a7e611",
         amount: 1234,
         credit: true,
         debit: false,
@@ -68,6 +69,7 @@ transaction_data = [
         user_id: "127233f3-f07c-4ae8-ae1b-cd9cfb0cebc9"
     },
     %{
+        id: "40754a8d-be15-4c43-85d4-eb8157c109b4",
         amount: 25000,
         credit: false,
         debit: true,
@@ -78,13 +80,16 @@ transaction_data = [
 ];
 
 Enum.each(user_data, fn(data) -> 
-    Homework.Repo.insert!(%User{id: data.id, dob: data.dob, first_name: data.first_name, last_name: data.last_name})
+    Homework.Repo.insert!(%User{id: data.id, dob: data.dob, first_name: data.first_name, last_name: data.last_name},
+    on_conflict: :nothing)
 end)
 
 Enum.each(merchant_data, fn(data) -> 
-    Homework.Repo.insert!(%Merchant{id: data.id, name: data.name, description: data.description})
+    Homework.Repo.insert!(%Merchant{id: data.id, name: data.name, description: data.description},
+    on_conflict: :nothing)
 end)
 
 Enum.each(transaction_data, fn(data) -> 
-    Homework.Repo.insert!(%Transaction{amount: data.amount, debit: data.debit, credit: data.credit, description: data.description, merchant_id: data.merchant_id, user_id: data.user_id})
+    Homework.Repo.insert!(%Transaction{id: data.id, amount: data.amount, debit: data.debit, credit: data.credit, description: data.description, merchant_id: data.merchant_id, user_id: data.user_id},
+    on_conflict: :nothing)
 end)
