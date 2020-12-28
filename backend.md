@@ -1,6 +1,11 @@
 # Divvy Backend Homework Instructions
 
-Instructions for the backend assignment.
+This repository provides a starting point for a basic React + GraphQL application.
+All of the configuration boilerplate is complete so you can start by writing the code that you want us to see.
+
+Please **fork** this repo to your GitHub account.
+
+You do not need to complete the frontend assignments if you are planning to apply specifically for a backend role.
 
 ## Instructions
 
