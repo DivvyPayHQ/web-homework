@@ -61,8 +61,7 @@ export const client = new ApolloClient({
       cache
     }),
     new HttpLink({
-      uri: SERVER_URL,
-      credentials: 'include'
+      uri: SERVER_URL
     })
   ]),
   cache

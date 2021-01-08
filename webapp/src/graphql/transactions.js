@@ -6,11 +6,9 @@ export const GET_ALL_TRANSACTIONS = gql`
             id
             amount
             description
-            description
             credit
             debit
             insertedAt
-            category
             user {
                 id
                 firstName
@@ -19,9 +17,6 @@ export const GET_ALL_TRANSACTIONS = gql`
             merchant {
                 id
                 name
-            }
-            company {
-                id
             }
         }
     }
