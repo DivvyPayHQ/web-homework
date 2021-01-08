@@ -43,6 +43,17 @@ export function CreateTransaction () {
         onChange={handleChange}
         value={transaction.description}
       />
+      <div>Merchant</div>
+      <select name='merchantId' onBlur={handleChange}>
+        <option value=''> </option>
+        <option value='344296f8-93a2-4935-8f4b-89a377585293'>Tesla</option>
+      </select>
+
+      <div>User</div>
+      <select name='userId' onBlur={handleChange}>
+        <option value=''> </option>
+        <option value='1544bcf6-11a1-42ce-b640-b8e3ed2626d4'>Eliott Moreno</option>
+      </select>
     </>
   )
 }
