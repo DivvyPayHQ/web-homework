@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react'
+import React from 'react'
+import { CreateTransaction } from '../views/create-transaction.component'
 
 export function Home () {
   return (
-    <Fragment>
-      {/* <Link to='/another'>Another route</Link> */}
-      <div>Ready, steady, go!</div>
-    </Fragment>
+    <>
+      <CreateTransaction />
+    </>
   )
 }
