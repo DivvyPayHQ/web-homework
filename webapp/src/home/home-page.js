@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { CreateTransaction } from '../views/create-transaction.component'
 import { GET_ALL_TRANSACTIONS } from '../graphql/transactions'
 import { useQuery } from '@apollo/react-hooks'
+import Container from '@material-ui/core/Container'
 
 export function Home () {
   const { data } = useQuery(GET_ALL_TRANSACTIONS)
@@ -13,8 +14,9 @@ export function Home () {
 
   return (
     <>
-      <CreateTransaction />
-
+      <Container>
+        <CreateTransaction />
+      </Container>
     </>
   )
 }
