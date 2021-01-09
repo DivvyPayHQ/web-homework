@@ -31,7 +31,8 @@ export function CreateTransaction () {
   } })
   const { data: merchantData } = useQuery(GET_ALL_MERCHANTS)
   const { data: userData } = useQuery(GET_ALL_USERS)
-  const [transaction, setTransaction] = useState({ amount: 0, credit: false, debit: false, description: '', merchantId: '', userId: '' })
+  const defaultTransactionState = { amount: 0, credit: false, debit: false, description: '', merchantId: '', userId: '' }
+  const [transaction, setTransaction] = useState(defaultTransactionState)
 
   const handleChange = ({ target }) => {
     const value = target.name === 'amount' ? parseFloat(target.value) : target.value
@@ -91,6 +92,7 @@ export function CreateTransaction () {
         <div>
           <Button css={buttonStyle} onClick={() => {
             createTransaction({ variables: transaction })
+            setTransaction(defaultTransactionState)
           }}>
           Create Transaction
           </Button>
