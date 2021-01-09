@@ -7,7 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
-import InfoIcon from '@material-ui/icons/Info'
+import NoteIcon from '@material-ui/icons/Note'
 import Tooltip from '@material-ui/core/Tooltip'
 import DeleteForever from '@material-ui/icons/DeleteForever'
 import { useMutation } from '@apollo/react-hooks'
@@ -75,7 +75,7 @@ export function TransactionTable ({ transactions, roman }) {
               <TableCell align='left' css={noBorderCell}>{creditOrDebit(transaction.credit)}</TableCell>
               <TableCell align='left' css={noBorderCell}>{transaction.merchant.name}</TableCell>
               <TableCell align='left' css={noBorderCell}>{transaction.user.firstName} {transaction.user.lastName}</TableCell>
-              <TableCell align='center' css={[noBorderCell, descriptionCellStyle]}><Tooltip title={transaction.description}><InfoIcon /></Tooltip></TableCell>
+              <TableCell align='center' css={[noBorderCell, descriptionCellStyle]}><Tooltip title={transaction.description}><NoteIcon /></Tooltip></TableCell>
               <TableCell align='center' css={[noBorderCell, descriptionCellStyle]}><DeleteForever css={deleteIconStyle} onClick={() => { deleteTransaction({ variables: { id: transaction.id } }) }} /></TableCell>
             </TableRow>
           ))}
