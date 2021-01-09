@@ -16,7 +16,7 @@ function AppRouter () {
               <Link to='/'>Home</Link>
             </li>
             <li>
-              <Link to='/transactions'>Transactions</Link>
+              <Link to='/transactions?i18n=false'>Transactions</Link>
             </li>
             <li>
               <Link to='/merchants'>Merchants</Link>

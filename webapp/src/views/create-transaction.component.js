@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Input from '@material-ui/core/Input'
 import Select from '@material-ui/core/Select'
 import InputLabel from '@material-ui/core/InputLabel'
@@ -8,11 +8,27 @@ import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormControl from '@material-ui/core/FormControl'
-import { CREATE_TRANSACTION, GET_ALL_MERCHANTS, GET_ALL_USERS } from '../graphql/transactions'
+import { CREATE_TRANSACTION, GET_ALL_MERCHANTS, GET_ALL_USERS, GET_ALL_TRANSACTIONS } from '../graphql/transactions'
 import { useMutation, useQuery } from '@apollo/react-hooks'
 
 export function CreateTransaction () {
-  const [createTransaction] = useMutation(CREATE_TRANSACTION)
+  const [createTransaction] = useMutation(CREATE_TRANSACTION, { update (cache, { data }) {
+    const newTransaction = data.createTransaction
+    const exisitingTransactions = cache.readQuery({
+      query: GET_ALL_TRANSACTIONS
+    })
+    if (exisitingTransactions && newTransaction) {
+      cache.writeQuery({
+        query: GET_ALL_TRANSACTIONS,
+        data: {
+          transactions: [
+            ...exisitingTransactions.transactions,
+            newTransaction
+          ]
+        }
+      })
+    }
+  } })
   const { data: merchantData } = useQuery(GET_ALL_MERCHANTS)
   const { data: userData } = useQuery(GET_ALL_USERS)
   const [transaction, setTransaction] = useState({ amount: 0, credit: false, debit: false, description: '', merchantId: '', userId: '' })
@@ -27,10 +43,6 @@ export function CreateTransaction () {
       setTransaction({ ...transaction, [target.name]: value })
     }
   }
-
-  useEffect(() => {
-    console.log(transaction)
-  }, [transaction])
 
   return (
     <>
@@ -61,7 +73,7 @@ export function CreateTransaction () {
         />
         <InputLabel css={inputLabelStyle} id='merchant'>Merchant</InputLabel>
         <Select css={selectStyle} name='merchantId' onBlur={handleChange}>
-          <option value=''> </option>
+          <option value=''>{``}</option>
           {merchantData && merchantData.merchants.map(({ id, name }) => (
             <option key={id} value={id}>{name}</option>
           ))}
@@ -69,14 +81,13 @@ export function CreateTransaction () {
 
         <InputLabel css={inputLabelStyle} id='users'>User</InputLabel>
         <Select css={selectStyle} name='userId' onBlur={handleChange}>
-          <option value=''> </option>
+          <option value=''>{``}</option>
           {userData && userData.users.map(({ id, firstName, lastName }) => (
             <option key={id} value={id}>{firstName} {lastName}</option>
           ))}
         </Select>
         <div>
           <Button css={buttonStyle} onClick={() => {
-            console.log(transaction)
             createTransaction({ variables: transaction })
           }}>
           Create Transaction
