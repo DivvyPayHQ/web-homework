@@ -13,5 +13,6 @@ defmodule HomeworkWeb.Router do
       interface: :simple,
       context: %{pubsub: HomeworkWeb.Endpoint}
     )
+    forward("/", Absinthe.Plug, schema: HomeworkWeb.Schema)
   end
 end

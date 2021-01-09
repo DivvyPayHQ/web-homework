@@ -5,7 +5,7 @@ import { ApolloLink, Observable } from 'apollo-link'
 import ApolloClient from 'apollo-client/ApolloClient'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
-const SERVER_URL = 'http://localhost:8000/graphql'
+const SERVER_URL = 'http://localhost:8000/'
 
 const request = async operation => {
   let headers = {}
@@ -61,8 +61,7 @@ export const client = new ApolloClient({
       cache
     }),
     new HttpLink({
-      uri: SERVER_URL,
-      credentials: 'include'
+      uri: SERVER_URL
     })
   ]),
   cache
