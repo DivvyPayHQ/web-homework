@@ -3,6 +3,6 @@
 
 // Pass configuration to application
 require('../')({
-  port: 8000,
+  port: 5000,
   host: 'localhost'
 })

@@ -36,6 +36,7 @@
     }
   },
   "dependencies": {
+    "@apollo/client": "^3.3.6",
     "@emotion/core": "10.0.10",
     "@emotion/styled": "10.0.12",
     "apollo-cache-inmemory": "1.6.2",
