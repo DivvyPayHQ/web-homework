@@ -22,7 +22,7 @@ export const GET_ALL_TRANSACTIONS = gql`
 `
 
 export const CREATE_TRANSACTION = gql`
-    mutation createTransaction($amount:Int!, $credit: Boolean!, $debit:Boolean!, $description:String!, $merchantId: ID!, $userId:ID!) {
+    mutation createTransaction($amount:Float!, $credit: Boolean!, $debit:Boolean!, $description:String!, $merchantId: ID!, $userId:ID!) {
         createTransaction(amount: $amount, credit: $credit, debit: $debit, description:$description, merchantId:$merchantId, userId:$userId) {
             amount
             credit
