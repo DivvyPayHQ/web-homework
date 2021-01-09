@@ -7,12 +7,20 @@ import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
+import InfoIcon from '@material-ui/icons/Info'
+import Tooltip from '@material-ui/core/Tooltip'
+import DeleteForever from '@material-ui/icons/DeleteForever'
+import { useMutation } from '@apollo/react-hooks'
+import { DELETE_TRANSACTION } from '../graphql/transactions'
 
 // eslint-disable-next-line react/prop-types
 export function TransactionTable ({ transactions }) {
   const creditOrDebit = (credit) => {
     return credit === true ? 'Credit' : 'Debit'
   }
+
+  const [deleteTransaction] = useMutation(DELETE_TRANSACTION)
+
   return (
     <TableContainer component={Paper} css={tableContainerStyle}>
       <Table aria-label='simple table' css={tableStyle}>
@@ -22,6 +30,8 @@ export function TransactionTable ({ transactions }) {
             <TableCell align='left' css={tableHeaderCellStyle}>Credit or Debit</TableCell>
             <TableCell align='left' css={tableHeaderCellStyle}>Merchant</TableCell>
             <TableCell align='left' css={tableHeaderCellStyle}>User</TableCell>
+            <TableCell align='center' css={[tableHeaderCellStyle, descriptionCellStyle]}>Description</TableCell>
+            <TableCell align='center' css={noBorderCell}> </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -31,6 +41,8 @@ export function TransactionTable ({ transactions }) {
               <TableCell align='left' css={noBorderCell}>{creditOrDebit(transaction.credit)}</TableCell>
               <TableCell align='left' css={noBorderCell}>{transaction.merchant.name}</TableCell>
               <TableCell align='left' css={noBorderCell}>{transaction.user.firstName} {transaction.user.lastName}</TableCell>
+              <TableCell align='center' css={[noBorderCell, descriptionCellStyle]}><Tooltip title={transaction.description}><InfoIcon /></Tooltip></TableCell>
+              <TableCell align='center' css={[noBorderCell, descriptionCellStyle]}><DeleteForever css={deleteIconStyle} onClick={() => { deleteTransaction({ variables: { id: transaction.id } }) }} /></TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -52,6 +64,13 @@ const tableStyle = css`
 const noBorderCell = css`
     border-bottom: none;
 `
+const descriptionCellStyle = css`
+    width: 10%;
+`
+
 const tableHeaderCellStyle = css`
     font-weight: 600;
+`
+const deleteIconStyle = css`
+    color: indianred;
 `

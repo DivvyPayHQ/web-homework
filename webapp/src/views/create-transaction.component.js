@@ -8,17 +8,23 @@ import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormControl from '@material-ui/core/FormControl'
+import { CREATE_TRANSACTION, GET_ALL_MERCHANTS, GET_ALL_USERS } from '../graphql/transactions'
+import { useMutation, useQuery } from '@apollo/react-hooks'
 
 export function CreateTransaction () {
-  const [transaction, setTransaction] = useState({ amount: 0, credit: false, debit: '', description: '', merchantId: undefined, userId: undefined })
+  const [createTransaction] = useMutation(CREATE_TRANSACTION)
+  const { data: merchantData } = useQuery(GET_ALL_MERCHANTS)
+  const { data: userData } = useQuery(GET_ALL_USERS)
+  const [transaction, setTransaction] = useState({ amount: 0, credit: false, debit: false, description: '', merchantId: '', userId: '' })
 
   const handleChange = ({ target }) => {
+    const value = target.name === 'amount' ? parseInt(target.value) : target.value
     if (target.value === 'credit') {
       setTransaction({ ...transaction, credit: true, debit: false })
     } else if (target.value === 'debit') {
       setTransaction({ ...transaction, debit: true, credit: false })
     } else {
-      setTransaction({ ...transaction, [target.name]: target.value })
+      setTransaction({ ...transaction, [target.name]: value })
     }
   }
 
@@ -33,7 +39,7 @@ export function CreateTransaction () {
         <Input
           name='amount'
           onChange={handleChange}
-          type='text'
+          type='number'
           value={transaction.amount}
         />
 
@@ -56,16 +62,23 @@ export function CreateTransaction () {
         <InputLabel css={inputLabelStyle} id='merchant'>Merchant</InputLabel>
         <Select css={selectStyle} name='merchantId' onBlur={handleChange}>
           <option value=''> </option>
-          <option value='344296f8-93a2-4935-8f4b-89a377585293'>Tesla</option>
+          {merchantData && merchantData.merchants.map(({ id, name }) => (
+            <option key={id} value={id}>{name}</option>
+          ))}
         </Select>
 
         <InputLabel css={inputLabelStyle} id='users'>User</InputLabel>
         <Select css={selectStyle} name='userId' onBlur={handleChange}>
           <option value=''> </option>
-          <option value='1544bcf6-11a1-42ce-b640-b8e3ed2626d4'>Eliott Moreno</option>
+          {userData && userData.users.map(({ id, firstName, lastName }) => (
+            <option key={id} value={id}>{firstName} {lastName}</option>
+          ))}
         </Select>
         <div>
-          <Button css={buttonStyle}>
+          <Button css={buttonStyle} onClick={() => {
+            console.log(transaction)
+            createTransaction({ variables: transaction })
+          }}>
           Create Transaction
           </Button>
         </div>
