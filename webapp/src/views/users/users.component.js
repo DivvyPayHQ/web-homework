@@ -1,9 +1,9 @@
 import React from 'react'
-import { CreateTransaction } from '../create-transaction.component'
+import { CreateUser } from './create-user.component'
 import { GET_ALL_USERS } from '../../graphql/users'
 import { useQuery } from '@apollo/react-hooks'
 import Container from '@material-ui/core/Container'
-import { TransactionTable } from '../transactions-table.component'
+import { UsersTable } from './users-table.component'
 
 export function Users () {
   const { data, loading } = useQuery(GET_ALL_USERS)
@@ -11,8 +11,8 @@ export function Users () {
   return (
     <>
       <Container>
-        <CreateTransaction />
-        {!loading && (<TransactionTable transactions={data.transactions} />)}
+        <CreateUser />
+        {!loading && (<UsersTable users={data.users} />)}
       </Container>
     </>
   )

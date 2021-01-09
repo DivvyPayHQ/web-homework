@@ -19,18 +19,18 @@ function AppRouter () {
               <Link to='/transactions'>Transactions</Link>
             </li>
             <li>
-              <Link to='/users'>Users</Link>
+              <Link to='/merchants'>Merchants</Link>
             </li>
             <li>
-              <Link to='/users'>Merchants</Link>
+              <Link to='/users'>Users</Link>
             </li>
           </ul>
         </nav>
         <div className='main-content' css={contentStyle}>
           <Route component={Home} exact path='/' />
           <Route component={TransactionsView} exact path='/transactions' />
-          <Route component={Users} exact path='/users' />
           <Route component={Merchants} exact path='/merchants' />
+          <Route component={Users} exact path='/users' />
         </div>
       </div>
     </Router>
