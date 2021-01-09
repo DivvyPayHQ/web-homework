@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { css } from '@emotion/core'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -11,7 +11,7 @@ import InfoIcon from '@material-ui/icons/Info'
 import Tooltip from '@material-ui/core/Tooltip'
 import DeleteForever from '@material-ui/icons/DeleteForever'
 import { useMutation } from '@apollo/react-hooks'
-import { DELETE_TRANSACTION } from '../graphql/transactions'
+import { DELETE_TRANSACTION, GET_ALL_TRANSACTIONS } from '../graphql/transactions'
 
 // eslint-disable-next-line react/prop-types
 export function TransactionTable ({ transactions, roman }) {
@@ -53,7 +53,7 @@ export function TransactionTable ({ transactions, roman }) {
     return roman
   }
 
-  const [deleteTransaction] = useMutation(DELETE_TRANSACTION)
+  const [deleteTransaction] = useMutation(DELETE_TRANSACTION, { refetchQueries: [{ query: GET_ALL_TRANSACTIONS }] })
 
   return (
     <TableContainer component={Paper} css={tableContainerStyle}>
