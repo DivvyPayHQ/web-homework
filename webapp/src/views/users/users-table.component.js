@@ -9,11 +9,11 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import DeleteForever from '@material-ui/icons/DeleteForever'
 import { useMutation } from '@apollo/react-hooks'
-import { DELETE_USER } from '../../graphql/users'
+import { DELETE_USER, GET_ALL_USERS } from '../../graphql/users'
 
 // eslint-disable-next-line react/prop-types
 export function UsersTable ({ users }) {
-  const [deleteUser] = useMutation(DELETE_USER)
+  const [deleteUser] = useMutation(DELETE_USER, { refetchQueries: { query: GET_ALL_USERS } })
 
   return (
     <TableContainer component={Paper} css={tableContainerStyle}>
