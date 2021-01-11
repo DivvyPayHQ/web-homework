@@ -7,7 +7,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 
 const SERVER_URL = 'http://localhost:8000/graphql'
 
-const request = async operation => {
+const request = async (operation) => {
   let headers = {}
   operation.setContext({ headers })
 }
@@ -16,10 +16,10 @@ const cache = new InMemoryCache()
 
 const requestLink = new ApolloLink(
   (operation, forward) =>
-    new Observable(observer => {
+    new Observable((observer) => {
       let handle
       Promise.resolve(operation)
-        .then(oper => request(oper))
+        .then((oper) => request(oper))
         .then(() => {
           handle = forward(operation).subscribe({
             next: observer.next.bind(observer),
