@@ -14,7 +14,8 @@ The `/webserver` one includes a functional GraphQL server in NodeJS with MongoDB
 
 The `/elixir` one includes a functional GraphQL server in Elixir with Postgresql backing it.
 
-Pick one or the other to use.
+If you are applying for backend, you should use the elixir code.
+If you are applying for frontend, feel free to use either.
 
 This project is intentionally not utilizing 3rd party services or create-react-app to give you the opportunity to showcase your talents wherever they are, be it the front end or the back end.
 
