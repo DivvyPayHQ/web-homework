@@ -11,8 +11,6 @@ You do not need to complete the frontend assignments if you are planning to appl
 
 You do not have to complete all of these objectives, but do as many as you can without wasting your time.
 
-The completed homework assignment must have a usable interface that loads dynamically and is interactive.
-
 For **senior engineers**, complete enough of the project to demonstrate your abilities as a senior.  This should be more than 3 objectives.  You can modify anything you need to with this project, so kick the tires and show us what you can do.
 
 For **mid-level engineers**, complete any 3 objectives.
