@@ -1,7 +1,8 @@
 import React, { Component, useState } from 'react'
 import gql from 'graphql-tag'
 import { Query, compose, graphql } from 'react-apollo'
-// import { addTransactionQuery } from "../queries/queries"
+// import { getTransactionQuery } from '../queries/queries'
+import { addTransactionQuery } from '../queries/queries'
 
 // const getTransactionQuery = gql`
 //   {
@@ -12,36 +13,37 @@ import { Query, compose, graphql } from 'react-apollo'
 //   }
 // `
 
-const addTransactionQuery = gql`
-  mutation(
-    $user_id: String!
-    $description: String!
-    $merchant_id: String!
-    $debit: Boolean
-    $credit: Boolean
-    $amount: Float
-  ) {
-    addTransaction(
-      user_id: $user_id
-      description: $description
-      merchant_id: $merchant_id
-      debit: $debit
-      credit: $credit
-      amount: $amount
-    ) {
-      description
-      id
-    }
-  }
-`
+// const addTransactionQuery = gql`
+//   mutation(
+//     $user_id: String!
+//     $description: String!
+//     $merchant_id: String!
+//     $debit: Boolean
+//     $credit: Boolean
+//     $amount: Float
+//   ) {
+//     addTransaction(
+//       user_id: $user_id
+//       description: $description
+//       merchant_id: $merchant_id
+//       debit: $debit
+//       credit: $credit
+//       amount: $amount
+//     ) {
+//       description
+//       id
+//     }
+//   }
+// `
 
-const AddTransaction = () => {
+const AddTransaction = (props) => {
   const [userId, setUserId] = useState('')
   const [merchantId, setMerchantId] = useState('')
   const [debit, setDebit] = useState('')
   const [credit, setCredit] = useState('')
-  const [amount, setAmount] = useState('')
+  const [amount, setAmount] = useState(0)
   const [description, setDescription] = useState('')
+  const [transactionType, setTransactionType] = useState('')
 
   // const newTransaction = {
   //   userId,
@@ -54,8 +56,33 @@ const AddTransaction = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    alert(`You have submitted the form.${userId} ${amount} ${merchantId} ${debit} ${credit} ${description}`)
-    addTransactionQuery()
+    console.log(
+      `You have submitted the form.${userId} ${amount} ${merchantId} ${debit} ${credit} ${description} ${transactionType}`
+    )
+
+    console.log(transactionType)
+
+
+    console.log({
+      user_id: userId,
+      merchant_id: merchantId,
+      debit: transactionType === 'debit',
+      credit: transactionType === 'credit',
+      amount: amount,
+      description: description,
+    })
+
+    props.addTransactionQuery({
+      variables: {
+        user_id: userId,
+        merchant_id: merchantId,
+        debit: transactionType === 'debit',
+        credit: transactionType === 'credit',
+        transactionType: transactionType,
+        amount: amount,
+        description: description
+      }
+    })
   }
 
   return (
@@ -87,7 +114,7 @@ const AddTransaction = () => {
 
         <div className='field'>
           <label>Amount: </label>
-          <input onChange={(e) => setAmount(e.target.value)} type='text' />
+          <input onChange={(e) => setAmount(e.target.value != '' ? parseFloat(e.target.value) : 0)} type='text' />
         </div>
 
         <div className='field'>
@@ -97,9 +124,13 @@ const AddTransaction = () => {
 
         <div className='field'>
           <label />
-          <select>
-            <option onChange={(e) => setDebit(e.target.value)}>Debit: </option>
-            <option onChange={(e) => setCredit(e.target.value)}>credit: </option>
+          <select onChange={(e) => setTransactionType(e.target.value)}>
+            <option label='Debit' value="debit" >
+              debit
+            </option>
+            <option label='Credit' value="credit">
+              credit
+            </option>
           </select>
         </div>
         <button>+</button>
@@ -112,4 +143,4 @@ const AddTransaction = () => {
 //   graphql(addTransactionQuery, { name: "addTransactionQuery" })
 
 // )(AddTransaction);
-export default AddTransaction
+export default graphql(addTransactionQuery, { name: 'addTransactionQuery' })(AddTransaction)

@@ -20,10 +20,10 @@ const Form = () => {
   //   amount: amount
   // }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    alert(`You have submitted the form. ${amount}`)
-  }
+  // const handleSubmit = (e) => {
+  //   e.preventDefault()
+  //   alert(`You have submitted the form. ${amount}`)
+  // }
 
   const toggle = () => {
     setToggleForm(!toggleForm)
