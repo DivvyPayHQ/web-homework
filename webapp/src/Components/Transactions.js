@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import gql from 'graphql-tag'
-import { Query } from 'react-apollo'
-import { getTransactionQuery } from '../queries/queries'
+import { Query, graphql } from 'react-apollo'
+// import { useQuery, useMutation } from '@apollo/react-hooks'
+import { getTransactionQuery, removeTransaction } from '../queries/queries'
 
 // const getTransactionQuery = gql`
 //   {
@@ -16,7 +17,31 @@ import { getTransactionQuery } from '../queries/queries'
 //   }
 // `
 
-const Transactions = () => {
+
+//   const removeTransaction = gql`
+//   mutation DeleteTransaction($transactionId: String!) {
+//     deleteTransaction(transactionId: $transactionId) {
+//       id
+//     }
+//   }
+// `
+// }
+
+const Transactions = (props) => {
+
+  const deleteTrans = (id) => {
+    console.log("This is the ID:", id);
+    props.removeTransaction({
+      variables: {
+        transactionId: id
+      }
+    })
+  }
+
+  const editTransaction = (transaction) => {
+    console.log(transaction);
+  }
+
   return (
     <Query query={getTransactionQuery}>
       {({ loading, error, data }) => {
@@ -26,17 +51,20 @@ const Transactions = () => {
           <div className='container'>
             <h1>Transactions</h1>
             <div className='row'>
-              {data.transactions.map((trans) => (
+              {data.transactions.map((transaction) => (
                 <div className='col-sm'>
                   <div className='card' style={{ width: '18rem' }}>
-                    <div className='card-body' key={trans.id}>
-                      <h5 className='card-title'>User Id: {trans.user_id}</h5>
-                      <p className='card-text'>description: {trans.description}</p>
-                      <p className='card-text'>Merchant Id: {trans.merchant_id}</p>
-                      <p className='card-text'>Debit {trans.debit}</p>
-                      <p className='card-text'>Credit {trans.credit}</p>
-                      <p className='card-text'> Amount: {trans.amount}</p>
+                    <div className='card-body' key={transaction.id}>
+                      <h5 className='card-title'>User Id: {transaction.user_id}</h5>
+                      <p className='card-text'>description: {transaction.description}</p>
+                      <p className='card-text'>Merchant Id: {transaction.merchant_id}</p>
+                      <p className='card-text'>Debit {transaction.debit}</p>
+                      <p className='card-text'>Credit {transaction.credit}</p>
+                      <p className='card-text'> Amount: {transaction.amount}</p>
                     </div>
+                    <button onClick={(e) => deleteTrans(transaction.id)}>Delete</button>
+
+                    <button onClick={() => editTransaction(transaction)}>Edit</button>
                   </div>
                 </div>
               ))}
@@ -48,4 +76,6 @@ const Transactions = () => {
   )
 }
 
-export default Transactions
+// export default Transactions
+export default graphql(removeTransaction, { name: 'removeTransaction' })(Transactions)
+

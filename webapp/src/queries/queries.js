@@ -3,6 +3,7 @@ import gql from 'graphql-tag'
 const getTransactionQuery = gql`
   {
     transactions {
+      id
       user_id
       description
       merchant_id
@@ -36,7 +37,15 @@ const addTransactionQuery = gql`
   }
 `
 
+const removeTransaction = gql`
+  mutation DeleteTransaction($transactionId: String!) {
+    deleteTransaction(transactionId: $transactionId) {
+      id
+    }
+  }
+`
+
 // export { getTransactionQuery }
 // export { addTransactionQuery }
 
-export { getTransactionQuery, addTransactionQuery }
+export { getTransactionQuery, addTransactionQuery, removeTransaction }

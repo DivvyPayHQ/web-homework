@@ -60,11 +60,11 @@ const AddTransaction = (props) => {
       `You have submitted the form.${userId} ${amount} ${merchantId} ${debit} ${credit} ${description} ${transactionType}`
     )
 
-    console.log(transactionType)
+    // console.log(transactionType)
 
 
     console.log({
-      user_id: userId,
+      user_id: randomCode(),
       merchant_id: merchantId,
       debit: transactionType === 'debit',
       credit: transactionType === 'credit',
@@ -74,7 +74,7 @@ const AddTransaction = (props) => {
 
     props.addTransactionQuery({
       variables: {
-        user_id: userId,
+        user_id: randomCode(),
         merchant_id: merchantId,
         debit: transactionType === 'debit',
         credit: transactionType === 'credit',
@@ -84,6 +84,11 @@ const AddTransaction = (props) => {
       }
     })
   }
+
+  const randomCode = () => {
+    return  Math.random().toString(36).substr(2, 9);
+  }
+ 
 
   return (
     <div>
