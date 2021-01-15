@@ -1,4 +1,3 @@
-require('regenerator-runtime/runtime');
 require('jest-expect-message');
 require('babel-polyfill');
 const jsdom = require('jsdom');
