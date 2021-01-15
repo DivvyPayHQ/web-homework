@@ -1,9 +1,5 @@
-import { HttpLink } from 'apollo-link-http'
-import { onError } from 'apollo-link-error'
-import { withClientState } from 'apollo-link-state'
-import { ApolloLink, Observable } from 'apollo-link'
-import ApolloClient from 'apollo-client/ApolloClient'
-import { InMemoryCache } from 'apollo-cache-inmemory'
+import { ApolloClient, ApolloLink, HttpLink, InMemoryCache, Observable } from '@apollo/client'
+import { onError } from '@apollo/client/link/error'
 
 const SERVER_URL = 'http://localhost:8000/graphql'
 
@@ -19,7 +15,7 @@ const requestLink = new ApolloLink(
     new Observable(observer => {
       let handle
       Promise.resolve(operation)
-        .then(oper => request(oper))
+        .then(operation => request(operation))
         .then(() => {
           handle = forward(operation).subscribe({
             next: observer.next.bind(observer),
@@ -46,23 +42,8 @@ export const client = new ApolloClient({
       }
     }),
     requestLink,
-    withClientState({
-      defaults: {
-        isConnected: true
-      },
-      resolvers: {
-        Mutation: {
-          updateNetworkStatus: (_, { isConnected }, { cache }) => {
-            cache.writeData({ data: { isConnected } })
-            return null
-          }
-        }
-      },
-      cache
-    }),
     new HttpLink({
-      uri: SERVER_URL,
-      credentials: 'include'
+      uri: SERVER_URL
     })
   ]),
   cache

@@ -61,6 +61,23 @@ module.exports = function main (options, cb) {
   // Create the express app
   const app = express()
 
+  // CORS
+  const corsOptions = { }
+
+  // app.use(cors(corsOptions))
+  app.use(cors())
+  app.options('*', cors())
+
+  /*
+  app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+    next()
+  })
+  */
+
+
+
   app.use(express.static(path.join(__dirname, 'public')))
 
   // Template engine
@@ -71,18 +88,6 @@ module.exports = function main (options, cb) {
   // Common middleware
   // app.use(/* ... */)
   app.use(pinoHttp({ logger }))
-
-  // CORS
-  const corsOptions = {
-    'credentials': true,
-    'origin': 'http://localhost:3000',
-    'methods': 'GET,POST',
-    'preflightContinue': false,
-    'optionsSuccessStatus': 200
-  }
-
-  app.use(cors(corsOptions))
-  app.options('*', cors(corsOptions))
 
   // Register routes
   // @NOTE: require here because this ensures that even syntax errors
