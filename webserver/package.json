@@ -7,6 +7,8 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
+    "boot": "yarn --ignore-engines",
+    "reset": "rm -rf node_modules 2> /dev/null && yarn boot",
     "start": "./bin/app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -2,7 +2,9 @@
   "name": "@divvy/react-challenge-web",
   "main": "index.js",
   "scripts": {
+    "boot": "yarn --ignore-engines",
     "build": "webpack -d",
+    "reset": "rm -rf node_modules 2> /dev/null && yarn boot",
     "start": "webpack-dev-server -d --hot"
   },
   "jest": {

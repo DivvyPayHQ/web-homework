@@ -23,8 +23,8 @@ This project is intentionally not utilizing 3rd party services or create-react-a
 
 ## Instructions
 
-See the [frontend instructions](frontend.md) for frontend focused instructions.
+See the [Frontend instructions](webapp/README.md) for frontend focused instructions.
 
-See the [backend instructions](backend.md) for backend focused instructions.
+See the [Backend instructions](backend.md) for backend focused instructions.
 
 
