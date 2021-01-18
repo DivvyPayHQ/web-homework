@@ -23,7 +23,7 @@ This project is intentionally not utilizing 3rd party services or create-react-a
 
 ## Instructions
 
-See the [Frontend instructions](webapp/README.md) for frontend focused instructions.
+See the [Frontend instructions](webapp/README.md) for frontend focused instructions.  If front end only, use the node server in `/webserver`.
 
 See the [Backend instructions](backend.md) for backend focused instructions.
 
