@@ -90,6 +90,28 @@ defmodule Homework.Transactions do
   end
 
   @doc """
+  Returns transactions summed amount for a company
+  #
+  ## Examples
+
+      iex> total_amount_for_company(company)
+      123
+
+      iex> total_amount_for_company(company)
+      0
+
+  """
+  def total_amount_for_company(%Homework.Companies.Company{id: company_id}) do
+    q =
+      from(t in Transaction,
+        select: fragment("SUM(CASE WHEN debit THEN amount ELSE -amount END)"),
+        where: t.company_id == ^company_id
+      )
+
+    Repo.one(q) || 0
+  end
+
+  @doc """
   Returns an `%Ecto.Changeset{}` for tracking transaction changes.
 
   ## Examples

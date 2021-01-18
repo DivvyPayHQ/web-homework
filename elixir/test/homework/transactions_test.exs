@@ -4,8 +4,7 @@ defmodule Homework.TransactionsTest do
   import Homework.CompaniesFixtures, only: [company_fixture: 0]
   import Homework.UsersFixtures, only: [user_fixture: 1]
 
-  alias Homework.Merchants
-  alias Homework.Transactions
+  alias Homework.{Merchants, Transactions}
 
   describe "transactions" do
     alias Homework.Transactions.Transaction
@@ -163,6 +162,21 @@ defmodule Homework.TransactionsTest do
     test "change_transaction/1 returns a transaction changeset", %{valid_attrs: valid_attrs} do
       transaction = transaction_fixture(valid_attrs)
       assert %Ecto.Changeset{} = Transactions.change_transaction(transaction)
+    end
+
+    test "total_amount_for_company/1 returns sum of transactios amounts", %{
+      valid_attrs: valid_attrs,
+      company1: company
+    } do
+      transaction1 =
+        transaction_fixture(%{valid_attrs | amount: 1, company_id: company.id, debit: true})
+
+      transaction2 =
+        transaction_fixture(%{valid_attrs | amount: 3, company_id: company.id, debit: true})
+
+      expected_total_transactions_amount = transaction1.amount + transaction2.amount
+
+      assert Transactions.total_amount_for_company(company) == expected_total_transactions_amount
     end
   end
 end
