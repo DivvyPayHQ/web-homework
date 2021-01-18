@@ -44,4 +44,39 @@ defmodule HomeworkWeb.Schemas.CompaniesSchemaTest do
              }
     end
   end
+
+  describe "mutation: createCompany" do
+    @create_company_mutation """
+    mutation ($name: String, $creditLine: Int) {
+      createCompany(name: $name, creditLine: $creditLine) {
+        name
+        creditLine
+        availableCredit
+      }
+    }
+    """
+
+    test "creates a company with valid fields", %{conn: conn} do
+      company_vars = %{
+        "name" => "Company Name ABC",
+        "creditLine" => 123
+      }
+
+      conn =
+        post(conn, "/graphiql", %{
+          "query" => @create_company_mutation,
+          "variables" => company_vars
+        })
+
+      assert json_response(conn, 200) == %{
+               "data" => %{
+                 "createCompany" => %{
+                   "availableCredit" => 123,
+                   "creditLine" => 123,
+                   "name" => "Company Name ABC"
+                 }
+               }
+             }
+    end
+  end
 end

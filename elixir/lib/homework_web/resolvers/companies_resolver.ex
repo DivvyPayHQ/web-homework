@@ -13,6 +13,19 @@ defmodule HomeworkWeb.Resolvers.CompaniesResolver do
     {:ok, companies}
   end
 
+  @doc """
+  Creates a company
+  """
+  def create_company(_root, args, _info) do
+    case Companies.create_company(args) do
+      {:ok, company} ->
+        {:ok, company |> add_available_credit()}
+
+      error ->
+        {:error, "could not create company: #{inspect(error)}"}
+    end
+  end
+
   defp add_available_credit(company) do
     # This is N+1, but lets get it working
     Map.put(

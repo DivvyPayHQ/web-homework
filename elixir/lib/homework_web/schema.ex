@@ -36,5 +36,6 @@ defmodule HomeworkWeb.Schema do
     import_fields(:transaction_mutations)
     import_fields(:user_mutations)
     import_fields(:merchant_mutations)
+    import_fields(:company_mutations)
   end
 end
