@@ -2,6 +2,7 @@ defmodule Homework.CompaniesTest do
   use Homework.DataCase
 
   alias Homework.Companies
+  import Homework.CompaniesFixtures, only: [company_fixture: 0, company_fixture: 1]
 
   describe "companies" do
     alias Homework.Companies.Company
@@ -9,15 +10,6 @@ defmodule Homework.CompaniesTest do
     @valid_attrs %{credit_line: 42, name: "some name"}
     @update_attrs %{credit_line: 43, name: "some updated name"}
     @invalid_attrs %{credit_line: nil, name: nil}
-
-    def company_fixture(attrs \\ %{}) do
-      {:ok, company} =
-        attrs
-        |> Enum.into(@valid_attrs)
-        |> Companies.create_company()
-
-      company
-    end
 
     test "list_companies/0 returns all companies" do
       company = company_fixture()
