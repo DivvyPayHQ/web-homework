@@ -7,6 +7,7 @@ defmodule Homework.Users.User do
     field(:dob, :string)
     field(:first_name, :string)
     field(:last_name, :string)
+    belongs_to(:company, Homework.Companies.Company, type: :binary_id, foreign_key: :company_id)
 
     timestamps()
   end
@@ -14,7 +15,8 @@ defmodule Homework.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:first_name, :last_name, :dob])
-    |> validate_required([:first_name, :last_name, :dob])
+    |> cast(attrs, [:first_name, :last_name, :dob, :company_id])
+    |> validate_required([:first_name, :last_name, :dob, :company_id])
+    |> foreign_key_constraint(:company_id)
   end
 end

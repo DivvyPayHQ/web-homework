@@ -1,10 +1,10 @@
 defmodule Homework.TransactionsTest do
   use Homework.DataCase
 
-  alias Ecto.UUID
+  import Homework.UsersFixtures, only: [user_fixture: 0]
+
   alias Homework.Merchants
   alias Homework.Transactions
-  alias Homework.Users
 
   describe "transactions" do
     alias Homework.Transactions.Transaction
@@ -19,19 +19,8 @@ defmodule Homework.TransactionsTest do
           name: "some updated name"
         })
 
-      {:ok, user1} =
-        Users.create_user(%{
-          dob: "some dob",
-          first_name: "some first_name",
-          last_name: "some last_name"
-        })
-
-      {:ok, user2} =
-        Users.create_user(%{
-          dob: "some updated dob",
-          first_name: "some updated first_name",
-          last_name: "some updated last_name"
-        })
+      user1 = user_fixture()
+      user2 = user_fixture()
 
       valid_attrs = %{
         amount: 42,
