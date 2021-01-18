@@ -1,6 +1,7 @@
 defmodule Homework.Transactions.Transaction do
   use Ecto.Schema
   import Ecto.Changeset
+  import Ecto.Query
   alias Homework.Merchants.Merchant
   alias Homework.Users.User
   alias Homework.Companies.Company
@@ -25,5 +26,17 @@ defmodule Homework.Transactions.Transaction do
     |> cast(attrs, [:user_id, :amount, :debit, :description, :merchant_id, :company_id])
     |> validate_required([:user_id, :amount, :debit, :description, :merchant_id, :company_id])
     |> foreign_key_constraint(:company_id)
+    |> prepare_changes(fn changeset ->
+      debit = get_change(changeset, :debit)
+      raw_amount = get_change(changeset, :amount)
+      amount = if debit, do: raw_amount * -1, else: raw_amount
+
+      if company_id = get_change(changeset, :company_id) do
+        query = from(Company, where: [id: ^company_id])
+        changeset.repo.update_all(query, inc: [available_credit: amount])
+      end
+
+      changeset
+    end)
   end
 end

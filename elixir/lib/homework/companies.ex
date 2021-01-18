@@ -7,6 +7,7 @@ defmodule Homework.Companies do
   alias Homework.Repo
 
   alias Homework.Companies.Company
+  alias Homework.Transactions.Transaction
 
   @doc """
   Returns the list of companies.
@@ -51,7 +52,7 @@ defmodule Homework.Companies do
   """
   def create_company(attrs \\ %{}) do
     %Company{}
-    |> Company.changeset(attrs)
+    |> Company.insert_changeset(attrs)
     |> Repo.insert()
   end
 
@@ -69,7 +70,7 @@ defmodule Homework.Companies do
   """
   def update_company(%Company{} = company, attrs) do
     company
-    |> Company.changeset(attrs)
+    |> Company.update_changeset(attrs)
     |> Repo.update()
   end
 

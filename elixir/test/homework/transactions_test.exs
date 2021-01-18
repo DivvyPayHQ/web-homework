@@ -4,7 +4,7 @@ defmodule Homework.TransactionsTest do
   import Homework.CompaniesFixtures, only: [company_fixture: 0]
   import Homework.UsersFixtures, only: [user_fixture: 1]
 
-  alias Homework.{Merchants, Transactions}
+  alias Homework.{Companies, Merchants, Transactions}
 
   describe "transactions" do
     alias Homework.Transactions.Transaction
@@ -101,6 +101,16 @@ defmodule Homework.TransactionsTest do
       assert transaction.merchant_id == merchant1.id
       assert transaction.user_id == user1.id
       assert transaction.company_id == company1.id
+    end
+
+    test "create_transaction/1 with valid data adjusts companies available_credit", %{
+      valid_attrs: valid_attrs,
+      company1: company1
+    } do
+      %{available_credit: original_available_credit} = company1
+      {:ok, %Transaction{} = transaction} = Transactions.create_transaction(valid_attrs)
+      %{available_credit: updated_available_credit} = Companies.get_company!(company1.id)
+      assert updated_available_credit == original_available_credit - transaction.amount
     end
 
     test "create_transaction/1 with invalid data returns error changeset", %{

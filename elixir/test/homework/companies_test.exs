@@ -25,6 +25,7 @@ defmodule Homework.CompaniesTest do
       assert {:ok, %Company{} = company} = Companies.create_company(@valid_attrs)
       assert company.credit_line == 42
       assert company.name == "some name"
+      assert company.available_credit == @valid_attrs[:credit_line]
     end
 
     test "create_company/1 validates presence of name" do
@@ -47,6 +48,8 @@ defmodule Homework.CompaniesTest do
       assert {:ok, %Company{} = company} = Companies.update_company(company, @update_attrs)
       assert company.credit_line == 43
       assert company.name == "some updated name"
+      updated_company = Companies.get_company!(company.id)
+      assert updated_company.available_credit == 43
     end
 
     test "update_company/2 validates presence of name" do
