@@ -1,8 +1,20 @@
 import React from 'react'
+const FormData = require('form-data')
 
 export function InputForm () {
+  const submitForm = function (event) {
+    event.preventDefault()
+    let result = {}
+
+    let formEntries = new FormData(document.getElementById('transaction-form')).entries()
+
+    for (let entry of formEntries) {
+      result[entry[0]] = entry[1]
+    }
+  }
+
   return (
-    <form>
+    <form id='transaction-form'>
       <h4>Add a Transaction:</h4>
       <label htmlFor='user_id' required='true'>
         {`User ID: `}
@@ -24,7 +36,7 @@ export function InputForm () {
         {`Amount: `}
         <input name='amount' type='number' />
       </label><br />
-      <button>Submit!</button>
+      <button onClick={(e) => submitForm(e)}>Submit!</button>
     </form>
   )
 }

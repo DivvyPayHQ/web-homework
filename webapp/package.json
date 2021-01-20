@@ -63,6 +63,7 @@
     "@emotion/styled": "10.0.12",
     "axios": "0.21.1",
     "emotion-theming": "10.0.10",
+    "form-data": "^3.0.0",
     "graphql": "14.3.1",
     "graphql-tag": "^2.10.1",
     "prop-types": "15.7.2",
