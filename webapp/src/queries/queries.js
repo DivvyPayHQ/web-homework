@@ -45,7 +45,22 @@ const removeTransaction = gql`
   }
 `
 
+// comment below if it does not run
+const updateTransaction = gql`
+  mutation UpdateTransaction($transaction: TransactionInput!) {
+    updateTransaction(transaction: $transaction) {
+      id
+      description
+      amount
+      merchant_id
+      credit
+      debit
+    }
+  }
+`
+
 // export { getTransactionQuery }
 // export { addTransactionQuery }
 
-export { getTransactionQuery, addTransactionQuery, removeTransaction }
+export { getTransactionQuery, addTransactionQuery, removeTransaction, updateTransaction }
+// export { getTransactionQuery, addTransactionQuery, removeTransaction}

@@ -1,45 +1,41 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import gql from 'graphql-tag'
 import { Query, graphql } from 'react-apollo'
 // import { useQuery, useMutation } from '@apollo/react-hooks'
-import { getTransactionQuery, removeTransaction } from '../queries/queries'
+import { getTransactionQuery, removeTransaction, updateTransaction } from '../queries/queries'
+import EditTransactionForm from './EditTransactionForm'
+import AddTransaction from './AddTransaction'
+import Modal from '@material-ui/core/Modal'
 
-// const getTransactionQuery = gql`
-//   {
-//     transactions {
-//       user_id
-//       description
-//       merchant_id
-//       debit
-//       credit
-//       amount
-//     }
-//   }
-// `
+const Transactions = props => {
+  const [editing, setEditing] = useState(false)
+  const [transaction, setTransaction] = useState(null)
 
+  // function changeEdit(){
+  //   return setEditing(!editing)
+  // }
+  // useEffect(() => {
+  //   // console.log(data)
+  //   // return data;
+  // }, [])
+  // console.log(useQuery);
+  // const { loading, data } = useQuery(getTransactionQuery)
+  // console.log(data);
 
-//   const removeTransaction = gql`
-//   mutation DeleteTransaction($transactionId: String!) {
-//     deleteTransaction(transactionId: $transactionId) {
-//       id
-//     }
-//   }
-// `
-// }
-
-const Transactions = (props) => {
-
-  const deleteTrans = (id) => {
-    console.log("This is the ID:", id);
+  const deleteTrans = id => {
+    console.log('This is the ID:', id)
     props.removeTransaction({
       variables: {
         transactionId: id
-      }
+      },
+      refetchQueries: [{ query: getTransactionQuery }]
     })
   }
 
-  const editTransaction = (transaction) => {
+  const triggerModal = (transaction) => {
     console.log(transaction);
+    setTransaction(transaction);
+    setEditing(true);
   }
 
   return (
@@ -47,24 +43,31 @@ const Transactions = (props) => {
       {({ loading, error, data }) => {
         if (loading) return <p>Relax, it's worth the wait...</p>
         if (error) return <p>Looks like we've got a problem...</p>
+
         return (
           <div className='container'>
+            <Modal
+              aria-describedby='simple-modal-description'
+              aria-labelledby='simple-modal-title'
+              onClose={() => setEditing(false)}
+              open={editing}
+            >
+              <AddTransaction
+                editTransaction={editing}
+                transaction={transaction}
+                // transactionID={transaction.id}
+              />
+            </Modal>
             <h1>Transactions</h1>
             <div className='row'>
-              {data.transactions.map((transaction) => (
+              {data.transactions.map(transaction => (
                 <div className='col-sm'>
                   <div className='card' style={{ width: '18rem' }}>
-                    <div className='card-body' key={transaction.id}>
-                      <h5 className='card-title'>User Id: {transaction.user_id}</h5>
-                      <p className='card-text'>description: {transaction.description}</p>
-                      <p className='card-text'>Merchant Id: {transaction.merchant_id}</p>
-                      <p className='card-text'>Debit {transaction.debit}</p>
-                      <p className='card-text'>Credit {transaction.credit}</p>
-                      <p className='card-text'> Amount: {transaction.amount}</p>
-                    </div>
-                    <button onClick={(e) => deleteTrans(transaction.id)}>Delete</button>
-
-                    <button onClick={() => editTransaction(transaction)}>Edit</button>
+                    <p>{transaction.id}</p>
+                    <p>{transaction.description}</p>
+                    
+                    <button onClick={e => deleteTrans(transaction.id)}>Delete</button>
+                    <button onClick={() => triggerModal(transaction)}>Edit </button>
                   </div>
                 </div>
               ))}
@@ -76,6 +79,7 @@ const Transactions = (props) => {
   )
 }
 
-// export default Transactions
-export default graphql(removeTransaction, { name: 'removeTransaction' })(Transactions)
-
+export default graphql(
+  removeTransaction, { name: 'removeTransaction' },
+  updateTransaction, { name: 'updateTransaction' }
+)(Transactions)

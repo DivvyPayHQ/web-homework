@@ -49,7 +49,7 @@ const Form = () => {
 
           <label>
             <p>Amount</p>
-            <input name='name' onChange={(e) => setAmount(e.target.value)} />
+            <input name='name' onChange={e => setAmount(e.target.value)} />
           </label>
         </fieldset>
         <button type='submit'>Submit</button>
