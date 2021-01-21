@@ -1,0 +1,6 @@
+query GetMerchants {
+  merchants {
+    id
+    name
+  }
+}

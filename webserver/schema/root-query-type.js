@@ -1,6 +1,10 @@
 const graphql = require('graphql')
+const MerchantType = require('./merchant-type');
+const Merchants = require('../query-resolvers/merchant-resolvers');
 const TransactionType = require('./transaction-type')
-const Transactions = require('../query-resolvers/transaction-resolvers.js')
+const Transactions = require('../query-resolvers/transaction-resolvers')
+const UserType = require('./user-type')
+const Users = require('../query-resolvers/user-resolvers')
 
 const {
   GraphQLBoolean,
@@ -12,6 +16,24 @@ const {
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: () => ({
+    merchant: {
+      type: MerchantType,
+      args: {
+        id: { type: GraphQLString }
+      },
+      resolve (parentValue, args) {
+        return Merchants.findOne(args.id)
+      }
+    },
+    merchants: {
+      type: GraphQLList(MerchantType),
+      args: {
+        name: { type: GraphQLString }
+      },
+      resolve (parentValue, args) {
+        return Merchants.find(args)
+      }
+    },
     transaction: {
       type: TransactionType,
       args: {
@@ -34,7 +56,27 @@ const RootQuery = new GraphQLObjectType({
       resolve (parentValue, args) {
         return Transactions.find(args)
       }
-    }
+    },
+    user: {
+      type: UserType,
+      args: {
+        id: { type: GraphQLString }
+      },
+      resolve (parentValue, args) {
+        return Users.findOne(args.id)
+      }
+    },
+    users: {
+      type: GraphQLList(UserType),
+      args: {
+        firstName: { type: GraphQLString },
+        lastName: { type: GraphQLString },
+        dob: { type: GraphQLString }
+      },
+      resolve (parentValue, args) {
+        return Users.find(args)
+      }
+    },
   })
 })
 
