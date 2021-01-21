@@ -6,11 +6,18 @@ const styles = css`
  .header {
    font-weight: bold;
  }
+ border-collapse: collapse;
+ td {
+   border: 1px solid black;
+ }
+ .entry:hover {
+   cursor: pointer;
+ }
 `
 
 const makeDataTestId = (transactionId, fieldName) => `transaction-${transactionId}-${fieldName}`
 
-export function TxTable ({ data }) {
+export function TxTable ({ data, editEntry }) {
   return (
     <table css={styles}>
       <tbody>
@@ -27,7 +34,12 @@ export function TxTable ({ data }) {
           data.map(tx => {
             const { id, user_id: userId, description, merchant_id: merchantId, debit, credit, amount } = tx
             return (
-              <tr data-testid={`transaction-${id}`} key={`transaction-${id}`}>
+              <tr
+                data-testid={`transaction-${id}`}
+                key={`transaction-${id}`}
+                className='entry'
+                onClick={() => editEntry(id)}
+              >
                 <td data-testid={makeDataTestId(id, 'id')}>{id}</td>
                 <td data-testid={makeDataTestId(id, 'userId')}>{userId}</td>
                 <td data-testid={makeDataTestId(id, 'description')}>{description}</td>

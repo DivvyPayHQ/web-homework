@@ -20,7 +20,7 @@ function AppRouter () {
         </nav>
         <div className='main-content' css={contentStyle}>
           <Route component={Home} exact path='/' />
-          <Route component={InputForm} exact path='/add' />
+          <Route component={InputForm} exact path='/add*' />
         </div>
       </div>
     </Router>
