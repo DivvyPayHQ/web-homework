@@ -26,8 +26,16 @@ A terminal multiplexer is recommended for this project, but is not needed. Multi
   6. start the webserver (`yarn start`)
   7. start the webapp (`yarn start` in `../webapp`)
 
-
 Defaults (host: `localhost`, port `3000`)
+
+<br />
+
+**Potential Issues**
+
+If you run into trouble, make sure you are on `node` **v14+** and `yarn` **v1.19+** with an updated **master** branch.  Delete all node_modules in the webserver and webapp directories to reset if needed.
+
+If for any reason you still have issues, please reach out to your recruiter to explain the issue.
+
 
 <br />
 
