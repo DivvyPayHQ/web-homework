@@ -22,3 +22,10 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 elixir-*.tar
 
+# Ignore developer preference .tool-versions file
+.tool-versions
+
+# Ignore intellij artifacts
+*.iml
+
+
