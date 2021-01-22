@@ -1,48 +1,53 @@
 import React from 'react'
 import { arrayOf, string, bool, number, shape } from 'prop-types'
 import { css } from '@emotion/core'
+import { Table } from 'rsuite';
+
+const { Column, HeaderCell, Cell, Pagination } = Table;
 
 const styles = css`
  .header {
    font-weight: bold;
  }
 `
-
-const makeDataTestId = (transactionId, fieldName) => `transaction-${transactionId}-${fieldName}`
-
 export function TxTable ({ data }) {
   return (
-    <table css={styles}>
-      <tbody>
-        <tr className='header'>
-          <td >ID</td>
-          <td >User ID</td>
-          <td >Description</td>
-          <td >Merchant ID</td>
-          <td >Debit</td>
-          <td >Credit</td>
-          <td >Amount</td>
-        </tr>
-        {
-          data.map(tx => {
-            const { id, user_id: userId, description, merchant_id: merchantId, debit, credit, amount } = tx
-            return (
-              <tr data-testid={`transaction-${id}`} key={`transaction-${id}`}>
-                <td data-testid={makeDataTestId(id, 'id')}>{id}</td>
-                <td data-testid={makeDataTestId(id, 'userId')}>{userId}</td>
-                <td data-testid={makeDataTestId(id, 'description')}>{description}</td>
-                <td data-testid={makeDataTestId(id, 'merchant')}>{merchantId}</td>
-                <td data-testid={makeDataTestId(id, 'debit')}>{debit}</td>
-                <td data-testid={makeDataTestId(id, 'credit')}>{credit}</td>
-                <td data-testid={makeDataTestId(id, 'amount')}>{amount}</td>
-              </tr>
-            )
-          })
-        }
-      </tbody>
-    </table>
-
-  )
+    <Table
+      data={data}
+      onRowClick={data => {
+          console.log(data);
+        }}
+      >
+      <Column>
+        <HeaderCell>ID</HeaderCell>
+        <Cell dataKey="id" />
+      </Column>
+      <Column>
+        <HeaderCell>User ID</HeaderCell>
+        <Cell dataKey="user_id" />
+      </Column>
+      <Column>
+        <HeaderCell>Description</HeaderCell>
+        <Cell dataKey="description" />
+      </Column>
+      <Column>
+        <HeaderCell>Merchant ID</HeaderCell>
+        <Cell dataKey="merchant_id" />
+      </Column>
+      <Column>
+        <HeaderCell>Debit</HeaderCell>
+        <Cell dataKey="debit" />
+      </Column>
+      <Column>
+        <HeaderCell>Credit</HeaderCell>
+        <Cell dataKey="credit" />
+      </Column>
+      <Column>
+        <HeaderCell>Amount</HeaderCell>
+        <Cell dataKey="amount" />
+      </Column>
+    </Table>
+  );
 }
 
 TxTable.propTypes = {
