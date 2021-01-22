@@ -14,7 +14,8 @@ const mutation = new GraphQLObjectType({
         merchant_id: { type: GraphQLString },
         debit: { type: GraphQLBoolean },
         credit: { type: GraphQLBoolean },
-        amount: { type: GraphQLFloat }
+        amount: { type: GraphQLFloat },
+        category_id: { type: GraphQLString }
       },
       /* eslint-disable-next-line camelcase */
       resolve (parentValue, { user_id, description, merchant_id, debit, credit, amount }) {

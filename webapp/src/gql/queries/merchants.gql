@@ -2,5 +2,21 @@ query GetMerchants {
   merchants {
     id
     name
+    transactions {
+      id
+      description
+      amount
+      debit
+      credit
+      category {
+        id
+        name
+      }
+      user {
+        id
+        firstName
+        lastName
+      }
+    }
   }
 }

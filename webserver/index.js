@@ -19,8 +19,8 @@ module.exports = function main (options, cb) {
     options
   )
 
-  // const logger = pino({ prettyPrint: true })
-  const logger = pino()
+  const logger = pino({ prettyPrint: true })
+  // const logger = pino()
 
   // Server state
   let server

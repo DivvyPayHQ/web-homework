@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-const path = require('path')
 const graphql = require('graphql')
 const {
   GraphQLList,
@@ -7,9 +5,7 @@ const {
   GraphQLObjectType
 } = graphql
 
-const MerchantSchema = require(path.join('..', 'data-models', 'Merchant')) // eslint-disable-line no-unused-vars
-const { TransactionModel: Transaction } = require(path.join('..', 'data-models', 'Transaction'))
-const TransactionType = require('./transaction-type')
+const { find: findTransactions } = require('../query-resolvers/transaction-resolvers')
 
 const MerchantType = new GraphQLObjectType({
   name: 'Merchant',
@@ -19,10 +15,13 @@ const MerchantType = new GraphQLObjectType({
     transactions: {
       type: new GraphQLList(TransactionType),
       resolve (parentValue, args) {
-        return Transaction.find({ marchant_id: args.id }).populate('transaction')
+        return findTransactions({ merchant_id: parentValue.id })
       }
     }
   })
 })
 
 module.exports = MerchantType
+
+// Importing here prevents infinite loop errors
+const TransactionType = require('./transaction-type')

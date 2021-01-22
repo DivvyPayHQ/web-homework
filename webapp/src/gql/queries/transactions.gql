@@ -1,11 +1,23 @@
 query GetTransactions {
   transactions {
     id
-    user_id
-    description
-    merchant_id
-    debit
-    credit
     amount
+    credit
+    debit
+    description
+    category {
+      id
+      name
+    }
+    merchant {
+      id
+      name
+    }
+    user {
+      id
+      firstName
+      lastName
+      dob
+    }
   }
 }
