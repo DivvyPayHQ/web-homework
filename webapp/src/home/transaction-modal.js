@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Dialog } from '@reach/dialog';
+import React, { useState, useMemo } from 'react'
+import { Button, Input, Modal, Radio } from 'rsuite';
 import { any, func } from 'prop-types';
 import '@reach/dialog/styles.css';
 import { css } from '@emotion/core';
@@ -17,7 +17,7 @@ const setInitialTransaction = transaction => {
 export default function TransactionModal (props) {
 
   const {close, transaction: initial} = props
-  const isEdit = typeof initial !== 'boolean'
+  const isEdit = useMemo(() => initial && typeof initial !== 'boolean', [initial])
   const [transaction, setTransaction] = useState(() => setInitialTransaction(initial))
   const updateValue = (key, value) => {
     setTransaction(curr => ({...curr, [key]: value}))
@@ -26,33 +26,47 @@ export default function TransactionModal (props) {
   const [save] = useMutation(AddTransaction)
 
   return (
-    <Dialog aria-label={`${isEdit ? 'Edit' : 'Create'} transaction`} isOpen onDismiss={() => {}}>
-      <h1>{isEdit ? 'Edit' : 'Create'} Transaction</h1>
-      <label>
-        Description
-        <input onChange={e => updateValue('description', e.target.value)} value={transaction.description} />
-      </label>
-      <label>
-        Debit
-        <input
-          checked={transaction.paymentOption === 'debit'}
-          onChange={e => updateValue('paymentOption', e.currentTarget.value)}
-          type="radio"
-          value="debit"
-        />
-      </label>
-      <label>
-        Credit
-        <input
-          checked={transaction.paymentOption === 'credit'}
-          onChange={e => updateValue('paymentOption', e.currentTarget.value)}
-          type="radio"
-          value="credit"
-        />
-      </label>
-      <button onClick={close}>Cancel</button>
-      <button onClick={() => save({variables: transaction})}>Save</button>
-    </Dialog>
+    <Modal onHide={close} show={initial}>
+      <Modal.Header>
+        <Modal.Title>{isEdit ? 'Edit' : 'Create'} Transaction</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <div css={row}>
+          <label htmlFor="description">Description</label>
+          <Input id="description" onChange={val => updateValue('description', val)} value={transaction.description} />
+        </div>
+        <div css={row}>
+          <label>Payment type</label>
+          <div>
+            <Radio
+              checked={transaction.paymentOption === 'debit'}
+              inline
+              onChange={value => updateValue('paymentOption', value)}
+              type="radio"
+              value="debit"
+            >
+              Debit
+            </Radio>
+            <Radio
+              checked={transaction.paymentOption === 'credit'}
+              inline
+              onChange={value => updateValue('paymentOption', value)}
+              type="radio"
+              value="credit"
+            >
+              Credit
+            </Radio>
+          </div>
+        </div>
+      </Modal.Body>
+
+      <Modal.Footer>
+        <Button onClick={close}>Cancel</Button>
+        <Button appearance="primary" onClick={() => save({ variables: transaction })}>
+          Save
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
 
 }
@@ -61,3 +75,16 @@ TransactionModal.propTypes = {
   close: func,
   transaction: any,
 }
+
+const row = css`
+  display: flex;
+  width: 80%;
+  margin: 12px;
+  > label {
+    flex: 0 0 100px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 12px;
+  }
+`
