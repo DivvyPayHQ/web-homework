@@ -6,47 +6,47 @@ import { Table } from 'rsuite';
 const { Column, HeaderCell, Cell, Pagination } = Table;
 
 const styles = css`
- .header {
-   font-weight: bold;
- }
+  padding: 0px 40px;
 `
 export function TxTable ({ data }) {
   return (
-    <Table
-      data={data}
-      onRowClick={data => {
+    <div css={styles}>
+      <Table
+        data={data}
+        onRowClick={data => {
           console.log(data);
         }}
       >
-      <Column>
-        <HeaderCell>ID</HeaderCell>
-        <Cell dataKey="id" />
-      </Column>
-      <Column>
-        <HeaderCell>User ID</HeaderCell>
-        <Cell dataKey="user_id" />
-      </Column>
-      <Column>
-        <HeaderCell>Description</HeaderCell>
-        <Cell dataKey="description" />
-      </Column>
-      <Column>
-        <HeaderCell>Merchant ID</HeaderCell>
-        <Cell dataKey="merchant_id" />
-      </Column>
-      <Column>
-        <HeaderCell>Debit</HeaderCell>
-        <Cell dataKey="debit" />
-      </Column>
-      <Column>
-        <HeaderCell>Credit</HeaderCell>
-        <Cell dataKey="credit" />
-      </Column>
-      <Column>
-        <HeaderCell>Amount</HeaderCell>
-        <Cell dataKey="amount" />
-      </Column>
-    </Table>
+        <Column>
+          <HeaderCell>ID</HeaderCell>
+          <Cell dataKey="id" />
+        </Column>
+        <Column>
+          <HeaderCell>User ID</HeaderCell>
+          <Cell dataKey="user_id" />
+        </Column>
+        <Column>
+          <HeaderCell>Description</HeaderCell>
+          <Cell dataKey="description" />
+        </Column>
+        <Column>
+          <HeaderCell>Merchant ID</HeaderCell>
+          <Cell dataKey="merchant_id" />
+        </Column>
+        <Column>
+          <HeaderCell>Debit</HeaderCell>
+          <Cell dataKey="debit" />
+        </Column>
+        <Column>
+          <HeaderCell>Credit</HeaderCell>
+          <Cell dataKey="credit" />
+        </Column>
+        <Column>
+          <HeaderCell>Amount</HeaderCell>
+          <Cell dataKey="amount" />
+        </Column>
+      </Table>
+    </div>
   );
 }
 
