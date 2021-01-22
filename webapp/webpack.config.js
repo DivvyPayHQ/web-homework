@@ -54,6 +54,10 @@ const rules = [
     include: NODE_MODULES_DIR_REGEX,
     type: 'javascript/auto'
   },
+  {
+    test: /\.css$/i,
+    use: ['style-loader', 'css-loader']
+  },
   graphQlConfig
 ]
 
