@@ -5,8 +5,16 @@ defmodule HomeworkWeb.Resolvers.UsersResolver do
   Get a list of users
   """
   def users(_root, args, _info) do
-    {:ok, Users.list_users(args)}
+    {:ok, Users.list_users(args) }
   end
+
+  @doc """
+  Get the company associated with a transaction
+  """
+  def company(_root, _args, %{source: %{company_id: company_id}}) do
+    {:ok, Companies.get_company!(company_id)}
+  end
+
 
   @doc """
   Creates a user

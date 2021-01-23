@@ -4,6 +4,7 @@ defmodule Homework.Users do
   """
 
   import Ecto.Query, warn: false
+  import Homework.Utils
   alias Homework.Repo
 
   alias Homework.Users.User
@@ -18,7 +19,28 @@ defmodule Homework.Users do
 
   """
   def list_users(_args) do
-    Repo.all(User)
+    query = list_users_query(_args)
+
+    Repo.all(query)
+  end
+
+  def list_users_count(_args) do
+    query = list_users_query(_args)
+
+    Repo.all(query)
+  end
+
+  def list_users_query(_args) do
+    query = from u in Homework.Users.User
+    ilike_first_name = if _args[:first_name], do: "%" <> _args[:first_name] <> "%"
+    ilike_last_name = if _args[:last_name], do: "%" <> _args[:first_name] <> "%"
+    query = if ilike_first_name, do: (from u in query, where: ilike(u.first_name, ^ilike_first_name)), else: query
+    query = paginate_query(query, _args)
+    query
+  end
+
+  def floor_val(val) do
+    if not is_nil(val) and val < 0, do: 0, else: val
   end
 
   @doc """

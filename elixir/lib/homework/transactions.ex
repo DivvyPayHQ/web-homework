@@ -4,9 +4,13 @@ defmodule Homework.Transactions do
   """
 
   import Ecto.Query, warn: false
+  import Ecto.Changeset, only: [change: 2]
+  import Homework.Utils
+
   alias Homework.Repo
 
   alias Homework.Transactions.Transaction
+  alias Homework.Companies.Company
 
   @doc """
   Returns the list of transactions.
@@ -18,7 +22,13 @@ defmodule Homework.Transactions do
 
   """
   def list_transactions(_args) do
-    Repo.all(Transaction)
+    query = from t in Homework.Transactions.Transaction
+    min = if _args[:min], do: _args[:min]
+    max = if _args[:max], do: _args[:max]
+    query = if not is_nil(min), do: (from t in query, where: t.amount >= ^min), else: query
+    query = if not is_nil(max), do: (from t in query, where: t.amount <= ^max), else: query
+    query = paginate_query(query, _args)
+    Repo.all(query)
   end
 
   @doc """
@@ -50,9 +60,25 @@ defmodule Homework.Transactions do
 
   """
   def create_transaction(attrs \\ %{}) do
-    %Transaction{}
-    |> Transaction.changeset(attrs)
-    |> Repo.insert()
+    {:ok, result} = Repo.transaction(fn ->
+      {:ok, transaction} = %Transaction{}
+      |> Transaction.changeset(attrs)
+      |> Repo.insert()
+
+      company_update = update_company(transaction)
+      transaction
+    end)
+
+    {:ok, result}
+  end
+
+  def update_company(transaction) do
+    query = from t in Homework.Transactions.Transaction,
+                 where: t.company_id == ^transaction.company_id
+
+    amount = Repo.aggregate(query, :sum, :amount)
+    company = Repo.get!(Company, transaction.company_id)
+    company_update = Repo.update!(change(company, available_credit: company.credit_line - amount))
   end
 
   @doc """
@@ -68,9 +94,16 @@ defmodule Homework.Transactions do
 
   """
   def update_transaction(%Transaction{} = transaction, attrs) do
-    transaction
-    |> Transaction.changeset(attrs)
-    |> Repo.update()
+    {:ok, result} = Repo.transaction(fn ->
+      {:ok, transaction} = transaction
+                           |> Transaction.changeset(attrs)
+                           |> Repo.insert()
+
+      company_udpate = update_company(transaction)
+      transaction
+    end)
+
+    {:ok, result}
   end
 
   @doc """
@@ -86,7 +119,13 @@ defmodule Homework.Transactions do
 
   """
   def delete_transaction(%Transaction{} = transaction) do
-    Repo.delete(transaction)
+    {:ok, result} = Repo.transaction(fn ->
+      {:ok, transaction} = Repo.delete(transaction)
+      company_update = update_company(transaction)
+      transaction
+    end)
+
+    {:ok, result}
   end
 
   @doc """

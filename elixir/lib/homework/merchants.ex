@@ -4,6 +4,7 @@ defmodule Homework.Merchants do
   """
 
   import Ecto.Query, warn: false
+  import Homework.Utils
   alias Homework.Repo
 
   alias Homework.Merchants.Merchant
@@ -18,7 +19,11 @@ defmodule Homework.Merchants do
 
   """
   def list_merchants(_args) do
-    Repo.all(Merchant)
+    query = from u in Homework.Merchants.Merchant
+    ilike_name = if _args[:name], do: "%" <> _args[:name] <> "%"
+    query = if ilike_name, do: (from u in query, where: ilike(u.name, ^ilike_name)), else: query
+    query = paginate_query(query, _args)
+    Repo.all(query)
   end
 
   @doc """
