@@ -34,6 +34,8 @@ Defaults (host: `localhost`, port `3000`)
 
 If you run into trouble, make sure you are on `node` **v14+** and `yarn` **v1.19+** with an updated **master** branch.  Delete all node_modules in the webserver and webapp directories to reset if needed.
 
+If you are using a Windows operating system, please [install WSL](https://docs.microsoft.com/en-us/windows/nodejs/setup-on-wsl2) for this project.  There is a babel and webpack compatibility issue with the Windows + node combination.
+
 If for any reason you still have issues, please reach out to your recruiter to explain the issue.
 
 
