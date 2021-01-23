@@ -30,6 +30,7 @@ module.exports = function main (options, cb) {
   const MONGO_URI = 'mongodb://localhost:27017/graphql'
 
   mongoose.Promise = global.Promise
+  mongoose.set('useFindAndModify', false);
   mongoose.connect(MONGO_URI, {
     useNewUrlParser: true
   })
