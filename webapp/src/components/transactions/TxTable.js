@@ -1,22 +1,36 @@
 import React from 'react'
-import { arrayOf, string, bool, number, shape } from 'prop-types'
+import { arrayOf, string, bool, number, shape, func } from 'prop-types'
 import { css } from '@emotion/core'
-import { Table } from 'rsuite';
+import { Button, Table } from 'rsuite';
+import { DeleteTransaction } from '../../gql/transactions.gql';
+import { useMutation } from '@apollo/client';
 
 const { Column, HeaderCell, Cell, Pagination } = Table;
 
 const styles = css`
   padding: 0px 40px;
+  .removeButton {
+    margin-top: -8px;
+  }
 `
-export function TxTable ({ data }) {
+export function TxTable ({ data, setTransaction }) {
+  const [del] = useMutation(DeleteTransaction, {
+    update: (cache, {data: {deleteTransaction}}) => {
+      cache.modify({
+        fields: {
+          transactions(existing = [], {readField}) {
+            return existing.filter(trRef => deleteTransaction.id !== readField('id', trRef));
+          }
+        }
+      })
+    }
+  });
+  const deleteTransaction = ({id}) => {
+    del({variables: {id}})
+  }
   return (
     <div css={styles}>
-      <Table
-        data={data}
-        onRowClick={data => {
-          console.log(data);
-        }}
-      >
+      <Table autoHeight data={data} onRowClick={setTransaction}>
         <Column>
           <HeaderCell>ID</HeaderCell>
           <Cell dataKey="id" />
@@ -45,6 +59,17 @@ export function TxTable ({ data }) {
           <HeaderCell>Amount</HeaderCell>
           <Cell dataKey="amount" />
         </Column>
+        <Column>
+          <HeaderCell>Delete</HeaderCell>
+          <Cell>
+            {rowData => (
+              <Button className='removeButton' onClick={e => e.stopPropagation() || deleteTransaction(rowData)}>
+                Remove
+              </Button>
+              )
+            }
+          </Cell>
+        </Column>
       </Table>
     </div>
   );
@@ -59,5 +84,6 @@ TxTable.propTypes = {
     debit: bool,
     credit: bool,
     amount: number
-  }))
+  })),
+  setTransaction: func,
 }
