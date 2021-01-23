@@ -9,7 +9,7 @@
   "scripts": {
     "boot": "yarn --ignore-engines",
     "reset": "rm -rf node_modules 2> /dev/null && yarn boot",
-    "start": "./bin/app",
+    "start": "nodemon ./bin/app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -30,6 +30,7 @@
     "babel-eslint": "10.0.1",
     "eslint": "5.16.0",
     "eslint-config-divvy": "1.1.0",
+    "nodemon": "^2.0.7",
     "prettier": "1.18.2"
   }
 }

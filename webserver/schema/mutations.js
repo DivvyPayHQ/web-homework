@@ -1,7 +1,9 @@
 const graphql = require('graphql')
-const { GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLFloat } = graphql
+const { GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLFloat, GraphQLID } = graphql
 const { TransactionModel } = require('../data-models/Transaction')
 const TransactionType = require('./transaction-type')
+const Transactions = require('../query-resolvers/transaction-resolvers.js')
+const { packageModel } = require('../query-resolvers/utils.js');
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -17,8 +19,23 @@ const mutation = new GraphQLObjectType({
         amount: { type: GraphQLFloat }
       },
       /* eslint-disable-next-line camelcase */
-      resolve (parentValue, { user_id, description, merchant_id, debit, credit, amount }) {
-        return (new TransactionModel({ user_id, description, merchant_id, debit, credit, amount })).save()
+      resolve (parentValue, args) {
+        return Transactions.addOne(args);
+      }
+    },
+    editTransaction: {
+      type: TransactionType,
+      args: {
+
+      }
+    },
+    deleteTransaction: {
+      type: TransactionType,
+      args: {
+        id: { type: GraphQLString }
+      },
+      resolve (parentValue, args) {
+        return Transactions.deleteOne(args)
       }
     }
   }

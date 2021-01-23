@@ -29,7 +29,7 @@ export function Home () {
     <Fragment>
       <Button onClick={() => setTransaction(true)}>add transaction</Button>
       <TransactionModal close={() => setTransaction()} transaction={transaction} />
-      <TxTable data={data.transactions} />
+      <TxTable data={data.transactions} setTransaction={setTransaction} />
     </Fragment>
   );
 }

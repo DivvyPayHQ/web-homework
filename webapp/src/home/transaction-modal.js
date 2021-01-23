@@ -1,32 +1,64 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { Button, Input, Modal, Radio } from 'rsuite';
 import { any, func } from 'prop-types';
 import '@reach/dialog/styles.css';
 import { css } from '@emotion/core';
 import { useMutation } from '@apollo/client';
 import {AddTransaction} from '../gql/transactions.gql';
+import gql from 'graphql-tag';
 
 const setInitialTransaction = transaction => {
   return {
     description: transaction?.description || '',
     paymentOption: transaction?.debit ? 'debit' : 'credit',
     amount: transaction?.amount || 0,
+    ...transaction
   }
 }
 
 export default function TransactionModal (props) {
 
   const {close, transaction: initial} = props
-  const isEdit = useMemo(() => initial && typeof initial !== 'boolean', [initial])
-  const [transaction, setTransaction] = useState(() => setInitialTransaction(initial))
+  const [transaction, setTransaction] = useState({})
+  const isEdit = useMemo(() => initial ? typeof initial !== 'boolean' : transaction?.id, [initial, transaction])
   const updateValue = (key, value) => {
     setTransaction(curr => ({...curr, [key]: value}))
   }
 
-  const [save] = useMutation(AddTransaction)
+  useEffect(() => {
+    if (initial) {
+      setTransaction(setInitialTransaction(initial))
+    }
+  },[initial])
+
+  const [save, status] = useMutation(AddTransaction, {
+    update(cache, {data: {addTransaction}}) {
+      cache.modify({
+        fields: {
+          transactions(existing = []) {
+            const newTransaction = cache.writeFragment({
+              data: addTransaction,
+              fragment: gql`
+                fragment NewTransaction on Transaction {
+                  id
+                }
+              `
+            });
+            return [...existing, newTransaction]
+          }
+        }
+      })
+    }
+  })
+
+  useEffect(() => {
+    if (status.data) { // every time the request completes, close modal
+      close()
+    }
+  },[status.data])
 
   return (
-    <Modal onHide={close} show={initial}>
+    <Modal onHide={close} show={!!initial}>
       <Modal.Header>
         <Modal.Title>{isEdit ? 'Edit' : 'Create'} Transaction</Modal.Title>
       </Modal.Header>
@@ -62,7 +94,7 @@ export default function TransactionModal (props) {
 
       <Modal.Footer>
         <Button onClick={close}>Cancel</Button>
-        <Button appearance="primary" onClick={() => save({ variables: transaction })}>
+        <Button appearance="primary" loading={status.loading} onClick={() => save({ variables: transaction })}>
           Save
         </Button>
       </Modal.Footer>

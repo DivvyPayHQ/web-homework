@@ -2,6 +2,7 @@ const { TransactionModel } = require('../data-models/Transaction')
 const { packageModel } = require('./utils.js')
 
 async function find (criteria) {
+    console.log('criteria ------------------', criteria);
   const query = Object.keys(criteria).length
     ? TransactionModel.find(criteria)
     : TransactionModel.find()
@@ -11,6 +12,11 @@ async function find (criteria) {
   return packageModel(transactions)
 }
 
+async function addOne({ user_id, description, merchant_id, debit, credit, amount }) {
+  const transaction = await new TransactionModel({ user_id, description, merchant_id, debit, credit, amount }).save();
+  return packageModel(transaction)[0];
+}
+
 async function findOne (id) {
   const query = TransactionModel.findById(id)
   const transaction = await query.exec()
@@ -18,7 +24,16 @@ async function findOne (id) {
   return packageModel(transaction)[0] || null
 }
 
+async function deleteOne(args) {
+  const query = TransactionModel.findByIdAndRemove(args.id)
+  const transaction = await query.exec();
+
+  return packageModel(transaction)[0];
+}
+
 module.exports = {
   find,
-  findOne
+  findOne,
+  deleteOne,
+  addOne,
 }
