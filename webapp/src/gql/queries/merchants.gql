@@ -8,6 +8,7 @@ query GetMerchants {
       amount
       debit
       credit
+      date
       category {
         id
         name

@@ -10,6 +10,7 @@ query GetUsers {
       description
       debit
       credit
+      date
       category {
         id
         name

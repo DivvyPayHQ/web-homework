@@ -11,6 +11,7 @@ module.exports = {
     '@emotion/babel-preset-css-prop'
   ],
   'plugins': [
+    '@emotion',
     '@babel/plugin-transform-template-literals',
     '@babel/plugin-transform-async-to-generator',
     '@babel/plugin-proposal-object-rest-spread',
@@ -43,7 +44,7 @@ module.exports = {
   ],
   'env': {
     'test': {
-      'plugins': ['transform-require-context']
+      'plugins': ['@emotion', 'transform-require-context']
     }
   }
 }

@@ -9,6 +9,7 @@ const TransactionSchema = new Schema({
   description: { type: String, default: null },
   merchant_id: { type: String, default: null },
   category_id: { type: String, default: null },
+  date: { type: String, default: null }
 })
 
 const TransactionModel = model('transaction', TransactionSchema)

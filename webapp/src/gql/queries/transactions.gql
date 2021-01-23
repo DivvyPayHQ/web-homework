@@ -5,6 +5,7 @@ query GetTransactions {
     credit
     debit
     description
+    date
     category {
       id
       name

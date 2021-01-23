@@ -25,6 +25,7 @@ const TransactionType = new GraphQLObjectType({
     debit: { type: GraphQLBoolean },
     credit: { type: GraphQLBoolean },
     amount: { type: GraphQLFloat },
+    date: { type: GraphQLString},
     category: { 
       type: CategoryType,
       resolve (parentValue, args) {
