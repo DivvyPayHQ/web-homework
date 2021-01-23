@@ -51,9 +51,11 @@ export default function TransactionModal (props) {
     }
   })
 
-  if (status.data) {
-    close()
-  }
+  useEffect(() => {
+    if (status.data) { // every time the request completes, close modal
+      close()
+    }
+  },[status.data])
 
   return (
     <Modal onHide={close} show={!!initial}>
