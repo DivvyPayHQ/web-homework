@@ -1,24 +1,16 @@
 import React, { useState, useMemo, useEffect } from 'react'
-import { Button, Input, Modal, Radio } from 'rsuite';
-import { any, func } from 'prop-types';
+import { Button, Dropdown, Input, InputNumber, Modal, Radio } from 'rsuite';
+import { any, array, func } from 'prop-types';
 import '@reach/dialog/styles.css';
 import { css } from '@emotion/core';
 import { useMutation } from '@apollo/client';
-import {AddTransaction, EditTransaction} from '../gql/transactions.gql';
+import {AddTransaction, EditTransaction} from '../../gql/transactions.gql';
 import gql from 'graphql-tag';
-
-const setInitialTransaction = transaction => {
-  return {
-    description: transaction?.description || '',
-    paymentOption: transaction?.debit ? 'debit' : 'credit',
-    amount: transaction?.amount || 0,
-    ...transaction
-  }
-}
+import { prepareTransaction, setInitialTransaction } from './transaction-modal-helper';
 
 export default function TransactionModal (props) {
 
-  const {close, transaction: initial} = props
+  const {close, transaction: initial, users} = props
   const [transaction, setTransaction] = useState({})
   const isEdit = useMemo(() => initial ? typeof initial !== 'boolean' : transaction?.id, [initial, transaction])
   const updateValue = (key, value) => {
@@ -31,7 +23,7 @@ export default function TransactionModal (props) {
     }
   },[initial])
 
-  const [save, status] = useMutation(AddTransaction, {
+  const [create, status] = useMutation(AddTransaction, {
     update(cache, {data: {addTransaction}}) {
       cache.modify({
         fields: {
@@ -53,11 +45,23 @@ export default function TransactionModal (props) {
 
   const [update, editStatus] = useMutation(EditTransaction)
 
+  const save = () => {
+    let preparedTransaction = prepareTransaction(transaction)
+    preparedTransaction.id ? update({ variables: preparedTransaction }) : create({ variables: preparedTransaction });
+  }
+
   useEffect(() => {
     if (status.data || editStatus.data) { // every time the request completes, close modal
       close()
     }
   },[status.data, editStatus.data])
+
+  const getName = () => {
+    const user = users.find(user => user.id === transaction.user_id)
+    return user
+      ? `${user.firstName} ${user.lastName}`
+      : 'select'
+  }
 
   return (
     <Modal onHide={close} show={!!initial}>
@@ -66,8 +70,22 @@ export default function TransactionModal (props) {
       </Modal.Header>
       <Modal.Body>
         <div css={row}>
+          <label>User</label>
+          <Dropdown title={getName()}>
+            {users.map(user => (
+              <Dropdown.Item key={user.id} onClick={() => updateValue('user_id', user.id)}>
+                {user.firstName} {user.lastName}
+              </Dropdown.Item>
+            ))}
+          </Dropdown>
+        </div>
+        <div css={row}>
           <label htmlFor="description">Description</label>
           <Input id="description" onChange={val => updateValue('description', val)} value={transaction.description} />
+        </div>
+        <div css={row}>
+          <label htmlFor='amount'>Amount</label>
+          <InputNumber id='amount' onChange={val => updateValue('amount', val)} prefix="$" value={transaction.amount} />
         </div>
         <div css={row}>
           <label>Payment type</label>
@@ -96,7 +114,11 @@ export default function TransactionModal (props) {
 
       <Modal.Footer>
         <Button onClick={close}>Cancel</Button>
-        <Button appearance="primary" loading={status.loading} onClick={() => transaction.id ? update({variables: transaction}) : save({ variables: transaction })}>
+        <Button
+          appearance="primary"
+          loading={status.loading}
+          onClick={save}
+        >
           Save
         </Button>
       </Modal.Footer>
@@ -108,6 +130,7 @@ export default function TransactionModal (props) {
 TransactionModal.propTypes = {
   close: func,
   transaction: any,
+  users: array,
 }
 
 const row = css`

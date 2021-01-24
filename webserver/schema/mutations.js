@@ -3,7 +3,6 @@ const { GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLFloat, GraphQLI
 const { TransactionModel } = require('../data-models/Transaction')
 const TransactionType = require('./transaction-type')
 const Transactions = require('../query-resolvers/transaction-resolvers.js')
-const { packageModel } = require('../query-resolvers/utils.js');
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',

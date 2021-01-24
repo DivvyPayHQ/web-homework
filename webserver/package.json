@@ -30,6 +30,7 @@
     "babel-eslint": "10.0.1",
     "eslint": "5.16.0",
     "eslint-config-divvy": "1.1.0",
+    "mongo-seeding": "^3.5.0",
     "nodemon": "^2.0.7",
     "prettier": "1.18.2"
   }
