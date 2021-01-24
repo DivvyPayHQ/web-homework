@@ -17,6 +17,11 @@ async function addOne({ user_id, description, merchant_id, debit, credit, amount
   return packageModel(transaction)[0];
 }
 
+async function update({ id, ...rest }) {
+  let doc = await TransactionModel.findByIdAndUpdate(id, rest);
+  return findOne(id)
+}
+
 async function findOne (id) {
   const query = TransactionModel.findById(id)
   const transaction = await query.exec()
@@ -36,4 +41,5 @@ module.exports = {
   findOne,
   deleteOne,
   addOne,
+  update,
 }
