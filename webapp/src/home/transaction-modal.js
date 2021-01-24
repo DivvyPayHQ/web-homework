@@ -4,7 +4,7 @@ import { any, func } from 'prop-types';
 import '@reach/dialog/styles.css';
 import { css } from '@emotion/core';
 import { useMutation } from '@apollo/client';
-import {AddTransaction} from '../gql/transactions.gql';
+import {AddTransaction, EditTransaction} from '../gql/transactions.gql';
 import gql from 'graphql-tag';
 
 const setInitialTransaction = transaction => {
@@ -51,11 +51,13 @@ export default function TransactionModal (props) {
     }
   })
 
+  const [update, editStatus] = useMutation(EditTransaction)
+
   useEffect(() => {
-    if (status.data) { // every time the request completes, close modal
+    if (status.data || editStatus.data) { // every time the request completes, close modal
       close()
     }
-  },[status.data])
+  },[status.data, editStatus.data])
 
   return (
     <Modal onHide={close} show={!!initial}>
@@ -94,7 +96,7 @@ export default function TransactionModal (props) {
 
       <Modal.Footer>
         <Button onClick={close}>Cancel</Button>
-        <Button appearance="primary" loading={status.loading} onClick={() => save({ variables: transaction })}>
+        <Button appearance="primary" loading={status.loading} onClick={() => transaction.id ? update({variables: transaction}) : save({ variables: transaction })}>
           Save
         </Button>
       </Modal.Footer>

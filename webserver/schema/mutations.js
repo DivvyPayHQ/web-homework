@@ -19,14 +19,23 @@ const mutation = new GraphQLObjectType({
         amount: { type: GraphQLFloat }
       },
       /* eslint-disable-next-line camelcase */
-      resolve (parentValue, args) {
+      resolve(parentValue, args) {
         return Transactions.addOne(args);
       }
     },
     editTransaction: {
       type: TransactionType,
       args: {
-
+        id: { type: GraphQLString},
+        user_id: { type: GraphQLString },
+        description: { type: GraphQLString },
+        merchant_id: { type: GraphQLString },
+        debit: { type: GraphQLBoolean },
+        credit: { type: GraphQLBoolean },
+        amount: { type: GraphQLFloat }
+      },
+      resolve(parentValue, args) {
+        return Transactions.update(args);
       }
     },
     deleteTransaction: {
@@ -34,11 +43,11 @@ const mutation = new GraphQLObjectType({
       args: {
         id: { type: GraphQLString }
       },
-      resolve (parentValue, args) {
-        return Transactions.deleteOne(args)
+      resolve(parentValue, args) {
+        return Transactions.deleteOne(args);
       }
     }
   }
-})
+});
 
 module.exports = mutation
