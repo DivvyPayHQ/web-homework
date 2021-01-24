@@ -2,7 +2,6 @@ const { TransactionModel } = require('../data-models/Transaction')
 const { packageModel } = require('./utils.js')
 
 async function find (criteria) {
-    console.log('criteria ------------------', criteria);
   const query = Object.keys(criteria).length
     ? TransactionModel.find(criteria)
     : TransactionModel.find()
