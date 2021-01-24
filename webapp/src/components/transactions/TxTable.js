@@ -1,5 +1,5 @@
 import React from 'react'
-import { arrayOf, string, bool, number, shape, func } from 'prop-types'
+import { arrayOf, string, bool, number, shape, func, array } from 'prop-types'
 import { css } from '@emotion/core'
 import { Button, Table } from 'rsuite';
 import { DeleteTransaction } from '../../gql/transactions.gql';
@@ -13,7 +13,7 @@ const styles = css`
     margin-top: -8px;
   }
 `
-export function TxTable ({ data, setTransaction }) {
+export function TxTable ({ data, setTransaction, users }) {
   const [del] = useMutation(DeleteTransaction, {
     update: (cache, {data: {deleteTransaction}}) => {
       cache.modify({
@@ -35,9 +35,14 @@ export function TxTable ({ data, setTransaction }) {
           <HeaderCell>ID</HeaderCell>
           <Cell dataKey="id" />
         </Column>
-        <Column>
-          <HeaderCell>User ID</HeaderCell>
-          <Cell dataKey="user_id" />
+        <Column width={200}>
+          <HeaderCell>User</HeaderCell>
+          <Cell>
+            {rowData => {
+              const user = users.find(user => user.id === rowData.user_id);
+              return user ? `${user.firstName} ${user.lastName}` : rowData.user_id;
+            }}
+          </Cell>
         </Column>
         <Column>
           <HeaderCell>Description</HeaderCell>
@@ -49,25 +54,26 @@ export function TxTable ({ data, setTransaction }) {
         </Column>
         <Column>
           <HeaderCell>Debit</HeaderCell>
-          <Cell dataKey="debit" />
+          <Cell>{rowData => (rowData.debit ? '✔️' : '')}</Cell>
         </Column>
         <Column>
           <HeaderCell>Credit</HeaderCell>
-          <Cell dataKey="credit" />
+          <Cell>{rowData => (rowData.credit ? '✔️' : '')}</Cell>
         </Column>
         <Column>
           <HeaderCell>Amount</HeaderCell>
-          <Cell dataKey="amount" />
+          <Cell>
+            {rowData => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(rowData.amount)}
+          </Cell>
         </Column>
         <Column>
           <HeaderCell>Delete</HeaderCell>
           <Cell>
             {rowData => (
-              <Button className='removeButton' onClick={e => e.stopPropagation() || deleteTransaction(rowData)}>
+              <Button className="removeButton" onClick={e => e.stopPropagation() || deleteTransaction(rowData)}>
                 Remove
               </Button>
-              )
-            }
+            )}
           </Cell>
         </Column>
       </Table>
@@ -86,4 +92,5 @@ TxTable.propTypes = {
     amount: number
   })),
   setTransaction: func,
+  users: array,
 }

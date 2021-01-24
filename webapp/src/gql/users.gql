@@ -1,0 +1,11 @@
+query GetUsers {
+  users {
+    id
+    dob
+    firstName
+    lastName
+    transactions {
+      id
+    }
+  }
+}
