@@ -31,6 +31,10 @@ export const translateContent = {
     en: 'category',
     gr: 'κατηγορία'
   },
+  chart: {
+    en: 'chart',
+    gr: 'διάγραμμα'
+  },
   credit: {
     en: 'credit',
     gr: 'πίστωση'
@@ -99,6 +103,10 @@ export const translateContent = {
     en: 'settings',
     gr: 'Ρυθμίσεις'
   },
+  table: {
+    en: 'table',
+    gr: 'επιτραπέζιος'
+  },
   total: {
     en: 'total',
     gr: 'σύνολο'
@@ -110,6 +118,10 @@ export const translateContent = {
   transactions: {
     en: 'transactions',
     gr: 'συναλλαγές'
+  },
+  transactions_by_category: {
+    en: 'Transactions by Category',
+    gr: 'Συναλλαγές ανά κατηγορία'
   },
   users: {
     en: 'users',
