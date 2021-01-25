@@ -117,6 +117,7 @@ export default function TransactionModal (props) {
         <Button onClick={close}>Cancel</Button>
         <Button
           appearance="primary"
+          disabled={!transaction.user_id}
           loading={status.loading}
           onClick={save}
         >
