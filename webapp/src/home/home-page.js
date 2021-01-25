@@ -16,7 +16,7 @@ const styles = css`
   display: flex;
   flex-gap: 30px;
   .vis-container {
-    flex-basis: 26%;
+    flex-basis: 375px;
     margin-left: 100px;
   }
 `
