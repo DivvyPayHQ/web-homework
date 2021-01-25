@@ -21,7 +21,7 @@ const UserType = new GraphQLObjectType({
     transactions: {
       type: new GraphQLList(TransactionType),
       resolve (parentValue, args) {
-        return Transaction.find({ user_id: args.id }).populate('transaction')
+        return Transaction.find({ user_id: parentValue.id }).populate('transaction')
       }
     }
   })

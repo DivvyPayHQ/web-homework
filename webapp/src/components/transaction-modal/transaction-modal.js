@@ -10,7 +10,7 @@ import { prepareTransaction, setInitialTransaction } from './transaction-modal-h
 
 export default function TransactionModal (props) {
 
-  const {close, transaction: initial, users} = props
+  const {close, transaction: initial, users, refetch} = props
   const [transaction, setTransaction] = useState({})
   const isEdit = useMemo(() => initial ? typeof initial !== 'boolean' : transaction?.id, [initial, transaction])
   const updateValue = (key, value) => {
@@ -53,6 +53,7 @@ export default function TransactionModal (props) {
   useEffect(() => {
     if (status.data || editStatus.data) { // every time the request completes, close modal
       close()
+      refetch()
     }
   },[status.data, editStatus.data])
 
@@ -131,6 +132,7 @@ TransactionModal.propTypes = {
   close: func,
   transaction: any,
   users: array,
+  refetch: func,
 }
 
 const row = css`

@@ -8,11 +8,16 @@ import { useMutation } from '@apollo/client';
 const { Column, HeaderCell, Cell, Pagination } = Table;
 
 const styles = css`
-  padding: 0px 40px;
+  flex: 1;
   .removeButton {
     margin-top: -8px;
   }
 `
+const headerStyles = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 export function TxTable ({ data, setTransaction, users }) {
   const [del] = useMutation(DeleteTransaction, {
     update: (cache, {data: {deleteTransaction}}) => {
@@ -29,55 +34,63 @@ export function TxTable ({ data, setTransaction, users }) {
     del({variables: {id}})
   }
   return (
-    <div css={styles}>
-      <Table autoHeight data={data} onRowClick={setTransaction}>
-        <Column>
-          <HeaderCell>ID</HeaderCell>
-          <Cell dataKey="id" />
-        </Column>
-        <Column width={200}>
-          <HeaderCell>User</HeaderCell>
-          <Cell>
-            {rowData => {
+    <>
+      <div css={styles}>
+        <div css={headerStyles}>
+          <h1>Transactions</h1>
+          <Button onClick={() => setTransaction(true)}>
+          add transaction
+          </Button>
+        </div>
+        <Table autoHeight data={data} onRowClick={setTransaction}>
+          <Column>
+            <HeaderCell>ID</HeaderCell>
+            <Cell dataKey="id" />
+          </Column>
+          <Column flexGrow={1}>
+            <HeaderCell>User</HeaderCell>
+            <Cell>
+              {rowData => {
               const user = users.find(user => user.id === rowData.user_id);
               return user ? `${user.firstName} ${user.lastName}` : rowData.user_id;
             }}
-          </Cell>
-        </Column>
-        <Column>
-          <HeaderCell>Description</HeaderCell>
-          <Cell dataKey="description" />
-        </Column>
-        <Column>
-          <HeaderCell>Merchant ID</HeaderCell>
-          <Cell dataKey="merchant_id" />
-        </Column>
-        <Column>
-          <HeaderCell>Debit</HeaderCell>
-          <Cell>{rowData => (rowData.debit ? '✔️' : '')}</Cell>
-        </Column>
-        <Column>
-          <HeaderCell>Credit</HeaderCell>
-          <Cell>{rowData => (rowData.credit ? '✔️' : '')}</Cell>
-        </Column>
-        <Column>
-          <HeaderCell>Amount</HeaderCell>
-          <Cell>
-            {rowData => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(rowData.amount)}
-          </Cell>
-        </Column>
-        <Column>
-          <HeaderCell>Delete</HeaderCell>
-          <Cell>
-            {rowData => (
-              <Button className="removeButton" onClick={e => e.stopPropagation() || deleteTransaction(rowData)}>
+            </Cell>
+          </Column>
+          <Column flexGrow={1}>
+            <HeaderCell>Description</HeaderCell>
+            <Cell dataKey="description" />
+          </Column>
+          <Column>
+            <HeaderCell>Merchant ID</HeaderCell>
+            <Cell dataKey="merchant_id" />
+          </Column>
+          <Column>
+            <HeaderCell>Debit</HeaderCell>
+            <Cell>{rowData => (rowData.debit ? '✔️' : '')}</Cell>
+          </Column>
+          <Column>
+            <HeaderCell>Credit</HeaderCell>
+            <Cell>{rowData => (rowData.credit ? '✔️' : '')}</Cell>
+          </Column>
+          <Column>
+            <HeaderCell>Amount</HeaderCell>
+            <Cell>
+              {rowData => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(rowData.amount)}
+            </Cell>
+          </Column>
+          <Column>
+            <HeaderCell>Delete</HeaderCell>
+            <Cell>
+              {rowData => (
+                <Button className="removeButton" onClick={e => e.stopPropagation() || deleteTransaction(rowData)}>
                 Remove
-              </Button>
+                </Button>
             )}
-          </Cell>
-        </Column>
-      </Table>
-    </div>
+            </Cell>
+          </Column>
+        </Table>
+      </div>
+    </>
   );
 }
 
