@@ -4,7 +4,6 @@ import { GetTransactions } from '../gql/transactions.gql';
 import { GetUsers } from '../gql/users.gql';
 import { TxTable } from '../components/transactions/TxTable'
 import TransactionModal from '../components/transaction-modal/transaction-modal'
-import { Button } from 'rsuite'
 import Visualizations from '../components/visualizations/visualizations';
 import { css } from '@emotion/core';
 
