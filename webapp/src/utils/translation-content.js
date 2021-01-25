@@ -123,6 +123,10 @@ export const translateContent = {
     en: 'Transactions by Category',
     gr: 'Συναλλαγές ανά κατηγορία'
   },
+  user: {
+    en: 'user',
+    gr: 'χρήστης'
+  },
   users: {
     en: 'users',
     gr: 'χρήστες'
