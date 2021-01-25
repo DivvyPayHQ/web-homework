@@ -24,8 +24,15 @@ async function deleteOne (id) {
   return packageModel(deleted)[0] || null
 }
 
+async function update (transaction) {
+  const query = TransactionModel.findByIdAndUpdate(transaction.id, { $set: transaction })
+  return transaction
+}
+
+
 module.exports = {
   find,
   findOne,
-  deleteOne
+  deleteOne,
+  update 
 }

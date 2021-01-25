@@ -1,14 +1,25 @@
-import React, { Component, useEffect, useState } from 'react'
-import { Query, compose, graphql } from 'react-apollo'
+import React, { useEffect, useState } from 'react'
+import { compose, graphql } from 'react-apollo'
 import { addTransactionQuery, getTransactionQuery, updateTransaction } from '../queries/queries'
+import { css } from '@emotion/core'
+import PropTypes from 'prop-types'
+
+export const GetTransactionType = transaction => {
+  if (transaction?.debit === true) {
+    return 'debit'
+  } else {
+    return 'credit'
+  }
+}
 
 const AddTransaction = props => {
   const [Id, setId] = useState('')
   const [userId, setUserId] = useState('')
   const [merchantId, setMerchantId] = useState('')
-  const [amount, setAmount] = useState(0)
+  const [amount, setAmount] = useState('')
   const [description, setDescription] = useState('')
   const [transactionType, setTransactionType] = useState('')
+  const [showForm, setShowForm] = useState(false)
 
   useEffect(() => {
     if (props.transaction) {
@@ -21,30 +32,15 @@ const AddTransaction = props => {
     }
   }, [])
 
-  const GetTransactionType = transaction => {
-    if (transaction?.debit === true) {
-      return 'debit'
-    }
-    else {
-      return 'credit'
-    }
-  }
-  
   const randomCode = () => {
     return Math.random()
       .toString(36)
       .substr(2, 9)
   }
-  
+
   const handleSubmit = e => {
     e.preventDefault()
-    // console.log(
-    //   `You have submitted the form.${userId} ${amount} ${merchantId} ${debit} ${credit} ${description} ${transactionType}`
-    // )
     if (props.editTransaction) {
-      //debugger;
-      console.log("Editing transaction...")
-
       props.updateTransaction({
         variables: {
           transaction: {
@@ -53,79 +49,79 @@ const AddTransaction = props => {
             merchant_id: merchantId,
             debit: transactionType === 'debit',
             credit: transactionType === 'credit',
-            amount: amount,
+            amount: parseNumber(amount),
             description: description
           }
         }
       })
-      
-      // props.toggleEdit()
     } else {
-      console.log("Adding transaction...")
       props.addTransactionQuery({
         variables: {
           user_id: randomCode(),
           merchant_id: randomCode(),
           debit: transactionType === 'debit',
           credit: transactionType === 'credit',
-          amount: amount,
+          amount: parseNumber(amount),
           description: description
         },
         refetchQueries: [{ query: getTransactionQuery }]
       })
     }
+
+    props.handleClose()
   }
 
-  if (props.editTransaction) {
-      console.log({
-      user_id: userId,
-      merchant_id: merchantId,
-      debit: transactionType === 'debit',
-      credit: transactionType === 'credit',
-      amount: amount,
-      description: description
-    })
-  }
-
-  const test = (e) => {
-    console.log("value => ", e.target.value);
-    console.log("parsed value => ", parseFloat(e.target.value));
-    setAmount(e.target.value != '' ? parseFloat(e.target.value) : 0)
+  const parseNumber = value => {
+    return value !== '' ? parseFloat(value) : 0
   }
 
   return (
     <div>
-      <form id='add-trans' onSubmit={handleSubmit}>
-        {/* <div className='field'>
-          <label>User ID: </label>
-          <input onChange={e => setUserId(e.target.value)} type='text' value={userId} />
-        </div> */}
-
-        {/* <div className='field'>
-          <label>Merchant ID: </label>
-          <input onChange={e => setMerchantId(e.target.value)} type='text' value={merchantId} />
-        </div> */}
-
-        <div className='field'>
-          <label>Description: </label>
+      <form css={formContainer} onSubmit={handleSubmit}>
+        <h3
+          css={css`
+            padding: 8px;
+            margin-left: 50px;
+            width: 50%;
+          `}
+        >
+          {props.editTransaction ? 'Edit Transaction' : 'Add Transaction'}
+        </h3>
+        <div
+          css={css`
+            padding: 5px;
+            margin-left: 50px;
+            width: 50%;
+            margintop: 100px;
+          `}
+        >
+          <label htmlFor='description'>Description: </label>
           <input onChange={e => setDescription(e.target.value)} type='text' value={description} />
-        </div>  
-
-        <div className='field'>
-          <label>Amount: </label>
-          <input
-            onChange={e => test(e)}
-            type='text'
-            value={amount}
-          />
         </div>
 
-        <div className='field'>
-          <label />
-          <select
-            value={transactionType}
-            onChange={e => setTransactionType(e.target.value)}
-          >
+        <div
+          css={css`
+            padding: 8px;
+            margin-left: 50px;
+            width: 50%;
+          `}
+        >
+          <label htmlFor='amount'>Amount: </label>
+          <input onChange={e => setAmount(e.target.value)} type='text' value={amount} />
+          {/* <input onBlur={e => parseNumber(e)} type='text' /> */}
+        </div>
+
+        <div
+          css={css`
+            font-size: 15px;
+            padding: 8px;
+            display: flex;
+            align-self: center;
+            margin-left: 85px;
+            cursor: pointer;
+          `}
+        >
+          <select onBlur={e => setTransactionType(e.target.value)} value={transactionType}>
             <option label='Debit' value='debit'>
               debit
             </option>
@@ -134,14 +130,41 @@ const AddTransaction = props => {
             </option>
           </select>
         </div>
-        <button>{props.editTransaction ? 'Edit' : 'Add'}</button>
+        <button
+          css={css`
+            font-size: 15px;
+            padding: 8px;
+            display: flex;
+            align-self: center;
+            margin-left: 100px;
+            cursor: pointer;
+            background-color: #39ac39;
+            color: white;
+          `}
+          onClick={() => setShowForm(!showForm)}
+        >
+          {props.editTransaction ? 'Edit' : 'Add'}
+        </button>
       </form>
     </div>
   )
 }
 
+AddTransaction.propTypes = {
+  transaction: PropTypes.object,
+  editTransaction: PropTypes.func,
+  updateTransaction: PropTypes.func,
+  addTransactionQuery: PropTypes.func,
+  handleClose: PropTypes.func
+}
+
+const formContainer = css`
+  color: black;
+  background-color: white;
+  padding: 2px 30px 10px 30px;
+`
+
 export default compose(
   graphql(addTransactionQuery, { name: 'addTransactionQuery' }),
   graphql(updateTransaction, { name: 'updateTransaction' })
 )(AddTransaction)
-// export default graphql(addTransactionQuery, { name: 'addTransactionQuery' })(AddTransaction)

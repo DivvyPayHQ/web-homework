@@ -2,6 +2,9 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { css } from '@emotion/core'
 import { Home } from './home'
+// import Chat from './Components/Chat'
+import ChatScreen from './Components/ChatScreen'
+import { Transactions } from './Components/Transactions'
 
 function AppRouter () {
   return (
@@ -13,13 +16,17 @@ function AppRouter () {
               <Link to='/'>Home</Link>
             </li>
             <li>
-              <Link to='/another'>Another route</Link>
+              <Link to='/transactions'>Transactions</Link>
+            </li>
+            <li>
+              <Link to='/chatScreen'>Chat</Link>
             </li>
           </ul>
         </nav>
         <div className='main-content' css={contentStyle}>
           <Route component={Home} exact path='/' />
-          <Route component={() => <div>Content for /another route</div>} exact path='/another' />
+          <Route component={Transactions} exact path='/transactions' />
+          <Route component={ChatScreen} exact path='/chatScreen' />
         </div>
       </div>
     </Router>
@@ -38,13 +45,31 @@ const navStyle = css`
   grid-row: 1;
 
   & > ul {
-    display: flex;
-    flex-direction: row;
     list-style-type: none;
+    margin: -10px;
+    padding: 10px;
+    overflow: hidden;
+    background-color: black;
   }
 
-  & > ul > li:not(:first-child) {
-    margin-left: 16px;
+  & > ul > li {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    float: left;
+  }
+
+  & > ul > li > a {
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+  }
+
+  & > ul > li > a:hover {
+    font-weight: bold;
+    color: gray;
+    text-decoration: none;
   }
 `
 
