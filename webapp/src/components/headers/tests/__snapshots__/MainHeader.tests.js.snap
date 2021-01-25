@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MainHeader renders successfully and matches snapshot 1`] = `
+.emotion-2 {
+  width: 100%;
+  padding: .5em 0;
+}
+
+.emotion-0 {
+  color: #000;
+  margin: 0;
+  font-family: Montserrat,sans-serif;
+  letter-spacing: .075em;
+  text-transform: capitalize;
+}
+
+<section
+  className="emotion-2 emotion-3"
+>
+  <h2
+    className="emotion-0 emotion-1"
+  />
+</section>
+`;
