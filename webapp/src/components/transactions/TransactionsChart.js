@@ -19,13 +19,13 @@ export const TransactionsChart = ({ data }) => {
   }
 
   if (data?.transactions?.length > 0 && categories?.categories?.length > 0) {
-    const chartData = [[translate('category'), translate('transactions_by_category')]].concat(
+    const chartData = [[translate('category'), translate('amount')]].concat(
       categories.categories.map(category => {
         return [
           category.name,
           data.transactions.reduce((total, transaction) => {
             if (transaction.category.id === category.id) {
-              total += 1
+              total += transaction.amount
             }
             return total
           }, 0)
@@ -39,7 +39,7 @@ export const TransactionsChart = ({ data }) => {
         height={'300px'}
         loader={<Loading />}
         options={{
-          title: translate('transactions_by_category')
+          title: translate('amount_spent_per_category')
         }}
         rootProps={{ 'data-testid': '2' }}
         width={'500px'}

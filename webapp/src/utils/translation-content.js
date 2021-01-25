@@ -19,6 +19,10 @@ export const translateContent = {
     en: 'amount',
     gr: 'ποσό'
   },
+  amount_spent_per_category: {
+    en: 'Amount spent Per Category',
+    gr: 'Ποσό που δαπανήθηκε ανά κατηγορία'
+  },
   cancel: {
     en: 'cancel',
     gr: 'Ματαίωση'
