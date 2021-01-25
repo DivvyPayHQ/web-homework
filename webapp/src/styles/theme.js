@@ -1,7 +1,8 @@
 export const theme = {
   colors: {
-    primaryBackground: 'white',
+    white: 'white',
     primary: '#0062B8',
+    transparentPrimary: 'rgba(0, 98, 184, 0.24)',
     success: '#18891A',
     info: '#1564DB',
     warning: '#F9A109',

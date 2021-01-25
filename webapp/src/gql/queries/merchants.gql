@@ -4,20 +4,6 @@ query GetMerchants {
     name
     transactions {
       id
-      description
-      amount
-      debit
-      credit
-      date
-      category {
-        id
-        name
-      }
-      user {
-        id
-        firstName
-        lastName
-      }
     }
   }
 }

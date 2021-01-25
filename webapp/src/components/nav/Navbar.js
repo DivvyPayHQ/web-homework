@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
-import { Button, Drawer, MenuItem, Select } from '@material-ui/core'
+import { Drawer, IconButton, MenuItem, Select } from '@material-ui/core'
 import { Menu as HamburgerIcon, Settings } from '@material-ui/icons'
 import { translate } from '../../utils/translate'
 
@@ -13,10 +13,7 @@ const Nav = styled.nav`
   box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
   background-color: ${props => props.theme.colors.primary};
   font-family: ${props => props.theme.fontFamily};
-`
-
-const StyledButton = styled(Button)`
-  padding: 0;
+  margin-bottom: 1em;
 `
 
 const Title = styled.h1`
@@ -72,18 +69,19 @@ export const NavBar = () => {
     const locale = e.target.value
     localStorage.setItem('divvyLocale', locale)
     setLocale(locale)
+    window.location.reload()
   }
 
   return (
     <>
       <Nav>
-        <StyledButton onClick={() => setNavigationMenuOpen(true)}>
+        <IconButton onClick={() => setNavigationMenuOpen(true)}>
           <HamburgerIcon />
-        </StyledButton>
+        </IconButton>
         <Title>DIVVY</Title>
-        <StyledButton onClick={() => setSettingsMenuOpen(true)}>
+        <IconButton onClick={() => setSettingsMenuOpen(true)}>
           <Settings />
-        </StyledButton>
+        </IconButton>
       </Nav>
 
       {/* Navigation Menu */}
