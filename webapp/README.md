@@ -2,13 +2,13 @@
 
 Instructions for the front end assignment.
 
-This is the completed boilerplate for a basic React application, with 
-[Babel](https://babeljs.io/), 
-[eslint](https://eslint.org/), 
-[React](https://reactjs.org/), 
-[React Router](https://github.com/ReactTraining/react-router), 
-[Apollo Client (GraphQL)](https://www.apollographql.com/), and 
-[emotion-js](https://github.com/emotion-js/emotion) already configured.  
+This is the completed boilerplate for a basic React application, with
+[Babel](https://babeljs.io/),
+[eslint](https://eslint.org/),
+[React](https://reactjs.org/),
+[React Router](https://github.com/ReactTraining/react-router),
+[Apollo Client (GraphQL)](https://www.apollographql.com/), and
+[emotion-js](https://github.com/emotion-js/emotion) already configured.
 
 Please fork this project when submitting your homework assignment.
 
@@ -16,8 +16,8 @@ Please fork this project when submitting your homework assignment.
 
 **Setup**
 
-A terminal multiplexer is recommended for this project, but is not needed. Multiple terminal windows work too. 
-  
+A terminal multiplexer is recommended for this project, but is not needed. Multiple terminal windows work too.
+
   1. install and start `mongodb`
   2. cd into the webapp directory
   3. run `yarn`
@@ -25,6 +25,8 @@ A terminal multiplexer is recommended for this project, but is not needed. Multi
   5. run `yarn`
   6. start the webserver (`yarn start`)
   7. start the webapp (`yarn start` in `../webapp`)
+  8. seed users by running `node seed-db/seed.js`
+  9. seed transactions by entering number and clicking "reseed" on home
 
 
 Defaults (host: `localhost`, port `3000`)
