@@ -1,5 +1,5 @@
-import React from 'react'
-import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom'
+import React, { useEffect, useRef } from 'react'
+import { BrowserRouter as Router, Route, Link, NavLink, useLocation } from 'react-router-dom'
 import { css } from '@emotion/core'
 import { Home } from './home'
 import Users from './users/users.component';
@@ -9,19 +9,7 @@ function AppRouter () {
   return (
     <Router>
       <div css={layoutStyle}>
-        <nav css={navStyle}>
-          <ul>
-            <li>
-              <NavLink activeClassName="is-active" exact to="/">Home</NavLink>
-            </li>
-            <li>
-              <NavLink activeClassName="is-active" to="/users">Users</NavLink>
-            </li>
-            <li className="right">
-              <NavLink activeClassName="is-active" to="/settings">Settings</NavLink>
-            </li>
-          </ul>
-        </nav>
+        <Route component={Nav} path="*" />
         <div>
           <div className="main-content" css={contentStyle}>
             <Route component={Home} exact path="/" />
@@ -32,6 +20,54 @@ function AppRouter () {
       </div>
     </Router>
   );
+}
+
+function Nav() {
+  const location = useLocation();
+  const query = new URLSearchParams(location.search)
+  const styleRef = useRef()
+  const i18n = query.get('i18n')
+  useEffect(() => {
+      // document.getElementsByTagName('body')[0].style.fontFamily = i18n ? 'Wingdings 3' : ''
+    if (styleRef.current) {
+      document.head.removeChild(styleRef.current)
+      styleRef.current = undefined
+    }
+    if (i18n) {
+      let styleElement = document.createElement('style')
+      styleElement.type = 'text/css'
+      styleElement.textContent = 'body {font-family: "Wingdings 3"}'
+      document.head.appendChild(styleElement)
+      styleRef.current = styleElement
+    }
+  },[i18n])
+
+  const generateTo = path => `${path}${i18n ? '?i18n=true' : ''}`
+
+  return (
+    <nav css={navStyle}>
+      <ul>
+        <li>
+          <NavLink activeClassName="is-active" exact to={generateTo("/")}>
+            Home
+          </NavLink>
+        </li>
+        <li>
+          <NavLink activeClassName="is-active" to={generateTo("/users")}>
+            Users
+          </NavLink>
+        </li>
+        <li>
+          <Link to={`${location.pathname}${i18n ? '' : '?i18n=true'}`}>{i18n ? 'english' : 'i18n'}</Link>
+        </li>
+        <li className="right">
+          <NavLink activeClassName="is-active" to={generateTo("/settings")}>
+            Settings
+          </NavLink>
+        </li>
+      </ul>
+    </nav>
+  )
 }
 
 export default AppRouter
