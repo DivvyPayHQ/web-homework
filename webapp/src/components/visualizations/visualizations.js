@@ -7,14 +7,13 @@ import { convertToRoman } from '../../roman-numeral/roman-numeral';
 
 export default function Visualizations ({users, data: transactions}) {
 
-  const colors = ['#1da562', '#a52f1d', '#a5731d', '#3f1da5'];
 
   const romanNumeral = useRef(isRomanNumeral())
 
   const data = users.map((user, index) =>  ({
     title: `${user.firstName[0]}${user.lastName[0]}`,
     value: user.transactions.length,
-    color: colors[index]
+    color: user.color
   }))
 
   const userTotalSpend = transactions.reduce((acc, curr) => {
@@ -24,10 +23,10 @@ export default function Visualizations ({users, data: transactions}) {
     return acc
   }, {})
 
-  const spendData = users.map((user, index) => ({
+  const spendData = users.filter(user => userTotalSpend[user.id]).map((user, index) => ({
     title: `${user.firstName[0]}${user.lastName[0]}`,
     value: userTotalSpend[user.id],
-    color: colors[index]
+    color: user.color
   }));
 
   const styles = css`
@@ -53,7 +52,7 @@ export default function Visualizations ({users, data: transactions}) {
             return (
               <div className="userRow" key={user.id}>
                 {composeName(user)}
-                <span className="circle" style={{ backgroundColor: colors[index] }} />
+                <span className="circle" style={{ backgroundColor: user.color }} />
               </div>
             );
           })}

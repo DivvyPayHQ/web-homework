@@ -1,7 +1,7 @@
 const {UserModel} = require('../data-models/User');
 const {packageModel} = require('./utils')
 
-async function find(criteria) {
+async function find(criteria = {}) {
   const query = Object.keys(criteria).length ? UserModel.find(criteria) : UserModel.find();
 
   const users = await query.exec();

@@ -8,13 +8,15 @@ import Settings from './settings/settings';
 function AppRouter () {
   return (
     <Router>
-      <div css={layoutStyle}>
-        <Route component={Nav} path="*" />
-        <div>
-          <div className="main-content" css={contentStyle}>
-            <Route component={Home} exact path="/" />
-            <Route component={Users} exact path="/users" />
-            <Route component={Settings} path="/settings" />
+      <div css={centerAllStyle}>
+        <div css={layoutStyle}>
+          <Route component={Nav} path="*" />
+          <div>
+            <div className="main-content" css={contentStyle}>
+              <Route component={Home} exact path="/" />
+              <Route component={Users} exact path="/users" />
+              <Route component={Settings} path="/settings" />
+            </div>
           </div>
         </div>
       </div>
@@ -73,9 +75,16 @@ function Nav() {
 export default AppRouter
 
 const layoutStyle = css`
-    display: grid;
-    grid-row-gap: 24px;
-    padding: 20px 50px;
+  display: grid;
+  grid-row-gap: 24px;
+  padding: 20px 50px;
+  max-width: 1600px;
+  width: 100%;
+`;
+
+const centerAllStyle = css`
+  display: flex;
+  justify-content: center;
 `
 
 const navStyle = css`

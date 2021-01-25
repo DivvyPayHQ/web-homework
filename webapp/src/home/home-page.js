@@ -8,18 +8,19 @@ import Visualizations from '../components/visualizations/visualizations';
 import { css } from '@emotion/core';
 
 export function Home () {
-  const { loading, error, data = {} } = useQuery(GetTransactions)
+  const { loading, error, data = {}, refetch: refetchTx } = useQuery(GetTransactions)
   const {loading: l, error: er, refetch, data: {users = []} = {}} = useQuery(GetUsers)
   const [transaction, setTransaction] = useState()
+  const colors = ['#1da562', '#a52f1d', '#a5731d', '#3f1da5'];
 
-const styles = css`
-  display: flex;
-  flex-gap: 30px;
-  .vis-container {
-    flex-basis: 375px;
-    margin-left: 100px;
-  }
-`
+  const styles = css`
+    display: flex;
+    flex-gap: 30px;
+    .vis-container {
+      flex-basis: 375px;
+      margin-left: 100px;
+    }
+  `
 
   if (loading) {
     return (
@@ -42,9 +43,9 @@ const styles = css`
 
       <TransactionModal close={() => setTransaction()} refetch={refetch} transaction={transaction} users={users} />
       <div css={styles}>
-        <TxTable data={data.transactions} setTransaction={setTransaction} users={users} />
+        <TxTable data={data.transactions} refetchTx={refetchTx} refetchUser={refetch} setTransaction={setTransaction} users={users} />
         <div className="vis-container">
-          <Visualizations data={data.transactions} users={users} />
+          <Visualizations data={data.transactions} users={users.map((user, index) => ({...user, color: colors[index]}))} />
         </div>
       </div>
     </Fragment>

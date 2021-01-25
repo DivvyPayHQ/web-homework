@@ -66,12 +66,12 @@ module.exports = function main (options, cb) {
   app.use(cors())
   app.options('*', cors())
 
-  app.use(express.static(path.join(__dirname, 'public')))
+  // app.use(express.static(path.join(__dirname, 'public')))
 
-  // Template engine
-  app.engine('html', ejs.renderFile)
-  app.set('views', path.join(__dirname, 'public'))
-  app.set('view engine', 'html')
+  // // Template engine
+  // app.engine('html', ejs.renderFile)
+  // app.set('views', path.join(__dirname, 'public'))
+  // app.set('view engine', 'html')
 
   // Common middleware
   // app.use(/* ... */)
@@ -97,7 +97,7 @@ module.exports = function main (options, cb) {
     }
     res.locals.name = 'divvy-react-challenge'
     res.locals.error = err
-    res.status(err.status || 500).render('error')
+    res.status(err.status || 500)
   })
 
   // Start server
