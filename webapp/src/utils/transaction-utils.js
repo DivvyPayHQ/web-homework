@@ -40,22 +40,22 @@ export const columnsConfig = [
     field: 'date',
     headerLookup: 'date',
     type: 'date',
-    width: 12
+    width: 10
   },
   {
     field: 'name',
     headerLookup: 'name',
-    width: 16
+    width: 15
   },
   {
     field: 'merchantName',
     headerLookup: 'merchant',
-    width: 16
+    width: 15
   },
   {
     field: 'description',
     headerLookup: 'description',
-    width: 18
+    width: 16
   },
   {
     field: 'categoryName',
@@ -65,12 +65,18 @@ export const columnsConfig = [
   {
     field: 'creditDebit',
     headerLookup: 'credit_or_debit',
-    width: 12
+    width: 10
   },
   {
     field: 'amount',
     headerLookup: 'amount',
-    width: 12,
+    width: 10,
     type: 'currency'
+  },
+  {
+    field: 'actions',
+    headerLookup: 'actions',
+    width: 10,
+    sortDisabled: true
   }
 ]

@@ -45,14 +45,14 @@ const StyledRadio = styled(Radio)`
   color: ${props => props.theme.colors.info} !important;
 `
 
-export const TransactionDialogForm = ({ loading, onClose, onSubmit, title }) => {
-  const [userId, setUserId] = useState('')
-  const [merchantId, setMerchantId] = useState('')
-  const [categoryId, setCategoryId] = useState('')
-  const [description, setDescription] = useState('')
-  const [amount, setAmount] = useState('')
-  const [date, setDate] = useState('')
-  const [debitCredit, setDebitCredit] = useState('debit')
+export const TransactionDialogForm = ({ defaultValues, loading, onClose, onSubmit, title }) => {
+  const [userId, setUserId] = useState(defaultValues?.userId || '')
+  const [merchantId, setMerchantId] = useState(defaultValues?.merchantId || '')
+  const [categoryId, setCategoryId] = useState(defaultValues?.categoryId || '')
+  const [description, setDescription] = useState(defaultValues?.description || '')
+  const [amount, setAmount] = useState(defaultValues?.amount || '')
+  const [date, setDate] = useState(defaultValues?.date || '')
+  const [debitCredit, setDebitCredit] = useState(defaultValues?.credit ? 'credit' : 'debit')
 
   const submitForm = e => {
     e.preventDefault()
@@ -126,5 +126,6 @@ TransactionDialogForm.propTypes = {
   loading: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  defaultValues: PropTypes.object
 }

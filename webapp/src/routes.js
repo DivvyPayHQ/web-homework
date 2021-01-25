@@ -30,7 +30,8 @@ function AppRouter () {
         <NavBar />
         <ContentWrapper>
           <PageContent>
-            <Route component={TransactionsPage} path='/transactions' />
+            <Route component={TransactionsPage} exact path='/' />
+            <Route component={TransactionsPage} exact path='/transactions' />
             <Route component={UsersPage} exact path='/users' />
             <Route component={MerchantsPage} exact path='/merchants' />
             <Route component={CategoriesPage} exact path='/categories' />

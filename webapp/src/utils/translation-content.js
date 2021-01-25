@@ -1,4 +1,8 @@
 export const translateContent = {
+  actions: {
+    en: 'actions',
+    gr: 'Ενέργειες'
+  },
   add_transaction: {
     en: 'Add Transaction',
     gr: 'Προσθήκη συναλλαγής'
@@ -46,6 +50,10 @@ export const translateContent = {
   description: {
     en: 'description',
     gr: 'περιγραφή'
+  },
+  edit_transaction: {
+    en: 'edit transaction',
+    gr: 'επεξεργασία συναλλαγής'
   },
   error: {
     en: 'error',
