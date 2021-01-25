@@ -87,10 +87,6 @@ export function TxTable ({ data, setTransaction, users, refetchTx, refetchUser }
             <Cell dataKey="description" />
           </Column>
           <Column>
-            <HeaderCell>Merchant ID</HeaderCell>
-            <Cell dataKey="merchant_id" />
-          </Column>
-          <Column>
             <HeaderCell>Debit</HeaderCell>
             <Cell>{rowData => (rowData.debit ? '✔️' : '')}</Cell>
           </Column>
