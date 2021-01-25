@@ -3,28 +3,35 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { css } from '@emotion/core'
 import { Home } from './home'
 import Users from './users/users.component';
+import Settings from './settings/settings';
 
 function AppRouter () {
   return (
     <Router>
       <div css={layoutStyle}>
         <nav css={navStyle}>
-          <ul >
+          <ul>
             <li>
-              <Link to='/'>Home</Link>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to='/users'>Users</Link>
+              <Link to="/users">Users</Link>
+            </li>
+            <li className='right'>
+              <Link to="/settings">Settings</Link>
             </li>
           </ul>
         </nav>
-        <div className='main-content' css={contentStyle}>
-          <Route component={Home} exact path='/' />
-          <Route component={Users} exact path='/users' />
+        <div>
+          <div className="main-content" css={contentStyle}>
+            <Route component={Home} exact path="/" />
+            <Route component={Users} exact path="/users" />
+            <Route component={Settings} path="/settings" />
+          </div>
         </div>
       </div>
     </Router>
-  )
+  );
 }
 
 export default AppRouter
@@ -44,8 +51,11 @@ const navStyle = css`
       list-style-type: none;
   }
 
-  & > ul > li:not(:first-of-type) {
+  & > ul > li:not(:first-of-type):not(:last-of-type) {
     margin-left: 16px;
+  }
+  .right {
+    margin-left: auto;
   }
 `
 

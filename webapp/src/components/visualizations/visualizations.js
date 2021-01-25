@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useRef } from 'react'
 
 import { PieChart } from 'react-minimal-pie-chart';
-import { composeName } from '../../utility';
+import { composeName, isRomanNumeral } from '../../utility';
 import { css } from '@emotion/core';
+import { convertToRoman } from '../../roman-numeral/roman-numeral';
 
 export default function Visualizations ({users, data: transactions}) {
 
   const colors = ['#1da562', '#a52f1d', '#a5731d', '#3f1da5'];
+
+  const romanNumeral = useRef(isRomanNumeral())
 
   const data = users.map((user, index) =>  ({
     title: `${user.firstName[0]}${user.lastName[0]}`,
@@ -61,7 +64,7 @@ export default function Visualizations ({users, data: transactions}) {
         <PieChart
           data={data}
           label={({ dataEntry }) => {
-            if (dataEntry.value) return `${dataEntry.title} ${dataEntry.value}`;
+            if (dataEntry.value) return `${dataEntry.title} ${romanNumeral.current ? convertToRoman(dataEntry.value) : dataEntry.value}`;
           }}
           labelPosition={100 - 60 / 2}
           labelStyle={{
@@ -77,7 +80,9 @@ export default function Visualizations ({users, data: transactions}) {
         <PieChart
           data={spendData}
           label={({ dataEntry }) => {
-            if (dataEntry.value) return (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(dataEntry.value));
+            if (dataEntry.value) return romanNumeral.current
+              ? convertToRoman(Math.floor(dataEntry.value))
+              : (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(dataEntry.value));
           }}
           labelPosition={100 - 60 / 2}
           labelStyle={{
