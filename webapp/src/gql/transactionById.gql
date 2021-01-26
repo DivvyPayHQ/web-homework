@@ -1,0 +1,11 @@
+query Transactions($id: String!) {
+    transaction (id: $id) {
+        id
+        user_id
+        description
+        merchant_id
+        debit
+        credit
+        amount
+    }
+}
