@@ -7,6 +7,7 @@ defmodule Homework.Users.User do
     field(:dob, :string)
     field(:first_name, :string)
     field(:last_name, :string)
+    field(:tid, :string)
 
     timestamps()
   end
@@ -14,7 +15,7 @@ defmodule Homework.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:first_name, :last_name, :dob])
+    |> cast(attrs, [:first_name, :last_name, :dob, :tid])
     |> validate_required([:first_name, :last_name, :dob])
   end
 end

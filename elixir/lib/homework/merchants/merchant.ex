@@ -6,6 +6,7 @@ defmodule Homework.Merchants.Merchant do
   schema "merchants" do
     field(:description, :string)
     field(:name, :string)
+    field(:tid, :string)
 
     timestamps()
   end
@@ -13,7 +14,7 @@ defmodule Homework.Merchants.Merchant do
   @doc false
   def changeset(merchant, attrs) do
     merchant
-    |> cast(attrs, [:name, :description])
+    |> cast(attrs, [:name, :description, :tid])
     |> validate_required([:name, :description])
   end
 end
