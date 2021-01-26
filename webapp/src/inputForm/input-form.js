@@ -17,6 +17,7 @@ export function InputForm () {
   }
 
   const [transaction, setTransaction] = useState(dataDefaults.transaction)
+  const [changeInProgress, setChangeInProgress] = useState(false)
 
   const getOneTransaction = (id) => {
     if (id) {
@@ -33,7 +34,14 @@ export function InputForm () {
   let id = window.location.pathname.split('/add/')[1]
   const { loading, error, data } = getOneTransaction(id)
 
-  useEffect(() => data && setTransaction(data.transaction), [data])
+  useEffect(() => {
+    if (data && !changeInProgress) {
+      debugger
+      setTransaction(data.transaction)
+      setChangeInProgress(false)
+    }
+  },
+  [data])
 
   const mutationQuery = `mutation add($user_id:String,$description:String,$merchant_id:String,$debit:Boolean,$credit:Boolean,$amount:Float){addTransaction(user_id:$user_id,description:$description,merchant_id:$merchant_id,debit:$debit,credit:$credit,amount:$amount){user_id,description,merchant_id,debit,credit,amount}}`
 
@@ -55,7 +63,10 @@ export function InputForm () {
   }
 
   const handleChange = (field, value) => {
-    transaction[field] = value
+    setChangeInProgress(true)
+    let transactionCopy = JSON.parse(JSON.stringify(transaction))
+    transactionCopy[field] = value
+    setTransaction(transactionCopy)
   }
 
   const submitForm = (event) => {
