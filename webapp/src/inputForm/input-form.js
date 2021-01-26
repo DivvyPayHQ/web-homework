@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import GetTransactionById from '../gql/transactionById.gql'
 import axios from 'axios'
@@ -16,6 +16,8 @@ export function InputForm () {
     }
   }
 
+  const [transaction, setTransaction] = useState(dataDefaults.transaction)
+
   const getOneTransaction = (id) => {
     if (id) {
       return useQuery(GetTransactionById, { variables: { id } })
@@ -30,6 +32,8 @@ export function InputForm () {
 
   let id = window.location.pathname.split('/add/')[1]
   const { loading, error, data } = getOneTransaction(id)
+
+  useEffect(() => data && setTransaction(data.transaction), [data])
 
   const mutationQuery = `mutation add($user_id:String,$description:String,$merchant_id:String,$debit:Boolean,$credit:Boolean,$amount:Float){addTransaction(user_id:$user_id,description:$description,merchant_id:$merchant_id,debit:$debit,credit:$credit,amount:$amount){user_id,description,merchant_id,debit,credit,amount}}`
 
@@ -50,11 +54,15 @@ export function InputForm () {
     return result
   }
 
+  const handleChange = (field, value) => {
+    transaction[field] = value
+  }
+
   const submitForm = (event) => {
     event.preventDefault()
     const fields = parseFormData('transaction-form')
 
-    axios.post(`http://localhost:8000/graphql`, {
+    axios.post('http://localhost:8000/graphql', {
       query: mutationQuery,
       variables: fields
     })
@@ -79,29 +87,50 @@ export function InputForm () {
   return (
     <form id='transaction-form'>
       <h4>Add a Transaction:</h4>
-      <label htmlFor='user_id' required>
-        {`User ID: `}
-        <input name='user_id' type='text' value={data.transaction.user_id} />
+      <label htmlFor='user_id' required>{'User ID: '}
+        <input
+          name='user_id'
+          onChange={(e) => handleChange('user_id', e.target.value)}
+          type='text'
+          value={transaction ? transaction.user_id : ''} />
       </label><br />
-      <label htmlFor='merchant_id' required>
-        {`Merchant ID: `}
-        <input name='merchant_id' type='text' value={data.transaction.merchant_id} />
+      <label htmlFor='merchant_id' required>{'Merchant ID: '}
+        <input
+          name='merchant_id'
+          onChange={(e) => handleChange('merchant_id', e.target.value)}
+          type='text'
+          value={transaction ? transaction.merchant_id : ''} />
       </label><br />
-      <label htmlFor='description' required>
-        {`Description: `}
-        <input name='description' type='text' value={data.transaction.description} />
+      <label htmlFor='description' required>{'Description: '}
+        <input
+          name='description'
+          onChange={(e) => handleChange('description', e.target.value)}
+          type='text'
+          value={transaction ? transaction.description : ''} />
       </label><br />
       <label>
-        <input checked={data.transaction.debit} name={'type'} required type='radio' value={'debit'} />
-        Debit
+        <input
+          checked={transaction ? transaction.debit : false}
+          onChange={(e) => handleChange('debit', e.target.value)}
+          name={'type'}
+          required
+          type='radio'
+          value={'debit'} />{'Debit'}
       </label><br />
       <label>
-        <input checked={data.transaction.credit} name={'type'} type='radio' value={'credit'} />
-        Credit
+        <input
+          checked={transaction ? transaction.credit : false}
+          onChange={(e) => handleChange('credit', e.target.value)}
+          name={'type'}
+          type='radio'
+          value={'credit'} />{'Credit'}
       </label><br />
-      <label htmlFor='amount' required>
-        {`Amount: `}
-        <input name='amount' type='number' value={data.transaction.amount} />
+      <label htmlFor='amount' required>{'Amount: '}
+        <input
+          name='amount'
+          onChange={(e) => handleChange('amount', e.target.value)}
+          type='number'
+          value={transaction ? transaction.amount : ''} />
       </label><br />
       <button onClick={(e) => submitForm(e)}>Submit!</button>
     </form>
