@@ -17,7 +17,7 @@ export function InputForm () {
   }
 
   const [transaction, setTransaction] = useState(dataDefaults.transaction)
-  const [changeInProgress, setChangeInProgress] = useState(false)
+  const [changeHasBegun, setChangeHasBegun] = useState(false)
 
   const getOneTransaction = (id) => {
     if (id) {
@@ -35,9 +35,8 @@ export function InputForm () {
   const { loading, error, data } = getOneTransaction(id)
 
   useEffect(() => {
-    if (data && !changeInProgress) {
+    if (data && !changeHasBegun) {
       setTransaction(data.transaction)
-      setChangeInProgress(false)
     }
   },
   [data])
@@ -61,11 +60,30 @@ export function InputForm () {
     return result
   }
 
+  const handleDebitCreditChange = (field) => {
+    // field already checked? no change
+    // otherwise, set selected field to true and other to false
+    let otherField = 'debit'
+    if (field === 'debit') {
+      otherField = 'credit'
+    }
+    if (!transaction[field]) {
+      let transactionCopy = JSON.parse(JSON.stringify(transaction))
+      transactionCopy[field] = true
+      transactionCopy[otherField] = false
+      setTransaction(transactionCopy)
+    }
+  }
+
   const handleChange = (field, value) => {
-    setChangeInProgress(true)
-    let transactionCopy = JSON.parse(JSON.stringify(transaction))
-    transactionCopy[field] = value
-    setTransaction(transactionCopy)
+    setChangeHasBegun(true)
+    if (field === 'debit' || field === 'credit') {
+      handleDebitCreditChange(field)
+    } else {
+      let transactionCopy = JSON.parse(JSON.stringify(transaction))
+      transactionCopy[field] = value
+      setTransaction(transactionCopy)
+    }
   }
 
   const submitForm = (event) => {
