@@ -13,9 +13,10 @@ import { translate } from '../../utils/translate'
 
 const StyledFooter = styled(Footer)`
   justify-content: space-between;
+  padding-right: 10%;
 
   p {
-    padding-right: 10%;
+    padding-right: 16px;
   }
 `
 
