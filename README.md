@@ -12,6 +12,8 @@ Then, in the migrations folder in the project, run
 migrate-mongo up 
 ```
 
+I worked on the [Frontend instructions](webapp/README.md) and edited the node server.
+
 # Divvy Homework Assignment
 
 This repository provides a starting point for a basic React + GraphQL application.
