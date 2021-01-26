@@ -36,7 +36,6 @@ export function InputForm () {
 
   useEffect(() => {
     if (data && !changeInProgress) {
-      debugger
       setTransaction(data.transaction)
       setChangeInProgress(false)
     }
