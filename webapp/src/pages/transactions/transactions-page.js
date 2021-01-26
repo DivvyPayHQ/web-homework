@@ -44,9 +44,11 @@ export const TransactionsPage = () => {
       <TabContent>
         <Header>
           <MainHeader>{translate('transactions')}</MainHeader>
-          <PrimaryButton onClick={() => setShowAddTransactionDialog(true)} variant='contained'>
-            {translate('add_transaction')}
-          </PrimaryButton>
+          <div>
+            <PrimaryButton onClick={() => setShowAddTransactionDialog(true)} variant='contained'>
+              {translate('add_transaction')}
+            </PrimaryButton>
+          </div>
         </Header>
         {value === 0 && (
           <TransactionsTable

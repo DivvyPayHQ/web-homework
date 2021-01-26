@@ -1,11 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from '@emotion/styled'
 import { Chart } from 'react-google-charts'
 import { useQuery } from '@apollo/client'
 import { ErrorPage } from '../errors'
 import { Loading } from '../loading'
 import GetCategories from '../../gql/queries/categories.gql'
 import { translate } from '../../utils/translate'
+
+const StyledChart = styled(Chart)`
+  min-width: 500px;
+  min-height: 300px;
+
+  @media screen and (max-width: 550px) {
+    width: 100%;
+    min-width: 100%;
+  }
+`
 
 export const TransactionsChart = ({ data }) => {
   const { loading, error, data: categories = {} } = useQuery(GetCategories)
@@ -33,16 +44,14 @@ export const TransactionsChart = ({ data }) => {
       })
     )
     return (
-      <Chart
+      <StyledChart
         chartType='PieChart'
         data={chartData}
-        height={'300px'}
         loader={<Loading />}
         options={{
           title: translate('amount_spent_per_category')
         }}
         rootProps={{ 'data-testid': '2' }}
-        width={'500px'}
       />
     )
   }
