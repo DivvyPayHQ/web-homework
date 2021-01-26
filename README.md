@@ -1,3 +1,17 @@
+# My Notes
+
+To seed the database, install migrate-mongo
+```
+npm install -g migrate-mongo
+```
+
+Make sure your mongo DB is running.
+
+Then, in the migrations folder in the project, run
+```
+migrate-mongo up 
+```
+
 # Divvy Homework Assignment
 
 This repository provides a starting point for a basic React + GraphQL application.
