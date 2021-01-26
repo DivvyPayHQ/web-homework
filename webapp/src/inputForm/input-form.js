@@ -121,8 +121,8 @@ export function InputForm () {
       <label>
         <input
           checked={transaction ? transaction.debit : false}
-          onChange={(e) => handleChange('debit', e.target.value)}
           name={'type'}
+          onChange={(e) => handleChange('debit', e.target.value)}
           required
           type='radio'
           value={'debit'} />{'Debit'}
@@ -130,8 +130,8 @@ export function InputForm () {
       <label>
         <input
           checked={transaction ? transaction.credit : false}
-          onChange={(e) => handleChange('credit', e.target.value)}
           name={'type'}
+          onChange={(e) => handleChange('credit', e.target.value)}
           type='radio'
           value={'credit'} />{'Credit'}
       </label><br />
