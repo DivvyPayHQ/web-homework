@@ -5,13 +5,11 @@ const FormData = require('form-data')
 export function InputForm () {
   const mutationQuery = `mutation add($user_id:String,$description:String,$merchant_id:String,$debit:Boolean,$credit:Boolean,$amount:Float){addTransaction(user_id:$user_id,description:$description,merchant_id:$merchant_id,debit:$debit,credit:$credit,amount:$amount){user_id,description,merchant_id,debit,credit,amount}}`
 
-  const submitForm = function (event) {
-    event.preventDefault()
+  const parseFormData = (name) => {
+    let entries = new FormData(document.getElementById(name)).entries()
     let result = {}
 
-    let formEntries = new FormData(document.getElementById('transaction-form')).entries()
-
-    for (let entry of formEntries) {
+    for (let entry of entries) {
       if (entry[0] === 'type') {
         result.debit = entry[1] === 'debit'
         result.credit = entry[1] === 'credit'
@@ -21,10 +19,16 @@ export function InputForm () {
         result[entry[0]] = entry[1]
       }
     }
+    return result
+  }
+
+  const submitForm = (event) => {
+    event.preventDefault()
+    const fields = parseFormData('transaction-form')
 
     axios.post(`http://localhost:8000/graphql`, {
       query: mutationQuery,
-      variables: result
+      variables: fields
     })
   }
 
