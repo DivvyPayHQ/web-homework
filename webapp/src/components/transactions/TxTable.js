@@ -22,7 +22,7 @@ const styles = css`
 
 const makeDataTestId = (transactionId, fieldName) => `transaction-${transactionId}-${fieldName}`
 
-export function TxTable ({ data, editEntry }) {
+export function TxTable ({ data }) {
   const mutationQuery = `mutation delete($id:String){delete_article_by_pk(id:$id){id,user_id,merchant_id,description}}`
 
   const remove = (id) => {
@@ -30,6 +30,12 @@ export function TxTable ({ data, editEntry }) {
       query: mutationQuery,
       variables: { id }
     })
+  }
+
+  const editEntry = (id, e) => {
+    if (!e.target.className.includes('trash-button')) {
+      window.location.replace(`/add/${id}`)
+    }
   }
 
   return (
