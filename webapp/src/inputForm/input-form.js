@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client'
 import GetTransactionById from '../gql/transactionById.gql'
 import axios from 'axios'
 const FormData = require('form-data')
+const SERVER_URL = 'http://localhost:8000/graphql'
 
 export function InputForm () {
   const dataDefaults = {
@@ -90,7 +91,7 @@ export function InputForm () {
     event.preventDefault()
     const fields = parseFormData('transaction-form')
 
-    axios.post('http://localhost:8000/graphql', {
+    axios.post(SERVER_URL, {
       query: mutationQuery,
       variables: fields
     })
