@@ -44,8 +44,8 @@ export function TxTable ({ data, editEntry }) {
                 <td data-testid={makeDataTestId(id, 'userId')}>{userId}</td>
                 <td data-testid={makeDataTestId(id, 'description')}>{description}</td>
                 <td data-testid={makeDataTestId(id, 'merchant')}>{merchantId}</td>
-                <td data-testid={makeDataTestId(id, 'debit')}>{debit}</td>
-                <td data-testid={makeDataTestId(id, 'credit')}>{credit}</td>
+                <td data-testid={makeDataTestId(id, 'debit')}>{debit ? <>&#10003;</> : ''}</td>
+                <td data-testid={makeDataTestId(id, 'credit')}>{credit ? <>&#10003;</> : ''}</td>
                 <td data-testid={makeDataTestId(id, 'amount')}>{amount}</td>
               </tr>
             )
