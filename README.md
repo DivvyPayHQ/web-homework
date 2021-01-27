@@ -5,6 +5,8 @@ All of the configuration boilerplate is complete so you can start by writing the
 
 Please **fork** this repo to your GitHub account.
 
+If you want your github to remain private, please share your finished project repo with @thawk55 and @lwintch 
+
 
 ## Project Setup
 
