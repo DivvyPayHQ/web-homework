@@ -19,6 +19,7 @@ export function InputForm () {
 
   const [transaction, setTransaction] = useState(dataDefaults.transaction)
   const [changeHasBegun, setChangeHasBegun] = useState(false)
+  const [message, setMessage] = useState('')
 
   const getOneTransaction = (id) => {
     if (id) {
@@ -95,6 +96,11 @@ export function InputForm () {
       query: mutationQuery,
       variables: fields
     })
+      .then(() => {
+        setMessage('Transaction Added!')
+        setTransaction(dataDefaults)
+      })
+      .catch(() => setMessage('Something went wrong. Try again'))
   }
 
   if (loading) {
@@ -115,6 +121,7 @@ export function InputForm () {
 
   return (
     <form id='transaction-form'>
+      <p>{message}</p>
       <h4>Add a Transaction:</h4>
       <label htmlFor='user_id' required>{'User ID: '}
         <input
