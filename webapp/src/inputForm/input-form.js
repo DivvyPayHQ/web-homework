@@ -20,9 +20,12 @@ export function InputForm () {
   const [transaction, setTransaction] = useState(dataDefaults.transaction)
   const [changeHasBegun, setChangeHasBegun] = useState(false)
   const [message, setMessage] = useState('')
+  // existing transaction: special handling needed for submittal
+  // const [isExistingTransaction, setIsExistingTransaction] = useState(false)
 
   const getOneTransaction = (id) => {
     if (id) {
+      // setIsExistingTransaction(true)
       return useQuery(GetTransactionById, { variables: { id } })
     } else {
       return {
@@ -33,7 +36,7 @@ export function InputForm () {
     }
   }
 
-  let id = window.location.pathname.split('/add/')[1]
+  const id = window.location.pathname.split('/add/')[1]
   const { loading, error, data } = getOneTransaction(id)
 
   useEffect(() => {
@@ -43,7 +46,9 @@ export function InputForm () {
   },
   [data])
 
-  const mutationQuery = `mutation add($user_id:String,$description:String,$merchant_id:String,$debit:Boolean,$credit:Boolean,$amount:Float){addTransaction(user_id:$user_id,description:$description,merchant_id:$merchant_id,debit:$debit,credit:$credit,amount:$amount){user_id,description,merchant_id,debit,credit,amount}}`
+  const additionQuery = `mutation add($user_id:String,$description:String,$merchant_id:String,$debit:Boolean,$credit:Boolean,$amount:Float){addTransaction(user_id:$user_id,description:$description,merchant_id:$merchant_id,debit:$debit,credit:$credit,amount:$amount){user_id,description,merchant_id,debit,credit,amount}}`
+
+  const updateQuery = `mutation edit($id:String,$user_id:String,$description:String,$merchant_id:String,$debit:Boolean,$credit:Boolean,$amount:Float){editTransaction(id:$id,user_id:$user_id,description:$description,merchant_id:$merchant_id,debit:$debit,credit:$credit,amount:$amount){id,user_id,description,merchant_id,debit,credit,amount}}`
 
   const parseFormData = (name) => {
     let entries = new FormData(document.getElementById(name)).entries()
@@ -63,12 +68,12 @@ export function InputForm () {
   }
 
   const handleDebitCreditChange = (field) => {
-    // field already checked? no change
-    // otherwise, set selected field to true and other to false
     let otherField = 'debit'
     if (field === 'debit') {
       otherField = 'credit'
     }
+    // field already checked? no change
+    // otherwise, set selected field to true and other to false
     if (!transaction[field]) {
       let transactionCopy = JSON.parse(JSON.stringify(transaction))
       transactionCopy[field] = true
@@ -88,12 +93,9 @@ export function InputForm () {
     }
   }
 
-  const submitForm = (event) => {
-    event.preventDefault()
-    const fields = parseFormData('transaction-form')
-
+  const submitNewTransaction = (fields) => {
     axios.post(SERVER_URL, {
-      query: mutationQuery,
+      query: additionQuery,
       variables: fields
     })
       .then(() => {
@@ -101,6 +103,31 @@ export function InputForm () {
         setTransaction(dataDefaults)
       })
       .catch(() => setMessage('Something went wrong. Try again'))
+  }
+
+  const submitEdit = (fields) => {
+    // include id in query
+    fields.id = id
+    axios.post(SERVER_URL, {
+      query: updateQuery,
+      variables: fields
+    })
+      .then(() => {
+        setMessage('Transaction Edited!')
+        setTransaction(dataDefaults)
+      })
+      .catch(() => setMessage('Something went wrong. Try again'))
+  }
+
+  const submitForm = (event) => {
+    event.preventDefault()
+    const fields = parseFormData('transaction-form')
+
+    if (id) {
+      submitEdit(fields)
+    } else {
+      submitNewTransaction(fields)
+    }
   }
 
   if (loading) {
