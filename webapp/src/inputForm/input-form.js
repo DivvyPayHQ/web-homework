@@ -17,6 +17,11 @@ const styles = css`
     width: 65px;
     border-radius: 10px;
     font-weight: 600;
+    :hover {
+      cursor: pointer;
+      background-color: rgb(18,200,18,1);
+      color: black;
+    }
   }
 `
 
