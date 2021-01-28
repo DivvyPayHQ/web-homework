@@ -1,9 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import GetTransactionById from '../gql/transactionById.gql'
+import { css } from '@emotion/core'
 import axios from 'axios'
 const FormData = require('form-data')
 const SERVER_URL = 'http://localhost:8000/graphql'
+
+const styles = css`
+  .submit-button {
+    background-color: green;
+    color: white;
+    border: none;
+    margin-top: 30px;
+    margin-left: 60px;
+    height: 30px;
+    width: 65px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+`
 
 export function InputForm () {
   const dataDefaults = {
@@ -147,7 +162,7 @@ export function InputForm () {
   }
 
   return (
-    <form id='transaction-form'>
+    <form css={styles} id='transaction-form'>
       <p>{message}</p>
       <h4>Add a Transaction:</h4>
       <label htmlFor='user_id' required>{'User ID: '}
@@ -195,7 +210,7 @@ export function InputForm () {
           type='number'
           value={transaction ? transaction.amount : ''} />
       </label><br />
-      <button onClick={(e) => submitForm(e)}>Submit!</button>
+      <button className='submit-button' onClick={(e) => submitForm(e)}>{id ? 'EDIT' : 'ADD'}</button>
     </form>
   )
 }
