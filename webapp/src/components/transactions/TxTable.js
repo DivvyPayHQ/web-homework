@@ -16,7 +16,10 @@ const styles = css`
     cursor: pointer;
   }
   .trash-button {
-    color: red;
+    background-color: red;
+    width: 75%;
+    border: none;
+    color: white;
   }
   .td-centered {
     text-align: center;
