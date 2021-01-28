@@ -2,13 +2,13 @@
 
 Instructions for the front end assignment.
 
-This is the completed boilerplate for a basic React application, with 
-[Babel](https://babeljs.io/), 
-[eslint](https://eslint.org/), 
-[React](https://reactjs.org/), 
-[React Router](https://github.com/ReactTraining/react-router), 
-[Apollo Client (GraphQL)](https://www.apollographql.com/), and 
-[emotion-js](https://github.com/emotion-js/emotion) already configured.  
+This is the completed boilerplate for a basic React application, with
+[Babel](https://babeljs.io/),
+[eslint](https://eslint.org/),
+[React](https://reactjs.org/),
+[React Router](https://github.com/ReactTraining/react-router),
+[Apollo Client (GraphQL)](https://www.apollographql.com/), and
+[emotion-js](https://github.com/emotion-js/emotion) already configured.
 
 Please fork this project when submitting your homework assignment.
 
@@ -16,8 +16,8 @@ Please fork this project when submitting your homework assignment.
 
 **Setup**
 
-A terminal multiplexer is recommended for this project, but is not needed. Multiple terminal windows work too. 
-  
+A terminal multiplexer is recommended for this project, but is not needed. Multiple terminal windows work too.
+
   1. install and start `mongodb`
   2. cd into the webapp directory
   3. run `yarn`
@@ -94,3 +94,23 @@ The completed homework assignment must have a usable interface that loads dynami
 * Add more models to the GraphQL schema and user interface (eg users, merchants, etc..).
   This will require modification of the GraphQL schema, and resolvers in the web server.
   It should be straight-forward if you are already comfortable with JavaScript and GraphQL.
+
+# Developer's Notes
+
+## Audit Results
+- Using `yarn audit` from within the webapp repository indicated several vulnerabilities, including 11,739 high severity vulnerabilities at the time of writing. `yarn audit` from within the webserver repository indicated 3 vulnerabilities, of which 2 were low severity and 1 was moderate severity. I recommend fixing dependency vulnerabilities (beginning with high priority) to ensure continuity.
+
+## Running the App
+- See instructions above, and visit [http://localhost:3000](http://localhost:3000)
+
+## Structure/Organization
+- The primary code for the app is located in `src`. Using React Router, the routes for the app are located in `src/routes.js`. The primary routes for this app are `/` and `/add*`.
+  - The `/add` route allows users to edit transactions if the transaction ID is provided after add (e.g. transaction id 1000 can be edited at `/add/1000`)
+- Components (e.g. Home, InputForm, TxTable) are located in subfolders within `src`.
+- `InputForm` and `TxTable` are stateful components that make use of [React Hooks](https://reactjs.org/docs/hooks-intro.html) for convenient readability and resusability.
+
+## Features Added
+### The following features were added during this exercise:
+- **Add Transaction**: Using the `/add` route and corresponding navigation bar anchor tag, a user can add a transaction by inputting user id, merchant id, description, credit/debit, and amount. This sends a mutation request to the graphql resolver on the backend and adds the transaction to the MongoDB database. To view the transaction on the home page transaction table, the user just needs to reload the home page.
+- **Delete Transaction**: The user can delete a transaction by clicking the 'X' button on the TxTable. This sends a mutation request to the graphql resolver on the backend and removes the transaction from the MongoDB database. To view the updated transaction table, the user just needs to reload the home page.
+- **Edit Transaction**: The user can click on a transaction to edit its details. This click results in a page redirect to `/add/:transactionID`, which queries the graphql resolver for that transaction and fills the form with the relevant transaction details. The user can then edit the details, and upon clicking the 'EDIT' button, a mutation request is sent to the graphql resolver to update the entry. To view the updated transaction table, the user just needs to reload the home page.
