@@ -73,8 +73,7 @@ Repo.insert! merchantB
 transactionA = %Transaction{
   id: "a9bdeb36-6114-11eb-a9b4-f2189869d436",
   amount: 12345,
-  credit: true,
-  debit: false,
+  is_debit: false,
   description: "User A Bought item from Merchant B with Credit",
   merchant_id: merchantB.id,
   user_id: userA.id
@@ -83,8 +82,7 @@ transactionA = %Transaction{
 transactionB = %Transaction{
   id: "d8db7fc8-6114-11eb-99ab-f2189869d436",
   amount: 4567890,
-  credit: false,
-  debit: true,
+  is_debit: true,
   description: "User B Bought item from Merchant A with Debit",
   merchant_id: merchantA.id,
   user_id: userB.id
