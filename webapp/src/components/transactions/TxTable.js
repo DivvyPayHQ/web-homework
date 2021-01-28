@@ -5,19 +5,22 @@ import axios from 'axios'
 const SERVER_URL = 'http://localhost:8000/graphql'
 
 const styles = css`
- .header {
-   font-weight: bold;
- }
- border-collapse: collapse;
- td {
-   border: 1px solid black;
- }
- .entry:hover {
-   cursor: pointer;
- }
- .trash-button {
-   color: red;
- }
+  .header {
+    font-weight: bold;
+  }
+  border-collapse: collapse;
+  td {
+    border: 1px solid black;
+  }
+  .entry:hover {
+    cursor: pointer;
+  }
+  .trash-button {
+    color: red;
+  }
+  .td-centered {
+    text-align: center;
+  }
 `
 
 const makeDataTestId = (transactionId, fieldName) => `transaction-${transactionId}-${fieldName}`
@@ -85,10 +88,10 @@ export function TxTable ({ data }) {
                   <td data-testid={makeDataTestId(id, 'userId')}>{userId}</td>
                   <td data-testid={makeDataTestId(id, 'description')}>{description}</td>
                   <td data-testid={makeDataTestId(id, 'merchant')}>{merchantId}</td>
-                  <td data-testid={makeDataTestId(id, 'debit')}>{debit ? <>&#10003;</> : ''}</td>
-                  <td data-testid={makeDataTestId(id, 'credit')}>{credit ? <>&#10003;</> : ''}</td>
+                  <td className='td-centered' data-testid={makeDataTestId(id, 'debit')}>{debit ? <>&#10003;</> : ''}</td>
+                  <td className='td-centered' data-testid={makeDataTestId(id, 'credit')}>{credit ? <>&#10003;</> : ''}</td>
                   <td data-testid={makeDataTestId(id, 'amount')}>{amount}</td>
-                  <td data-testid={makeDataTestId(id, 'delete')}><button className='trash-button' css={styles} onClick={() => remove(id)}>X</button></td>
+                  <td className='td-centered' data-testid={makeDataTestId(id, 'delete')}><button className='trash-button' css={styles} onClick={() => remove(id)}>X</button></td>
                 </tr>
               )
             })
