@@ -19,6 +19,7 @@ const styles = css`
     background-color: red;
     width: 75%;
     border: none;
+    border-radius: 15%;
     color: white;
   }
   .td-centered {
