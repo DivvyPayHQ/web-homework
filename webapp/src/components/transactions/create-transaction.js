@@ -141,12 +141,9 @@ const amountStyle = css`
 const containerStyle = css`
   background-color: lightgrey;
   border-radius: 15px;
-  left: 35%;
   max-width: 300px;
   min-width: 300px;
   padding: 15px;
-  position: absolute;
-  top: 25%;
 `
 
 const creditDebitRadioStyle = css`

@@ -1,32 +1,28 @@
 import React, { Fragment } from 'react'
-import { useQuery } from '@apollo/client'
-import { getTransactions } from '../gql/transactions.gql.js'
 import { TxTable } from '../components/transactions/TxTable'
-import { TransactionModal } from '../components/transactions/transaction-modal'
+import { CreateTransaction } from '../components/transactions/create-transaction'
+import { css } from '@emotion/core'
 
 export function Home () {
-  const { loading, error, data = {} } = useQuery(getTransactions)
-
-  if (loading) {
-    return (
-      <Fragment>
-        Loading...
-      </Fragment>
-    )
-  }
-
-  if (error) {
-    return (
-      <Fragment>
-        ¯\_(ツ)_/¯
-      </Fragment>
-    )
-  }
 
   return (
     <Fragment>
-      <TxTable data={data.transactions} />
-      <TransactionModal />
+      <div css={mainStyle}>
+        <div css={paddingStyle}>
+          <CreateTransaction />
+        </div>
+        <div css={paddingStyle}>
+          <TxTable css={paddingStyle} />
+        </div>
+      </div>
     </Fragment>
   )
 }
+
+const mainStyle = css`
+  display: flex;
+`
+
+const paddingStyle = css`
+  margin: 20px 10px 20px 10px;
+`

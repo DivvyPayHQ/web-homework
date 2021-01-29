@@ -28,3 +28,13 @@ export const createTransaction = gql`
     }
   }
 `
+
+export const deleteTransaction = gql`
+  mutation deleteTransaction(
+    $id: ID!
+  ) {
+    deleteTransaction(id: $id) {
+      amount
+    }
+  }
+`

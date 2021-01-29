@@ -15,13 +15,30 @@ export function TransactionModal () {
     setOpen(false)
   }
 
+  function ModalBody () {
+    return (
+      <Modal
+        aria-describedby='simple-modal-description'
+        aria-labelledby='simple-modal-title'
+        css={paper}
+        onClose={handleClose}
+        open={open}
+      >
+        <CreateTransaction />
+      </Modal>
+    )
+  }
+
+  const MyModal = React.forwardRef((props, ref) => <ModalBody {...props} ref={ref} />)
+  MyModal.displayName = 'MyModal'
+
   return (
     <div>
       <Button css={buttonStyle} onClick={handleOpen} type='button' variant='outlined' >
         Add Transaction
       </Button>
       <div css={paper} >
-        <Modal
+        {/* <Modal
           aria-describedby='simple-modal-description'
           aria-labelledby='simple-modal-title'
           css={paper}
@@ -29,7 +46,8 @@ export function TransactionModal () {
           open={open}
         >
           <CreateTransaction />
-        </Modal>
+        </Modal> */}
+        { MyModal }
       </div>
     </div>
   )
