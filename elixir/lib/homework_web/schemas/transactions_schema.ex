@@ -9,8 +9,9 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
   object :transaction do
     field(:id, non_null(:id))
     field(:user_id, :id)
-    field(:amount, :float)
-    field(:is_debit, :boolean)
+    field(:amount, :integer)
+    field(:credit, :boolean)
+    field(:debit, :boolean)
     field(:description, :string)
     field(:merchant_id, :id)
     field(:inserted_at, :naive_datetime)
@@ -30,9 +31,10 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
     field :create_transaction, :transaction do
       arg(:user_id, non_null(:id))
       arg(:merchant_id, non_null(:id))
-      @desc "amount is in dollars"
-      arg(:amount, non_null(:float))
-      arg(:is_debit, non_null(:boolean))
+      @desc "amount is in cents"
+      arg(:amount, non_null(:integer))
+      arg(:credit, non_null(:boolean))
+      arg(:debit, non_null(:boolean))
       arg(:description, non_null(:string))
 
       resolve(&TransactionsResolver.create_transaction/3)
@@ -43,9 +45,10 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
       arg(:id, non_null(:id))
       arg(:user_id, non_null(:id))
       arg(:merchant_id, non_null(:id))
-      @desc "amount is in dollars"
-      arg(:amount, non_null(:float))
-      arg(:is_debit, non_null(:boolean))
+      @desc "amount is in cents"
+      arg(:amount, non_null(:integer))
+      arg(:credit, non_null(:boolean))
+      arg(:debit, non_null(:boolean))
       arg(:description, non_null(:string))
 
       resolve(&TransactionsResolver.update_transaction/3)
