@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react'
 import { useQuery } from '@apollo/client'
-import GetTransactions from '../gql/transactions.gql'
+import { getTransactions } from '../gql/transactions.gql.js'
 import { TxTable } from '../components/transactions/TxTable'
 import { CreateTransaction } from '../components/transactions/create-transaction'
 
 export function Home () {
-  const { loading, error, data = {} } = useQuery(GetTransactions)
+  const { loading, error, data = {} } = useQuery(getTransactions)
 
   if (loading) {
     return (
