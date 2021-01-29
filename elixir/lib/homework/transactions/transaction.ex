@@ -7,7 +7,8 @@ defmodule Homework.Transactions.Transaction do
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "transactions" do
     field(:amount, :integer)
-    field(:is_debit, :boolean, default: false)
+    field(:credit, :boolean, default: false)
+    field(:debit, :boolean, default: false)
     field(:description, :string)
 
     belongs_to(:merchant, Merchant, type: :binary_id, foreign_key: :merchant_id)
@@ -19,7 +20,7 @@ defmodule Homework.Transactions.Transaction do
   @doc false
   def changeset(transaction, attrs) do
     transaction
-    |> cast(attrs, [:user_id, :amount, :is_debit, :description, :merchant_id])
-    |> validate_required([:user_id, :amount, :is_debit, :description, :merchant_id])
+    |> cast(attrs, [:user_id, :amount, :debit, :description, :merchant_id])
+    |> validate_required([:user_id, :amount, :debit, :description, :merchant_id])
   end
 end
