@@ -6,9 +6,9 @@ defmodule Homework.UsersTest do
   describe "users" do
     alias Homework.Users.User
 
-    @valid_attrs %{dob: "some dob", first_name: "some first_name", last_name: "some last_name"}
+    @valid_attrs %{dob: "1990-01-01", first_name: "some first_name", last_name: "some last_name"}
     @update_attrs %{
-      dob: "some updated dob",
+      dob: "1990-01-02",
       first_name: "some updated first_name",
       last_name: "some updated last_name"
     }
@@ -35,7 +35,7 @@ defmodule Homework.UsersTest do
 
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Users.create_user(@valid_attrs)
-      assert user.dob == "some dob"
+      assert user.dob == "1990-01-01"
       assert user.first_name == "some first_name"
       assert user.last_name == "some last_name"
     end
@@ -47,7 +47,7 @@ defmodule Homework.UsersTest do
     test "update_user/2 with valid data updates the user" do
       user = user_fixture()
       assert {:ok, %User{} = user} = Users.update_user(user, @update_attrs)
-      assert user.dob == "some updated dob"
+      assert user.dob == "1990-01-02"
       assert user.first_name == "some updated first_name"
       assert user.last_name == "some updated last_name"
     end

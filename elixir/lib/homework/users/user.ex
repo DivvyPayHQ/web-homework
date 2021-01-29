@@ -4,7 +4,6 @@ defmodule Homework.Users.User do
 
   @birthday_cutoff Date.utc_today |> Date.add(-18*365)
 
-  IO.puts @birthday_cutoff
 
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "users" do

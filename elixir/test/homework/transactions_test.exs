@@ -21,14 +21,14 @@ defmodule Homework.TransactionsTest do
 
       {:ok, user1} =
         Users.create_user(%{
-          dob: "some dob",
+          dob: "1990-01-01",
           first_name: "some first_name",
           last_name: "some last_name"
         })
 
       {:ok, user2} =
         Users.create_user(%{
-          dob: "some updated dob",
+          dob: "1990-01-2",
           first_name: "some updated first_name",
           last_name: "some updated last_name"
         })
