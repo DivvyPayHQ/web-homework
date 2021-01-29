@@ -33,6 +33,13 @@ defmodule Homework.UsersTest do
       assert Users.get_user!(user.id) == user
     end
 
+    test "fuzzy_find_by_first_and_last_name/2 returns similar names" do
+      user_fixture(first_name: "dominic", last_name: "quinn")
+      gene = user_fixture(first_name: "gene", last_name: "schultz")
+
+      assert Users.fuzzy_find_by_first_and_last_name("jean", "shultz") == [gene]
+    end
+
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Users.create_user(@valid_attrs)
       assert user.dob == "some dob"

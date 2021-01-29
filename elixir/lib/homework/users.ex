@@ -38,6 +38,24 @@ defmodule Homework.Users do
   def get_user!(id), do: Repo.get!(User, id)
 
   @doc """
+  Fuzzy finds users by first and last name.
+  Returns an empty list when no fuzzy matches.
+
+  ## Examples
+
+      iex> fuzzy_find_user_by_first_and_last_name("cally", "oberman")
+      [%User{}, %User{}]
+
+      iex> fuzzy_find_user_by_first_and_last_name("X", "Z")
+      []
+
+  """
+  def fuzzy_find_by_first_and_last_name(first_name, last_name) do
+    User.for_fuzzy_first_and_last_name(first_name, last_name)
+    |> Repo.all()
+  end
+
+  @doc """
   Creates a user.
 
   ## Examples
