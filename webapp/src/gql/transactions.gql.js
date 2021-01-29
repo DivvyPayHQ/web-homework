@@ -13,17 +13,7 @@ export const getTransactions = gql`
     }
   }
 `
-// query GetTransactions {
-//     transactions {
-//         id
-//         user_id
-//         description
-//         merchant_id
-//         debit
-//         credit
-//         amount
-//     }
-// }
+
 export const createTransaction = gql`
   mutation createTransaction(
     $amount: Int!,
