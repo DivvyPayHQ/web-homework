@@ -4,14 +4,17 @@ import AppRouter from './routes'
 import { ApolloProvider } from '@apollo/client'
 import { client } from './network/apollo-client'
 import { StylesProvider } from '@material-ui/core/styles'
+import { ApolloProvider as ReactApolloProvider } from '@apollo/react-hooks'
 
 ReactDOM.render(
   (
     <div data-app-init=''>
       <ApolloProvider client={client}>
-        <StylesProvider injectFirst>
-          <AppRouter />
-        </StylesProvider>
+        <ReactApolloProvider client={client}>
+          <StylesProvider injectFirst>
+            <AppRouter />
+          </StylesProvider>
+        </ReactApolloProvider>
       </ApolloProvider>
     </div>
   ),

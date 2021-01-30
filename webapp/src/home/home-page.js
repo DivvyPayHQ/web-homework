@@ -4,7 +4,6 @@ import { CreateTransaction } from '../components/transactions/create-transaction
 import { css } from '@emotion/core'
 
 export function Home () {
-
   return (
     <Fragment>
       <div css={mainStyle}>

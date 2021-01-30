@@ -9,8 +9,8 @@ import RadioGroup from '@material-ui/core/RadioGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import InputLabel from '@material-ui/core/InputLabel'
 import { css } from '@emotion/core'
-import { useMutation, useQuery } from '@apollo/client'
-import { createTransaction } from '../../gql/transactions.gql'
+import { useMutation, useQuery } from '@apollo/react-hooks'
+import { createTransaction, getTransactions } from '../../gql/transactions.gql'
 import { getMerchants } from '../../gql/merchants.gql'
 import { getUsersQuery } from '../../gql/users.gql'
 
@@ -21,7 +21,21 @@ export function CreateTransaction () {
   const [description, setDescription] = useState('')
   const [creditDebitSelect, setCreditDebitSelect] = useState('credit')
 
-  const [createTransactionMutation] = useMutation(createTransaction)
+  const [createTransactionMutation] = useMutation(createTransaction, { update (cache, { data }) {
+    const createdTransaction = data.createTransaction
+    const { transactions } = cache.readQuery({
+      query: getTransactions
+    })
+    cache.writeQuery({
+      query: getTransactions,
+      data: {
+        transactions: [
+          ...transactions,
+          createdTransaction
+        ]
+      }
+    })
+  } })
   const { data: merchantList } = useQuery(getMerchants)
   const { data: usersList } = useQuery(getUsersQuery)
 
@@ -34,70 +48,62 @@ export function CreateTransaction () {
           NEW TRANSACTION
         </div>
         <div>
-          <FormControl css={amountStyle}>
-            <TextField
-              label='Enter Amount'
-              onChange={(event) => {
-                setAmount(event.target.value)
-              }}
-              type='number'
-              value={amount}
-              variant='outlined'
-            />
-          </FormControl>
-          <div css={selectStyle}>
-            <FormControl css={amountStyle}>
-              <InputLabel css={inputLabelStyle}>Merchant</InputLabel>
-              <Select
-                id='merchant-select'
-                label='Merchant'
-                onChange={(event) => {
-                  console.log('selecting', event)
-                  setSelectedMerchant(event.target.value)
-                }}
-                value={selectedMerchant}
-                variant='outlined'
-              >
-                {merchantList && merchantList.merchants.map(({ id, name }) => (
-                  <MenuItem key={id} value={id}>{name}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl css={amountStyle}>
-              <InputLabel css={inputLabelStyle}>User</InputLabel>
-              <Select
-                id='user-select'
-                label='User'
-                onChange={(event) => {
-                  setSelectedUser(event.target.value)
-                }}
-                value={selectedUser}
-                variant='outlined'
-              >
-                {usersList && usersList.users.map(({ id, firstName, lastName }) => (
-                  <MenuItem key={id} value={id}>{firstName} {lastName}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </div>
-          <FormControl css={amountStyle}>
-            <TextField
-              id='description-field'
-              label='Add a description'
-              multiline
-              onChange={(event) => {
-                setDescription(event.target.value)
-              }}
-              rows={3}
-              value={description}
-              variant='outlined'
-            />
-          </FormControl>
+          <InputLabel css={inputLabelStyle}>Amount</InputLabel>
+          <TextField
+            css={widthStyle}
+            onChange={(event) => {
+              setAmount(event.target.value)
+            }}
+            type='number'
+            value={amount}
+            variant='filled'
+          />
+          <InputLabel css={inputLabelStyle}>Merchant</InputLabel>
+          <Select
+            css={widthStyle}
+            id='merchant-select'
+            label='Merchant'
+            onChange={(event) => {
+              setSelectedMerchant(event.target.value)
+            }}
+            value={selectedMerchant}
+            variant='filled'
+          >
+            {merchantList && merchantList.merchants.map(({ id, name }) => (
+              <MenuItem key={id} value={id}>{name}</MenuItem>
+            ))}
+          </Select>
+          <InputLabel css={inputLabelStyle}>User</InputLabel>
+          <Select
+            css={widthStyle}
+            id='user-select'
+            label='User'
+            onChange={(event) => {
+              setSelectedUser(event.target.value)
+            }}
+            value={selectedUser}
+            variant='filled'
+          >
+            {usersList && usersList.users.map(({ id, firstName, lastName }) => (
+              <MenuItem key={id} value={id}>{firstName} {lastName}</MenuItem>
+            ))}
+          </Select>
+          <InputLabel css={inputLabelStyle}>Description</InputLabel>
+          <TextField
+            css={widthStyle}
+            id='description-field'
+            multiline
+            onChange={(event) => {
+              setDescription(event.target.value)
+            }}
+            rows={3}
+            value={description}
+            variant='filled'
+          />
           <FormControl css={creditDebitRadioStyle}>
             <RadioGroup
               css={creditDebitRadioStyle}
               onChange={(event) => {
-                console.log('adlkfs', event.target.value)
                 setCreditDebitSelect(event.target.value)
               }}
               value={creditDebitSelect}
@@ -120,9 +126,12 @@ export function CreateTransaction () {
                 merchantId: selectedMerchant,
                 userId: selectedUser
               }
-              console.log(transaction)
               createTransactionMutation({ variables: transaction })
-              // props.onClose()
+              setAmount(0)
+              setCreditDebitSelect('credit')
+              setDescription('')
+              setSelectedMerchant('')
+              setSelectedUser('')
             }}
             variant='outlined'
           >
@@ -134,10 +143,6 @@ export function CreateTransaction () {
   )
 }
 
-const amountStyle = css`
-  padding: 5px 3px 5px 3px;
-  width: 100%;
-`
 const containerStyle = css`
   background-color: lightgrey;
   border-radius: 15px;
@@ -161,13 +166,16 @@ const buttonStyle = css`
 `
 
 const inputLabelStyle = css`
-  padding-left: 25px;
+  margin-left: 5px;
+  padding-top: 13px;
 `
 const titleStyle = css`
+  color: grey;
   padding: 15px 10px 15px 10px;
 `
 
-const selectStyle = css`
-  display: flex;
-  flex-direction: row;
+const widthStyle = css`
+  margin-left: 5px;
+  padding-right:5px;
+  width: 100%;
 `

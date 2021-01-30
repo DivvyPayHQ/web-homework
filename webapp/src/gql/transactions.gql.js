@@ -25,6 +25,11 @@ export const createTransaction = gql`
   ) {
     createTransaction(amount: $amount, credit: $credit, debit: $debit, description: $description, merchantId:$merchantId, userId:$userId) {
       amount
+      credit
+      debit
+      description
+      merchant_id
+      user_id
     }
   }
 `
