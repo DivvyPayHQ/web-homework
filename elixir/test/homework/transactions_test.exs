@@ -2,13 +2,27 @@ defmodule Homework.TransactionsTest do
   use Homework.DataCase
 
   alias Homework.Merchants
+  alias Homework.Accounts
   alias Homework.Transactions
-  alias Homework.Users
 
   describe "transactions" do
     alias Homework.Transactions.Transaction
 
     setup do
+      {:ok, company1} =
+        Accounts.create_company(%{
+          available_credit: 10_000_00,
+          credit_line: 10_000_00,
+          name: "some name"
+        })
+
+      {:ok, company2} =
+        Accounts.create_company(%{
+          available_credit: 10_000_00,
+          credit_line: 10_000_00,
+          name: "some updated name"
+        })
+
       {:ok, merchant1} =
         Merchants.create_merchant(%{description: "some description", name: "some name"})
 
@@ -18,22 +32,13 @@ defmodule Homework.TransactionsTest do
           name: "some updated name"
         })
 
-      {:ok, user1} =
-        Users.create_user(%{
-          dob: "some dob",
-          first_name: "some first_name",
-          last_name: "some last_name"
-        })
+      user1 = insert(:user, company: company1)
 
-      {:ok, user2} =
-        Users.create_user(%{
-          dob: "some updated dob",
-          first_name: "some updated first_name",
-          last_name: "some updated last_name"
-        })
+      user2 = insert(:user, company: company2)
 
       valid_attrs = %{
         amount: 42,
+        company_id: company1.id,
         credit: true,
         debit: true,
         description: "some description",
@@ -43,6 +48,7 @@ defmodule Homework.TransactionsTest do
 
       update_attrs = %{
         amount: 43,
+        company_id: company2.id,
         credit: false,
         debit: false,
         description: "some updated description",
@@ -52,6 +58,7 @@ defmodule Homework.TransactionsTest do
 
       invalid_attrs = %{
         amount: nil,
+        company_id: nil,
         credit: nil,
         debit: nil,
         description: nil,
@@ -61,13 +68,15 @@ defmodule Homework.TransactionsTest do
 
       {:ok,
        %{
-         valid_attrs: valid_attrs,
-         update_attrs: update_attrs,
+         company1: company1,
+         company2: company2,
          invalid_attrs: invalid_attrs,
          merchant1: merchant1,
          merchant2: merchant2,
+         update_attrs: update_attrs,
          user1: user1,
-         user2: user2
+         user2: user2,
+         valid_attrs: valid_attrs
        }}
     end
 
@@ -91,12 +100,14 @@ defmodule Homework.TransactionsTest do
     end
 
     test "create_transaction/1 with valid data creates a transaction", %{
-      valid_attrs: valid_attrs,
+      company1: company1,
       merchant1: merchant1,
-      user1: user1
+      user1: user1,
+      valid_attrs: valid_attrs
     } do
       assert {:ok, %Transaction{} = transaction} = Transactions.create_transaction(valid_attrs)
       assert transaction.amount == 42
+      assert transaction.company_id == company1.id
       assert transaction.credit == true
       assert transaction.debit == true
       assert transaction.description == "some description"
@@ -111,10 +122,11 @@ defmodule Homework.TransactionsTest do
     end
 
     test "update_transaction/2 with valid data updates the transaction", %{
-      valid_attrs: valid_attrs,
-      update_attrs: update_attrs,
+      company2: company2,
       merchant2: merchant2,
-      user2: user2
+      update_attrs: update_attrs,
+      user2: user2,
+      valid_attrs: valid_attrs
     } do
       transaction = transaction_fixture(valid_attrs)
 
@@ -122,6 +134,7 @@ defmodule Homework.TransactionsTest do
                Transactions.update_transaction(transaction, update_attrs)
 
       assert transaction.amount == 43
+      assert transaction.company_id == company2.id
       assert transaction.credit == false
       assert transaction.debit == false
       assert transaction.description == "some updated description"

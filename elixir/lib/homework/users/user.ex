@@ -12,14 +12,16 @@ defmodule Homework.Users.User do
     field(:last_name, :string)
     field(:tid, :string)
 
+    belongs_to(:company, Homework.Accounts.Company, type: :binary_id, foreign_key: :company_id)
+
     timestamps()
   end
 
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:first_name, :last_name, :dob, :tid])
-    |> validate_required([:first_name, :last_name, :dob])
+    |> cast(attrs, [:company_id, :first_name, :last_name, :dob, :tid])
+    |> validate_required([:company_id, :first_name, :last_name, :dob])
   end
 
   #############

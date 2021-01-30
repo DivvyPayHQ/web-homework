@@ -14,10 +14,15 @@ defmodule Homework.UsersTest do
     }
     @invalid_attrs %{dob: nil, first_name: nil, last_name: nil}
 
+    def valid_attrs do
+      company = insert(:company)
+      @valid_attrs |> Map.merge(%{company_id: company.id})
+    end
+
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =
         attrs
-        |> Enum.into(@valid_attrs)
+        |> Enum.into(valid_attrs())
         |> Users.create_user()
 
       user
@@ -41,7 +46,7 @@ defmodule Homework.UsersTest do
     end
 
     test "create_user/1 with valid data creates a user" do
-      assert {:ok, %User{} = user} = Users.create_user(@valid_attrs)
+      assert {:ok, %User{} = user} = Users.create_user(valid_attrs())
       assert user.dob == "some dob"
       assert user.first_name == "some first_name"
       assert user.last_name == "some last_name"
