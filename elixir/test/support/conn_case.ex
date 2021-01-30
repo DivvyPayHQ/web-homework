@@ -20,9 +20,10 @@ defmodule HomeworkWeb.ConnCase do
   using do
     quote do
       # Import conveniences for testing with connections
-      import Plug.Conn
-      import Phoenix.ConnTest
+      import Homework.Factory
       import HomeworkWeb.ConnCase
+      import Phoenix.ConnTest
+      import Plug.Conn
 
       alias HomeworkWeb.Router.Helpers, as: Routes
 

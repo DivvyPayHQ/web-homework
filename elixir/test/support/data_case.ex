@@ -24,6 +24,7 @@ defmodule Homework.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import Homework.DataCase
+      import Homework.Factory
     end
   end
 
