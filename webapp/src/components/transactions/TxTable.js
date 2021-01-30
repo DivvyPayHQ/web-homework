@@ -23,7 +23,7 @@ export function TxTable ({ data }) {
         {data.map(tx => {
           const { id, user_id: userId, description, merchant_id: merchantId, debit, credit, amount } = tx
           return (
-            <tr data-testid={`transaction-${id}`} key={`transaction-${id}`}>
+            <TableRow data-testid={`transaction-${id}`} key={`transaction-${id}`}>
               <TableCell data-testid={makeDataTestId(id, 'id')}>{id}</TableCell>
               <TableCell data-testid={makeDataTestId(id, 'userId')}>{userId}</TableCell>
               <TableCell data-testid={makeDataTestId(id, 'description')}>{description}</TableCell>
@@ -31,7 +31,7 @@ export function TxTable ({ data }) {
               <TableCell data-testid={makeDataTestId(id, 'debit')}>{debit}</TableCell>
               <TableCell data-testid={makeDataTestId(id, 'credit')}>{credit}</TableCell>
               <TableCell data-testid={makeDataTestId(id, 'amount')}>{amount}</TableCell>
-            </tr>
+            </TableRow>
           )
         })}
       </Table>

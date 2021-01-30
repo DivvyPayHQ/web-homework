@@ -9,9 +9,16 @@ defmodule HomeworkWeb.Schema do
   alias HomeworkWeb.Resolvers.UsersResolver
   import_types(HomeworkWeb.Schemas.Types)
 
+  input_object :pagination do
+    field :skip, non_null(:integer)
+    field :limit, non_null(:integer)
+  end
+
   query do
     @desc "Get all Transactions"
     field(:transactions, list_of(:transaction)) do
+      arg(:pagination, :pagination)
+
       resolve(&TransactionsResolver.transactions/3)
     end
 
