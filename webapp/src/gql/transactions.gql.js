@@ -34,12 +34,34 @@ export const createTransaction = gql`
   }
 `
 
+export const updateTransaction = gql`
+  mutation updateTransaction(
+    $id: ID!
+    $amount: Int!,
+    $credit: Boolean!,
+    $debit: Boolean!,
+    $description: String!,
+    $merchantId: ID!,
+    $userId: ID!,
+  ) {
+    updateTransaction(id: $id, amount: $amount, credit: $credit, debit: $debit, description: $description, merchantId:$merchantId, userId:$userId) {
+      id
+      amount
+      credit
+      debit
+      description
+      merchant_id
+      user_id
+    }
+  }
+`
+
 export const deleteTransaction = gql`
   mutation deleteTransaction(
     $id: ID!
   ) {
     deleteTransaction(id: $id) {
-      amount
+      id
     }
   }
 `

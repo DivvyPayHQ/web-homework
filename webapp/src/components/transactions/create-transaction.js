@@ -21,21 +21,24 @@ export function CreateTransaction () {
   const [description, setDescription] = useState('')
   const [creditDebitSelect, setCreditDebitSelect] = useState('credit')
 
-  const [createTransactionMutation] = useMutation(createTransaction, { update (cache, { data }) {
-    const createdTransaction = data.createTransaction
-    const { transactions } = cache.readQuery({
-      query: getTransactions
-    })
-    cache.writeQuery({
-      query: getTransactions,
-      data: {
-        transactions: [
-          ...transactions,
-          createdTransaction
-        ]
-      }
-    })
-  } })
+  const [createTransactionMutation] = useMutation(createTransaction, {
+    update (cache, { data }) {
+      const createdTransaction = data.createTransaction
+      const { transactions } = cache.readQuery({
+        query: getTransactions
+      })
+      cache.writeQuery({
+        query: getTransactions,
+        data: {
+          transactions: [
+            ...transactions,
+            createdTransaction
+          ]
+        }
+      })
+    }
+  })
+
   const { data: merchantList } = useQuery(getMerchants)
   const { data: usersList } = useQuery(getUsersQuery)
 
