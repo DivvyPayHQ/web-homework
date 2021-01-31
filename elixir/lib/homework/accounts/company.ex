@@ -21,4 +21,14 @@ defmodule Homework.Accounts.Company do
     |> cast(attrs, @valid_attributes)
     |> validate_required(@required_attributes)
   end
+
+  def create_changeset(company, attrs) do
+    attrs =
+      case attrs do
+        %{:credit_line => credit_line} -> Map.put(attrs, :available_credit, credit_line)
+        _ -> attrs
+      end
+
+    changeset(company, attrs)
+  end
 end

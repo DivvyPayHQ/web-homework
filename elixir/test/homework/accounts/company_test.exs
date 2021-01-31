@@ -5,7 +5,7 @@ defmodule Homework.Accounts.CompanyTest do
 
   @required_attrs ~w{ available_credit credit_line name }a
 
-  describe "validations" do
+  describe "changeset" do
     setup do
       [
         valid_attrs: %{
@@ -29,5 +29,15 @@ defmodule Homework.Accounts.CompanyTest do
                  errors_on(Company.changeset(%Company{}, valid_attrs |> Map.delete(@attr)))
       end
     end)
+
+    test "create_changeset sets available_credit to credit_line" do
+      changeset =
+        Company.create_changeset(%Company{}, %{
+          credit_line: 10_000_00,
+          name: "company name"
+        })
+
+      assert changeset.changes[:available_credit] == 10_000_00
+    end
   end
 end
