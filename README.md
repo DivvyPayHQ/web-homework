@@ -19,9 +19,7 @@ The `/elixir` one includes a functional GraphQL server in Elixir with Postgresql
 If you are applying for backend, you should use the elixir code.
 If you are applying for frontend, feel free to use either.
 
-This project is intentionally not utilizing 3rd party services or create-react-app to give you the opportunity to showcase your talents wherever they are, be it the front end or the back end.
-
-**Node** version **12** is the safest NodeJS release to use.  You can try version 14, but there can be node-gyp/python issues on OSX.
+This project is _intentionally not utilizing 3rd party services or create-react-app_ to give you the opportunity to showcase your talents wherever they are, be it the front end or the back end.
 
 ## Instructions
 
