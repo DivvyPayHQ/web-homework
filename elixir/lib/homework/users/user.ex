@@ -2,6 +2,7 @@ defmodule Homework.Users.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  # arbitrary date to ensure our users are born before 18 years ago today
   @birthday_cutoff Date.utc_today |> Date.add(-18*365)
 
   @primary_key {:id, :binary_id, autogenerate: true}

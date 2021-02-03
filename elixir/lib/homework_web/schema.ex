@@ -14,6 +14,13 @@ defmodule HomeworkWeb.Schema do
     field :limit, non_null(:integer)
   end
 
+  object :meta do
+    field :total_rows, non_null(:integer)
+    field :skip, non_null(:integer)
+    field :limit, non_null(:integer)
+  end
+
+
   query do
     @desc "Get all Transactions"
     field(:transactions, list_of(:transaction)) do
