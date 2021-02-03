@@ -28,14 +28,14 @@ defmodule Homework.TransactionsTest do
 
       {:ok, user2} =
         Users.create_user(%{
-          dob: "1990-01-2",
+          dob: "1990-01-02",
           first_name: "some updated first_name",
           last_name: "some updated last_name"
         })
 
       valid_attrs = %{
         amount: 42,
-        credit: true,
+        credit: false,
         debit: true,
         description: "some description",
         merchant_id: merchant1.id,
@@ -44,7 +44,7 @@ defmodule Homework.TransactionsTest do
 
       update_attrs = %{
         amount: 43,
-        credit: false,
+        credit: true,
         debit: false,
         description: "some updated description",
         merchant_id: merchant2.id,
@@ -98,7 +98,7 @@ defmodule Homework.TransactionsTest do
     } do
       assert {:ok, %Transaction{} = transaction} = Transactions.create_transaction(valid_attrs)
       assert transaction.amount == 42
-      assert transaction.credit == true
+      assert transaction.credit == false
       assert transaction.debit == true
       assert transaction.description == "some description"
       assert transaction.merchant_id == merchant1.id
@@ -123,7 +123,7 @@ defmodule Homework.TransactionsTest do
                Transactions.update_transaction(transaction, update_attrs)
 
       assert transaction.amount == 43
-      assert transaction.credit == false
+      assert transaction.credit == true
       assert transaction.debit == false
       assert transaction.description == "some updated description"
       assert transaction.merchant_id == merchant2.id

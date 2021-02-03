@@ -42,7 +42,7 @@ defmodule Homework.Users.User do
   defp validate_age(changeset, field, options \\ []) do
     validate_change(changeset, field, fn _, date ->
 
-      {:ok, date} = Date.from_iso8601(date) # this is where I'd have made it a prop of the struct
+      date = Date.from_iso8601!(date) # this is where I'd have made it a prop of the struct
 
       case Date.compare(@birthday_cutoff, date) do
         :gt -> []
