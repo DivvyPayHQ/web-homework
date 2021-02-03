@@ -53,5 +53,4 @@ defmodule HomeworkWeb.Endpoint do
   plug(Plug.Head)
   plug(Plug.Session, @session_options)
   plug(HomeworkWeb.Router)
-
 end

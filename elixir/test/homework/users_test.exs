@@ -61,7 +61,8 @@ defmodule Homework.UsersTest do
     end
 
     test "create_user/1 with too early of birthday error" do
-      assert {:error, %Ecto.Changeset{}} = Users.create_user(@invalid_attrs_too_young)
+      assert {:error, changeset} = Users.create_user(@invalid_attrs_too_young)
+      assert changeset.errors == [{:dob, {"User does not meet age requirements", []}}]
     end
 
     test "update_user/2 with valid data updates the user" do

@@ -7,10 +7,10 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   Get a list of transcations
   """
   def transactions(_root, args, _info) do
-    {:ok,
-    Transactions.list_transactions(args)
-    |> Enum.map(&transaction_amount_to_dollars/1)
-
+    {
+      :ok,
+      Transactions.list_transactions(args)
+      |> Enum.map(&transaction_amount_to_dollars/1)
   }
   end
 

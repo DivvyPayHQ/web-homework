@@ -4,7 +4,6 @@ defmodule Homework.Users.User do
 
   @birthday_cutoff Date.utc_today |> Date.add(-18*365)
 
-
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "users" do
     field(:dob, :string)
@@ -14,11 +13,6 @@ defmodule Homework.Users.User do
     timestamps()
   end
 
-  @spec changeset(
-          {map, map} | %{:__struct__ => atom | %{__changeset__: map}, optional(atom) => any},
-          :invalid | %{optional(:__struct__) => none, optional(atom | binary) => any}
-        ) :: Ecto.Changeset.t()
-  @doc false
   def changeset(user, attrs) do
     user
     |> cast(attrs, [:first_name, :last_name, :dob])
