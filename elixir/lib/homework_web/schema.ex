@@ -14,6 +14,11 @@ defmodule HomeworkWeb.Schema do
     field :limit, non_null(:integer)
   end
 
+  # If I got the total_rows working, I'd have added it here, along
+  # with the skip/limit parameters as well.  If we did tracing/telemetry/requestID
+  # through gql, this would also be the spot for that, so the moment
+  # I start adding anything `meta`, I start with a child object to keep things
+  # clean and universal
   object :meta do
     field :total_rows, non_null(:integer)
     field :skip, non_null(:integer)
