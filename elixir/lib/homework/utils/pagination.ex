@@ -4,8 +4,7 @@ defmodule Homework.Utils.Pagination do
 
   def skip_limit(query, args) do
     case args do
-      # by ordering off of id, we get a postgres keyset pagination
-      %{ pagination: %{ skip: s, limit: l } } -> query |> order_by(:id) |> offset(^s) |> limit(^l)
+      %{ pagination: %{ skip: s, limit: l } } -> query |> order_by(:inserted_at) |> offset(^s) |> limit(^l)
       _ -> query
     end
   end
