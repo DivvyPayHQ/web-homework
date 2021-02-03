@@ -25,6 +25,7 @@ defmodule Homework.Users.User do
     |> validate_required([:first_name, :last_name, :dob])
     |> validate_date(:dob)
     |> validate_age(:dob)
+    |> unique_constraint([:first_name, :last_name, :dob], name: :users_info_unique)
   end
 
   defp validate_date(changeset, field, options \\ []) do
