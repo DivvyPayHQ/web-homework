@@ -3,9 +3,11 @@
 This repository provides a starting point for a basic React + GraphQL application.
 All of the configuration boilerplate is complete so you can start by writing the code that you want us to see.
 
-Please **fork** this repo to your GitHub account.
+Please **fork** this repo a **private repo** on your GitHub account.
 
-If you want your github to remain private, please share your finished project repo with @thawk55 and @lwintch 
+Please share your finished project repo with @thawk55 and @lwintch as part of your submission.
+
+<br />
 
 
 ## Project Setup
