@@ -10,6 +10,19 @@ Please share your finished project repo with @thawk55 and @lwintch as part of yo
 <br />
 
 
+## Instructions
+
+If you are pursuing a full stack or backend position, please include elixir code changes in your homework.
+
+### Frontend and Full Stack _Stretch_ Submissions
+See the [Frontend instructions](webapp/README.md) for frontend focused instructions.  If front end only, use the node server in `/webserver`.
+
+### Backend and Full Stack Submissions
+See the [Backend instructions](backend.md) for backend focused instructions. 
+
+<br />
+
+
 ## Project Setup
 
 This repository is split into a web app directory (eg `/webapp`) and two server directories (eg `/webserver` and `/elixir`).
@@ -22,14 +35,4 @@ If you are applying for backend, you should use the elixir code.
 If you are applying for frontend, feel free to use either.
 
 This project is _intentionally not utilizing 3rd party services or create-react-app_ to give you the opportunity to showcase your talents wherever they are, be it the front end or the back end.
-
-## Instructions
-
-If you are pursuing a full stack or backend position, please include elixir code changes in your homework.
-
-See the [Frontend instructions](webapp/README.md) for frontend focused instructions.  If front end only, use the node server in `/webserver`.
-
-See the [Backend instructions](backend.md) for backend focused instructions.
-
-
 
