@@ -1,0 +1,36 @@
+version: "3.7"
+
+services:
+  graphql:
+    container_name: "divvy-graphql"
+    restart: always
+    build: .
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongo
+    networks:
+      - divvynet
+    environment:
+      WAIT_HOSTS: mongo:27017
+
+  mongo:
+    container_name: "divvy-mongo"
+    image: "mongo:4.2.12"
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=toor
+      - MONGO_INITDB_DATABASE=graphql
+    volumes:
+      - ./initdb.js:/docker-entrypoint-initdb.d/initdb.js:ro
+    ports:
+      - "27017:27017"
+    networks:
+      - divvynet
+
+networks:
+  divvynet:
+    driver: "bridge"

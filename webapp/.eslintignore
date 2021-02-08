@@ -1,0 +1,6 @@
+.*
+coverage/
+dist/
+src/serviceWorker.ts
+src/reportWebVitals.ts
+src/generated

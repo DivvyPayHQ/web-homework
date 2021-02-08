@@ -1,0 +1,13 @@
+overwrite: true
+schema: "http://localhost:8000/graphql"
+generates:
+  ./src/generated/schema.json:
+    plugins:
+      - "introspection"
+  ./src/generated/types.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+    config:
+      immutableTypes: true
+      declarationKind: "interface"
