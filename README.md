@@ -1,4 +1,4 @@
-See my notes [here](./hansmd) on assignment.
+See my notes [here](./hans.md) on assignment.
 
 ---
 
