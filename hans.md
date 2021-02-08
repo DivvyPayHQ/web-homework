@@ -1,6 +1,6 @@
 ## TODO
 
-- Fix Apollo cache update issue where delelting a user does not trigger React to update
+- Fix Apollo cache update issue where deleting a user does not trigger React to update
 - Add charts to dashboard route
 
 ## React Front End:
@@ -11,6 +11,7 @@
 - Switched from `.gql` files to components declaring what they need
 - Partial CRUD operations on Users (List, Create, Delete), Merchants (List, Create) and Transactions (List, Create)
 - Demonstrated FP skillset in `transactionsPage.tsx` to handle possible _null_ and/or _undefined_ values using the `fp-ts` library
+- Super basic i18n changer using React Context
 
 ## Expess BE
 
