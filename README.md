@@ -1,3 +1,7 @@
+See my notes [here](./hansmd) on assignment.
+
+---
+
 # Divvy Homework Assignment
 
 This repository provides a starting point for a basic React + GraphQL application.
@@ -5,8 +9,7 @@ All of the configuration boilerplate is complete so you can start by writing the
 
 Please **fork** this repo to your GitHub account.
 
-If you want your github to remain private, please share your finished project repo with @thawk55 and @lwintch 
-
+If you want your github to remain private, please share your finished project repo with @thawk55 and @lwintch
 
 ## Project Setup
 
@@ -25,9 +28,6 @@ This project is _intentionally not utilizing 3rd party services or create-react-
 
 If you are pursuing a full stack or backend position, please include elixir code changes in your homework.
 
-See the [Frontend instructions](webapp/README.md) for frontend focused instructions.  If front end only, use the node server in `/webserver`.
+See the [Frontend instructions](webapp/README.md) for frontend focused instructions. If front end only, use the node server in `/webserver`.
 
 See the [Backend instructions](backend.md) for backend focused instructions.
-
-
-
