@@ -13,7 +13,6 @@ To start your Phoenix server:
 Now you can visit [`localhost:8000`](http://localhost:8000) from your browser.
 You can use [`localhost:8000/graphiql`](http://localhost:8000/graphiql) to make basic graphql queries from your browser.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
 ## Learn more
 
@@ -22,3 +21,4 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Docs: https://hexdocs.pm/phoenix
   * Forum: https://elixirforum.com/c/phoenix-forum
   * Source: https://github.com/phoenixframework/phoenix
+  * Absinthe: https://hexdocs.pm/absinthe/overview.html
