@@ -1,5 +1,7 @@
 # Homework
 
+For backend only applicants, you should only need to deal with files in the `elixir` folder.
+
 You will need to have postgres running.
 The easiest way to install postgres is through brew:
 `brew install postgres`
