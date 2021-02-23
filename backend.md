@@ -7,6 +7,8 @@ Please **fork** this repo to your GitHub account.
 
 You do not need to complete the frontend assignments if you are planning to apply specifically for a backend role.
 
+See the [README](https://github.com/DivvyPayHQ/web-homework/blob/master/elixir/README.md) for how to get elixir up and running. 
+
 ## Instructions
 
 You do not have to complete all of these objectives, but do as many as you can without wasting your time.
