@@ -27,6 +27,8 @@ This can be particularly helpful if you are running on Windows or are having iss
 
 Note, you will have to run `docker-compose build` every time you change code.
 
+Also if you just want to run postgres in docker, you can run `docker-compose up db` to just spin up postgres.
+
 ## Learn more
 
   * Official website: https://www.phoenixframework.org/

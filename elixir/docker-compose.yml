@@ -28,3 +28,16 @@ db:
     restart: always
     volumes:
       - .:/app/
+test:
+  build: .
+  entrypoint: /app/test-entrypoint.sh
+  environment:
+    - MIX_ENV=test
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=postgres
+    - POSTGRES_DATABASE=homework_test
+    - POSTGRES_HOST=db
+  volumes_from:
+    - web
+  links:
+    - db
