@@ -15,6 +15,18 @@ You can use [`localhost:8000/graphiql`](http://localhost:8000/graphiql) to make 
 
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
+## Docker
+
+If you want to run this in docker you can do so:
+1. run `docker-compose build` from `/elixir` directory of the app.
+2. run `docker-compose up web` from `/elixir` directory of the app to start the server.
+3. run `docker-compose up test` from `/elixir` directory of the app to run the tests.
+
+
+This can be particularly helpful if you are running on Windows or are having issues getting postgres or elixir running.
+
+Note, you will have to run `docker-compose build` every time you change code.
+
 ## Learn more
 
   * Official website: https://www.phoenixframework.org/
