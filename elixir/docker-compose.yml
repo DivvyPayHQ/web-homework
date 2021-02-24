@@ -1,0 +1,43 @@
+web:
+  build: .
+  ports:
+    - "8000:8000"
+  environment:
+    - MIX_ENV=dev
+    - PORT=8000
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=postgres
+    - POSTGRES_DATABASE=homework_dev
+    - POSTGRES_HOST=db
+  volumes:
+    - .:/app
+  links:
+    - db
+db:
+    # We use the predefined Postgres image
+    image: postgres:10.4
+    ports:
+      - "5432:5432"
+    environment:
+      # Set user/password for Postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DATABASE: homework_dev
+      # Set a path where Postgres should store the data
+      PGDATA: /var/lib/postgresql/data/pgdata
+    restart: always
+    volumes:
+      - .:/app/
+test:
+  build: .
+  entrypoint: /app/test-entrypoint.sh
+  environment:
+    - MIX_ENV=test
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=postgres
+    - POSTGRES_DATABASE=homework_test
+    - POSTGRES_HOST=db
+  volumes_from:
+    - web
+  links:
+    - db
