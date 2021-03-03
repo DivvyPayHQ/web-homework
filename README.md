@@ -3,7 +3,7 @@
 ### Installation
 
 CD into both `/webapp` and `/webserver` and run `yarn`
-- for `/webapp` and `/webserver`, make sure you are on the latest version of Node (14.15.5) - if using `nvm`, you can run `nvm use`
+- for `/webapp` and `/webserver`, make sure you are on the latest version of Node (14.15.5)
 - for `/webserver` the DB will seed based off of `/db-init/sample-migration.js`
 
 
