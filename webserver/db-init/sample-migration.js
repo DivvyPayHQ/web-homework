@@ -5,16 +5,36 @@ module.exports = {
     // const objectID = require('mongodb').ObjectID
 
     const merchantNames = [
-      'Washington Capitals',
-      'Las Vegas Golden Knights',
-      'Toronto Maple Leafs',
-      'Tampa Bay Lightning',
-      'Colorado Avalanche',
+      'Anaheim Ducks',
+      'Arizona Coyotes',
       'Boston Bruins',
-      'Detroit Red Wings',
+      'Buffalo Sabres',
+      'Calgary Flames',
+      'Carolina Hurricanes',
+      'Colorado Avalanche',
+      'Colombus Blue Jackets',
       'Dallas Stars',
+      'Detroit Red Wings',
+      'Edmonton Oilers',
+      'Florida Panthers',
+      'Los Angeles Kings',
+      'Minnesota Wild',
+      'Montreal Canadiens',
       'Nashville Predators',
-      'New York Rangers'
+      'New Jersey Devils',
+      'New York Islanders',
+      'New York Rangers',
+      'Ottawa Senators',
+      'Philadelphia Flyers',
+      'Pittsburgh Penguins',
+      'San Jose Sharks',
+      'St Louis Blues',
+      'Tampa Bay Lightning',
+      'Toronto Maple Leafs',
+      'Vancouver Canucks',
+      'Vegas Golden Knights',
+      'Washington Capital',
+      'Winnipeg Jets'
     ]
 
     const categoryNames = [
