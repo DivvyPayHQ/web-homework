@@ -1,0 +1,31 @@
+query GetUsers {
+    users {
+        id
+        first_name
+        last_name
+        dob
+    }
+}
+
+query GetUser($id: String!) {
+    user(id: $id) {
+        id
+        first_name
+        last_name
+        dob
+    }
+}
+
+mutation AddUser(
+    $first_name: String
+    $last_name: String
+    $dob: String
+) {
+    addUser(
+        first_name: $first_name
+        last_name: $last_name
+        dob: $dob
+    ) {
+        id
+    }
+}

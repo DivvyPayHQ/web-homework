@@ -5,3 +5,7 @@ node_modules/
 **/*/.vscode/
 **/*/.idea/
 **/*/node_modules/
+
+webapp/.nvmrc
+
+webserver/.nvmrc

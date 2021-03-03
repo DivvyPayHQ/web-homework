@@ -15,6 +15,7 @@ let plugins = [
 ]
 
 const JS_FILE_REGEX = /\.(js|jsx)$/
+const CSS_FILE_REGEX = /\.(scss|css)$/
 const IMAGE_FILE_REGEX = /\.(jpg|jpeg|png|svg|bmp)$/
 const NODE_MODULES_DIR_REGEX = /\/node_modules\/(?!apollo-.*?|react-apollo)/
 const GRAPH_QL_FILE_REGEX = /\.(graphql|gql)$/
@@ -25,6 +26,11 @@ const babelConfig = {
   use: {
     loader: 'babel-loader'
   }
+}
+
+const cssConfig = {
+  test: CSS_FILE_REGEX,
+  use: 'css-loader'
 }
 
 const imageUrlConfig = {
@@ -47,6 +53,7 @@ const graphQlConfig = {
 
 const rules = [
   babelConfig,
+  cssConfig,
   eslintConfig,
   imageUrlConfig,
   {
@@ -87,7 +94,13 @@ const config = {
     port: process.env.PORT || 3000
   },
   resolve: {
-    extensions: ['.mjs', '.js', '.jsx', '.json']
+    extensions: ['.mjs', '.js', '.jsx', '.json', '.css'],
+    alias: {
+      components: path.resolve(__dirname, 'src/components'),
+      gql: path.resolve(__dirname, 'src/gql'),
+      utils: path.resolve(__dirname, 'src/utils'),
+      views: path.resolve(__dirname, 'src/views')
+    }
   }
 }
 

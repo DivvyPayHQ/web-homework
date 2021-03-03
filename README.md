@@ -1,4 +1,15 @@
-# Divvy Homework Assignment
+# Dev Notes
+
+### Installation
+
+CD into both `/webapp` and `/webserver` and run `yarn`
+- for `/webapp` and `/webserver`, make sure you are on the latest version of Node (14.15.5) - if using `nvm`, you can run `nvm use`
+- for `/webserver` the DB will seed based off of `/db-init/sample-migration.js`
+
+
+----------
+
+## Divvy Homework Assignment
 
 This repository provides a starting point for a basic React + GraphQL application.
 All of the configuration boilerplate is complete so you can start by writing the code that you want us to see.

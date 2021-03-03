@@ -10,6 +10,8 @@
     "boot": "yarn --ignore-engines",
     "reset": "rm -rf node_modules 2> /dev/null && yarn boot",
     "start": "./bin/app",
+    "postinstall": "migrate-mongo create seed && migrate-mongo up",
+    "cleanmongo": "migrate-mongo down",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -30,6 +32,7 @@
     "babel-eslint": "10.0.1",
     "eslint": "5.16.0",
     "eslint-config-divvy": "1.1.0",
+    "migrate-mongo": "^8.1.4",
     "prettier": "1.18.2"
   }
 }

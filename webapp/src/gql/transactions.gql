@@ -1,11 +1,171 @@
 query GetTransactions {
     transactions {
         id
-        user_id
-        description
-        merchant_id
-        debit
-        credit
+        user {
+          id
+          first_name
+          last_name
+          dob
+        }
+        category {
+          id
+          name
+        }
+        merchant {
+          id
+          name
+        }
         amount
+        credit
+        description
+        date
     }
+}
+
+query GetTransaction($id: String!) {
+    transaction(id: $id) {
+        id
+        user {
+          id
+          first_name
+          last_name
+          dob
+        }
+        category {
+          id
+          name
+        }
+        merchant {
+          id
+          name
+        }
+        amount
+        credit
+        description
+        date
+    }
+}
+
+query GetTransactionsByCategory($category_id: String!) {
+  transactions(category_id: $category_id) {
+        id
+        user {
+          id
+          first_name
+          last_name
+          dob
+        }
+        category {
+          id
+          name
+        }
+        merchant {
+          id
+          name
+        }
+        amount
+        credit
+        description
+        date
+    }
+}
+
+query GetTransactionsByMerchant($merchant_id: String!) {
+  transactions(merchant_id: $merchant_id) {
+        id
+        user {
+          id
+          first_name
+          last_name
+          dob
+        }
+        category {
+          id
+          name
+        }
+        merchant {
+          id
+          name
+        }
+        amount
+        credit
+        description
+        date
+    }
+}
+
+query GetTransactionsByUser($user_id: String!) {
+  transactions(user_id: $user_id) {
+        id
+        user {
+          id
+          first_name
+          last_name
+          dob
+        }
+        category {
+          id
+          name
+        }
+        merchant {
+          id
+          name
+        }
+        amount
+        credit
+        description
+        date
+    }
+}
+
+mutation AddTransaction(
+    $user_id: String
+    $category_id: String
+    $merchant_id: String
+    $amount: Float
+    $credit: Boolean
+    $description: String
+    $date: String
+) {
+    addTransaction(
+        user_id: $user_id
+        category_id: $category_id
+        merchant_id: $merchant_id
+        amount: $amount
+        credit: $credit
+        description: $description
+        date: $date
+    ) {
+        id
+    }
+}
+
+mutation DeleteTransaction($id: String) {
+  deleteTransaction(id: $id) {
+    id
+  }
+}
+
+mutation EditTransaction(
+  $id: String
+  $user_id: String
+  $category_id: String
+  $merchant_id: String
+  $amount: Float
+  $credit: Boolean
+  $date: String
+  $description: String
+) {
+  editTransaction(
+    id: $id
+    user_id: $user_id
+    category_id: $category_id
+    merchant_id: $merchant_id
+    amount: $amount
+    credit: $credit
+    date: $date
+    description: $description
+  ) {
+    id
+  }
 }

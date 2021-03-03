@@ -1,0 +1,13 @@
+query GetMerchants {
+  merchants {
+    id
+    name
+  }
+}
+
+query GetMerchant($id: String!) {
+    merchant(id: $id) {
+        id
+        name
+    }
+}

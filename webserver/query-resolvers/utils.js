@@ -1,4 +1,4 @@
-function packageModel(model) {
+function packageModel (model) {
   const models = [].concat(model)
   const results = []
 
