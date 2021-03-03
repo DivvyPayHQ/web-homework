@@ -1,4 +1,3 @@
-/* eslint-disable */
 import _ from 'underscore'
 
 export default function aggregator (type, data = []) {
