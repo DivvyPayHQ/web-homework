@@ -1,4 +1,4 @@
-defmodule Homework.Companies.Companies do
+defmodule Homework.Companies.Company do
   use Ecto.Schema
   import Ecto.Changeset
 
