@@ -51,6 +51,7 @@ defmodule HomeworkWeb.Endpoint do
 
   plug(Plug.MethodOverride)
   plug(Plug.Head)
+  plug(Corsica, max_age: 600, origins: ["http://localhost:3000"], allow_headers: :all)
   plug(Plug.Session, @session_options)
   plug(HomeworkWeb.Router)
 end
