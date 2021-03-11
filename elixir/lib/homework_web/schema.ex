@@ -4,6 +4,7 @@ defmodule HomeworkWeb.Schema do
   """
   use Absinthe.Schema
 
+  alias HomeworkWeb.Resolvers.CategoriesResolver
   alias HomeworkWeb.Resolvers.CompaniesResolver
   alias HomeworkWeb.Resolvers.MerchantsResolver
   alias HomeworkWeb.Resolvers.TransactionsResolver
@@ -11,6 +12,11 @@ defmodule HomeworkWeb.Schema do
   import_types(HomeworkWeb.Schemas.Types)
 
   query do
+    @desc "Get all Categories"
+    field(:categories, list_of(:category)) do
+      resolve(&CategoriesResolver.categories/3)
+    end
+
     @desc "Get all Companies"
     field(:companies, list_of(:company)) do
       resolve(&CompaniesResolver.companies/3)
@@ -33,6 +39,7 @@ defmodule HomeworkWeb.Schema do
   end
 
   mutation do
+    import_fields(:category_mutations)
     import_fields(:company_mutations)
     import_fields(:transaction_mutations)
     import_fields(:user_mutations)
