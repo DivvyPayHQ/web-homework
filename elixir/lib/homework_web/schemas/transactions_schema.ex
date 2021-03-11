@@ -10,6 +10,7 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
     field(:id, non_null(:id))
     field(:user_id, :id)
     field(:amount, :integer)
+    field(:category_id, :id)
     field(:company_id, :id)
     field(:credit, :boolean)
     field(:debit, :boolean)
@@ -29,6 +30,10 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
     field(:company, :company) do
       resolve(&TransactionsResolver.company/3)
     end
+
+    field(:category, :category) do
+      resolve(&TransactionsResolver.category/3)
+    end
   end
 
   object :transaction_mutations do
@@ -37,6 +42,7 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
       arg(:user_id, non_null(:id))
       arg(:merchant_id, non_null(:id))
       arg(:company_id, non_null(:id))
+      arg(:category_id, :id)
       @desc "amount is in cents"
       arg(:amount, non_null(:integer))
       arg(:credit, non_null(:boolean))
@@ -52,6 +58,7 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
       arg(:user_id, non_null(:id))
       arg(:merchant_id, non_null(:id))
       arg(:company_id, non_null(:id))
+      arg(:category_id, :id)
       @desc "amount is in cents"
       arg(:amount, non_null(:integer))
       arg(:credit, non_null(:boolean))

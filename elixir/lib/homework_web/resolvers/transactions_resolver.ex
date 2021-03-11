@@ -1,4 +1,5 @@
 defmodule HomeworkWeb.Resolvers.TransactionsResolver do
+  alias Homework.Categories
   alias Homework.Companies
   alias Homework.Merchants
   alias Homework.Transactions
@@ -30,6 +31,14 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   """
   def company(_root, _args, %{source: %{company_id: company_id}}) do
     {:ok, Companies.get_company!(company_id)}
+  end
+
+  @doc """
+  Get the category associated with a transaction
+  """
+  def category(_root, _args, %{source: %{category_id: category_id}}) do
+    category = if is_nil(category_id), do: nil, else: Categories.get_category!(category_id)
+    {:ok, category}
   end
 
   @doc """
