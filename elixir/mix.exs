@@ -20,7 +20,7 @@ defmodule Homework.MixProject do
   def application do
     [
       mod: {Homework.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :postgrex, :ecto, :phoenix_html]
     ]
   end
 
@@ -39,13 +39,16 @@ defmodule Homework.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:phoenix, "~> 1.5.4"},
+      {:phoenix_pagination, "~> 0.7.0", override: true},
       {:phoenix_ecto, "~> 4.1"},
       {:phoenix_live_dashboard, "~> 0.2"},
       {:plug_cowboy, "~> 2.0"},
       {:poison, "~> 2.1.0"},
       {:postgrex, ">= 0.0.0"},
       {:telemetry_metrics, "~> 0.4"},
-      {:telemetry_poller, "~> 0.4"}
+      {:telemetry_poller, "~> 0.4"},
+      {:money, "~> 1.4"},
+      {:decimal, "~> 1.0"}
     ]
   end
 

@@ -5,7 +5,6 @@ defmodule Homework.Users do
 
   import Ecto.Query, warn: false
   alias Homework.Repo
-
   alias Homework.Users.User
 
   @doc """
@@ -36,6 +35,28 @@ defmodule Homework.Users do
 
   """
   def get_user!(id), do: Repo.get!(User, id)
+
+
+  @doc """
+  Gets a single user by name.
+
+  Raises `Ecto.NoResultsError` if the user does not exist.
+
+  ## Examples
+
+      iex> get_user!(<name>)
+      %User{}
+
+      iex> get_user!("Larry")
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_user_by_name!(name) do 
+      query = from n in User,
+      where: ilike(n.first_name, ^"%#{name}%") or ilike(n.last_name, ^"%#{name}%")
+      Repo.all(query)
+  end
+
 
   @doc """
   Creates a user.

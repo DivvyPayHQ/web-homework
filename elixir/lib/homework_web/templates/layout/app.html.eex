@@ -1,0 +1,5 @@
+<p><a href="/"> Homepage </a></p> 
+
+<main role="main">
+  <%= @inner_content %>
+</main>

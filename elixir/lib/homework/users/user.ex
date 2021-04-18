@@ -2,6 +2,7 @@ defmodule Homework.Users.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "users" do
     field(:dob, :string)
@@ -17,4 +18,5 @@ defmodule Homework.Users.User do
     |> cast(attrs, [:first_name, :last_name, :dob])
     |> validate_required([:first_name, :last_name, :dob])
   end
+
 end

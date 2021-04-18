@@ -1,12 +1,15 @@
 defmodule Homework.Transactions.Transaction do
   use Ecto.Schema
   import Ecto.Changeset
+
+  
   alias Homework.Merchants.Merchant
   alias Homework.Users.User
+  #alias Homework.Companies.Company
 
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "transactions" do
-    field(:amount, :integer)
+    field(:amount, Money.Ecto.Amount.Type)
     field(:credit, :boolean, default: false)
     field(:debit, :boolean, default: false)
     field(:description, :string)
@@ -20,7 +23,8 @@ defmodule Homework.Transactions.Transaction do
   @doc false
   def changeset(transaction, attrs) do
     transaction
-    |> cast(attrs, [:user_id, :amount, :debit, :description, :merchant_id])
-    |> validate_required([:user_id, :amount, :debit, :description, :merchant_id])
+    |> cast(attrs, [:user_id, :amount, :debit, :credit, :description, :merchant_id])
+    |> validate_required([:amount, :debit, :credit, :description, :merchant_id, :user_id])
+    |> unique_constraint(:id)
   end
 end

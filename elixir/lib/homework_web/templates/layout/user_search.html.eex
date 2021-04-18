@@ -1,0 +1,19 @@
+<h2>Divvy Homework.</h2>
+<h5>by Chris Simons</h5><br>
+
+<!--
+<h3>Search<a href="/users" class: "btn btn-success">+</a></h3>
+
+<form action="/users">
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname"><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lname"><br><br>
+  <input type="submit" value="Submit">
+</form>
+-->
+
+<%= form_for @conn , Routes.homework_path(@conn, :userdata), [method: :get, class: "pull-right"], fn f -> %>
+      <%= text_input f, :name %>
+      <%= submit "Search" %>
+ <% end %>

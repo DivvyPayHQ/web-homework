@@ -4,6 +4,15 @@
 # This configuration file is loaded before any dependency and
 # is restricted to this project.
 
+# My setup notes:
+# Postgresql startup:
+# in /home/linuxbrew/.linuxbrew/bin
+# pg_ctl start -D /home/linuxbrew/.linuxbrew/var/postgres -l logfile
+# if connect error try sudo netstat -tlnp and ps -aux | grep postmaster
+# createdb
+# psql -h localhost -U postgres -d homework_dev
+# in shell: createuser postgres -s
+
 # General application configuration
 use Mix.Config
 
@@ -25,6 +34,17 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+# Setup for the Money module
+config :money,
+  default_currency: :USD,
+  separator: ",",
+  delimiter: ".",
+  symbol: false,
+  symbol_on_right: false,
+  symbol_space: false,
+  fractional_unit: true,
+  strip_insignificant_zeros: false
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

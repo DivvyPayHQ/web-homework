@@ -1,0 +1,6 @@
+<img src="<%= Routes.static_path(@conn, "/images/logo.png") %>" alt="Divvy Logo"/>
+<h2>Divvy Homework Homepage.</h2><br>
+<h5>by Chris Simons</h5><br>
+
+<p><a href="user_search"> User Search </a></p> <br>
+<p><a href="merchant_search"> Merchant Search </a></p>

@@ -5,7 +5,6 @@ defmodule Homework.Merchants do
 
   import Ecto.Query, warn: false
   alias Homework.Repo
-
   alias Homework.Merchants.Merchant
 
   @doc """
@@ -17,9 +16,46 @@ defmodule Homework.Merchants do
       [%Merchant{}, ...]
 
   """
+
   def list_merchants(_args) do
     Repo.all(Merchant)
   end
+
+  @doc """
+  Gets a single merchant by name.
+
+  Raises `Ecto.NoResultsError` if the Merchant does not exist.
+
+  ## Examples
+
+      iex> get_merchant!(<name>)
+      %Merchant{}
+
+      iex> get_merchant!("TradeWind")
+      ** (Ecto.NoResultsError)
+
+  """
+
+  @doc """
+  Fuzzy search for a single merchant by name.
+
+  Raises `Ecto.NoResultsError` if the Merchant does not exist.
+
+  ## Examples
+
+      iex> get_merchant!(name)
+      %Merchant{}
+
+      iex> get_merchant!(bad_name)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_merchant_by_name!(name) do 
+      query = from n in Merchant,
+      where: ilike(n.name, ^"%#{name}%")
+      Repo.all(query)
+  end
+
 
   @doc """
   Gets a single merchant.

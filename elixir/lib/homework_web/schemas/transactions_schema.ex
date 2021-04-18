@@ -9,7 +9,7 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
   object :transaction do
     field(:id, non_null(:id))
     field(:user_id, :id)
-    field(:amount, :integer)
+    field(:amount, :decimal)
     field(:credit, :boolean)
     field(:debit, :boolean)
     field(:description, :string)
@@ -17,11 +17,11 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
     field(:inserted_at, :naive_datetime)
     field(:updated_at, :naive_datetime)
 
-    field(:user, :user) do
+    field(:user_id, :user) do
       resolve(&TransactionsResolver.user/3)
     end
 
-    field(:merchant, :merchant) do
+    field(:merchant_id, :merchant) do
       resolve(&TransactionsResolver.merchant/3)
     end
   end
@@ -31,8 +31,8 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
     field :create_transaction, :transaction do
       arg(:user_id, non_null(:id))
       arg(:merchant_id, non_null(:id))
-      @desc "amount is in cents"
-      arg(:amount, non_null(:integer))
+      @desc "amount is in dollars and cents"
+      arg(:amount, :decimal)
       arg(:credit, non_null(:boolean))
       arg(:debit, non_null(:boolean))
       arg(:description, non_null(:string))
@@ -45,8 +45,8 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
       arg(:id, non_null(:id))
       arg(:user_id, non_null(:id))
       arg(:merchant_id, non_null(:id))
-      @desc "amount is in cents"
-      arg(:amount, non_null(:integer))
+      @desc "amount is in dollars and cents"
+      arg(:amount, :decimal)
       arg(:credit, non_null(:boolean))
       arg(:debit, non_null(:boolean))
       arg(:description, non_null(:string))

@@ -34,7 +34,7 @@ defmodule Homework.TransactionsTest do
         })
 
       valid_attrs = %{
-        amount: 42,
+        amount: 7.50,
         credit: true,
         debit: true,
         description: "some description",
@@ -43,7 +43,7 @@ defmodule Homework.TransactionsTest do
       }
 
       update_attrs = %{
-        amount: 43,
+        amount: 43.57,
         credit: false,
         debit: false,
         description: "some updated description",
@@ -97,7 +97,9 @@ defmodule Homework.TransactionsTest do
       user1: user1
     } do
       assert {:ok, %Transaction{} = transaction} = Transactions.create_transaction(valid_attrs)
-      assert transaction.amount == 42
+      money = Money.new(750, :USD)
+      str = Money.to_string(money)
+      assert Money.to_string(transaction.amount) == str
       assert transaction.credit == true
       assert transaction.debit == true
       assert transaction.description == "some description"
@@ -121,8 +123,9 @@ defmodule Homework.TransactionsTest do
 
       assert {:ok, %Transaction{} = transaction} =
                Transactions.update_transaction(transaction, update_attrs)
-
-      assert transaction.amount == 43
+      money = Money.new(4357, :USD)
+      str = Money.to_string(money)
+      assert Money.to_string(transaction.amount) == str
       assert transaction.credit == false
       assert transaction.debit == false
       assert transaction.description == "some updated description"

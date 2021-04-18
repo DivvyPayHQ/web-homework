@@ -1,0 +1,8 @@
+<h2>Divvy Homework.</h2>
+<h5>by Chris Simons</h5><br>
+
+<h3>Search for Merchants</h3>
+<%= form_for @conn , Routes.homework_path(@conn, :merchantdata), [method: :get, class: "pull-right"], fn f -> %>
+      <%= text_input f, :name %>
+      <%= submit "Search" %>
+ <% end %>
