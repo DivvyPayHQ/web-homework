@@ -11,6 +11,7 @@ defmodule HomeworkWeb.Router do
 
   pipeline :api do
     plug(:accepts, ["json"])
+    
   end
 
   scope "/" do
@@ -21,6 +22,19 @@ defmodule HomeworkWeb.Router do
       interface: :simple,
       context: %{pubsub: HomeworkWeb.Endpoint}
     )
+
+  end
+
+  scope "/", HomeworkWeb do
+    pipe_through :browser
+
+    get "/homeworkweb", HomeworkController, :show
+  end
+
+  scope "/", HomeworkWeb do
+    pipe_through :browser
+
+    get "/", HomeworkController, :show
   end
 
   scope "/", HomeworkWeb do
