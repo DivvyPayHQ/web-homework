@@ -10,6 +10,7 @@ To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
   * Create and migrate your database with `mix ecto.setup`
+      * **Note**: If you're running the tests, you will need to *not* have the database seeds in place. To do this, you'll need to run `$ mix ecto.create && mix ecto.migrate` (this is the first two steps of an `ecto.setup`, skipping the database seeds).
   * Start Phoenix endpoint with `mix phx.server`
 
 Now you can visit [`localhost:8000`](http://localhost:8000) from your browser.

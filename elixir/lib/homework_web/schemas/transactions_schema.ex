@@ -24,6 +24,10 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
     field(:merchant, :merchant) do
       resolve(&TransactionsResolver.merchant/3)
     end
+
+    field(:company, :company) do
+      resolve(&TransactionsResolver.company/3)
+    end
   end
 
   object :transaction_mutations do
@@ -36,11 +40,12 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
       arg(:credit, non_null(:boolean))
       arg(:debit, non_null(:boolean))
       arg(:description, non_null(:string))
+      arg(:company_id, non_null(:id))
 
       resolve(&TransactionsResolver.create_transaction/3)
     end
 
-    @desc "Update a new transaction"
+    @desc "Update a transaction"
     field :update_transaction, :transaction do
       arg(:id, non_null(:id))
       arg(:user_id, non_null(:id))
@@ -50,6 +55,7 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
       arg(:credit, non_null(:boolean))
       arg(:debit, non_null(:boolean))
       arg(:description, non_null(:string))
+      arg(:company_id, non_null(:id))
 
       resolve(&TransactionsResolver.update_transaction/3)
     end

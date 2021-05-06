@@ -15,8 +15,25 @@ defmodule Homework.Merchants do
 
       iex> list_merchants([])
       [%Merchant{}, ...]
-
   """
+  def list_merchants(args)
+
+  # Fuzzy search merchants by name.
+  # Requires a matching initial character (case-insensitive),
+  # then orders results by Levenshtein distance.
+  def list_merchants(%{named_like: search_name})
+      when is_binary(search_name) and search_name != "" do
+    start_character = String.first(search_name)
+
+    from(
+      m in Merchant,
+      where: ilike(m.name, ^"#{start_character}%"),
+      where: fragment("SIMILARITY(?, ?) > 0", m.name, ^search_name),
+      order_by: fragment("LEVENSHTEIN(?, ?)", m.name, ^search_name)
+    )
+    |> Repo.all()
+  end
+
   def list_merchants(_args) do
     Repo.all(Merchant)
   end

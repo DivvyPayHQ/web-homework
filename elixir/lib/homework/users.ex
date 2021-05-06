@@ -17,6 +17,32 @@ defmodule Homework.Users do
       [%User{}, ...]
 
   """
+  def list_users(args)
+
+  # Fuzzy search users by first & last name.
+  # Unlike searching merchants, does not require a matching initial character
+  # on either name (since you might want to search something like "Sidow, Max"
+  # to find "Max von Sidow").x
+  # Orders results by Levenshtein distance.
+  def list_users(%{named_like: search_name})
+      when is_binary(search_name) and search_name != "" do
+    # Note: if users are primarily searching by *last* name rather than full name,
+    # we might want to swap the CONCAT() order below.
+    from(
+      u in User,
+      where:
+        fragment(
+          "SIMILARITY(CONCAT((?), ' ', (?)), ?) > 0",
+          u.first_name,
+          u.last_name,
+          ^search_name
+        ),
+      order_by:
+        fragment("LEVENSHTEIN(CONCAT((?), ' ', (?)), ?)", u.first_name, u.last_name, ^search_name)
+    )
+    |> Repo.all()
+  end
+
   def list_users(_args) do
     Repo.all(User)
   end
