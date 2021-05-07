@@ -10,6 +10,14 @@ module.exports = function (app, opts) {
     res.render('index')
   })
 
+  app.post('/seed', (req, res) => {
+    const { body } = req;
+
+    console.log('body', body)
+
+    res.send({status: 'success'})
+  })
+
   // GraphQL routes
   app.use(
     '/graphql',
