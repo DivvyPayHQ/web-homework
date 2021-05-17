@@ -1,34 +1,49 @@
 import { css } from '@emotion/core'
 
 export const styles = css`
-  width: 900px;
+  width: 70vw;
   height: 650px;
 
-  .data{
+  .data {
     height: 100%;
     width: 100%;
     display: flex;
   }
 
-  .legend{
-    font-size: 24px;
+  .legend-wrapper {
+    margin-left: 32px;
+  }
 
-    li{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
+  .legend-container {
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 16px;
+    height: fit-content;
+  }
+
+  .legend {
+    font-size: 20px;
+    display: grid;
+    grid-gap: 6px;
+    grid-template-columns: 16px 1fr 120px 72px;
+    grid-template-rows: 35px;
+    align-items: center;
+
+    p {
+      margin: 0;
     }
-    .left{
-      display: flex;
-      align-items: center;
-    }
-    .color-box{
+    .color-box {
       height: 16px;
       width: 16px;
     }
-    p{
-      margin: 0 16px 0 8px;
+    .name {
+      margin-right: 8px;
+    }
+    .percent {
+      text-align: right;
+    }
+    .amount {
+      text-align: right;
     }
   }
 `

@@ -1,9 +1,5 @@
-mutation RemoveTransaction(
-  $id: String!
-) {
-  removeTransaction(
-    id: $id
-  ) {
-    id
+mutation RemoveTransaction($id: String!) {
+  removeTransaction(id: $id) {
+    success
   }
 }

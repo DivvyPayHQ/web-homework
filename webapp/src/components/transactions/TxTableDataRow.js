@@ -90,7 +90,7 @@ export function TxTableDataRow ({ removeTransaction, tx, updateTransaction }) {
           <div className='edit-menu' >
             <button className='edit-menu-cancel' onClick={() => setShowEditMenu(false)}>X</button>
             <button className='edit-menu-edit' onClick={() => setEditMode(true)}>Edit</button>
-            <button className='edit-menu-delete' onClick={() => removeTransaction({ variables: { id } })}>Remove</button>
+            <button className='edit-menu-delete' onClick={() => removeTransaction(id)}>Remove</button>
           </div>
         )}
       </td>

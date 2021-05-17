@@ -2,17 +2,17 @@ import React, { useState } from 'react'
 import { arrayOf, string, bool, number, shape } from 'prop-types'
 
 import { useMutation } from '@apollo/client'
-import AddTransaction from '../../gql/addTransaction.gql'
+import useAddTransaction from '../../gql/addTransaction'
+import useRemoveTransaction from '../../gql/removeTransaction'
 import UpdateTransaction from '../../gql/updateTransaction.gql'
-import RemoveTransaction from '../../gql/removeTransaction.gql'
 
 import { TxTableDataRow } from './TxTableDataRow'
 
 import { css } from '@emotion/core'
 
 export function TxTable ({ data }) {
-  const [ addTransaction ] = useMutation(AddTransaction)
-  const [ removeTransaction ] = useMutation(RemoveTransaction)
+  const [ addTransaction ] = useAddTransaction()
+  const [ removeTransaction ] = useRemoveTransaction()
   const [ updateTransaction ] = useMutation(UpdateTransaction)
 
   const [expandAddTx, setExpandAddTx] = useState(false)
@@ -32,15 +32,14 @@ export function TxTable ({ data }) {
     e.preventDefault()
 
     addTransaction({
-      variables: {
-        user_id: 'test_id',
-        description: addTxDesc,
-        amount: Number(addTxAmount),
-        merchant_id: addTxMerchant,
-        debit: addTxDebit,
-        credit: !addTxDebit
-      }
+      userId: 'test_id',
+      description: addTxDesc,
+      amount: Number(addTxAmount),
+      merchantId: addTxMerchant,
+      debit: addTxDebit,
+      credit: !addTxDebit
     })
+
     setAddTxDesc('')
     setAddTxMerchant('')
     setAddTxAmount('')

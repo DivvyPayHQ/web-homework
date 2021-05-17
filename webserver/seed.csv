@@ -1,0 +1,7 @@
+id,user_id,description,merchant_id,debit,credit,amount
+test-tx-id-000,test_user_001,payday,work,false,true,1482.82
+test-tx-id-001,test_user_001,groceries,wallmart,true,false,82.13
+test-tx-id-002,test_user_001,refund,wallmart,false,true,82.13
+test-tx-id-003,test_user_001,clothes,target,true,false,58.99
+test-tx-id-004,test_user_001,electronics,amazon,true,false,328.02
+test-tx-id-005,test_user_001,rent,amazon,true,false,550.00

@@ -4,6 +4,10 @@ export const formatCurrency = amount => $.format(amount)
 
 export const initialCaps = str => str[0].toUpperCase() + str.slice(1)
 
+export const formatPercent = (number, decimalPlaces = 1) => {
+  return `${(number * 100).toFixed(decimalPlaces)}%`
+}
+
 const romanNumbers = [{ s: 'M', n: 1000 }, { s: 'D', n: 500 }, { s: 'C', n: 100 }, { s: 'L', n: 50 }, { s: 'X', n: 10 }, { s: 'IX', n: 9 }, { s: 'V', n: 5 }, { s: 'IV', n: 4 }, { s: 'I', n: 1 }]
 export const convertToRomanNumeral = (num) => {
   const output = romanNumbers.reduce((acc, romanNumber) => {

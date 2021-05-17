@@ -1,0 +1,9 @@
+mutation CsvUpload(
+  $csvData: String!
+) {
+  csvUpload(
+    csvData: $csvData
+  ) {
+    success
+  }
+}
