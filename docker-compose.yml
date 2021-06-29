@@ -1,0 +1,38 @@
+version: '3.5'
+
+services:
+#  webserver:
+#    build:
+#      context: .
+#      dockerfile: webserver/Dockerfile
+#    command: "npm start"
+#    ports:
+#      - "8000:8000"
+#    volumes:
+#      - ./webserver:/app
+
+  db:
+    image: mongo
+    restart: always
+    volumes:
+      - ./mongo:/data/db
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: secret
+
+#  ascension-api:
+#    image: us.gcr.io/staging-ascension-ecommerce/mock-server@sha256:24e38c4ee752abd184399abf5e940b1611cdd0d8691f9f79ef3bf8c958ebd62c
+#    ports:
+#      - "8000:5000"
+#    volumes:
+#      - ./contracts:/app/contracts
+#    environment:
+#      - CONTRACTS=/app/contracts
+#    networks:
+#      - local-dev-net
+
+networks:
+  local-dev-net:
+    name: local-dev-net
