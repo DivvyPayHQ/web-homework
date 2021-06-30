@@ -1,15 +1,25 @@
 version: '3.5'
 
 services:
-#  webserver:
-#    build:
-#      context: .
-#      dockerfile: webserver/Dockerfile
-#    command: "npm start"
-#    ports:
-#      - "8000:8000"
-#    volumes:
-#      - ./webserver:/app
+  webserver:
+    build:
+      context: .
+      dockerfile: webserver/Dockerfile
+    command: "npm start"
+    ports:
+      - 8000:8000
+    volumes:
+      - ./webserver:/app
+
+  webapp:
+    build:
+      context: .
+      dockerfile: webapp/Dockerfile
+    command: "npm start"
+    ports:
+      - 3000:3000
+    volumes:
+    - ./webapp:/app
 
   db:
     image: mongo
