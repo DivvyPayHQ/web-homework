@@ -69,7 +69,8 @@
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "react-hot-loader": "4.11.0",
-    "react-router-dom": "5.0.1"
+    "react-router-dom": "5.0.1",
+    "shortid": "^2.2.16"
   },
   "devDependencies": {
     "@apollo/react-testing": "4.0.0",

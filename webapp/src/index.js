@@ -6,7 +6,7 @@ import { client } from './network/apollo-client'
 
 ReactDOM.render(
   (
-    <div data-app-init=''>
+    <div data-app-init='' style={{ height: '100%' }}>
       <ApolloProvider client={client}>
         <AppRouter />
       </ApolloProvider>

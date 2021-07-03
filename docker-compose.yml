@@ -28,9 +28,9 @@ services:
       - ./mongo:/data/db
     ports:
       - 27017:27017
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: secret
+#    environment:
+#      MONGO_INITDB_ROOT_USERNAME: root
+#      MONGO_INITDB_ROOT_PASSWORD: secret
 
 #  ascension-api:
 #    image: us.gcr.io/staging-ascension-ecommerce/mock-server@sha256:24e38c4ee752abd184399abf5e940b1611cdd0d8691f9f79ef3bf8c958ebd62c
