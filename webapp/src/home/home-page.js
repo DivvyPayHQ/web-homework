@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react'
 import { useQuery } from '@apollo/client'
 import GetTransactions from '../gql/transactions.gql'
-import { TxTable } from '../components/transactions/TxTable'
-import Layout from '../components/layout/Layout'
+// import { TxTable } from '../bundles/common/components/transactions/TxTable'
+import Layout from '../bundles/common/components/layout/Layout'
+import Section, { SECTION_TYPES } from '../bundles/common/components/section/Section'
 
 export function Home () {
   const { loading, error, data = {} } = useQuery(GetTransactions)
@@ -24,7 +25,24 @@ export function Home () {
 
   return (
     <Layout>
-      <TxTable data={data.transactions} />
+      <Section
+        title='test'
+        type={SECTION_TYPES.HALF}
+      >
+        {/*<TxTable data={data.transactions} />*/}
+      </Section>
+      <Section
+          title='test'
+          type={SECTION_TYPES.HALF}
+      >
+        {/*<TxTable data={data.transactions} />*/}
+      </Section>
+      <Section
+          title='test'
+          type={SECTION_TYPES.HALF}
+      >
+        {/*<TxTable data={data.transactions} />*/}
+      </Section>
     </Layout>
   )
 }
