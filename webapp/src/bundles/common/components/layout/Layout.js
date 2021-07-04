@@ -2,9 +2,11 @@ import React, { PureComponent } from 'react'
 import { node, func, number, string } from 'prop-types'
 import { connect } from 'react-redux'
 import SideNav from '../navigation/components/SideNav'
+import MobileNav from '../navigation/components/MobileNav';
 import { css } from '@emotion/core'
 import { windowResize } from '../../actions/windowResize'
 import { selectViewState } from '../../reducers/ViewStateReducer'
+import * as BREAK_POINTS from '../../constants/breakpoints'
 
 class Layout extends PureComponent {
   componentDidMount () {
@@ -17,11 +19,25 @@ class Layout extends PureComponent {
     }
   }
 
+  getWidth = () => {
+    const { width } = this.props
+    if (width < BREAK_POINTS.DESKTOP) {
+      return '100%'
+    }
+    return BREAK_POINTS.DESKTOP
+  }
+
   render () {
     const { children } = this.props
+
     return (
       <div css={layoutWrapper}>
-        <SideNav />
+        <div css={desktopWrapper}>
+          <SideNav />
+        </div>
+        <div css={mobileWrapper}>
+          <MobileNav />
+        </div>
         <div css={childrenWrapper}>
           {children}
         </div>
@@ -49,6 +65,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(Layout)
 const layoutWrapper = css`
   height: 100%;
   display: flex;
+  
+  @media(max-width: 450px) {
+    flex-direction: column;
+  }
 `
 
 const childrenWrapper = css`
@@ -59,6 +79,22 @@ const childrenWrapper = css`
   padding: 0 15px;
   box-sizing: border-box;
   width: 845px;
+  
+  @media(max-width: 450px) {
+    width: 100%;
+  }
+`
+
+const desktopWrapper = css`
+  @media(max-width: 450px) {
+    display: none;
+  }
+`
+
+const mobileWrapper = css`
+  @media(min-width: 450px) {
+    display: none;
+  }
 `
 
 Layout.propTypes = {

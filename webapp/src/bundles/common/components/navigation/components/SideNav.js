@@ -30,6 +30,7 @@ const containerStyle = css`
   width: 150px;
   background: black;
   padding: 10px 0;
+  height: 100%;
   
   img {
     width: 150px;
