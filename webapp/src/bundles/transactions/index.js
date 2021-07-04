@@ -57,6 +57,7 @@ function Transactions ({ theme }) {
   return (
     <Layout
       theme={theme}
+      title='transactions'
     >
       <TransactionsTable
         theme={theme}
