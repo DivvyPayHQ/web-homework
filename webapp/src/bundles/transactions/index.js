@@ -4,6 +4,8 @@ import Layout from '../common/components/layout/Layout'
 import { connect } from 'react-redux'
 import { selectViewState } from '../common/reducers/ViewStateReducer'
 import { shape, string } from 'prop-types'
+import NewButton from '../common/components/buttons/NewButton'
+import { useHistory } from 'react-router-dom'
 
 const transactions = [
   {
@@ -54,8 +56,16 @@ const transactions = [
 ]
 
 function Transactions ({ theme }) {
+  const history = useHistory()
   return (
     <Layout
+      buttons={(
+        <NewButton
+          onClick={() => {
+            history.push('/transactions/new')
+          }}
+        />
+      )}
       theme={theme}
       title='transactions'
     >

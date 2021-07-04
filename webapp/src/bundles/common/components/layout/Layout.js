@@ -28,7 +28,7 @@ class Layout extends PureComponent {
   }
 
   render () {
-    const { children, title } = this.props
+    const { children, title, buttons } = this.props
 
     return (
       <div css={layoutWrapper}>
@@ -39,7 +39,12 @@ class Layout extends PureComponent {
           <MobileNav />
         </div>
         <div css={childrenWrapper}>
-          <p className='title'>{title}</p>
+          <div className='title-buttons-container'>
+            <p className='title'>{title}</p>
+            <div>
+              {buttons}
+            </div>
+          </div>
           {children}
         </div>
       </div>
@@ -77,10 +82,16 @@ const childrenWrapper = css`
   padding: 0 15px;
   width: 845px;
   
-  .title {
-    font-weight: 700;
-    font-size: 24px;
-    text-transform: capitalize;
+  .title-buttons-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    .title {
+      font-weight: 700;
+      font-size: 24px;
+      text-transform: capitalize;
+    }
   }
   
   @media(max-width: 1000px) {
@@ -103,11 +114,15 @@ const mobileWrapper = css`
     display: none;
   }
 `
+Layout.defaultProps = {
+  buttons: undefined,
+}
 
 Layout.propTypes = {
   children: node,
   windowResize: func.isRequired,
   width: number.isRequired,
   error: string,
-  title: string
+  title: string,
+  buttons: node
 }
