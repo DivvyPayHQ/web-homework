@@ -72,12 +72,8 @@ const layoutWrapper = css`
 `
 
 const childrenWrapper = css`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
   margin: 0 auto;
   padding: 0 15px;
-  box-sizing: border-box;
   width: 845px;
   
   @media(max-width: 450px) {
