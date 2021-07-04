@@ -38,14 +38,16 @@ class Layout extends PureComponent {
         <div css={mobileWrapper}>
           <MobileNav />
         </div>
-        <div css={childrenWrapper}>
-          <div className='title-buttons-container'>
-            <p className='title'>{title}</p>
+        <div css={contentWrapper}>
+          <div css={titleButtonsContainer}>
+            <p css={text}>{title}</p>
             <div>
               {buttons}
             </div>
           </div>
-          {children}
+          <div css={childrenWrapper}>
+            {children}
+          </div>
         </div>
       </div>
     )
@@ -77,22 +79,20 @@ const layoutWrapper = css`
   }
 `
 
-const childrenWrapper = css`
+const contentWrapper = css`
   margin: 0 auto;
   padding: 0 15px;
   width: 845px;
-  
-  .title-buttons-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
-    .title {
-      font-weight: 700;
-      font-size: 24px;
-      text-transform: capitalize;
-    }
-  }
+`
+
+const childrenWrapper = css`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  flex-grow: 1;
+  margin: auto;
+  padding: 0 15px;
+  box-sizing: border-box;
   
   @media(max-width: 1000px) {
     width: 430px;
@@ -101,6 +101,18 @@ const childrenWrapper = css`
   @media(max-width: 450px) {
     width: 100%;
   }
+`
+
+const titleButtonsContainer = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+const text = css`
+  font-weight: 700;
+  font-size: 24px;
+  text-transform: capitalize;
 `
 
 const desktopWrapper = css`

@@ -1,5 +1,5 @@
 import React from 'react'
-import { string, func, node } from 'prop-types'
+import { string, func, node, shape } from 'prop-types'
 import { css } from '@emotion/core'
 
 export const SECTION_TYPES = {
@@ -9,11 +9,11 @@ export const SECTION_TYPES = {
 }
 
 export default function Section (props) {
-  const { title, children, type, buttons } = props
+  const { title, children, type, buttons, theme } = props
   return (
-    <div css={container} style={{ width: type }}>
+    <div css={container} style={{ width: type, background: theme.secondary }}>
       <div css={header}>
-        <p>{title}</p>
+        <p style={{ color: theme.color }}>{title}</p>
         {buttons}
       </div>
       {children}
@@ -36,6 +36,7 @@ const header = css`
   p {
     text-transform: uppercase;
     font-weight: 700;
+    margin: 0;
   }
 `
 
@@ -47,5 +48,13 @@ Section.propTypes = {
   buttons: func,
   title: string.isRequired,
   children: node.isRequired,
-  type: string.isRequired
+  type: string.isRequired,
+  theme: shape({
+    type: string,
+    background: string,
+    secondary: string,
+    color: string,
+    accent: string,
+    highlight: string
+  })
 }

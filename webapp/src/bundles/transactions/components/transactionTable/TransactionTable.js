@@ -7,8 +7,10 @@ import Table from '@material-ui/core/Table'
 import { arrayOf, bool, number, shape, string } from 'prop-types'
 import shortId from 'shortid'
 import { withTableStyles } from '../../../common/components/table/helpers/withTableStyles'
+import { useHistory } from 'react-router-dom'
 
 function TransactionsTable ({ transactions, classes }) {
+  const history = useHistory()
   return (
     <Table>
       <TableHead>
@@ -27,7 +29,11 @@ function TransactionsTable ({ transactions, classes }) {
           transactions.map((transaction, index) => {
             const { id, user_id: userId, description, merchant_id: merchantId, debit, credit, amount } = transaction
             return (
-              <TableRow className={index % 2 === 0 ? classes.row : classes.rowOdd} key={shortId.generate()}>
+              <TableRow
+                className={index % 2 === 0 ? classes.row : classes.rowOdd}
+                key={shortId.generate()}
+                onClick={() => history.push(`/transactions/${id}`)}
+              >
                 <TableCell>{id}</TableCell>
                 <TableCell>{userId}</TableCell>
                 <TableCell className={classes.responsiveColumn}>{description}</TableCell>

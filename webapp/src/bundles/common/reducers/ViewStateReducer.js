@@ -4,7 +4,7 @@ import { getTheme, THEME_TYPES } from '../config/theme'
 const initialState = {
   width: null,
   error: null,
-  themeType: THEME_TYPES.LIGHT
+  themeType: THEME_TYPES.DARK
 }
 
 export default function ViewStateReducer (state = initialState, action) {
