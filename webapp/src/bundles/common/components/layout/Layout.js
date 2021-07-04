@@ -83,6 +83,10 @@ const childrenWrapper = css`
     text-transform: capitalize;
   }
   
+  @media(max-width: 1000px) {
+    width: 430px;
+  }
+  
   @media(max-width: 450px) {
     width: 100%;
   }

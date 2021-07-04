@@ -15,7 +15,7 @@ export const header = (props) => {
 }
 
 export const responsiveColumn = {
-  '@media(max-width: 900px)': {
+  '@media(max-width: 1000px)': {
     display: 'none'
   }
 }

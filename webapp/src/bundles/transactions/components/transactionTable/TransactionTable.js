@@ -15,7 +15,7 @@ function TransactionsTable ({ transactions, classes }) {
         <TableRow className={classes.header}>
           <TableCell>Id</TableCell>
           <TableCell>User Id</TableCell>
-          <TableCell>Description</TableCell>
+          <TableCell className={classes.responsiveColumn}>Description</TableCell>
           <TableCell>Merchant Id</TableCell>
           <TableCell>Debit</TableCell>
           <TableCell>Credit</TableCell>
@@ -30,7 +30,7 @@ function TransactionsTable ({ transactions, classes }) {
               <TableRow className={index % 2 === 0 ? classes.row : classes.rowOdd} key={shortId.generate()}>
                 <TableCell>{id}</TableCell>
                 <TableCell>{userId}</TableCell>
-                <TableCell>{description}</TableCell>
+                <TableCell className={classes.responsiveColumn}>{description}</TableCell>
                 <TableCell>{merchantId}</TableCell>
                 <TableCell>{debit}</TableCell>
                 <TableCell>{credit}</TableCell>
