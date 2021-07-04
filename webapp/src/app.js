@@ -1,16 +1,18 @@
 import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { Home } from './home'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import Transactions from './bundles/transactions/transactions'
 import TransactionsDetail from './bundles/transactions/transactionsDetail'
+import Settings from './bundles/settings/settings'
+import Dashboard from './bundles/dashboard/dashboard'
 
 export default function App () {
   return (
     <Router>
+      <Route component={Dashboard} exact path='/dashboard' />
       <Route component={TransactionsDetail} exact path='/transactions/:transactionId' />
       <Route component={Transactions} exact path='/transactions' />
-      <Route component={Home} exact path='/' />
-      <Route component={() => (<div>Content for /another route</div>)} exact path='/another' />
+      <Route component={Settings} exact path='/settings' />
+      <Redirect to='/dashboard' />
     </Router>
   )
 }

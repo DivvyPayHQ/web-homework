@@ -5,6 +5,7 @@ import { selectViewState } from '../common/reducers/ViewStateReducer'
 import { shape, string } from 'prop-types'
 import { useParams } from 'react-router-dom'
 import Section, { SECTION_TYPES } from '../common/components/section/Section'
+import TextLine from '../common/components/textLine/TextLine'
 
 const transaction = {
 
@@ -21,17 +22,39 @@ function TransactionsDetail ({ theme }) {
         theme={theme}
         title='detail'
         type={SECTION_TYPES.HALF}
-      />
-      <Section
+      >
+        <TextLine
+          label='Date'
           theme={theme}
+          value='01-01-2021'
+        />
+        <TextLine
+          label='Amount'
+          theme={theme}
+          value='$29.00'
+        />
+      </Section>
+      <Section
+        theme={theme}
         title='merchant'
         type={SECTION_TYPES.HALF}
-      />
-      <Section
+      >
+        <TextLine
+          label='Name'
           theme={theme}
-        title='history'
-        type={SECTION_TYPES.HALF}
-      />
+          value='Dominoes'
+        />
+        <TextLine
+          label='Category'
+          theme={theme}
+          value='Food & Drinks'
+        />
+        <TextLine
+          label='Location'
+          theme={theme}
+          value='Riverton, UT'
+        />
+      </Section>
     </Layout>
   )
 }
