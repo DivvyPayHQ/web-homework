@@ -11,12 +11,13 @@ export default function MobileMenu ({ isOpen }) {
       <ul>
         {
           NAVIGATION.map(item => {
-            const { name, url } = item
+            const { name, url, icon } = item
             return (
               <Item
                 key={shortId.generate()}
                 name={name}
                 url={url}
+                icon={icon}
               />
             )
           })

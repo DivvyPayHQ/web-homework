@@ -1,0 +1,21 @@
+export const BLUE_LIGHT = '#26D0CE'
+export const BLUE_DARK = '#1A2980'
+export const BLUE_MEDIUM = '#207FA8'
+export const BLACK = '#1A1A1D'
+export const BLACK_SECONDARY = '#212124'
+export const WHITE = '#FFFFFF'
+export const WHITE_SECONDARY = '#F8F9FA'
+export const WHITE_OFF = 'F8F9FA'
+export const GREEN = '#3EF57C'
+export const RED = '#FF3C67'
+export const PURPLE = '#A963C8'
+export const YELLOW = '#FFC25E'
+export const GRAY = '#9B9B9B'
+export const GRAY_LIGHT = '#C5C5C5'
+export const DARK_ACCENT = 'rgba(255, 255, 255, 0.1)'
+export const LIGHT_ACCENT = 'rgba(26, 26, 29, 0.1)'
+
+export const GRADIENT_FULL_TO_RIGHT = `linear-gradient(to right, ${BLUE_DARK}, ${BLUE_LIGHT})`
+export const GRADIENT_FULL_TO_BOTTOM_RIGHT = `linear-gradient(120deg, ${BLUE_DARK}, ${BLUE_LIGHT})`
+export const GRADIENT_FULL_TO_TOP_RIGHT = `linear-gradient(120deg, ${BLUE_DARK}, ${BLUE_LIGHT})`
+export const GRADIENT_FULL_TO_BOTTOM = `linear-gradient(180deg, ${BLUE_DARK}, ${BLUE_LIGHT})`

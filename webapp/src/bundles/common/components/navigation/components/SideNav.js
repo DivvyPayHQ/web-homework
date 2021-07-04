@@ -6,14 +6,15 @@ import Item from '../components/Item'
 
 export default function SideNav () {
   return (
-    <nav css={containerStyle}>
+    <nav css={container}>
       <img alt='logo' src='https://getdivvy.com/wp-content/uploads/2019/05/Divvy-Logo-19-White.png' />
       <ul>
         {
           NAVIGATION.map(item => {
-            const { name, url } = item
+            const { name, url, icon } = item
             return (
               <Item
+                icon={icon}
                 key={shortId.generate()}
                 name={name}
                 url={url}
@@ -26,8 +27,8 @@ export default function SideNav () {
   )
 }
 
-const containerStyle = css`
-  width: 150px;
+const container = css`
+  width: 170px;
   background: black;
   padding: 10px 0;
   height: 100%;

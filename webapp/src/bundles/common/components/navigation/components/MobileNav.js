@@ -5,13 +5,13 @@ import MobileMenu from './MobileMenu'
 export default function MobileNav () {
   const [ isOpen, setOpen ] = useState(false)
   return (
-    <div css={containerStyle}>
+    <div css={container}>
       <div css={isOpen ? openMenu : closedMenu} onClick={() => setOpen(!isOpen)}>
         <div className='bar-one' />
         <div className='bar-two' />
       </div>
-      <img alt='logo' css={logoStyle} src='https://getdivvy.com/wp-content/uploads/2019/05/Divvy-Logo-19-White.png' />
-      <div css={spacerStyle} />
+      <img alt='logo' css={logo} src='https://getdivvy.com/wp-content/uploads/2019/05/Divvy-Logo-19-White.png' />
+      <div css={spacer} />
       <MobileMenu
         isOpen={isOpen}
       />
@@ -19,7 +19,7 @@ export default function MobileNav () {
   )
 }
 
-const containerStyle = css`
+const container = css`
   height: 55px;
   box-sizing: border-box;
   background: black;
@@ -29,17 +29,17 @@ const containerStyle = css`
   align-items: center;
 `
 
-const logoStyle = css`
+const logo = css`
   width: 150px;
   height: auto;
 `
 
-const spacerStyle = css`
+const spacer = css`
     width: 30px;
 `
 
 const menuContainer = css`
-  ${spacerStyle};
+  ${spacer};
   height: 15px;
   display: flex;
   flex-direction: column;
