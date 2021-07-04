@@ -83,6 +83,15 @@ const contentWrapper = css`
   margin: 0 auto;
   padding: 0 15px;
   width: 845px;
+  box-sizing: border-box;
+  
+  @media(max-width: 1000px) {
+    width: 430px;
+  }
+
+  @media(max-width: 450px) {
+    width: 100%;
+  }
 `
 
 const childrenWrapper = css`
@@ -91,16 +100,7 @@ const childrenWrapper = css`
   justify-content: space-between;
   flex-grow: 1;
   margin: auto;
-  padding: 0 15px;
   box-sizing: border-box;
-  
-  @media(max-width: 1000px) {
-    width: 430px;
-  }
-  
-  @media(max-width: 450px) {
-    width: 100%;
-  }
 `
 
 const titleButtonsContainer = css`
