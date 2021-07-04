@@ -1,8 +1,10 @@
 import * as ACTION_TYPES from '../constants/actionTypes'
+import { getTheme, THEME_TYPES } from '../config/theme'
 
 const initialState = {
   width: null,
-  error: null
+  error: null,
+  themeType: THEME_TYPES.LIGHT
 }
 
 export default function ViewStateReducer (state = initialState, action) {
@@ -10,6 +12,11 @@ export default function ViewStateReducer (state = initialState, action) {
     case ACTION_TYPES.WINDOW_RESIZE: {
       return Object.assign({}, state, {
         width: action.width
+      })
+    }
+    case ACTION_TYPES.SET_THEME: {
+      return Object.assign({}, state, {
+        themeType: action.themeType
       })
     }
     default:
@@ -20,6 +27,7 @@ export default function ViewStateReducer (state = initialState, action) {
 export const selectViewState = (state) => {
   return {
     width: state.width,
-    error: state.error
+    error: state.error,
+    theme: getTheme(state.themeType)
   }
 }

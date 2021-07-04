@@ -1,58 +1,87 @@
 import React from 'react'
 import TransactionsTable from './components/transactionTable/TransactionTable'
 import Layout from '../common/components/layout/Layout'
+import { connect } from 'react-redux'
+import { selectViewState } from '../common/reducers/ViewStateReducer'
+import { shape, string } from 'prop-types'
+
 const transactions = [
   {
     id: '1',
-    userId: '2',
+    user_id: '2',
     description: 'test transaction',
-    merchantId: '321',
+    merchant_id: '321',
     debit: false,
     credit: true,
     amount: 10.45
   },
   {
     id: '2',
-    userId: '2',
+    user_id: '2',
     description: 'test transaction',
-    merchantId: '321',
+    merchant_id: '321',
     debit: false,
     credit: true,
     amount: 10.45
   },
   {
     id: '3',
-    userId: '2',
+    user_id: '2',
     description: 'test transaction',
-    merchantId: '321',
+    merchant_id: '321',
     debit: false,
     credit: true,
     amount: 10.45
   },
   {
     id: '4',
-    userId: '2',
+    user_id: '2',
     description: 'test transaction',
-    merchantId: '321',
+    merchant_id: '321',
     debit: false,
     credit: true,
     amount: 10.45
   },
   {
     id: '5',
-    userId: '2',
+    user_id: '2',
     description: 'test transaction',
-    merchantId: '321',
+    merchant_id: '321',
     debit: false,
     credit: true,
     amount: 10.45
   }
 ]
 
-export default function Transactions () {
+function Transactions ({ theme }) {
   return (
-    <Layout>
-      <TransactionsTable transactions={transactions} />
+    <Layout
+      theme={theme}
+    >
+      <TransactionsTable
+        theme={theme}
+        transactions={transactions}
+      />
     </Layout>
   )
+}
+
+function mapStateToProps (state) {
+  const viewState = selectViewState(state)
+  return {
+    theme: viewState.theme
+  }
+}
+
+export default connect(mapStateToProps)(Transactions)
+
+Transactions.propTypes = {
+  theme: shape({
+    type: string,
+    background: string,
+    secondary: string,
+    color: string,
+    accent: string,
+    highlight: string
+  })
 }

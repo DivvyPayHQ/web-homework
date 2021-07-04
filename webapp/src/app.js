@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Home } from './home'
 import Transactions from './bundles/transactions/index'
 
-function AppRouter () {
+export default function App () {
   return (
     <Router>
       <Route component={Transactions} exact path='/transactions' />
@@ -12,5 +12,3 @@ function AppRouter () {
     </Router>
   )
 }
-
-export default AppRouter

@@ -36,6 +36,7 @@ const container = css`
 const content = css`
   display: flex;
   align-items: center;
+  height: 50px;
 
   :hover {
     background: rgba(255, 255, 255, 0.1);

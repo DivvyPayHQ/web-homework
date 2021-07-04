@@ -6,12 +6,13 @@ import TableBody from '@material-ui/core/TableBody'
 import Table from '@material-ui/core/Table'
 import { arrayOf, bool, number, shape, string } from 'prop-types'
 import shortId from 'shortid'
+import { withTableStyles } from '../../../common/components/table/helpers/withTableStyles'
 
-export default function TransactionsTable ({ transactions }) {
+function TransactionsTable ({ transactions, classes }) {
   return (
     <Table>
       <TableHead>
-        <TableRow>
+        <TableRow className={classes.header}>
           <TableCell>Id</TableCell>
           <TableCell>User Id</TableCell>
           <TableCell>Description</TableCell>
@@ -26,7 +27,7 @@ export default function TransactionsTable ({ transactions }) {
           transactions.map((transaction, index) => {
             const { id, user_id: userId, description, merchant_id: merchantId, debit, credit, amount } = transaction
             return (
-              <TableRow key={shortId.generate()}>
+              <TableRow className={index % 2 === 0 ? classes.row : classes.rowOdd} key={shortId.generate()}>
                 <TableCell>{id}</TableCell>
                 <TableCell>{userId}</TableCell>
                 <TableCell>{description}</TableCell>
@@ -43,7 +44,12 @@ export default function TransactionsTable ({ transactions }) {
   )
 }
 
+export default withTableStyles(TransactionsTable)
+
 TransactionsTable.propTypes = {
+  classes: shape({
+    row: string
+  }),
   transactions: arrayOf(shape({
     id: string,
     user_id: string,
