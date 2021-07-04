@@ -11,7 +11,7 @@ export const NAVIGATION = [
   {
     name: 'transactions',
     icon: TransactionsIcon,
-    url: '/transactions'
+    url: '/transactions?page=1'
   },
   {
     name: 'settings',
