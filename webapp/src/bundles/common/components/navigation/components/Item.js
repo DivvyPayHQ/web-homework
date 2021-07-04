@@ -1,15 +1,18 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { css } from '@emotion/core'
 import { string, func } from 'prop-types'
+import { getIsActive } from '../functions/getIsActive'
 
 export default function Item (props) {
   const { url, name, icon } = props
   const Icon = icon
+  const location = useLocation()
+  const isActive = getIsActive(location.pathname, url)
   return (
     <li css={container}>
       <Link to={url}>
-        <div css={content}>
+        <div css={isActive ? contentActive : content}>
           <div className='icon-wrapper'>
             <Icon />
           </div>
@@ -47,6 +50,13 @@ const content = css`
   p {
     margin: 0;
   }
+`
+
+const contentActive = css`
+  ${content};
+
+  background: rgba(255, 255, 255, 0.1);
+  cursor: default;
 `
 
 Item.propTypes = {
