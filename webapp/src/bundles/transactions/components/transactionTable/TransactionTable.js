@@ -6,21 +6,12 @@ import TableBody from '@material-ui/core/TableBody'
 import Table from '@material-ui/core/Table'
 import { arrayOf, bool, number, shape, string } from 'prop-types'
 import shortId from 'shortid'
+import { resolveTransactionStatus } from '../../functions/resolveTransactionStatus'
 import { withTableStyles } from 'Components/table/helpers/withTableStyles'
-import StatusIcon, { STATUS_TYPES } from 'Components/statusIcon/StatusIcon'
+import StatusIcon from 'Components/statusIcon/StatusIcon'
 import { useHistory } from 'react-router-dom'
 import { cleanEnum } from 'Utils/cleanEnum'
 
-function resolveStatus (status) {
-  switch (status) {
-    case 'COMPLETE':
-      return STATUS_TYPES.GOOD
-    case 'PENDING':
-      return STATUS_TYPES.WARNING
-    default:
-      return STATUS_TYPES.BAD
-  }
-}
 
 function TransactionsTable ({ transactions, classes }) {
   const history = useHistory()
@@ -39,7 +30,7 @@ function TransactionsTable ({ transactions, classes }) {
         {
           transactions.map((transaction, index) => {
             const { id, merchant, amount, date, category, status } = transaction
-            const statusType = resolveStatus(status)
+            const statusType = resolveTransactionStatus(status)
             return (
               <TableRow
                 className={index % 2 === 0 ? classes.row : classes.rowOdd}

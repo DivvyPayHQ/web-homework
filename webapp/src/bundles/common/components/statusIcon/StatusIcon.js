@@ -43,6 +43,7 @@ const containerStyles = css`
 const textStyles = css`
   font-weight: 700;
   text-transform: capitalize;
+  margin: 0;
 `
 
 const iconWrapper = css`
