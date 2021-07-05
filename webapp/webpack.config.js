@@ -87,7 +87,19 @@ const config = {
     port: process.env.PORT || 3000
   },
   resolve: {
-    extensions: ['.mjs', '.js', '.jsx', '.json']
+    extensions: ['.mjs', '.js', '.jsx', '.json'],
+    alias: {
+      Actions: path.resolve(__dirname, 'src', 'bundles', 'common', 'actions'),
+      Assets: path.resolve(__dirname, 'src', 'bundles', 'common', 'assets'),
+      Components: path.resolve(__dirname, 'src', 'bundles', 'common', 'components'),
+      Config: path.resolve(__dirname, 'src', 'bundles', 'common', 'config'),
+      Constants: path.resolve(__dirname, 'src', 'bundles', 'common', 'constants'),
+      Helpers: path.resolve(__dirname, 'src', 'bundles', 'common', 'helpers'),
+      Reducers: path.resolve(__dirname, 'src', 'bundles', 'common', 'reducers'),
+      Styles: path.resolve(__dirname, 'src', 'bundles', 'common', 'styles'),
+      Utils: path.resolve(__dirname, 'src', 'bundles', 'common', 'utils'),
+      Validation: path.resolve(__dirname, 'src', 'bundles', 'common', 'validation')
+    }
   }
 }
 
