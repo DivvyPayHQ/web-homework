@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import PlusIcon from '../../assets/XIcon'
-import * as COLORS from '../../config/colors'
+import PlusIcon from 'Assets/XIcon'
+import * as COLORS from 'Config/colors'
 import { css } from '@emotion/core'
-import { baseButton } from '../../styles/button'
+import { baseButton } from 'Styles/button'
 
 export default function NewButton (props) {
   const { onClick, text, color } = props
