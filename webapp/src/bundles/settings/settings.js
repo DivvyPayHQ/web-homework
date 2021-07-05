@@ -1,7 +1,10 @@
 import React from 'react'
-import Layout from '../common/components/layout/Layout'
+import Layout from 'Components/layout/Layout'
 import { connect } from 'react-redux'
-import { selectViewState } from '../common/reducers/ViewStateReducer'
+import Section, { SECTION_TYPES } from 'Components/section/Section'
+import Theme from './components/theme/Theme'
+import Roman from './components/roman/Roman'
+import { selectViewState } from 'Reducers/ViewStateReducer'
 import { shape, string } from 'prop-types'
 
 function Settings ({ theme }) {
@@ -9,7 +12,20 @@ function Settings ({ theme }) {
     <Layout
       theme={theme}
       title='settings'
-    />
+    >
+      <Section
+        theme={theme}
+        title='preferences'
+        type={SECTION_TYPES.HALF}
+      >
+        <Theme
+          theme={theme}
+        />
+        <Roman
+          theme={theme}
+        />
+      </Section>
+    </Layout>
   )
 }
 

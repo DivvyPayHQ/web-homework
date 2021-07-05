@@ -21,7 +21,7 @@ function Theme ({ theme, setTheme }) {
 }
 
 const containerStyles = css`
-    display: flex;
+  display: flex;
   align-items: center;
 `
 

@@ -1,4 +1,4 @@
-import * as ACTION_TYPES from '../constants/actionTypes'
+import * as ACTION_TYPES from 'Constants/actionTypes'
 
 export const setTheme = (themeType) => {
   return {
