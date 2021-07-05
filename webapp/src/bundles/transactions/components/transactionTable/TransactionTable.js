@@ -6,8 +6,21 @@ import TableBody from '@material-ui/core/TableBody'
 import Table from '@material-ui/core/Table'
 import { arrayOf, bool, number, shape, string } from 'prop-types'
 import shortId from 'shortid'
-import { withTableStyles } from '../../../common/components/table/helpers/withTableStyles'
+import { withTableStyles } from 'Components/table/helpers/withTableStyles'
+import StatusIcon, { STATUS_TYPES } from 'Components/statusIcon/StatusIcon'
 import { useHistory } from 'react-router-dom'
+import { cleanEnum } from 'Utils/cleanEnum'
+
+function resolveStatus (status) {
+  switch (status) {
+    case 'COMPLETE':
+      return STATUS_TYPES.GOOD
+    case 'PENDING':
+      return STATUS_TYPES.WARNING
+    default:
+      return STATUS_TYPES.BAD
+  }
+}
 
 function TransactionsTable ({ transactions, classes }) {
   const history = useHistory()
@@ -15,32 +28,34 @@ function TransactionsTable ({ transactions, classes }) {
     <Table>
       <TableHead>
         <TableRow className={classes.header}>
-          <TableCell>Id</TableCell>
-          <TableCell>User Id</TableCell>
-          <TableCell className={classes.responsiveColumn}>Description</TableCell>
-          <TableCell>Merchant Id</TableCell>
-          <TableCell>Debit</TableCell>
-          <TableCell>Credit</TableCell>
+          <TableCell>Merchant</TableCell>
           <TableCell>Amount</TableCell>
+          <TableCell className={classes.responsiveColumn}>Date</TableCell>
+          <TableCell>Category</TableCell>
+          <TableCell>Status</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
         {
           transactions.map((transaction, index) => {
-            const { id, user_id: userId, description, merchant_id: merchantId, debit, credit, amount } = transaction
+            const { id, merchant, amount, date, category, status } = transaction
+            const statusType = resolveStatus(status)
             return (
               <TableRow
                 className={index % 2 === 0 ? classes.row : classes.rowOdd}
                 key={shortId.generate()}
                 onClick={() => history.push(`/transactions/${id}`)}
               >
-                <TableCell>{id}</TableCell>
-                <TableCell>{userId}</TableCell>
-                <TableCell className={classes.responsiveColumn}>{description}</TableCell>
-                <TableCell>{merchantId}</TableCell>
-                <TableCell>{debit}</TableCell>
-                <TableCell>{credit}</TableCell>
+                <TableCell>{merchant}</TableCell>
                 <TableCell>{amount}</TableCell>
+                <TableCell className={classes.responsiveColumn}>{date}</TableCell>
+                <TableCell>{cleanEnum(category)}</TableCell>
+                <TableCell>
+                  <StatusIcon
+                    statusType={statusType}
+                    text={cleanEnum(status)}
+                  />
+                </TableCell>
               </TableRow>
             )
           })

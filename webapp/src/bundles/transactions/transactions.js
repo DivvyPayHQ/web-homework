@@ -2,56 +2,51 @@ import React from 'react'
 import TransactionsTable from './components/transactionTable/TransactionTable'
 import Layout from '../common/components/layout/Layout'
 import { connect } from 'react-redux'
-import { selectViewState } from '../common/reducers/ViewStateReducer'
+import { selectViewState } from 'Reducers/ViewStateReducer'
 import { shape, string } from 'prop-types'
-import NewButton from '../common/components/buttons/NewButton'
+import NewButton from 'Components/buttons/NewButton'
 import { useHistory } from 'react-router-dom'
 
 const transactions = [
   {
     id: '1',
-    user_id: '2',
-    description: 'test transaction',
-    merchant_id: '321',
-    debit: false,
-    credit: true,
-    amount: 10.45
+    merchant: 'Domino\'s Pizza',
+    amount: '12.23',
+    date: '07-01-21',
+    category: 'FOOD_AND_DRINK',
+    status: 'COMPLETE'
   },
   {
     id: '2',
-    user_id: '2',
-    description: 'test transaction',
-    merchant_id: '321',
-    debit: false,
-    credit: true,
-    amount: 10.45
+    merchant: 'Domino\'s Pizza',
+    amount: '12.23',
+    date: '07-01-21',
+    category: 'FOOD_AND_DRINK',
+    status: 'PENDING'
   },
   {
     id: '3',
-    user_id: '2',
-    description: 'test transaction',
-    merchant_id: '321',
-    debit: false,
-    credit: true,
-    amount: 10.45
+    merchant: 'Domino\'s Pizza',
+    amount: '12.23',
+    date: '07-01-21',
+    category: 'FOOD_AND_DRINK',
+    status: 'COMPLETE'
   },
   {
     id: '4',
-    user_id: '2',
-    description: 'test transaction',
-    merchant_id: '321',
-    debit: false,
-    credit: true,
-    amount: 10.45
+    merchant: 'Domino\'s Pizza',
+    amount: '12.23',
+    date: '07-01-21',
+    category: 'FOOD_AND_DRINK',
+    status: 'PENDING'
   },
   {
     id: '5',
-    user_id: '2',
-    description: 'test transaction',
-    merchant_id: '321',
-    debit: false,
-    credit: true,
-    amount: 10.45
+    merchant: 'Domino\'s Pizza',
+    amount: '12.23',
+    date: '07-01-21',
+    category: 'FOOD_AND_DRINK',
+    status: 'DECLINED'
   }
 ]
 
