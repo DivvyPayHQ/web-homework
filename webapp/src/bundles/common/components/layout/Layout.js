@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react'
-import { node, func, number, string } from 'prop-types'
+import { node, func, number, string, shape } from 'prop-types'
 import { connect } from 'react-redux'
 import SideNav from '../navigation/components/SideNav'
-import MobileNav from '../navigation/components/MobileNav';
+import MobileNav from '../navigation/components/MobileNav'
 import { css } from '@emotion/core'
-import { windowResize } from '../../actions/windowResize'
-import { selectViewState } from '../../reducers/ViewStateReducer'
+import { windowResize } from 'Actions/windowResize'
+import { selectViewState } from 'Reducers/ViewStateReducer'
 import * as BREAK_POINTS from '../../constants/breakpoints'
 
 class Layout extends PureComponent {
@@ -28,10 +28,10 @@ class Layout extends PureComponent {
   }
 
   render () {
-    const { children, title, buttons } = this.props
+    const { children, title, buttons, theme } = this.props
 
     return (
-      <div css={layoutWrapper}>
+      <div css={layoutWrapper} style={{ background: theme.background }}>
         <div css={desktopWrapper}>
           <SideNav />
         </div>
@@ -40,7 +40,7 @@ class Layout extends PureComponent {
         </div>
         <div css={contentWrapper}>
           <div css={titleButtonsContainer}>
-            <p css={text}>{title}</p>
+            <p css={text} style={{ color: theme.color }}>{title}</p>
             <div>
               {buttons}
             </div>
@@ -127,7 +127,7 @@ const mobileWrapper = css`
   }
 `
 Layout.defaultProps = {
-  buttons: undefined,
+  buttons: undefined
 }
 
 Layout.propTypes = {
@@ -136,5 +136,13 @@ Layout.propTypes = {
   width: number.isRequired,
   error: string,
   title: string,
-  buttons: node
+  buttons: node,
+  theme: shape({
+    type: string,
+    background: string,
+    secondary: string,
+    color: string,
+    accent: string,
+    highlight: string
+  })
 }
