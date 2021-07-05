@@ -73,6 +73,7 @@
     "react-hot-loader": "4.11.0",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
+    "react-transition-group": "^4.4.2",
     "redux": "^4.1.0",
     "shortid": "^2.2.16",
     "validator": "^13.6.0"

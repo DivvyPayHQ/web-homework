@@ -25,7 +25,7 @@ const containerStyles = css`
 `
 
 const labelStyles = css`
-    margin-right: 20px;
+  margin-right: 20px;
 `
 
 function mapStateToProps (state) {
