@@ -26,11 +26,14 @@ const switchStyleLeft = css`
   position: absolute;
   top: 2px;
   left: 2px;
+  transition: left 0.2s;
+
 `
 
 const switchStyleRight = css`
   ${switchStyleLeft};
   left: 16px;
+  transition: left 0.2s;
 `
 Switch.defaultProps = {
   on: false
