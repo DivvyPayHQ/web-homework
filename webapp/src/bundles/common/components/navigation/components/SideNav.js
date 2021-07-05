@@ -31,6 +31,7 @@ const container = css`
   width: 170px;
   background: black;
   padding: 10px 0;
+  box-sizing: border-box;
   height: 100%;
   
   img {
