@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react'
-import { node, func, number, string, shape } from 'prop-types'
+import { node, func, number, string, shape, arrayOf } from 'prop-types'
 import { connect } from 'react-redux'
 import SideNav from '../navigation/components/SideNav'
 import MobileNav from '../navigation/components/MobileNav'
+import BreadCrumb from 'Components/breadCrumb/BreadCrumb'
 import { css } from '@emotion/core'
 import { windowResize } from 'Actions/windowResize'
 import { selectViewState } from 'Reducers/ViewStateReducer'
@@ -28,7 +29,7 @@ class Layout extends PureComponent {
   }
 
   render () {
-    const { children, title, buttons, theme } = this.props
+    const { children, title, buttons, theme, links } = this.props
 
     return (
       <div css={layoutWrapper} style={{ background: theme.background }}>
@@ -45,6 +46,14 @@ class Layout extends PureComponent {
               {buttons}
             </div>
           </div>
+          {
+            links && (
+              <BreadCrumb
+                links={links}
+                theme={theme}
+              />
+            )
+          }
           <div css={childrenWrapper}>
             {children}
           </div>
@@ -127,13 +136,18 @@ const mobileWrapper = css`
   }
 `
 Layout.defaultProps = {
-  buttons: undefined
+  buttons: undefined,
+  links: undefined
 }
 
 Layout.propTypes = {
   children: node,
   windowResize: func.isRequired,
   width: number.isRequired,
+  links: arrayOf(shape({
+    name: string,
+    url: string
+  })),
   error: string,
   title: string,
   buttons: node,
