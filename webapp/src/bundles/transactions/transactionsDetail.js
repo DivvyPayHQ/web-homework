@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom'
 import Section, { SECTION_TYPES } from 'Components/section/Section'
 import TextLine from 'Components/textLine/TextLine'
 import TransactionStatus from './components/transactionStatus/TransactionStatus'
+import DeleteButton from 'Components/buttons/DeleteButton'
 import { css } from '@emotion/core'
 
 const transaction = {
@@ -17,6 +18,7 @@ function TransactionsDetail ({ theme }) {
   const { transactionId } = useParams()
   return (
     <Layout
+      buttons={(<DeleteButton onClick={null} loading />)}
       theme={theme}
       title='transactions'
     >
