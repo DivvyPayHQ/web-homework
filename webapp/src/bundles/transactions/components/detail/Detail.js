@@ -17,7 +17,7 @@ export default class Detail extends PureComponent {
       isValid: false,
       fields: {
         amount: {
-          value: '',
+          value: '29.00',
           validators: [
             isNotEmpty,
             isNumeric
@@ -76,7 +76,7 @@ export default class Detail extends PureComponent {
                 <TextLine
                   label='Amount'
                   theme={theme}
-                  value='$29.00'
+                  value={amount.value}
                 />
                 <TransactionStatus
                   status='PENDING'

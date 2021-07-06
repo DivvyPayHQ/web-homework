@@ -4,15 +4,9 @@ import { connect } from 'react-redux'
 import { selectViewState } from 'Reducers/ViewStateReducer'
 import { shape, string } from 'prop-types'
 import { useParams } from 'react-router-dom'
-import Section, { SECTION_TYPES } from 'Components/section/Section'
-import TextLine from 'Components/textLine/TextLine'
 import DeleteButton from 'Components/buttons/DeleteButton'
 import Detail from './components/detail/Detail'
-import { css } from '@emotion/core'
-
-const transaction = {
-
-}
+import Merchant from './components/merchant/Merchant'
 
 function TransactionsDetail ({ theme }) {
   const { transactionId } = useParams()
@@ -27,50 +21,23 @@ function TransactionsDetail ({ theme }) {
       url: `/transactions/${transactionId}`
     }
   ]
-  
+
   return (
     <Layout
       buttons={(<DeleteButton onClick={null} />)}
+      links={links}
       theme={theme}
       title='transactions'
-      links={links}
     >
-     <Detail
-         theme={theme}
-     />
-      <Section
+      <Detail
         theme={theme}
-        title='merchant'
-        type={SECTION_TYPES.HALF}
-      >
-        <div css={containerStyles}>
-          <TextLine
-            label='Name'
-            theme={theme}
-            value='Dominoes'
-          />
-          <TextLine
-            label='Category'
-            theme={theme}
-            value='Food & Drinks'
-          />
-          <TextLine
-            label='Location'
-            theme={theme}
-            value='Riverton, UT'
-          />
-        </div>
-      </Section>
+      />
+      <Merchant
+        theme={theme}
+      />
     </Layout>
   )
 }
-
-const containerStyles = css`
-  height: 200px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`
 
 function mapStateToProps (state) {
   const viewState = selectViewState(state)
