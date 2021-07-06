@@ -26,6 +26,10 @@ const container = css`
   border-radius: 10px;
   box-sizing: border-box;
   margin-bottom: 15px;
+  
+  @media(max-width: 600px) {
+    width: 100% !important
+  }
 `
 
 const header = css`
