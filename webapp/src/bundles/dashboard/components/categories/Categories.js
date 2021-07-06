@@ -1,5 +1,5 @@
 import React from 'react'
-import { shape, number, string, bool } from 'prop-types'
+import { shape, number, string, bool, arrayOf } from 'prop-types'
 import { toDollars } from 'Functions/toDollars'
 import { toRoman } from 'Functions/toRoman/toRoman'
 import Section, { SECTION_TYPES } from 'Components/section/Section'
@@ -81,14 +81,14 @@ const labelStyles = css`
 
 Categories.propTypes = {
   roman: bool.isRequired,
-  transactions: shape({
+  transactions: arrayOf(shape({
     id: string,
     merchant: string,
     amount: number,
     date: string,
     category: string,
     status: string
-  }),
+  })),
   theme: shape({
     type: string,
     background: string,

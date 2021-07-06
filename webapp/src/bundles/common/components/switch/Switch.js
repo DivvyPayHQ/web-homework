@@ -1,10 +1,11 @@
 import React from 'react'
 import { css } from '@emotion/core'
-import { shape, bool, func } from 'prop-types'
+import { shape, bool, func, string } from 'prop-types'
 
 export default function Switch ({ theme, on, onClick }) {
   return (
-    <div css={backgroundStyle} style={on ? { background: theme.highlight } : { background: theme.accent }} onClick={onClick}>
+  // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+    <div css={backgroundStyle} onClick={onClick} style={on ? { background: theme.highlight } : { background: theme.accent }}>
       <div css={on ? switchStyleRight : switchStyleLeft} />
     </div>
   )
@@ -40,7 +41,14 @@ Switch.defaultProps = {
 }
 
 Switch.propTypes = {
-  theme: shape.isRequired,
+  theme: shape({
+    type: string,
+    background: string,
+    secondary: string,
+    color: string,
+    accent: string,
+    highlight: string
+  }),
   onClick: func.isRequired,
   on: bool
 }

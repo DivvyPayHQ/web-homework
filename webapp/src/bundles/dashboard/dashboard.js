@@ -3,7 +3,7 @@ import Layout from 'Components/layout/Layout'
 import Categories from './components/categories/Categories'
 import { connect } from 'react-redux'
 import { selectViewState, selectTransactions } from 'Reducers/AppReducer'
-import { shape, string, number, bool } from 'prop-types'
+import { shape, string, number, bool, arrayOf } from 'prop-types'
 
 function Dashboard ({ theme, transactions, roman }) {
   return (
@@ -34,14 +34,14 @@ export default connect(mapStateToProps)(Dashboard)
 
 Dashboard.propTypes = {
   roman: bool.isRequired,
-  transactions: shape({
+  transactions: arrayOf(shape({
     id: string,
     merchant: string,
     amount: number,
     date: string,
     category: string,
     status: string
-  }),
+  })),
   theme: shape({
     type: string,
     background: string,

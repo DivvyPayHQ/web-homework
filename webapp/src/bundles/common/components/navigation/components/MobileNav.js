@@ -6,6 +6,7 @@ export default function MobileNav () {
   const [ isOpen, setOpen ] = useState(false)
   return (
     <div css={container}>
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
       <div css={isOpen ? openMenu : closedMenu} onClick={() => setOpen(!isOpen)}>
         <div className='bar-one' />
         <div className='bar-two' />

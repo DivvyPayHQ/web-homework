@@ -29,5 +29,4 @@ const combine = (transactions) => {
     })
   })
   return result
-
 }

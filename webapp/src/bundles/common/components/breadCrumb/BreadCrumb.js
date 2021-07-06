@@ -21,7 +21,7 @@ export default function BreadCrumb (props) {
               </Link>
               {
                 index !== end && (
-                  <p css={anchorStyles} style={{ color: theme.highlight }}>&nbsp;>&nbsp;</p>
+                  <p css={anchorStyles} style={{ color: theme.highlight }}>&nbsp;&gt;&nbsp;</p>
                 )
               }
             </Fragment>

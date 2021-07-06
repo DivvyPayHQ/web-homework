@@ -14,10 +14,10 @@ export default function MobileMenu ({ isOpen }) {
             const { name, url, icon } = item
             return (
               <Item
+                icon={icon}
                 key={shortId.generate()}
                 name={name}
                 url={url}
-                icon={icon}
               />
             )
           })

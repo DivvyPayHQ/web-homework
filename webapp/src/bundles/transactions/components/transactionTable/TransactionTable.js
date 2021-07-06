@@ -60,6 +60,7 @@ function TransactionsTable ({ transactions, classes, roman }) {
 export default withTableStyles(TransactionsTable)
 
 TransactionsTable.propTypes = {
+  roman: bool.isRequired,
   classes: shape({
     row: string
   }),

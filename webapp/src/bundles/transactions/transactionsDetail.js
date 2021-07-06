@@ -38,6 +38,7 @@ function TransactionsDetail ({ theme }) {
         <DeleteButton
           loading={loading}
           onClick={deleteTransaction}
+          theme={theme}
         />
       )}
       links={links}

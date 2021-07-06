@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import PropTypes from 'prop-types'
+import { shape, string, bool, func, number } from 'prop-types'
 import TrashIcon from 'Assets/TrashIcon'
 import LoadingSpinner from 'Components/loader/Loader'
 import * as COLORS from 'Config/colors'
@@ -71,10 +71,17 @@ RemoveButton.defaultProps = {
 }
 
 RemoveButton.propTypes = {
-  theme: PropTypes.shape().isRequired,
-  onClick: PropTypes.func.isRequired,
-  icon: PropTypes.bool,
-  text: PropTypes.string,
-  width: PropTypes.number,
-  loading: PropTypes.bool
+  theme: shape({
+    type: string,
+    background: string,
+    secondary: string,
+    color: string,
+    accent: string,
+    highlight: string
+  }),
+  onClick: func.isRequired,
+  icon: bool,
+  text: string,
+  width: number,
+  loading: bool
 }

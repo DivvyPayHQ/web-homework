@@ -1,5 +1,5 @@
 import React from 'react'
-import { bool, func, shape } from 'prop-types'
+import { bool, func, shape, string } from 'prop-types'
 import EditButton from 'Components/buttons/EditButton'
 import SaveButton from 'Components/buttons/SaveButton'
 import { css } from '@emotion/core'
@@ -40,15 +40,21 @@ const containerStyles = css`
   width: 124px;
 `
 
-EditButton.defaultProps = {
+EditSaveButton.defaultProps = {
   editing: false,
   loading: false
 }
 
-EditButton.propTypes = {
+EditSaveButton.propTypes = {
   editing: bool,
   loading: bool,
   onEditClick: func.isRequired,
   onSaveClick: func.isRequired,
-  theme: shape()
-}
+  theme: shape({
+    type: string,
+    background: string,
+    secondary: string,
+    color: string,
+    accent: string,
+    highlight: string
+  }) }

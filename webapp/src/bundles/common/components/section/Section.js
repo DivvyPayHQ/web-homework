@@ -1,5 +1,5 @@
 import React from 'react'
-import { string, func, node, shape } from 'prop-types'
+import { string, node, shape } from 'prop-types'
 import { css } from '@emotion/core'
 
 export const SECTION_TYPES = {
@@ -49,7 +49,7 @@ Section.defaultProps = {
 }
 
 Section.propTypes = {
-  buttons: func,
+  buttons: shape(),
   title: string.isRequired,
   children: node.isRequired,
   type: string.isRequired,
