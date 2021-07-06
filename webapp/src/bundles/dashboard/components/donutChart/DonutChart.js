@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { draw } from './misc/draw'
-// import './misc/donutChart.css'
+
 
 export default class DonutChart extends PureComponent {
   constructor (props) {
@@ -20,30 +20,27 @@ export default class DonutChart extends PureComponent {
     this.draw()
   }
 
-  componentDidUpdate () {
-    this.draw()
+  draw = () => {
+    const { data, theme, onHover, centerValue } = this.props
+    draw({
+      identifier: this.identifier,
+      margin: this.margin,
+      theme
+    }, {
+      data,
+      onHover,
+      centerValue
+    })
+  };
+
+  render () {
+    return (
+      <div style={{ position: 'relative', height: '100%', width: '100%' }}>
+        <div className='centerValue' />
+        <div className={this.identifier} style={{ height: '100%', width: '100%' }} />
+      </div>
+    )
   }
-
-    draw = () => {
-      const { data, schema, theme } = this.props
-      draw({
-        identifier: this.identifier,
-        margin: this.margin,
-        theme
-      }, {
-        data,
-        schema
-      })
-    };
-
-    render () {
-      return (
-        <div style={{ position: 'relative', height: '100%', width: '100%' }}>
-          <div className='percentage' />
-          <div className={this.identifier} style={{ height: '100%', width: '100%' }} />
-        </div>
-      )
-    }
 }
 
 DonutChart.defaultProps = {
@@ -51,7 +48,9 @@ DonutChart.defaultProps = {
   top: 0,
   right: 0,
   left: 0,
-  bottom: 0
+  bottom: 0,
+  onHover: undefined,
+  centerValue: undefined
 }
 
 DonutChart.propTypes = {
@@ -60,5 +59,7 @@ DonutChart.propTypes = {
   top: PropTypes.number,
   right: PropTypes.number,
   left: PropTypes.number,
-  bottom: PropTypes.number
+  bottom: PropTypes.number,
+  onHover: PropTypes.func,
+  centerValue: PropTypes.string
 }

@@ -1,6 +1,6 @@
 import * as d3 from 'd3'
 
-export const draw = (meta, content) => {
+export const draw = (meta, content, initial = false) => {
   const { identifier, margin } = meta
   const { data } = content
 
@@ -29,12 +29,42 @@ export const draw = (meta, content) => {
     .append('g')
     .attr('transform', `translate(${width / 2},${height / 2})`)
 
+  function centerLabel (data) {
+    const centerValueText = d3.select('.centerValue')
+
+    if (data) {
+      centerValueText.html(`$${data.value}`)
+        .style('display', 'block')
+        .style('position', 'absolute')
+        .style('color', data.color)
+
+      const textHeight = document.getElementsByClassName('centerValue')[0].clientHeight
+      const textWidth = document.getElementsByClassName('centerValue')[0].clientWidth
+
+      centerValueText
+        .style('top', `${(height / 2) - (textHeight / 2)}px`)
+        .style('left', `${(width / 2) - (textWidth / 2)}px`)
+    } else {
+      centerValueText.html('')
+    }
+  }
+
+  function onMouseEnterHandler (d, i) {
+    centerLabel(i.data)
+  }
+
+  function onMouseLeaveHandler (d, i) {
+    centerLabel(null)
+  }
+
   const dataPath = svg.selectAll('path')
     .data(preparedData)
     .enter()
     .append('path')
     .attr('d', arc)
     .attr('fill', (d) => { return d.data.color })
+    .on('mouseout', onMouseLeaveHandler)
+    .on('mouseenter', onMouseEnterHandler)
 
   dataPath.transition()
     .duration(1000)
