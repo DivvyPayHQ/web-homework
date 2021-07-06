@@ -25,6 +25,13 @@ const containerStyles = css`
 `
 
 TransactionStatus.propTypes = {
-  theme: shape().isRequired,
+  theme: shape({
+    type: string,
+    background: string,
+    secondary: string,
+    color: string,
+    accent: string,
+    highlight: string
+  }),
   status: string.isRequired
 }

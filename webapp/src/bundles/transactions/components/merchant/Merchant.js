@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react'
+import { shape, string } from 'prop-types'
 import Section, { SECTION_TYPES } from 'Components/section/Section'
 import TextLine from 'Components/textLine/TextLine'
 import TextLineInput from 'Components/textLineInput/TextLineInput'
 import EditSaveButton from 'Components/buttons/EditSaveButton'
 import { onChange, validate } from 'Helpers/fields'
-import { isNotEmpty, isNumeric } from 'Validation/validators'
+import { isNotEmpty } from 'Validation/validators'
 import { css } from '@emotion/core'
 
 export default class Merchant extends PureComponent {
@@ -18,22 +19,19 @@ export default class Merchant extends PureComponent {
         name: {
           value: 'Dominoes',
           validators: [
-            isNotEmpty,
-            isNumeric
+            isNotEmpty
           ]
         },
         category: {
           value: 'Food & Drinks',
           validators: [
-            isNotEmpty,
-            isNumeric
+            isNotEmpty
           ]
         },
         location: {
           value: 'Riverton, UT',
           validators: [
-            isNotEmpty,
-            isNumeric
+            isNotEmpty
           ]
         }
       }
@@ -53,7 +51,15 @@ export default class Merchant extends PureComponent {
 
   onSave = () => {
     validate(this, () => {
-      // Call Api
+      const { isValid } = this.state
+      if (isValid) {
+        // Call API Here
+        this.setState({ loading: true })
+        setTimeout(() => {
+          this.setState({ loading: false })
+          this.toggleEdit()
+        }, 1500)
+      }
     })
   }
 
@@ -65,8 +71,9 @@ export default class Merchant extends PureComponent {
         buttons={(
           <EditSaveButton
             editing={editing}
+            loading={loading}
             onEditClick={this.toggleEdit}
-            onSaveClick={this.toggleEdit}
+            onSaveClick={this.onSave}
             theme={theme}
           />
         )}
@@ -137,3 +144,14 @@ const containerStyles = css`
   flex-direction: column;
   justify-content: space-between;
 `
+
+Merchant.propTypes = {
+  theme: shape({
+    type: string,
+    background: string,
+    secondary: string,
+    color: string,
+    accent: string,
+    highlight: string
+  })
+}

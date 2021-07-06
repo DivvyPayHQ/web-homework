@@ -15,7 +15,7 @@ export default function TextLineInput (props) {
             <p style={{ color: error ? COLORS.RED : theme.color }}>{label}</p>
             {
               error && error !== true && !noMessage && (
-                <p css={errorMessageStyles}>{`(${error})`}</p>
+                <p style={{ color: COLORS.RED, marginLeft: '10px' }}>{`(${error})`}</p>
               )
             }
           </div>
@@ -48,11 +48,6 @@ const headerStyles = css`
     ${baseLabel};
     width: auto;
   }
-`
-
-const errorMessageStyles = css`
-  margin-left: 10px;
-  color: ${COLORS.RED}
 `
 
 const inputErrorStyles = css`
