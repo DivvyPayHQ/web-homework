@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Layout from 'Components/layout/Layout'
 import { connect } from 'react-redux'
-import { selectViewState } from 'Reducers/ViewStateReducer'
+import { selectViewState } from 'Reducers/AppReducer'
 import { shape, string } from 'prop-types'
 import { useParams, useHistory } from 'react-router-dom'
 import DeleteButton from 'Components/buttons/DeleteButton'

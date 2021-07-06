@@ -1,12 +1,12 @@
 import { createStore } from 'redux'
-import ViewStateReducer from '../bundles/common/reducers/ViewStateReducer'
+import AppReducer from '../bundles/common/reducers/AppReducer'
 import { devToolsEnhancer } from 'redux-devtools-extension'
 
 function initStore () {
   if (process.env.NODE_ENV !== 'production') {
-    return createStore(ViewStateReducer, devToolsEnhancer())
+    return createStore(AppReducer, devToolsEnhancer())
   }
-  return createStore(ViewStateReducer)
+  return createStore(AppReducer)
 }
 
 const store = initStore()

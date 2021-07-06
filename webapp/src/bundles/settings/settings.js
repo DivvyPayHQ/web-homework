@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Section, { SECTION_TYPES } from 'Components/section/Section'
 import Theme from './components/theme/Theme'
 import Roman from './components/roman/Roman'
-import { selectViewState } from 'Reducers/ViewStateReducer'
+import { selectViewState } from 'Reducers/AppReducer'
 import { shape, string } from 'prop-types'
 
 function Settings ({ theme }) {

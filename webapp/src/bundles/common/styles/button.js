@@ -1,6 +1,6 @@
 import { css } from '@emotion/core'
-import * as COLORS from '../config/colors'
-import { defaultFont } from '../config/fonts'
+import * as COLORS from 'Config/colors'
+import { defaultFont } from 'Config/fonts'
 
 export const baseButton = css`
   width: 100%;

@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1610739993536" clover="3.2.0">
-  <project timestamp="1610739993536" name="All files">
-    <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0" elements="0" coveredelements="0" complexity="0" loc="0" ncloc="0" packages="0" files="0" classes="0"/>
+<coverage generated="1625594748255" clover="3.2.0">
+  <project timestamp="1625594748255" name="All files">
+    <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1" elements="9" coveredelements="9" complexity="0" loc="8" ncloc="8" packages="1" files="1" classes="1"/>
+    <file name="toRoman.js" path="/Users/justinneedham/WebstormProjects/web-homework/webapp/src/bundles/common/functions/toRoman/toRoman.js">
+      <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="57" count="3" type="stmt"/>
+      <line num="58" count="3" type="stmt"/>
+      <line num="59" count="39" type="stmt"/>
+      <line num="60" count="39" type="stmt"/>
+      <line num="61" count="39" type="stmt"/>
+      <line num="62" count="39" type="stmt"/>
+      <line num="64" count="3" type="stmt"/>
+    </file>
   </project>
 </coverage>

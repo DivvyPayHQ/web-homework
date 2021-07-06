@@ -2,7 +2,7 @@ import React from 'react'
 import { shape, string, func, bool } from 'prop-types'
 import { connect } from 'react-redux'
 import Switch from 'Components/switch/Switch'
-import { selectViewState } from 'Reducers/ViewStateReducer'
+import { selectViewState } from 'Reducers/AppReducer'
 import { toggleRoman } from 'Actions/toggleRoman'
 import { css } from '@emotion/core'
 

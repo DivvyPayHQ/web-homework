@@ -5,7 +5,7 @@ import SideNav from '../navigation/components/SideNav'
 import MobileNav from '../navigation/components/MobileNav'
 import BreadCrumb from 'Components/breadCrumb/BreadCrumb'
 import { css } from '@emotion/core'
-import { selectViewState } from 'Reducers/ViewStateReducer'
+import { selectViewState } from 'Reducers/AppReducer'
 
 function Layout ({ children, title, buttons, theme, links }) {
   return (
@@ -116,7 +116,6 @@ Layout.propTypes = {
     name: string,
     url: string
   })),
-  error: string,
   title: string,
   buttons: node,
   theme: shape({
