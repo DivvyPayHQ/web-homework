@@ -6,7 +6,7 @@ import { baseInput } from 'Styles/input'
 import { baseLabel } from 'Styles/text'
 
 export default function TextLineInput (props) {
-  const { label, value, name, onChange, error, theme, placeHolder, type, max, noMessage } = props
+  const { label, value, name, onChange, error, theme, placeHolder, type, max } = props
   return (
     <div css={containerStyles}>
       {
@@ -14,7 +14,7 @@ export default function TextLineInput (props) {
           <div css={headerStyles} style={{ background: theme.secondary }}>
             <p style={{ color: error ? COLORS.RED : theme.color }}>{label}</p>
             {
-              error && error !== true && !noMessage && (
+              error && error !== true && (
                 <p style={{ color: COLORS.RED, marginLeft: '10px' }}>{`(${error})`}</p>
               )
             }
@@ -59,8 +59,7 @@ TextLineInput.defaultProps = {
   error: null,
   placeHolder: '',
   max: null,
-  type: null,
-  noMessage: false
+  type: null
 }
 
 TextLineInput.propTypes = {
@@ -72,6 +71,5 @@ TextLineInput.propTypes = {
   error: PropTypes.string,
   placeHolder: PropTypes.string,
   type: PropTypes.string,
-  max: PropTypes.number,
-  noMessage: PropTypes.number
+  max: PropTypes.number
 }
