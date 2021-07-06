@@ -1,66 +1,42 @@
-import React, { PureComponent } from 'react'
-import { node, func, number, string, shape, arrayOf } from 'prop-types'
+import React from 'react'
+import { node, string, shape, arrayOf } from 'prop-types'
 import { connect } from 'react-redux'
 import SideNav from '../navigation/components/SideNav'
 import MobileNav from '../navigation/components/MobileNav'
 import BreadCrumb from 'Components/breadCrumb/BreadCrumb'
 import { css } from '@emotion/core'
-import { windowResize } from 'Actions/windowResize'
 import { selectViewState } from 'Reducers/ViewStateReducer'
-import * as BREAK_POINTS from '../../constants/breakpoints'
 
-class Layout extends PureComponent {
-  componentDidMount () {
-    const { windowResize } = this.props
-
-    // Width
-    windowResize()
-    window.onresize = () => {
-      windowResize()
-    }
-  }
-
-  getWidth = () => {
-    const { width } = this.props
-    if (width < BREAK_POINTS.DESKTOP) {
-      return '100%'
-    }
-    return BREAK_POINTS.DESKTOP
-  }
-
-  render () {
-    const { children, title, buttons, theme, links } = this.props
-
-    return (
-      <div css={layoutWrapper} style={{ background: theme.background }}>
-        <div css={desktopWrapper}>
-          <SideNav />
-        </div>
-        <div css={mobileWrapper}>
-          <MobileNav />
-        </div>
-        <div css={contentWrapper}>
-          <div css={titleButtonsContainer}>
-            <p css={text} style={{ color: theme.color }}>{title}</p>
-            <div>
-              {buttons}
-            </div>
+function Layout ({ children, title, buttons, theme, links }) {
+  return (
+    <div css={layoutWrapper} style={{ background: theme.background }}>
+      <div css={desktopWrapper}>
+        <SideNav />
+      </div>
+      <div css={mobileWrapper}>
+        <MobileNav />
+      </div>
+      <div css={contentWrapper}>
+        <div css={titleButtonsContainer}>
+          <p css={text} style={{ color: theme.color }}>{title}</p>
+          <div>
+            {buttons}
           </div>
-          {
-            links && (
-              <BreadCrumb
-                links={links}
-                theme={theme}
-              />
-            )
-          }
-          <div css={childrenWrapper}>
-            {children}
-          </div>
+        </div>
+        {
+          links && (
+            <BreadCrumb
+              links={links}
+              theme={theme}
+            />
+          )
+        }
+        <div css={childrenWrapper}>
+          {children}
         </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 function mapStateToProps (state) {
@@ -71,19 +47,13 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    windowResize: () => { dispatch(windowResize()) }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Layout)
+export default connect(mapStateToProps)(Layout)
 
 const layoutWrapper = css`
   height: 100%;
   display: flex;
   
-  @media(max-width: 450px) {
+  @media(max-width: 600px) {
     flex-direction: column;
   }
 `
@@ -98,7 +68,7 @@ const contentWrapper = css`
     width: 430px;
   }
 
-  @media(max-width: 450px) {
+  @media(max-width: 600px) {
     width: 100%;
   }
 `
@@ -125,13 +95,13 @@ const text = css`
 `
 
 const desktopWrapper = css`
-  @media(max-width: 450px) {
+  @media(max-width: 600px) {
     display: none;
   }
 `
 
 const mobileWrapper = css`
-  @media(min-width: 450px) {
+  @media(min-width: 600px) {
     display: none;
   }
 `
@@ -142,8 +112,6 @@ Layout.defaultProps = {
 
 Layout.propTypes = {
   children: node,
-  windowResize: func.isRequired,
-  width: number.isRequired,
   links: arrayOf(shape({
     name: string,
     url: string

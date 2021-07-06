@@ -22,7 +22,7 @@ function TransactionsTable ({ transactions, classes }) {
           <TableCell>Merchant</TableCell>
           <TableCell>Amount</TableCell>
           <TableCell className={classes.responsiveColumn}>Date</TableCell>
-          <TableCell>Category</TableCell>
+          <TableCell className={classes.responsiveColumn}>Category</TableCell>
           <TableCell>Status</TableCell>
         </TableRow>
       </TableHead>
@@ -40,7 +40,7 @@ function TransactionsTable ({ transactions, classes }) {
                 <TableCell>{merchant}</TableCell>
                 <TableCell>{amount}</TableCell>
                 <TableCell className={classes.responsiveColumn}>{date}</TableCell>
-                <TableCell>{cleanEnum(category)}</TableCell>
+                <TableCell className={classes.responsiveColumn}>{cleanEnum(category)}</TableCell>
                 <TableCell>
                   <StatusIcon
                     statusType={statusType}
