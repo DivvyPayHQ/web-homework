@@ -6,9 +6,8 @@ import { shape, string } from 'prop-types'
 import { useParams } from 'react-router-dom'
 import Section, { SECTION_TYPES } from 'Components/section/Section'
 import TextLine from 'Components/textLine/TextLine'
-import TransactionStatus from './components/transactionStatus/TransactionStatus'
 import DeleteButton from 'Components/buttons/DeleteButton'
-import EditButton from 'Components/buttons/EditSsaveButton'
+import Detail from './components/detail/Detail'
 import { css } from '@emotion/core'
 
 const transaction = {
@@ -36,35 +35,9 @@ function TransactionsDetail ({ theme }) {
       title='transactions'
       links={links}
     >
-      <Section
-        buttons={(
-          <EditButton
-              onClick={null}
-              theme={theme}
-              loading
-          />
-        )}
-        theme={theme}
-        title='detail'
-        type={SECTION_TYPES.HALF}
-      >
-        <div css={containerStyles}>
-          <TextLine
-            label='Date'
-            theme={theme}
-            value='01-01-2021'
-          />
-          <TextLine
-            label='Amount'
-            theme={theme}
-            value='$29.00'
-          />
-          <TransactionStatus
-            status='PENDING'
-            theme={theme}
-          />
-        </div>
-      </Section>
+     <Detail
+         theme={theme}
+     />
       <Section
         theme={theme}
         title='merchant'

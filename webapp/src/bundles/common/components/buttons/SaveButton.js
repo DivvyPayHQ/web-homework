@@ -37,7 +37,7 @@ const containerStyles = css`
   ${baseButton};
   
   background: ${COLORS.GREEN};
-  width: 62px;
+  width: 65px;
   justify-content: center;
 `
 
