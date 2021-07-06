@@ -12,7 +12,6 @@ import StatusIcon from 'Components/statusIcon/StatusIcon'
 import { useHistory } from 'react-router-dom'
 import { cleanEnum } from 'Utils/cleanEnum'
 
-
 function TransactionsTable ({ transactions, classes }) {
   const history = useHistory()
   return (

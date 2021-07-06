@@ -1,15 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Layout from 'Components/layout/Layout'
 import { connect } from 'react-redux'
 import { selectViewState } from 'Reducers/ViewStateReducer'
 import { shape, string } from 'prop-types'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import DeleteButton from 'Components/buttons/DeleteButton'
 import Detail from './components/detail/Detail'
 import Merchant from './components/merchant/Merchant'
 
 function TransactionsDetail ({ theme }) {
+  const [loading, setLoading] = useState(false)
   const { transactionId } = useParams()
+  const history = useHistory()
+
+  const deleteTransaction = () => {
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+      history.push('/transactions?page=1')
+    }, 1500)
+  }
 
   const links = [
     {
@@ -24,7 +34,12 @@ function TransactionsDetail ({ theme }) {
 
   return (
     <Layout
-      buttons={(<DeleteButton onClick={null} />)}
+      buttons={(
+        <DeleteButton
+          loading={loading}
+          onClick={deleteTransaction}
+        />
+      )}
       links={links}
       theme={theme}
       title='transactions'
