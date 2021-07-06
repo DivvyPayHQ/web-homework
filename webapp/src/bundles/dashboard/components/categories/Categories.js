@@ -8,34 +8,41 @@ import * as COLORS from 'Config/colors'
 const data = [
   {
     value: 10,
-    label: 'two'
+    label: 'Food'
   },
   {
     value: 10,
-    label: 'one'
+    label: 'Food'
   },
   {
     value: 10,
-    label: 'one'
+    label: 'Services'
   },
   {
     value: 10,
-    label: 'two'
+    label: 'Shopping'
   },
   {
     value: 10,
-    label: 'one'
+    label: 'Health'
   },
   {
     value: 12,
-    label: 'three'
+    label: 'Transportation'
+  },
+  {
+    value: 12,
+    label: 'Entertainment'
   }
 ]
 
 const colors = {
-  one: COLORS.GREEN,
-  two: COLORS.PURPLE,
-  three: COLORS.BLUE_LIGHT
+  Food: COLORS.GREEN,
+  Services: COLORS.PURPLE,
+  Shopping: COLORS.BLUE_LIGHT,
+  Health: COLORS.RED,
+  Transportation: COLORS.YELLOW,
+  Entertainment: COLORS.BLUE_MEDIUM
 }
 
 export default function Categories ({ theme }) {
@@ -47,16 +54,56 @@ export default function Categories ({ theme }) {
       type={SECTION_TYPES.HALF}
     >
       <div css={containerStyles}>
-        <DonutChart
-          data={preparedData}
-          theme={theme}
-        />
+        <div css={chartWrapperStyles}>
+          <DonutChart
+            data={preparedData}
+            theme={theme}
+          />
+        </div>
+        <div css={legendContainerStyles}>
+          {
+            preparedData.map(data => {
+              const { label, color } = data
+              return (
+                <div css={itemContainer}>
+                  <div css={iconStyles} style={{ background: color }} />
+                  <p css={labelStyles} style={{ color }}>{label}</p>
+                </div>
+              )
+            })
+          }
+        </div>
       </div>
     </Section>
   )
 }
 
 const containerStyles = css`
+`
+
+const chartWrapperStyles = css`
   height: 200px;
-  padding: 20px 0;
+  padding: 20px;
+`
+
+const legendContainerStyles = css`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+`
+
+const itemContainer = css`
+  display: flex;
+  align-items: center;
+`
+
+const iconStyles = css`
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+  margin-right: 10px;
+`
+
+const labelStyles = css`
+  text-transform: capitalize;
+  margin: 0;
 `

@@ -1,7 +1,8 @@
 import React from 'react'
-import Layout from '../common/components/layout/Layout'
+import Layout from 'Components/layout/Layout'
+import Categories from './components/categories/Categories'
 import { connect } from 'react-redux'
-import { selectViewState } from '../common/reducers/ViewStateReducer'
+import { selectViewState } from 'Reducers/ViewStateReducer'
 import { shape, string } from 'prop-types'
 
 function Dashboard ({ theme }) {
@@ -9,7 +10,11 @@ function Dashboard ({ theme }) {
     <Layout
       theme={theme}
       title='dashboard'
-    />
+    >
+      <Categories
+        theme={theme}
+      />
+    </Layout>
   )
 }
 
