@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { draw } from './misc/draw'
 
-
 export default class DonutChart extends PureComponent {
   constructor (props) {
     super(props)
@@ -17,21 +16,16 @@ export default class DonutChart extends PureComponent {
   }
 
   componentDidMount () {
-    this.draw()
-  }
-
-  draw = () => {
-    const { data, theme, onHover, centerValue } = this.props
+    const { data, theme, highlightHandler } = this.props
     draw({
       identifier: this.identifier,
       margin: this.margin,
-      theme
+      theme,
+      highlightHandler
     }, {
-      data,
-      onHover,
-      centerValue
+      data
     })
-  };
+  }
 
   render () {
     return (
@@ -49,17 +43,15 @@ DonutChart.defaultProps = {
   right: 0,
   left: 0,
   bottom: 0,
-  onHover: undefined,
-  centerValue: undefined
+  highlightHandler: undefined
 }
 
 DonutChart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape()),
   theme: PropTypes.shape().isRequired,
+  highlightHandler: PropTypes.func,
   top: PropTypes.number,
   right: PropTypes.number,
   left: PropTypes.number,
-  bottom: PropTypes.number,
-  onHover: PropTypes.func,
-  centerValue: PropTypes.string
+  bottom: PropTypes.number
 }

@@ -94,6 +94,7 @@ const config = {
       Components: path.resolve(__dirname, 'src', 'bundles', 'common', 'components'),
       Config: path.resolve(__dirname, 'src', 'bundles', 'common', 'config'),
       Constants: path.resolve(__dirname, 'src', 'bundles', 'common', 'constants'),
+      Functions: path.resolve(__dirname, 'src', 'bundles', 'common', 'functions'),
       Helpers: path.resolve(__dirname, 'src', 'bundles', 'common', 'helpers'),
       Reducers: path.resolve(__dirname, 'src', 'bundles', 'common', 'reducers'),
       Styles: path.resolve(__dirname, 'src', 'bundles', 'common', 'styles'),

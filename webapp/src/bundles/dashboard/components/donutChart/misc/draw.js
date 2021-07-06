@@ -1,7 +1,7 @@
 import * as d3 from 'd3'
 
 export const draw = (meta, content, initial = false) => {
-  const { identifier, margin } = meta
+  const { identifier, margin, highlightHandler } = meta
   const { data } = content
 
   const container = d3.select(`.${identifier}`)
@@ -33,7 +33,7 @@ export const draw = (meta, content, initial = false) => {
     const centerValueText = d3.select('.centerValue')
 
     if (data) {
-      centerValueText.html(`$${data.value}`)
+      centerValueText.html(highlightHandler ? highlightHandler(data.value) : data.value)
         .style('display', 'block')
         .style('position', 'absolute')
         .style('color', data.color)

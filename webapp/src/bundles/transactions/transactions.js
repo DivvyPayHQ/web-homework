@@ -2,55 +2,12 @@ import React from 'react'
 import TransactionsTable from './components/transactionTable/TransactionTable'
 import Layout from '../common/components/layout/Layout'
 import { connect } from 'react-redux'
-import { selectViewState } from 'Reducers/AppReducer'
-import { shape, string } from 'prop-types'
+import { selectViewState, selectTransactions } from 'Reducers/AppReducer'
+import { number, shape, string, arrayOf, bool } from 'prop-types'
 import NewButton from 'Components/buttons/NewButton'
 import { useHistory } from 'react-router-dom'
 
-const transactions = [
-  {
-    id: '1',
-    merchant: 'Domino\'s Pizza',
-    amount: '12.23',
-    date: '07-01-21',
-    category: 'FOOD_AND_DRINK',
-    status: 'COMPLETE'
-  },
-  {
-    id: '2',
-    merchant: 'Domino\'s Pizza',
-    amount: '12.23',
-    date: '07-01-21',
-    category: 'FOOD_AND_DRINK',
-    status: 'PENDING'
-  },
-  {
-    id: '3',
-    merchant: 'Domino\'s Pizza',
-    amount: '12.23',
-    date: '07-01-21',
-    category: 'FOOD_AND_DRINK',
-    status: 'COMPLETE'
-  },
-  {
-    id: '4',
-    merchant: 'Domino\'s Pizza',
-    amount: '12.23',
-    date: '07-01-21',
-    category: 'FOOD_AND_DRINK',
-    status: 'PENDING'
-  },
-  {
-    id: '5',
-    merchant: 'Domino\'s Pizza',
-    amount: '12.23',
-    date: '07-01-21',
-    category: 'FOOD_AND_DRINK',
-    status: 'DECLINED'
-  }
-]
-
-function Transactions ({ theme }) {
+function Transactions ({ theme, transactions, roman }) {
   const history = useHistory()
   return (
     <Layout
@@ -65,6 +22,7 @@ function Transactions ({ theme }) {
       title='transactions'
     >
       <TransactionsTable
+        roman={roman}
         theme={theme}
         transactions={transactions}
       />
@@ -74,14 +32,26 @@ function Transactions ({ theme }) {
 
 function mapStateToProps (state) {
   const viewState = selectViewState(state)
+  const transactionsState = selectTransactions(state)
   return {
-    theme: viewState.theme
+    theme: viewState.theme,
+    roman: viewState.roman,
+    transactions: transactionsState.transactions
   }
 }
 
 export default connect(mapStateToProps)(Transactions)
 
 Transactions.propTypes = {
+  roman: bool.isRequired,
+  transactions: arrayOf(shape({
+    id: string,
+    merchant: string,
+    amount: number,
+    date: string,
+    category: string,
+    status: string
+  })),
   theme: shape({
     type: string,
     background: string,

@@ -1,3 +1,4 @@
+
 export const prepareCategories = (transactions, colors) => {
   const combined = combine(transactions)
   return mapColors(combined, colors)
@@ -11,9 +12,9 @@ const mapColors = (combined, colors) => {
 }
 
 const combine = (transactions) => {
-  const combined = transactions.reduce((merged, { label, value }) => {
-    merged[label] = merged[label] || []
-    merged[label].push(value)
+  const combined = transactions.reduce((merged, { category, amount }) => {
+    merged[category] = merged[category] || []
+    merged[category].push(amount)
     return merged
   }, {})
 

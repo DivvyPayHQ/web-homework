@@ -6,13 +6,15 @@ import TableBody from '@material-ui/core/TableBody'
 import Table from '@material-ui/core/Table'
 import { arrayOf, bool, number, shape, string } from 'prop-types'
 import shortId from 'shortid'
+import { toRoman } from 'Functions/toRoman/toRoman'
+import { toDollars } from 'Functions/toDollars'
 import { resolveTransactionStatus } from '../../functions/resolveTransactionStatus'
 import { withTableStyles } from 'Components/table/helpers/withTableStyles'
 import StatusIcon from 'Components/statusIcon/StatusIcon'
 import { useHistory } from 'react-router-dom'
 import { cleanEnum } from 'Utils/cleanEnum'
 
-function TransactionsTable ({ transactions, classes }) {
+function TransactionsTable ({ transactions, classes, roman }) {
   const history = useHistory()
   return (
     <Table>
@@ -37,9 +39,9 @@ function TransactionsTable ({ transactions, classes }) {
                 onClick={() => history.push(`/transactions/${id}`)}
               >
                 <TableCell>{merchant}</TableCell>
-                <TableCell>{amount}</TableCell>
+                <TableCell>{roman ? toRoman(amount) : toDollars(amount)}</TableCell>
                 <TableCell className={classes.responsiveColumn}>{date}</TableCell>
-                <TableCell className={classes.responsiveColumn}>{cleanEnum(category)}</TableCell>
+                <TableCell className={classes.responsiveColumn}>{category}</TableCell>
                 <TableCell>
                   <StatusIcon
                     statusType={statusType}
