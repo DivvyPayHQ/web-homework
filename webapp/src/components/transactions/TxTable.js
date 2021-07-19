@@ -23,7 +23,7 @@ import transactionStyles from '../../styles/transactions'
 import AddTransaction from '../../gql/addTransaction.gql'
 import UpdateTransaction from '../../gql/updateTransaction.gql'
 
-// const makeDataTestId = (transactionId, fieldName) => `transaction-${transactionId}-${fieldName}`
+const makeDataTestId = (transactionId, fieldName) => `transaction-${transactionId}-${fieldName}`
 
 const tableHeaderKeys = [
   { id: 'id', label: 'ID', readOnly: true, placeholder: 'Auto Generated' },
@@ -187,7 +187,13 @@ const TxTable = ({ data }) => {
     <>
       <Grid container justifyContent='space-between' alignContent='center' className={classes.heading}>
         <Typography component='h1' variant='h3'>Transactions</Typography>
-        <Button variant='contained' color='primary' onClick={() => onAddTransactionClick()} startIcon={<AddCircleOutlineIcon />}>
+        <Button
+          variant='contained'
+          color='primary'
+          onClick={() => onAddTransactionClick()}
+          startIcon={<AddCircleOutlineIcon />}
+          data-testid={'transaction-add-button'}
+        >
           Add Transaction
         </Button>
       </Grid>
@@ -206,19 +212,21 @@ const TxTable = ({ data }) => {
             </TableHead>
             <TableBody>
               {rows.map(row => (
-                <TableRow key={row.id}>
+                <TableRow key={row.id} data-testid={makeDataTestId(row.id, 'table-row')} >
                   <TableCell className={classes.selectTableCell}>
                     {row.isEditMode ? (
                       <>
                         <IconButton
                           aria-label='save'
                           onClick={() => onSave(row.id)}
+                          data-testid={makeDataTestId(row.id, 'save-button')}
                         >
                           <DoneIcon />
                         </IconButton>
                         <IconButton
                           aria-label='revert'
                           onClick={() => onRevert(row.id)}
+                          data-testid={makeDataTestId(row.id, 'revert-button')}
                         >
                           <ClearIcon />
                         </IconButton>
@@ -228,12 +236,14 @@ const TxTable = ({ data }) => {
                         <IconButton
                           aria-label='edit'
                           onClick={() => onToggleEditMode(row.id)}
+                          data-testid={makeDataTestId(row.id, 'edit-button')}
                         >
                           <EditIcon />
                         </IconButton>
                         <IconButton
                           aria-label='delete'
                           onClick={() => onDelete(row.id)}
+                          data-testid={makeDataTestId(row.id, 'delete-button')}
                         >
                           <DeleteIcon />
                         </IconButton>
@@ -243,7 +253,7 @@ const TxTable = ({ data }) => {
                   {Object.keys(row).map(key => {
                     if (row.id === '60f5c0bc32fb272a902e5d86') { console.log(key) }
                     return key !== 'isEditMode' && key !== 'debit' && (
-                      <TableCell align='left' className={classes.tableCell} key={key} >
+                      <TableCell align='left' className={classes.tableCell} key={key} data-testid={makeDataTestId(row.id, `${key}-cell`)} >
                         {row.isEditMode && key !== 'id' ? (
                           <Input
                             value={row[key]}
@@ -253,6 +263,7 @@ const TxTable = ({ data }) => {
                             placeholder={tableHeaderKeys.find(header => header.id === key).placeholder || ''}
                             inputProps={{ readOnly: tableHeaderKeys.find(header => header.id === key).readOnly || false }}
                             disabled={tableHeaderKeys.find(header => header.id === key).readOnly || false}
+                            data-testid={makeDataTestId(row.id, `${key}-input`)}
                           />
                         ) : (
                           <>

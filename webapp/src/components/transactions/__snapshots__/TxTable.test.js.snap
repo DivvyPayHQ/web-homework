@@ -1,0 +1,384 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Transactions Table should match snapshot 1`] = `
+<div>
+  <div
+    class="MuiGrid-root makeStyles-heading-1 MuiGrid-container MuiGrid-align-content-xs-center MuiGrid-justify-content-xs-space-between"
+  >
+    <h1
+      class="MuiTypography-root MuiTypography-h3"
+    >
+      Transactions
+    </h1>
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
+      data-testid="transaction-add-button"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiButton-label"
+      >
+        <span
+          class="MuiButton-startIcon MuiButton-iconSizeMedium"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
+            />
+          </svg>
+        </span>
+        Add Transaction
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+  </div>
+  <div
+    class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded"
+  >
+    <div
+      class="MuiTableContainer-root"
+    >
+      <table
+        class="MuiTable-root MuiTable-stickyHeader"
+      >
+        <thead
+          class="MuiTableHead-root"
+        >
+          <tr
+            class="MuiTableRow-root MuiTableRow-head"
+          >
+            <th
+              class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft MuiTableCell-stickyHeader"
+              scope="col"
+            />
+            <th
+              class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft MuiTableCell-stickyHeader"
+              scope="col"
+            >
+              ID
+            </th>
+            <th
+              class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft MuiTableCell-stickyHeader"
+              scope="col"
+            >
+              User ID
+            </th>
+            <th
+              class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft MuiTableCell-stickyHeader"
+              scope="col"
+            >
+              Description
+            </th>
+            <th
+              class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft MuiTableCell-stickyHeader"
+              scope="col"
+            >
+              Merchant ID
+            </th>
+            <th
+              class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft MuiTableCell-stickyHeader"
+              scope="col"
+            >
+              Amount
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          class="MuiTableBody-root"
+        >
+          <tr
+            class="MuiTableRow-root"
+            data-testid="transaction-5d5c1f747e01cd704f18f863-table-row"
+          >
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-selectTableCell-2"
+            >
+              <button
+                aria-label="edit"
+                class="MuiButtonBase-root MuiIconButton-root"
+                data-testid="transaction-5d5c1f747e01cd704f18f863-edit-button"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiIconButton-label"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+              <button
+                aria-label="delete"
+                class="MuiButtonBase-root MuiIconButton-root"
+                data-testid="transaction-5d5c1f747e01cd704f18f863-delete-button"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiIconButton-label"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transaction-5d5c1f747e01cd704f18f863-id-cell"
+            >
+              5d5c1f747e01cd704f18f863
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transaction-5d5c1f747e01cd704f18f863-user_id-cell"
+            >
+              employee4
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transaction-5d5c1f747e01cd704f18f863-description-cell"
+            >
+              cleaningsupplies
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transaction-5d5c1f747e01cd704f18f863-merchant_id-cell"
+            >
+              walmart
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transaction-5d5c1f747e01cd704f18f863-amount-cell"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body1"
+                style="color: red;"
+              >
+                - $150.00
+              </p>
+            </td>
+          </tr>
+          <tr
+            class="MuiTableRow-root"
+            data-testid="transaction-5d5c1f747e01cd704f18f864-table-row"
+          >
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-selectTableCell-2"
+            >
+              <button
+                aria-label="edit"
+                class="MuiButtonBase-root MuiIconButton-root"
+                data-testid="transaction-5d5c1f747e01cd704f18f864-edit-button"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiIconButton-label"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+              <button
+                aria-label="delete"
+                class="MuiButtonBase-root MuiIconButton-root"
+                data-testid="transaction-5d5c1f747e01cd704f18f864-delete-button"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiIconButton-label"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transaction-5d5c1f747e01cd704f18f864-id-cell"
+            >
+              5d5c1f747e01cd704f18f864
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transaction-5d5c1f747e01cd704f18f864-user_id-cell"
+            >
+              employee3
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transaction-5d5c1f747e01cd704f18f864-description-cell"
+            >
+              refund
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transaction-5d5c1f747e01cd704f18f864-merchant_id-cell"
+            >
+              walmart
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transaction-5d5c1f747e01cd704f18f864-amount-cell"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body1"
+                style="color: green;"
+              >
+                + $250.00
+              </p>
+            </td>
+          </tr>
+          <tr
+            class="MuiTableRow-root"
+            data-testid="transaction-5d5c1f747e01cd704f18f865-table-row"
+          >
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-selectTableCell-2"
+            >
+              <button
+                aria-label="edit"
+                class="MuiButtonBase-root MuiIconButton-root"
+                data-testid="transaction-5d5c1f747e01cd704f18f865-edit-button"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiIconButton-label"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+              <button
+                aria-label="delete"
+                class="MuiButtonBase-root MuiIconButton-root"
+                data-testid="transaction-5d5c1f747e01cd704f18f865-delete-button"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiIconButton-label"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transaction-5d5c1f747e01cd704f18f865-id-cell"
+            >
+              5d5c1f747e01cd704f18f865
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transaction-5d5c1f747e01cd704f18f865-user_id-cell"
+            >
+              employee5
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transaction-5d5c1f747e01cd704f18f865-description-cell"
+            >
+              refund
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transaction-5d5c1f747e01cd704f18f865-merchant_id-cell"
+            >
+              walmart
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transaction-5d5c1f747e01cd704f18f865-amount-cell"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body1"
+                style="color: green;"
+              >
+                + $100.00
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
