@@ -5,7 +5,7 @@ All of the configuration boilerplate is complete so you can start by writing the
 
 Please **fork** this repo a **private repo** on your GitHub account.
 
-Please share your finished project repo with @thawk55 and @lwintch as part of your submission.
+Please share your finished project repo with @thawk55 and @jakerichan as part of your submission.
 
 <br />
 
