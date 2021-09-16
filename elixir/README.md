@@ -23,6 +23,7 @@ If you want to run this in docker you can do so:
 2. run `docker-compose up web` from `/elixir` directory of the app to start the server.
 3. run `docker-compose up test` from `/elixir` directory of the app to run the tests.
 
+Note: entrypoint.sh and test-entrypoint.sh may need alterations to line endings to be used on Windows
 
 This can be particularly helpful if you are running on Windows or are having issues getting postgres or elixir running.
 
