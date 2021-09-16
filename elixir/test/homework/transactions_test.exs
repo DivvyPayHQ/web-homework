@@ -97,6 +97,7 @@ defmodule Homework.TransactionsTest do
       user1: user1
     } do
       assert {:ok, %Transaction{} = transaction} = Transactions.create_transaction(valid_attrs)
+      IO.inspect(transaction)
       assert transaction.amount == 42
       assert transaction.credit == true
       assert transaction.debit == true
