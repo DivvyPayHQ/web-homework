@@ -101,4 +101,11 @@ defmodule Homework.Users do
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
   end
+
+  @doc """
+  Returns the user that match this first, last, and dob combination
+  """
+  def get_users_by_dob_and_name(date_of_birth,first_name,last_name) do
+    Repo.one(from u in User, where: u.first_name == ^first_name, where: u.last_name == ^last_name, where: u.dob == ^date_of_birth)
+  end
 end

@@ -101,4 +101,11 @@ defmodule Homework.Merchants do
   def change_merchant(%Merchant{} = merchant, attrs \\ %{}) do
     Merchant.changeset(merchant, attrs)
   end
+
+  @doc """
+  Returns the merchant that match this name
+  """
+  def get_merchant_by_name(name) do
+    Repo.one(from m in Merchant, where: m.name == ^name)
+  end
 end
