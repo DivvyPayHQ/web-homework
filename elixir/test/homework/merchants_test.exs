@@ -65,5 +65,10 @@ defmodule Homework.MerchantsTest do
       merchant = merchant_fixture()
       assert %Ecto.Changeset{} = Merchants.change_merchant(merchant)
     end
+
+    test "get_merchant_by_fuzzy/1 returns all merchants that partially or totally match these names" do
+      merchant = merchant_fixture()
+      assert Enum.member?(Merchants.get_merchant_by_fuzzy("name"), merchant)
+    end
   end
 end

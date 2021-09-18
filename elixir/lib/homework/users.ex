@@ -117,6 +117,8 @@ defmodule Homework.Users do
 
   """
   def get_user_by_fuzzy(first_name,last_name) do
+    first_name = "%" <> first_name <> "%"
+    last_name = "%"  <> last_name <> "%"
     Repo.all(from u in User,
      where: like(u.first_name, ^first_name),
      where: like(u.last_name, ^last_name))

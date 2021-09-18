@@ -68,5 +68,10 @@ defmodule Homework.UsersTest do
       user = user_fixture()
       assert %Ecto.Changeset{} = Users.change_user(user)
     end
+
+    test "get_user_by_fuzzy/2 returns a user that partially or totally matches this first/last name" do
+      user = user_fixture()
+      assert Enum.member?(Users.get_user_by_fuzzy("some","last"), user)
+    end
   end
 end

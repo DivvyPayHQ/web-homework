@@ -116,7 +116,7 @@ defmodule Homework.Merchants do
 
   """
   def get_merchant_by_fuzzy(partial_or_complete_match) do
-    partial_or_complete_match = partial_or_complete_match <> "%"
+    partial_or_complete_match = "%" <> partial_or_complete_match <> "%"
     Repo.all(from m in Merchant, where: like(m.name, ^partial_or_complete_match))
   end
 end
