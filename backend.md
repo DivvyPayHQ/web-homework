@@ -33,6 +33,7 @@ For **junior engineers** complete any 1 of these objectives and include a basic 
  * Seed the database.  Possible solutions include:
    * Implement provided `seeds.ex` file
    * Write a `.sql` file that can be ingested by the database
+   Note: if implementing seeds.ex, you will need to either rewrite tests to account for new dummy data, or remove the running of seeds.exs from test-entrypoint.sh
 
  * Write tests for the resolvers & mutations.
    * Testing that you can get information from the resolver queries
