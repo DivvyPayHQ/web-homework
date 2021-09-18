@@ -152,5 +152,10 @@ defmodule Homework.TransactionsTest do
       transaction = transaction_fixture(valid_attrs)
       assert %Ecto.Changeset{} = Transactions.change_transaction(transaction)
     end
+
+    test "get_transaction_by_amount_fuzzy/2 returns all transactions that are between this min/max", %{valid_attrs: valid_attrs} do
+      transaction = transaction_fixture(valid_attrs)
+      assert Enum.member?(Transactions.get_transaction_by_amount_fuzzy(40,50), transaction)
+    end
   end
 end
