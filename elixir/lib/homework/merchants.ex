@@ -112,11 +112,11 @@ defmodule Homework.Merchants do
 
   @doc """
   Fuzzy Search by name and return all merchants that partially or totally match
-  TODO: Write test for this function
 
   """
   def get_merchant_by_fuzzy(partial_or_complete_match) do
     partial_or_complete_match = "%" <> partial_or_complete_match <> "%"
-    Repo.all(from m in Merchant, where: like(m.name, ^partial_or_complete_match))
+    Repo.all(from m in Merchant,
+     where: like(m.name, ^partial_or_complete_match))
   end
 end

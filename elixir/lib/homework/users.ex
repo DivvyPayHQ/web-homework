@@ -113,7 +113,6 @@ defmodule Homework.Users do
 
   @doc """
   Fuzzy Search by first and last name and return all Users that partially or totally match these
-  TODO: Write test for this function
 
   """
   def get_user_by_fuzzy(first_name,last_name) do

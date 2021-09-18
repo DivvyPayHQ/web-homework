@@ -101,4 +101,14 @@ defmodule Homework.Transactions do
   def change_transaction(%Transaction{} = transaction, attrs \\ %{}) do
     Transaction.changeset(transaction, attrs)
   end
+
+  @doc """
+  Returns a fuzzy search result using the amount value
+
+  """
+  def get_transaction_by_amount_fuzzy(min, max) do
+    Repo.all(from t in Transaction,
+      where: t.amount > ^min,
+      where: t.amount < ^max)
+  end
 end
