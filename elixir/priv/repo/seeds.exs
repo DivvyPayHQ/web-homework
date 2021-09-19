@@ -70,3 +70,5 @@ Repo.insert!(%Transaction{amount: 1,credit: true,debit: true,description: "Book 
 Repo.insert!(%Transaction{amount: 3,credit: true,debit: false,description: "Assorted Donut purchase",merchant_id: donut_store.id,user_id: sun_tarnu.id})
 Repo.insert!(%Transaction{amount: 55,credit: true,debit: false,description: "Plant Pots",merchant_id: donut_store.id,user_id: steve_stevenson.id})
 Repo.insert!(%Transaction{amount: 99,credit: false,debit: true,description: "Book purchase",merchant_id: book_store.id,user_id: david_attenborough.id})
+
+#TODO: ADD ALL COMPANY VARIABLES

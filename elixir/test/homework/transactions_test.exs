@@ -5,11 +5,13 @@ defmodule Homework.TransactionsTest do
   alias Homework.Merchants
   alias Homework.Transactions
   alias Homework.Users
-
+  alias Homework.Companies
   describe "transactions" do
     alias Homework.Transactions.Transaction
 
     setup do
+      {:ok, company1} =
+        Companies.create_company(%{name: "some company name", credit_line: 123.45})
       {:ok, merchant1} =
         Merchants.create_merchant(%{description: "some description", name: "some name"})
 
@@ -39,7 +41,8 @@ defmodule Homework.TransactionsTest do
         debit: true,
         description: "some description",
         merchant_id: merchant1.id,
-        user_id: user1.id
+        user_id: user1.id,
+        company_id: company1.id
       }
 
       update_attrs = %{
@@ -48,7 +51,8 @@ defmodule Homework.TransactionsTest do
         debit: false,
         description: "some updated description",
         merchant_id: merchant2.id,
-        user_id: user2.id
+        user_id: user2.id,
+        company_id: company1.id
       }
 
       invalid_attrs = %{
@@ -57,7 +61,8 @@ defmodule Homework.TransactionsTest do
         debit: nil,
         description: nil,
         merchant_id: nil,
-        user_id: nil
+        user_id: nil,
+        company_id: nil
       }
 
       {:ok,
@@ -68,7 +73,8 @@ defmodule Homework.TransactionsTest do
          merchant1: merchant1,
          merchant2: merchant2,
          user1: user1,
-         user2: user2
+         user2: user2,
+         company1: company1
        }}
     end
 
