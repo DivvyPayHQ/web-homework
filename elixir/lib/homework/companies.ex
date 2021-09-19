@@ -39,10 +39,11 @@ defmodule Homework.Companies do
   def get_company!(id) do
     query =
       from c in Company,
-        join: t in Transaction,
+        left_join: t in Transaction,
         on: t.company_id == c.id,
         select: %{c | available_credit: c.credit_line - sum(t.amount)},
-        where: c.id == ^id
+        where: c.id == ^id,
+        group_by: c.id
     Repo.one!(query)
   end
 
