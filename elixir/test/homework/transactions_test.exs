@@ -1,7 +1,6 @@
 defmodule Homework.TransactionsTest do
   use Homework.DataCase
 
-  alias Ecto.UUID
   alias Homework.Merchants
   alias Homework.Transactions
   alias Homework.Users
@@ -25,14 +24,16 @@ defmodule Homework.TransactionsTest do
         Users.create_user(%{
           dob: "some dob",
           first_name: "some first_name",
-          last_name: "some last_name"
+          last_name: "some last_name",
+          company_id: company1.id
         })
 
       {:ok, user2} =
         Users.create_user(%{
           dob: "some updated dob",
           first_name: "some updated first_name",
-          last_name: "some updated last_name"
+          last_name: "some updated last_name",
+          company_id: company1.id
         })
 
       valid_attrs = %{
@@ -42,7 +43,7 @@ defmodule Homework.TransactionsTest do
         description: "some description",
         merchant_id: merchant1.id,
         user_id: user1.id,
-        company_id: company1.id
+        company_id: user1.company_id
       }
 
       update_attrs = %{
@@ -52,7 +53,7 @@ defmodule Homework.TransactionsTest do
         description: "some updated description",
         merchant_id: merchant2.id,
         user_id: user2.id,
-        company_id: company1.id
+        company_id: user2.company_id
       }
 
       invalid_attrs = %{
@@ -84,7 +85,7 @@ defmodule Homework.TransactionsTest do
         |> Enum.into(valid_attrs)
         |> Transactions.create_transaction()
 
-      transaction
+      Transactions.get_transaction!(transaction.id)
     end
 
     test "list_transactions/1 returns all transactions", %{valid_attrs: valid_attrs} do
@@ -100,7 +101,8 @@ defmodule Homework.TransactionsTest do
     test "create_transaction/1 with valid data creates a transaction", %{
       valid_attrs: valid_attrs,
       merchant1: merchant1,
-      user1: user1
+      user1: user1,
+      company1: company1
     } do
       assert {:ok, %Transaction{} = transaction} = Transactions.create_transaction(valid_attrs)
       assert transaction.amount == 42
@@ -109,6 +111,7 @@ defmodule Homework.TransactionsTest do
       assert transaction.description == "some description"
       assert transaction.merchant_id == merchant1.id
       assert transaction.user_id == user1.id
+      assert transaction.company_id == company1.id
     end
 
     test "create_transaction/1 with invalid data returns error changeset", %{

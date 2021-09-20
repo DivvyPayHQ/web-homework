@@ -13,5 +13,9 @@ defmodule Homework.Repo.Migrations.AddCompaniesTable do
     alter table(:transactions) do
       add(:company_id, references(:companies, type: :uuid, on_delete: :nothing))
     end
+
+    alter table(:users) do
+      add(:company_id, references(:companies, type: :uuid, on_delete: :nothing))
+    end
   end
 end
