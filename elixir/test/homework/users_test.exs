@@ -23,7 +23,9 @@ defmodule Homework.UsersTest do
       %{
         valid_attrs: valid_attrs,
         update_attrs: update_attrs,
-        invalid_attrs: invalid_attrs
+        invalid_attrs: invalid_attrs,
+        company1: company1,
+        company2: company2
       }
     }
     end
@@ -47,23 +49,25 @@ defmodule Homework.UsersTest do
       assert Users.get_user!(user.id) == user
     end
 
-    test "create_user/1 with valid data creates a user", %{valid_attrs: valid_attrs} do
+    test "create_user/1 with valid data creates a user", %{valid_attrs: valid_attrs, company1: company1} do
       assert {:ok, %User{} = user} = Users.create_user(valid_attrs)
       assert user.dob == "some dob"
       assert user.first_name == "some first_name"
       assert user.last_name == "some last_name"
+      assert user.company_id == company1.id
     end
 
     test "create_user/1 with invalid data returns error changeset", %{invalid_attrs: invalid_attrs} do
       assert {:error, %Ecto.Changeset{}} = Users.create_user(invalid_attrs)
     end
 
-    test "update_user/2 with valid data updates the user", %{valid_attrs: valid_attrs, update_attrs: update_attrs} do
+    test "update_user/2 with valid data updates the user", %{valid_attrs: valid_attrs, update_attrs: update_attrs, company2: company2} do
       user = user_fixture(valid_attrs)
       assert {:ok, %User{} = user} = Users.update_user(user, update_attrs)
       assert user.dob == "some updated dob"
       assert user.first_name == "some updated first_name"
       assert user.last_name == "some updated last_name"
+      assert user.company_id == company2.id
     end
 
     test "update_user/2 with invalid data returns error changeset", %{valid_attrs: valid_attrs, invalid_attrs: invalid_attrs} do
@@ -87,5 +91,11 @@ defmodule Homework.UsersTest do
       user = user_fixture(valid_attrs)
       assert Enum.member?(Users.get_user_by_fuzzy("some","last"), user)
     end
+
+    test "get_user_by_fuzzy/2 with invalid data returns empty", %{valid_attrs: valid_attrs} do
+      user = user_fixture(valid_attrs)
+      assert [] == Users.get_user_by_fuzzy("last","some")
+    end
+
   end
 end

@@ -11,6 +11,8 @@ defmodule Homework.TransactionsTest do
     setup do
       {:ok, company1} =
         Companies.create_company(%{name: "some company name", credit_line: 123.45})
+      {:ok, company2} =
+        Companies.create_company(%{name: "some company name", credit_line: 543.21})
       {:ok, merchant1} =
         Merchants.create_merchant(%{description: "some description", name: "some name"})
 
@@ -33,7 +35,7 @@ defmodule Homework.TransactionsTest do
           dob: "some updated dob",
           first_name: "some updated first_name",
           last_name: "some updated last_name",
-          company_id: company1.id
+          company_id: company2.id
         })
 
       valid_attrs = %{
@@ -75,7 +77,8 @@ defmodule Homework.TransactionsTest do
          merchant2: merchant2,
          user1: user1,
          user2: user2,
-         company1: company1
+         company1: company1,
+         company2: company2
        }}
     end
 
@@ -124,7 +127,8 @@ defmodule Homework.TransactionsTest do
       valid_attrs: valid_attrs,
       update_attrs: update_attrs,
       merchant2: merchant2,
-      user2: user2
+      user2: user2,
+      company2: company2
     } do
       transaction = transaction_fixture(valid_attrs)
 
@@ -137,6 +141,7 @@ defmodule Homework.TransactionsTest do
       assert transaction.description == "some updated description"
       assert transaction.merchant_id == merchant2.id
       assert transaction.user_id == user2.id
+      assert transaction.company_id == company2.id
     end
 
     test "update_transaction/2 with invalid data returns error changeset", %{
@@ -166,5 +171,11 @@ defmodule Homework.TransactionsTest do
       transaction = transaction_fixture(valid_attrs)
       assert Enum.member?(Transactions.get_transaction_by_amount_fuzzy(40,50), transaction)
     end
+
+    test "get_transaction_by_amount_fuzzy/2 with invalid data returns empty", %{valid_attrs: valid_attrs} do
+      transaction = transaction_fixture(valid_attrs)
+      assert [] == Transactions.get_transaction_by_amount_fuzzy(0,10)
+    end
+
   end
 end
