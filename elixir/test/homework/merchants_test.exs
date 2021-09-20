@@ -70,5 +70,10 @@ defmodule Homework.MerchantsTest do
       merchant = merchant_fixture()
       assert Enum.member?(Merchants.get_merchant_by_fuzzy("name"), merchant)
     end
+
+    test "get_merchant_by_fuzzy/1 returns empty with invalid data" do
+      merchant = merchant_fixture()
+      assert [] == Merchants.get_merchant_by_fuzzy("xyz")
+    end
   end
 end
