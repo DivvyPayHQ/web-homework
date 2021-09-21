@@ -94,7 +94,8 @@ defmodule Homework.UsersTest do
 
     test "get_user_by_fuzzy/2 with invalid data returns empty", %{valid_attrs: valid_attrs} do
       user = user_fixture(valid_attrs)
-      assert [] == Users.get_user_by_fuzzy("last","some")
+      assert false == Enum.member?(Users.get_user_by_fuzzy("last","some"), user)
+      assert false == Enum.member?(Users.get_user_by_fuzzy("wrong","names"), user)
     end
 
   end

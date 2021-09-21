@@ -169,12 +169,14 @@ defmodule Homework.TransactionsTest do
 
     test "get_transaction_by_amount_fuzzy/2 returns all transactions that are between this min/max", %{valid_attrs: valid_attrs} do
       transaction = transaction_fixture(valid_attrs)
+      assert Enum.member?(Transactions.get_transaction_by_amount_fuzzy(41,43), transaction)
       assert Enum.member?(Transactions.get_transaction_by_amount_fuzzy(40,50), transaction)
     end
 
     test "get_transaction_by_amount_fuzzy/2 with invalid data returns empty", %{valid_attrs: valid_attrs} do
       transaction = transaction_fixture(valid_attrs)
-      assert [] == Transactions.get_transaction_by_amount_fuzzy(0,10)
+      assert false == Enum.member?(Transactions.get_transaction_by_amount_fuzzy(0,41), transaction)
+      assert false == Enum.member?(Transactions.get_transaction_by_amount_fuzzy(43,1000), transaction)
     end
 
   end
