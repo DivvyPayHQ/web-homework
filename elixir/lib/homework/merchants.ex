@@ -17,6 +17,7 @@ defmodule Homework.Merchants do
       [%Merchant{}, ...]
 
   """
+  @spec list_merchants(List.t) :: List.t
   def list_merchants(_args) do
     Repo.all(Merchant)
   end
@@ -35,6 +36,7 @@ defmodule Homework.Merchants do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_merchant!(:binary_id) :: Merchant.t
   def get_merchant!(id), do: Repo.get!(Merchant, id)
 
   @doc """
@@ -49,6 +51,7 @@ defmodule Homework.Merchants do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec create_merchant(Map.t) :: Map.t
   def create_merchant(attrs \\ %{}) do
     %Merchant{}
     |> Merchant.changeset(attrs)
@@ -67,6 +70,7 @@ defmodule Homework.Merchants do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec update_merchant(Merchant, Map.t) :: Map.t
   def update_merchant(%Merchant{} = merchant, attrs) do
     merchant
     |> Merchant.changeset(attrs)
@@ -85,6 +89,7 @@ defmodule Homework.Merchants do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec delete_merchant(Merchant) :: Map.t
   def delete_merchant(%Merchant{} = merchant) do
     Repo.delete(merchant)
   end
@@ -98,6 +103,7 @@ defmodule Homework.Merchants do
       %Ecto.Changeset{data: %Merchant{}}
 
   """
+  @spec change_merchant(Merchant, Map.t) :: Map.t
   def change_merchant(%Merchant{} = merchant, attrs \\ %{}) do
     Merchant.changeset(merchant, attrs)
   end
@@ -106,6 +112,7 @@ defmodule Homework.Merchants do
   Returns the merchant that match this name
 
   """
+  @spec get_merchant_by_name(String.t) :: List.t
   def get_merchant_by_name(name) do
     Repo.one(from m in Merchant, where: m.name == ^name)
   end
@@ -114,6 +121,7 @@ defmodule Homework.Merchants do
   Fuzzy Search by name and return all merchants that partially or totally match
 
   """
+  @spec get_merchant_by_fuzzy(String.t) :: List.t
   def get_merchant_by_fuzzy(partial_or_complete_match) do
     partial_or_complete_match = "%" <> partial_or_complete_match <> "%"
     Repo.all(from m in Merchant,

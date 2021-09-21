@@ -18,6 +18,7 @@ defmodule Homework.Companies do
       [%Company{}, ...]
 
   """
+  @spec list_companies(List.t) :: List.t
   def list_companies(_args) do
     Repo.all(Company)
   end
@@ -36,6 +37,7 @@ defmodule Homework.Companies do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_company!(:binary_id) :: Merchant.t
   def get_company!(id) do
     query =
       from c in Company,
@@ -59,6 +61,7 @@ defmodule Homework.Companies do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec create_company(Map.t) :: Map.t
   def create_company(attrs \\ %{}) do
     %Company{}
     |> Company.changeset(attrs)
@@ -77,6 +80,7 @@ defmodule Homework.Companies do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec update_company(Company, Map.t) :: Map.t
   def update_company(%Company{} = company, attrs) do
     company
     |> Company.changeset(attrs)
@@ -95,6 +99,7 @@ defmodule Homework.Companies do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec delete_company(Company) :: Map.t
   def delete_company(%Company{} = company) do
     Repo.delete(company)
   end
@@ -108,6 +113,7 @@ defmodule Homework.Companies do
       %Ecto.Changeset{data: %Company{}}
 
   """
+  @spec change_company(Company, Map.t) :: Map.t
   def change_company(%Company{} = company, attrs \\ %{}) do
     Company.changeset(company, attrs)
   end
@@ -116,6 +122,7 @@ defmodule Homework.Companies do
   Returns the company that match this name
 
   """
+  @spec get_company_by_name(String.t) :: List.t
   def get_company_by_name(name) do
     Repo.one(from c in Company, where: c.name == ^name)
   end

@@ -17,6 +17,7 @@ defmodule Homework.Users do
       [%User{}, ...]
 
   """
+  @spec list_users(List.t) :: List.t
   def list_users(_args) do
     Repo.all(User)
   end
@@ -35,6 +36,7 @@ defmodule Homework.Users do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_user!(:binary_id) :: User.t
   def get_user!(id), do: Repo.get!(User, id)
 
   @doc """
@@ -49,6 +51,7 @@ defmodule Homework.Users do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec create_user(Map.t) :: Map.t
   def create_user(attrs \\ %{}) do
     %User{}
     |> User.changeset(attrs)
@@ -67,6 +70,7 @@ defmodule Homework.Users do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec update_user(User.t, Map.t) :: Map.t
   def update_user(%User{} = user, attrs) do
     user
     |> User.changeset(attrs)
@@ -85,6 +89,7 @@ defmodule Homework.Users do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec delete_user(User.t) :: Map.t
   def delete_user(%User{} = user) do
     Repo.delete(user)
   end
@@ -98,6 +103,7 @@ defmodule Homework.Users do
       %Ecto.Changeset{data: %User{}}
 
   """
+  @spec change_user(User, Map.t) :: Map.t
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
   end
@@ -106,6 +112,7 @@ defmodule Homework.Users do
   Returns the user that match this first, last, and dob combination
 
   """
+  @spec get_users_by_dob_and_name(String.t, String.t, String.t) :: List.t
   def get_users_by_dob_and_name(date_of_birth,first_name,last_name) do
     Repo.one(from u in User, where: u.first_name == ^first_name, where: u.last_name == ^last_name, where: u.dob == ^date_of_birth)
   end
@@ -115,6 +122,7 @@ defmodule Homework.Users do
   Fuzzy Search by first and last name and return all Users that partially or totally match these
 
   """
+  @spec get_user_by_fuzzy(String.t, String.t) :: List.t
   def get_user_by_fuzzy(first_name,last_name) do
     first_name = "%" <> first_name <> "%"
     last_name = "%"  <> last_name <> "%"
