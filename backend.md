@@ -3,15 +3,17 @@
 This repository provides a starting point for a basic React + GraphQL application.
 All of the configuration boilerplate is complete so you can start by writing the code that you want us to see.
 
-Please **fork** this repo to your GitHub account.
+Please **fork** this repo to your GitHub account. It also helps if you work off a different branch and make a PR for easy reviewing.
 
 You do not need to complete the frontend assignments if you are planning to apply specifically for a backend role.
 
-See the [README](https://github.com/DivvyPayHQ/web-homework/blob/master/elixir/README.md) for how to get elixir up and running. 
+See the [README](https://github.com/DivvyPayHQ/web-homework/blob/master/elixir/README.md) for how to get elixir up and running.
 
 ## Instructions
 
 You do not have to complete all of these objectives, but do as many as you can without wasting your time.
+
+Please include a write up of what objectives you accomplished and how long it took you over all. This will be the chance to explain why you did what you did, or why you didn't go down a path that you spent time on.
 
 For **senior engineers**, complete enough of the project to demonstrate your abilities as a senior.  This should be more than 3 objectives.  You can modify anything you need to with this project, so kick the tires and show us what you can do.
 
