@@ -14,17 +14,26 @@ defmodule HomeworkWeb.Schema do
     field(:transactions, list_of(:transaction)) do
       arg(:min, :integer)
       arg(:max, :integer)
+      arg(:limit, :integer)
+      arg(:skip, :integer)
       resolve(&TransactionsResolver.transactions/3)
+      middleware Homework.Middlewares.Pagination
     end
 
     @desc "Get all Users"
     field(:users, list_of(:user)) do
+      arg(:limit, :integer)
+      arg(:skip, :integer)
       resolve(&UsersResolver.users/3)
+      middleware Homework.Middlewares.Pagination
     end
 
     @desc "Get all Merchants"
     field(:merchants, list_of(:merchant)) do
+      arg(:limit, :integer)
+      arg(:skip, :integer)
       resolve(&MerchantsResolver.merchants/3)
+      middleware Homework.Middlewares.Pagination
     end
   end
 
