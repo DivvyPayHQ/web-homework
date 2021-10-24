@@ -32,6 +32,7 @@ defmodule HomeworkWeb.Schema do
     field(:merchants, list_of(:merchant)) do
       arg(:limit, :integer)
       arg(:skip, :integer)
+      arg(:name, :string)
       resolve(&MerchantsResolver.merchants/3)
       middleware Homework.Middlewares.Pagination
     end
