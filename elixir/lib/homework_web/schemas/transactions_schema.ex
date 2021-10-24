@@ -9,7 +9,7 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
   object :transaction do
     field(:id, non_null(:id))
     field(:user_id, :id)
-    field(:amount, :integer)
+    field(:amount, :float)
     field(:credit, :boolean)
     field(:debit, :boolean)
     field(:description, :string)
