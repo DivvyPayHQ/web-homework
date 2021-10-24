@@ -17,6 +17,12 @@ defmodule Homework.Merchants do
       [%Merchant{}, ...]
 
   """
+  def list_merchants(%{name: name}) do
+    sanitized_name = String.replace(name, ["%", "_"], "")
+    formatted_name = "%#{sanitized_name}%"
+    query = from m in Merchant, where: like(m.name, ^formatted_name)
+    Repo.all(query)
+  end
   def list_merchants(_args) do
     Repo.all(Merchant)
   end
