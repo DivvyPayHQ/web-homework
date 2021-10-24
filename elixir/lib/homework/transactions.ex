@@ -60,16 +60,18 @@ defmodule Homework.Transactions do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_transaction(attrs \\ %{}) do
+  def create_transaction(attrs \\ %{})
+  def create_transaction(attrs = %{amount: dec_amount}) when is_float(dec_amount) do
+    %{attrs | amount: convert_to_integer(dec_amount)}
+      |> create_transaction()
+  end
+
+  def create_transaction(attrs) do
     %Transaction{}
     |> Transaction.changeset(attrs)
     |> Repo.insert()
   end
 
-  def create_transaction(attrs = %{amount: dec_amount}) when is_float(dec_amount) do
-    %{attrs | amount: convert_to_integer(dec_amount)}
-      |> create_transaction()
-  end
 
   def convert_to_decimal(amount), do: amount / 100.0
 
@@ -92,15 +94,14 @@ defmodule Homework.Transactions do
       {:error, %Ecto.Changeset{}}
 
   """
+  def update_transaction(%Transaction{} = transaction, attrs = %{amount: dec_amount}) when is_float(dec_amount) do
+      update_transaction(transaction, %{attrs | amount: convert_to_integer(dec_amount)})
+  end
+
   def update_transaction(%Transaction{} = transaction, attrs) do
     transaction
     |> Transaction.changeset(attrs)
     |> Repo.update()
-  end
-
-  def update_transaction(%Transaction{} = transaction, attrs = %{amount: dec_amount}) when is_float(dec_amount) do
-    %{attrs | amount: convert_to_integer(dec_amount)}
-      |> update_transaction(attrs)
   end
 
   @doc """
