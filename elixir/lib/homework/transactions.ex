@@ -17,10 +17,16 @@ defmodule Homework.Transactions do
       [%Transaction{}, ...]
 
   """
-  def list_transactions(_args) do
-    Repo.all(Transaction)
+  def list_transactions(%{min: min, max: max}) do
+    query = from t in Transaction, where: t.amount >= ^min and t.amount <= ^max
+    Repo.all(query)
+      |> Enum.map(&convert_transaction_to_decimal/1)
   end
 
+  def list_transactions(_args) do
+    Repo.all(Transaction)
+      |> Enum.map(&convert_transaction_to_decimal/1)
+  end
   @doc """
   Gets a single transaction.
 
@@ -35,7 +41,12 @@ defmodule Homework.Transactions do
       ** (Ecto.NoResultsError)
 
   """
-  def get_transaction!(id), do: Repo.get!(Transaction, id)
+  def get_transaction!(id) do
+    transaction = Repo.get!(Transaction, id)
+    %{amount: amount} = transaction
+
+    %{transaction | amount: convert_to_decimal(amount)}
+  end
 
   @doc """
   Creates a transaction.
@@ -55,6 +66,20 @@ defmodule Homework.Transactions do
     |> Repo.insert()
   end
 
+  def create_transaction(attrs = %{amount: dec_amount}) when is_float(dec_amount) do
+    %{attrs | amount: convert_to_integer(dec_amount)}
+      |> create_transaction()
+  end
+
+  def convert_to_decimal(amount), do: amount / 100.0
+
+  def convert_transaction_to_decimal(%Transaction{} = transaction) do
+    %{amount: amount} = transaction
+    %{transaction | amount: convert_to_decimal(amount)}
+  end
+
+  def convert_to_integer(amount), do: trunc(amount * 100)
+
   @doc """
   Updates a transaction.
 
@@ -71,6 +96,11 @@ defmodule Homework.Transactions do
     transaction
     |> Transaction.changeset(attrs)
     |> Repo.update()
+  end
+
+  def update_transaction(%Transaction{} = transaction, attrs = %{amount: dec_amount}) when is_float(dec_amount) do
+    %{attrs | amount: convert_to_integer(dec_amount)}
+      |> update_transaction(attrs)
   end
 
   @doc """
