@@ -15,10 +15,22 @@ alias Homework.Repo
 alias Homework.Merchants
 alias Homework.Transactions
 alias Homework.Users
+alias Homework.Companies
 
 Repo.delete_all Transactions.Transaction
 Repo.delete_all Merchants.Merchant
 Repo.delete_all Users.User
+Repo.delete_all Companies.Company
+
+{:ok, %{id: atreides_id}} = Companies.create_company(%{
+  name: "Atreides 'r' us",
+  credit_line: 10000000
+})
+
+{:ok, %{id: hark_id}} = Companies.create_company(%{
+  name: "Vlad is 2 bad",
+  credit_line: 101010
+})
 
 merchant_seed = [
   %{
@@ -35,27 +47,32 @@ user_seed = [
   %{
     first_name: "Paul",
     last_name: "Atreides",
-    dob: "03/7/10175"
+    dob: "03/7/10175",
+    company_id: atreides_id
   },
   %{
     first_name: "Leto",
     last_name: "Atreides",
-    dob: "09/13/10140"
+    dob: "09/13/10140",
+    company_id: atreides_id
   },
   %{
     first_name: "Chani",
     last_name: "Kynes",
-    dob: "01/10/10177"
+    dob: "01/10/10177",
+    company_id: atreides_id
   },
   %{
     first_name: "Vladimir",
     last_name: "Harkonnen",
-    dob: "08/22/10110"
+    dob: "08/22/10110",
+    company_id: hark_id
   },
   %{
     first_name: "Testy",
     last_name: "Test",
-    dob: "01/17/2002"
+    dob: "01/17/2002",
+    company_id: atreides_id
   }
 ]
 
@@ -82,9 +99,12 @@ Enum.each(users, fn {_, user} ->
   Transactions.create_transaction(%{
       user_id: user.id,
       merchant_id: merchant.id,
+      company_id: user.company_id,
       amount: amount,
       credit: credit,
       debit: debit,
       description: "#{user.first_name} made a fantastic purchase at #{merchant.name}"
   })
+
+  Companies.reduce_credit(%{company_id: user.company_id, amount: amount})
 end)
