@@ -12,8 +12,8 @@ defmodule HomeworkWeb.Resolvers.UsersResolver do
   @doc """
   Get company
   """
-  def company(_root, args, %{source: {%{copmany_id: company_id}}}) do
-    {:ok, Companies.get_company_decimals!(company_id)}
+  def company(_root, _args, %{source: %{company_id: company_id}}) do
+    {:ok, Companies.get_company_for_user!(company_id)}
   end
 
   @doc """

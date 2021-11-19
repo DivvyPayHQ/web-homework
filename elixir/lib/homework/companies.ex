@@ -21,7 +21,7 @@ defmodule Homework.Companies do
   """
   def list_companies(_args) do
     Repo.all(Company)
-      |> get_company_decimals()
+      # |> get_company_decimals()
   end
 
   # @doc """
@@ -88,7 +88,7 @@ defmodule Homework.Companies do
   @doc """
   Converts value to a decimal
   """
-  def amount_to_decimal(amount), do: amount / 100
+  def amount_to_decimal(amount), do: amount / 100.0
 
   # def amount_to_decimal(amount), do: erlang.float_to_binary(amount, [decimals:2])
 
@@ -101,20 +101,16 @@ defmodule Homework.Companies do
   def amount_to_integer(amount), do: trunc(amount*100)
 
   @doc """
-  Get Company by Id with decimal values
+    Format the Company amounts to floats / decimal values
 
-
-  # We want failure here to raise an exception
   """
-  def get_company_decimals(%Company{} = company) do
-    %{available_credit: avail, credit_line: credit} = company
-    %{company | available_credit: amount_to_decimal(avail), credit_line: amount_to_decimal(credit)}
-  end
+
 
   def get_company_decimals(%Company{} = company) do
     %{available_credit: avail, credit_line: credit} = company
     %{company | available_credit: amount_to_decimal(avail), credit_line: amount_to_decimal(credit)}
   end
+
 
   @doc """
   Subtract credit from company via Transaction
@@ -140,7 +136,12 @@ defmodule Homework.Companies do
 
   def subtract_credit(_args), do: nil
 
+  def get_company_for_user!(id) do
+    company = get_company!(id)
+    %{credit_line: credit, available_credit: avail} = company
 
+    %{company | credit_line: amount_to_decimal(credit), available_credit: amount_to_decimal(avail)}
+  end
 
 
 

@@ -1,6 +1,6 @@
 defmodule HomeworkWeb.Resolvers.CompaniesResolver do
   alias Homework.Companies
-  alias Homework.Users.User
+
 
   @doc """
   Get a list of companies
@@ -8,13 +8,6 @@ defmodule HomeworkWeb.Resolvers.CompaniesResolver do
   def companies(_root, args, _info) do
     {:ok, Companies.list_companies(args)}
   end
-
-  #   @doc """
-  # Get the users associated with a company
-  # """
-  # def list_users(%User{} = company, args, _resolution) do
-  #   {:ok, Users.get_user!(company, args)}
-  # end
 
   @doc """
   Create a new company
