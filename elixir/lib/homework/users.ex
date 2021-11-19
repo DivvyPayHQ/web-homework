@@ -21,6 +21,14 @@ defmodule Homework.Users do
     Repo.all(User)
   end
 
+  def list_users(%{first_name: first_name}) do
+    formatted_user_name = "%#{first_name}"
+    query = from u in User, where: like(u.firstName, ^formatted_user_name )
+    Repo.all(query)
+  end
+
+
+
   @doc """
   Gets a single user.
 

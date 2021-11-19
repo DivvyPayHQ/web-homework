@@ -15,6 +15,7 @@ defmodule Homework.Transactions do
     %{amount: amount} = transaction
     %{transaction | amount: amount_to_decimal(amount)}
   end
+
   def amount_to_integer(amount), do: trunc(amount * 100)
 
   @doc """
@@ -26,8 +27,17 @@ defmodule Homework.Transactions do
       [%Transaction{}, ...]
 
   """
+
+
+  def list_transactions(%{max: max, min: min}) do
+    query = from t in Transaction, where: t.amount >= ^min and t.amount <= ^max
+    Repo.all(query)
+      |> Enum.map(&transaction_amount_to_decimal/1)
+  end
+
   def list_transactions(_args) do
     Repo.all(Transaction)
+      |> Enum.map(&transaction_amount_to_decimal/1)
   end
 
   @doc """
@@ -44,7 +54,12 @@ defmodule Homework.Transactions do
       ** (Ecto.NoResultsError)
 
   """
-  def get_transaction!(id), do: Repo.get!(Transaction, id)
+  # def get_transaction!(id), do: Repo.get!(Transaction, id)
+  def get_transaction!(id) do
+    transaction = Repo.get!(Transaction, id)
+    %{amount: amount} = transaction
+    %{transaction | amount: amount_to_decimal(amount)}
+  end
 
   @doc """
   Creates a transaction.
@@ -57,19 +72,27 @@ defmodule Homework.Transactions do
       iex> create_transaction(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
-  """
+      """
+
+
+  def create_transaction(attrs \\ %{})
+
+  def create_transaction(attrs = %{amount: float_amount}) when is_float(float_amount) do
+    %{attrs | amount: amount_to_integer(float_amount)}
+      |> create_transaction()
+  end
+
   def create_transaction(attrs) do
     %Transaction{}
     |> Transaction.changeset(attrs)
     |> Repo.insert()
   end
 
-  def create_transaction(attrs \\ %{})
 
-  def create_transaction(attrs = %{amount: float_amount}) when is_float(float_amount) do
-    %{attrs | amount: amount_to_integer(float_amount)}
-    |> create_transaction()
-  end
+
+
+
+
   @doc """
   Updates a transaction.
 
@@ -82,8 +105,6 @@ defmodule Homework.Transactions do
       {:error, %Ecto.Changeset{}}
 
   """
-
-
   def update_transaction(%Transaction{} = transaction, attrs = %{amount: float_amount}) when is_float(float_amount) do
     update_transaction(transaction, %{attrs | amount: amount_to_integer(float_amount)})
   end
@@ -93,6 +114,10 @@ defmodule Homework.Transactions do
     |> Transaction.changeset(attrs)
     |> Repo.update()
   end
+
+
+
+
 
   @doc """
   Deletes a transaction.

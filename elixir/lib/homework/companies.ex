@@ -21,7 +21,7 @@ defmodule Homework.Companies do
   """
   def list_companies(_args) do
     Repo.all(Company)
-      # |> get_company_decimals()
+      |> get_company_decimals()
   end
 
   # @doc """
