@@ -38,6 +38,7 @@ defmodule Homework.UsersTest do
       assert user.dob == "some dob"
       assert user.first_name == "some first_name"
       assert user.last_name == "some last_name"
+      assert user.company_id == "some company"
     end
 
     test "create_user/1 with invalid data returns error changeset" do

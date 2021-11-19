@@ -2,6 +2,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   alias Homework.Merchants
   alias Homework.Transactions
   alias Homework.Users
+  alias Homework.Companies
 
   @doc """
   Get a list of transcations
@@ -28,12 +29,19 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   Create a new transaction
   """
   def create_transaction(_root, args, _info) do
-    case Transactions.create_transaction(args) do
+    {status, transaction_or_error, transaction} = case Transactions.create_transaction(args) do
       {:ok, transaction} ->
         {:ok, transaction}
 
       error ->
         {:error, "could not create transaction: #{inspect(error)}"}
+    end
+
+    if status == :ok do
+      Companies.subtract_credit(args, transaction)
+      {status, transaction_or_error}
+    else
+      {status, transaction_or_error}
     end
   end
 
@@ -43,12 +51,20 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   def update_transaction(_root, %{id: id} = args, _info) do
     transaction = Transactions.get_transaction!(id)
 
-    case Transactions.update_transaction(transaction, args) do
+    {status, transaction_or_error} = case Transactions.update_transaction(transaction, args) do
       {:ok, transaction} ->
         {:ok, transaction}
 
       error ->
         {:error, "could not update transaction: #{inspect(error)}"}
+    end
+
+    if status == :ok do
+      Companies.subtract_credit(args, transaction)
+      {status, transaction_or_error}
+    else
+      {status, transaction_or_error}
+
     end
   end
 

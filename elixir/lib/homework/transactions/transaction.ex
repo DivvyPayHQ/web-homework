@@ -4,6 +4,7 @@ defmodule Homework.Transactions.Transaction do
   alias Homework.Merchants.Merchant
   alias Homework.Users.User
 
+
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "transactions" do
     field(:amount, :integer)
@@ -20,7 +21,7 @@ defmodule Homework.Transactions.Transaction do
   @doc false
   def changeset(transaction, attrs) do
     transaction
-    |> cast(attrs, [:user_id, :amount, :debit, :description, :merchant_id])
-    |> validate_required([:user_id, :amount, :debit, :description, :merchant_id])
+    |> cast(attrs, [:amount, :credit, :debit, :description, :merchant_id, :user_id])
+    |> validate_required([:amount, :credit, :debit, :description, :merchant_id, :user_id])
   end
 end
