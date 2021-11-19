@@ -21,7 +21,6 @@ defmodule Homework.Companies do
   """
   def list_companies(_args) do
     Repo.all(Company)
-      # |> get_company_decimals()
   end
 
   # @doc """
@@ -33,10 +32,7 @@ defmodule Homework.Companies do
   #     [%Company{}, ...]
 
   # """
-  # def list_companies(_args) do
-  #   Repo.all(Company)
-  #     |> amount_to_decimal()
-  # end
+
 
   @doc """
   Gets a single company.
@@ -72,8 +68,8 @@ defmodule Homework.Companies do
 
   def update_company(%Company{} = company, attrs) do
     company
-    |> Company.changeset(attrs)
-    |> Repo.update()
+      |> Company.changeset(attrs)
+      |> Repo.update()
   end
 
 

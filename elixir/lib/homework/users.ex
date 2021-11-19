@@ -17,14 +17,18 @@ defmodule Homework.Users do
       [%User{}, ...]
 
   """
-  def list_users(_args) do
-    Repo.all(User)
+
+
+  def list_users(%{first_name: first_name, last_name: last_name}) do
+    formatted_user_first_name = "%#{first_name}%"
+    formatted_user_last_name = "%#{last_name}%"
+
+    query = from u in User, where: like(u.first_name, ^formatted_user_first_name ) and like(u.last_name, ^formatted_user_last_name )
+    Repo.all(query)
   end
 
-  def list_users(%{first_name: first_name}) do
-    formatted_user_name = "%#{first_name}"
-    query = from u in User, where: like(u.firstName, ^formatted_user_name )
-    Repo.all(query)
+  def list_users(_args) do
+    Repo.all(User)
   end
 
 
