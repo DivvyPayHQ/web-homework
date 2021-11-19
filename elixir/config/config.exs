@@ -11,6 +11,7 @@ config :homework,
   ecto_repos: [Homework.Repo]
 
 # Configures the endpoint
+# secret_key_base should be kept as secret environment variable
 config :homework, HomeworkWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "+IjyxgEncWjAVS+ARMn8qUGkijbmXyEp7YTevKL+sfe0dcpJmaaeNXFW8j/By5i9",

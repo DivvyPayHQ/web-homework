@@ -16,6 +16,7 @@ config :homework, Homework.Repo,
   url: database_url,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
+  # yeah we get the variable here, but have it stored plainly in the config file. I'll assume this is our security issue.
 secret_key_base =
   System.get_env("SECRET_KEY_BASE") ||
     raise """

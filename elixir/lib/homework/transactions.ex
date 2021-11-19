@@ -62,7 +62,7 @@ defmodule Homework.Transactions do
   end
 
   @doc """
-  Creates a transaction.
+    Creates a transaction.
 
   ## Examples
 
@@ -72,7 +72,7 @@ defmodule Homework.Transactions do
       iex> create_transaction(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
-      """
+  """
 
 
   def create_transaction(attrs \\ %{})
