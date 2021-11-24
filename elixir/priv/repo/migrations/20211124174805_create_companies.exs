@@ -7,7 +7,6 @@ defmodule Homework.Repo.Migrations.CreateCompanies do
       add(:name, :string)
       add(:credit_line, :integer)
       add(:available_credit, :float)
-      add(:user_id, references(:users, type: :uuid, on_delete: :nothing))
 
       timestamps()
     end
