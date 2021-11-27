@@ -111,24 +111,21 @@ merchant_horizon = Repo.get_by Merchant, name: "Horizon Distributors"
 user_devan = Repo.get_by User, first_name: "Devan"
 
 # First Transaction
-transaction_changeset =
-  merchant_horizon
+merchant_horizon
   |> Ecto.build_assoc(:transactions, transaction_1)
   |> Ecto.Changeset.change()
   |> Ecto.Changeset.put_assoc(:user, user_devan)
   |> Ecto.Changeset.change()
   |> Ecto.Changeset.put_assoc(:company, company_bc_landscaping)
+  |> Repo.insert()
 
-Repo.insert(transaction_changeset)
 
 
 # Second Transaction
-transaction_changeset =
-  merchant_sherwin
+merchant_sherwin
   |> Ecto.build_assoc(:transactions, transaction_2)
   |> Ecto.Changeset.change()
   |> Ecto.Changeset.put_assoc(:user, user_devan)
   |> Ecto.Changeset.change()
   |> Ecto.Changeset.put_assoc(:company, company_bc_landscaping)
-
-Repo.insert(transaction_changeset)
+  |> Repo.insert()
