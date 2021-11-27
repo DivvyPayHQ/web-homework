@@ -7,6 +7,7 @@ defmodule Homework.Transactions do
   alias Homework.Repo
 
   alias Homework.Transactions.Transaction
+  alias Homework.Companies.Company
 
   @doc """
   Returns the list of transactions.
@@ -18,10 +19,8 @@ defmodule Homework.Transactions do
 
   """
   def list_transactions(_args) do
-
-    # clean this up and all resolvers too with conversion
     Repo.all(Transaction)
-      |> Enum.map(fn el -> Map.put(el, :amount, Decimal.div(Decimal.new(el.amount), Decimal.new(100))) end)
+     |> Enum.map(fn el -> Map.put(el, :amount, Decimal.div(Decimal.new(el.amount), Decimal.new(100))) end)
   end
 
   @doc """
@@ -52,7 +51,11 @@ defmodule Homework.Transactions do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_transaction(attrs \\ %{}) do
+  def create_transaction(%Company{} = company, attrs \\ %{}) do
+
+    # something like Ecto.Multi would be cool for this
+    Repo.update(Company.avail_credit_changeset(company, attrs))
+
     %Transaction{}
     |> Transaction.changeset(attrs)
     |> Repo.insert()
@@ -70,7 +73,9 @@ defmodule Homework.Transactions do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_transaction(%Transaction{} = transaction, attrs) do
+  def update_transaction(%Transaction{} = transaction, %Company{} = company, attrs) do
+    Repo.update(Company.avail_credit_changeset(company, transaction, attrs))
+
     transaction
     |> Transaction.changeset(attrs)
     |> Repo.update()
@@ -88,7 +93,8 @@ defmodule Homework.Transactions do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_transaction(%Transaction{} = transaction) do
+  def delete_transaction(%Transaction{} = transaction, %Company{} = company) do
+    Repo.update(Company.delete_trans_changeset(company, transaction))
     Repo.delete(transaction)
   end
 
