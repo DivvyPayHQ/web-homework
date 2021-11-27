@@ -18,7 +18,10 @@ defmodule Homework.Transactions do
 
   """
   def list_transactions(_args) do
+
+    # clean this up and all resolvers too with conversion
     Repo.all(Transaction)
+      |> Enum.map(fn el -> Map.put(el, :amount, Decimal.div(Decimal.new(el.amount), Decimal.new(100))) end)
   end
 
   @doc """

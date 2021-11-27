@@ -17,10 +17,34 @@ defmodule Homework.Transactions.Transaction do
     timestamps()
   end
 
+  # handle nil test case, also transaction bug = no credit in validation (never gets set)
+  def changeset(transaction, %{amount: amount } = attrs) when is_nil(amount) do
+    transaction
+    |> cast(attrs, [:user_id, :amount, :credit, :debit, :description, :merchant_id])
+    |> validate_required([:user_id, :amount, :credit, :debit, :description, :merchant_id])
+  end
+
+  @doc false
+  def changeset(transaction, %{amount: amount} = attrs) do
+    amt =
+      if amount |> Decimal.new() |> Decimal.to_string() |> String.contains?(".") do
+        # there is decimal value we must respect
+        amount |> Decimal.round(2) |> Decimal.mult(Decimal.new(100)) |> Decimal.to_integer()
+      else
+        amount |> Decimal.new() |> Decimal.to_integer()
+  end
+
+    attrs2 = %{attrs | amount: amt  }
+    transaction
+    |> cast(attrs2, [:user_id, :amount, :credit, :debit, :description, :merchant_id])
+    |> validate_required([:user_id, :amount, :credit, :debit, :description, :merchant_id])
+  end
+
   @doc false
   def changeset(transaction, attrs) do
     transaction
-    |> cast(attrs, [:user_id, :amount, :debit, :description, :merchant_id])
-    |> validate_required([:user_id, :amount, :debit, :description, :merchant_id])
+    |> cast(attrs, [:user_id, :amount, :credit, :debit, :description, :merchant_id])
+    |> validate_required([:user_id, :amount, :credit, :debit, :description, :merchant_id])
   end
+
 end
