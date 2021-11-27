@@ -49,10 +49,9 @@ defmodule Homework.Users do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_user(attrs \\ %{}) do
-    %User{}
-    |> User.changeset(attrs)
-    |> Repo.insert()
+  def create_user(attrs \\ %{}, company) do
+    user_changeset = Ecto.build_assoc(company, :users, attrs)
+    Repo.insert(user_changeset)
   end
 
   @doc """

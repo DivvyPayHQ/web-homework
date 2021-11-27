@@ -74,6 +74,24 @@ defmodule Homework.Companies do
   end
 
   @doc """
+  Updates companies available credit.
+
+  ## Examples
+
+      iex> update_company_credit(id, amount)
+      {:ok, %Company{}}
+
+      iex> update_company_credit(id, amount)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_company_credit(id, amount) do
+    company = Repo.get(Company, id)
+    Ecto.Changeset.change(company, available_credit: company.available_credit - amount)
+    |> Repo.update()
+  end
+
+  @doc """
   Deletes a company.
 
   ## Examples

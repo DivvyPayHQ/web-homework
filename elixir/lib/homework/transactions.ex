@@ -7,6 +7,7 @@ defmodule Homework.Transactions do
   alias Homework.Repo
 
   alias Homework.Transactions.Transaction
+  alias Homework.Companies
 
   @doc """
   Returns the list of transactions.
@@ -49,10 +50,18 @@ defmodule Homework.Transactions do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_transaction(attrs \\ %{}) do
-    %Transaction{}
-    |> Transaction.changeset(attrs)
+  def create_transaction(attrs \\ %{}, company, merchant, user) do
+    # Build foriegn Key associations
+    merchant
+    |> Ecto.build_assoc(:transactions, attrs)
+    |> Ecto.Changeset.change()
+    |> Ecto.Changeset.put_assoc(:user, user)
+    |> Ecto.Changeset.change()
+    |> Ecto.Changeset.put_assoc(:company, company)
     |> Repo.insert()
+
+    # Update available credit
+    Companies.update_company_credit(company.id, attrs.amount)
   end
 
   @doc """

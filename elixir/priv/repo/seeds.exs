@@ -13,8 +13,11 @@ alias Homework.Companies
 alias Homework.Companies.Company
 alias Homework.Merchants.Merchant
 alias Homework.Users.User
+alias Homework.Users
 alias Homework.Merchants
 alias Homework.Repo
+alias Homework.Transactions
+
 
 # Merchant Starting Data
 merchant_data = [
@@ -80,13 +83,11 @@ company_bc_landscaping = Repo.get_by Company, name: "BC Landscaping"
 company_revive_cabintry = Repo.get_by Company, name: "Revive Cabintry"
 
 Enum.each(user_data_1, fn data ->
-  user_changeset = Ecto.build_assoc(company_bc_landscaping, :users, data)
-  Repo.insert(user_changeset)
+  Users.create_user(data, company_bc_landscaping)
 end)
 
 Enum.each(user_data_2, fn data ->
-  user_changeset = Ecto.build_assoc(company_revive_cabintry, :users, data)
-  Repo.insert(user_changeset)
+  Users.create_user(data, company_revive_cabintry)
 end)
 
 # Transaction Starting Data
@@ -111,21 +112,6 @@ merchant_horizon = Repo.get_by Merchant, name: "Horizon Distributors"
 user_devan = Repo.get_by User, first_name: "Devan"
 
 # First Transaction
-merchant_horizon
-  |> Ecto.build_assoc(:transactions, transaction_1)
-  |> Ecto.Changeset.change()
-  |> Ecto.Changeset.put_assoc(:user, user_devan)
-  |> Ecto.Changeset.change()
-  |> Ecto.Changeset.put_assoc(:company, company_bc_landscaping)
-  |> Repo.insert()
-
-
-
+Transactions.create_transaction(transaction_1, company_bc_landscaping, merchant_horizon, user_devan)
 # Second Transaction
-merchant_sherwin
-  |> Ecto.build_assoc(:transactions, transaction_2)
-  |> Ecto.Changeset.change()
-  |> Ecto.Changeset.put_assoc(:user, user_devan)
-  |> Ecto.Changeset.change()
-  |> Ecto.Changeset.put_assoc(:company, company_bc_landscaping)
-  |> Repo.insert()
+Transactions.create_transaction(transaction_2, company_revive_cabintry, merchant_sherwin, user_devan)
