@@ -13,6 +13,7 @@ defmodule Homework.Transactions.Transaction do
 
     belongs_to(:merchant, Merchant, type: :binary_id, foreign_key: :merchant_id)
     belongs_to(:user, User, type: :binary_id, foreign_key: :user_id)
+    belongs_to(:company, Company, type: :binary_id, foreign_key: :company_id)
 
     timestamps()
   end
@@ -20,8 +21,8 @@ defmodule Homework.Transactions.Transaction do
   # handle nil test case, also transaction bug = no credit in validation (never gets set)
   def changeset(transaction, %{amount: amount } = attrs) when is_nil(amount) do
     transaction
-    |> cast(attrs, [:user_id, :amount, :credit, :debit, :description, :merchant_id])
-    |> validate_required([:user_id, :amount, :credit, :debit, :description, :merchant_id])
+    |> cast(attrs, [:user_id, :amount, :credit, :debit, :description, :merchant_id, :company_id])
+    |> validate_required([:user_id, :amount, :credit, :debit, :description, :merchant_id, :company_id])
   end
 
   @doc false
@@ -36,15 +37,15 @@ defmodule Homework.Transactions.Transaction do
 
     attrs2 = %{attrs | amount: amt  }
     transaction
-    |> cast(attrs2, [:user_id, :amount, :credit, :debit, :description, :merchant_id])
-    |> validate_required([:user_id, :amount, :credit, :debit, :description, :merchant_id])
+    |> cast(attrs2, [:user_id, :amount, :credit, :debit, :description, :merchant_id, :company_id])
+    |> validate_required([:user_id, :amount, :credit, :debit, :description, :merchant_id, :company_id])
   end
 
   @doc false
   def changeset(transaction, attrs) do
     transaction
-    |> cast(attrs, [:user_id, :amount, :credit, :debit, :description, :merchant_id])
-    |> validate_required([:user_id, :amount, :credit, :debit, :description, :merchant_id])
+    |> cast(attrs, [:user_id, :amount, :credit, :debit, :description, :merchant_id, :company_id])
+    |> validate_required([:user_id, :amount, :credit, :debit, :description, :merchant_id, :company_id])
   end
 
 end
