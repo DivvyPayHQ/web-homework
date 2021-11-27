@@ -43,7 +43,7 @@ defmodule Homework.MixProject do
       {:phoenix_live_dashboard, "~> 0.2"},
       {:plug_cowboy, "~> 2.0"},
       {:poison, "~> 2.1.0"},
-      {:postgrex, ">= 0.0.0"},
+      {:postgrex, ">= 0.15.13"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"}
     ]
