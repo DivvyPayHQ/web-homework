@@ -16,6 +16,7 @@ defmodule HomeworkWeb.Schemas.MerchantsSchema do
 
   object :merchant_page do
     field :merchants, :mpage do
+      arg(:name, :string, default_value: "")
       arg(:limit, :integer, default_value: -1)
       arg(:offset, :integer, default_value: 0)
       resolve(&MerchantsResolver.merchants/3)
@@ -24,6 +25,7 @@ defmodule HomeworkWeb.Schemas.MerchantsSchema do
 
   object :mpage do
     field :items, list_of(:merchant) do
+      arg(:name, :string, default_value: "")
       arg(:limit, :integer, default_value: -1)
       arg(:offset, :integer, default_value: 0)
       resolve(&MerchantsResolver.merchants/3)

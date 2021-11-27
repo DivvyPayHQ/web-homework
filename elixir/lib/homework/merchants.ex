@@ -19,7 +19,9 @@ defmodule Homework.Merchants do
 
   """
   def list_merchants(args) do
-    Merchant
+    %{name: name} = args
+    query = from m in Merchant, where: like(m.name,  ^"%#{name}%")
+    query
     |> Paginator.page(args)
   end
 
