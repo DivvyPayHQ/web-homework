@@ -12,6 +12,13 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
     {:ok, Transactions.list_transactions(args)}
   end
 
+   @doc """
+  Get a count of transactions
+  """
+  def transaction_count(_root, _args, _info) do
+    {:ok, Transactions.count_transactions()}
+  end
+
   @doc """
   Get the user associated with a transaction
   """
@@ -32,6 +39,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   def merchant(_root, _args, %{source: %{merchant_id: merchant_id}}) do
     {:ok, Merchants.get_merchant!(merchant_id)}
   end
+
 
   @doc """
   Create a new transaction

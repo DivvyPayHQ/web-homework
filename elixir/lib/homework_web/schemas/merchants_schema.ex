@@ -15,7 +15,15 @@ defmodule HomeworkWeb.Schemas.MerchantsSchema do
   end
 
   object :merchant_page do
-    field :merchants, list_of(:merchant) do
+    field :merchants, :mpage do
+      arg(:limit, :integer, default_value: -1)
+      arg(:offset, :integer, default_value: 0)
+      resolve(&MerchantsResolver.merchants/3)
+    end
+  end
+
+  object :mpage do
+    field :items, list_of(:merchant) do
       arg(:limit, :integer, default_value: -1)
       arg(:offset, :integer, default_value: 0)
       resolve(&MerchantsResolver.merchants/3)

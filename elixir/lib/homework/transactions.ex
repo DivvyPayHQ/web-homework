@@ -26,6 +26,18 @@ defmodule Homework.Transactions do
   end
 
   @doc """
+  ## Examples
+
+    iex> count_transactions([])
+    Integer
+
+  """
+  def count_transactions() do
+  Transaction
+  |> Paginator.total_rows
+  end
+
+  @doc """
   Gets a single transaction.
 
   Raises `Ecto.NoResultsError` if the Transaction does not exist.

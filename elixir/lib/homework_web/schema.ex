@@ -11,19 +11,11 @@ defmodule HomeworkWeb.Schema do
   import_types(HomeworkWeb.Schemas.Types)
 
   query do
-    @desc "Get all Transactions"
-    field(:transactions, list_of(:transaction)) do
-      arg(:limit, :integer, default_value: -1)
-      arg(:offset, :integer, default_value: 0)
-      resolve(&TransactionsResolver.transactions/3)
-    end
+    @desc "Get all transactions"
+    import_fields(:transaction_page)
 
     @desc "Get all Users"
-    field(:users, list_of(:user)) do
-      arg(:limit, :integer, default_value: -1)
-      arg(:offset, :integer, default_value: 0)
-      resolve(&UsersResolver.users/3)
-    end
+    import_fields(:user_page)
 
     @desc "Get all Merchants"
     import_fields(:merchant_page)

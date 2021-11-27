@@ -23,6 +23,19 @@ defmodule Homework.Users do
     |> Paginator.page(args)
   end
 
+
+  @doc """
+  ## Examples
+
+    iex> count_users([])
+    Integer
+
+  """
+  def count_users() do
+    User
+    |> Paginator.total_rows
+    end
+
   @doc """
   Gets a single user.
 

@@ -30,6 +30,27 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
     end
   end
 
+  object :transaction_page do
+    field :transactions, :tpage do
+      arg(:limit, :integer, default_value: -1)
+      arg(:offset, :integer, default_value: 0)
+      resolve(&TransactionsResolver.transactions/3)
+    end
+  end
+
+  object :tpage do
+    field :items, list_of(:transaction) do
+      arg(:limit, :integer, default_value: -1)
+      arg(:offset, :integer, default_value: 0)
+      resolve(&TransactionsResolver.transactions/3)
+    end
+
+    field :total_rows, :integer do
+      resolve(&TransactionsResolver.transaction_count/3)
+    end
+  end
+
+
   object :transaction_mutations do
     @desc "Create a new transaction"
     field :create_transaction, :transaction do

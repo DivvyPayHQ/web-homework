@@ -8,6 +8,14 @@ defmodule HomeworkWeb.Resolvers.UsersResolver do
     {:ok, Users.list_users(args)}
   end
 
+
+  @doc """
+  Get a count of users
+  """
+  def user_count(_root, _args, _info) do
+    {:ok, Users.count_users()}
+  end
+
   @doc """
   Creates a user
   """

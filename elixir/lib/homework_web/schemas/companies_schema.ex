@@ -14,7 +14,15 @@ defmodule HomeworkWeb.Schemas.CompaniesSchema do
   end
 
   object :company_page do
-    field :companies, list_of(:company) do
+    field :companies, :cpage do
+      arg(:limit, :integer, default_value: -1)
+      arg(:offset, :integer, default_value: 0)
+      resolve(&CompaniesResolver.companies/3)
+    end
+  end
+
+  object :cpage do
+    field :items, list_of(:company) do
       arg(:limit, :integer, default_value: -1)
       arg(:offset, :integer, default_value: 0)
       resolve(&CompaniesResolver.companies/3)

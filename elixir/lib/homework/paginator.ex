@@ -5,6 +5,7 @@ defmodule Homework.Paginator do
 
   def page(query, %{limit: limit, offset: offset}) do
     paginate(query, limit, offset)
+    # |> total_rows()
   end
 
   def paginate(query, limit, offset) do
