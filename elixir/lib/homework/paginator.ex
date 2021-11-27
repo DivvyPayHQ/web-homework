@@ -24,7 +24,7 @@ defmodule Homework.Paginator do
     query
   end
 
-  def determine_limit(query, number) when is_integer(number) and number > 0 do
+  def determine_limit(query, number) when is_integer(number) and number >= 0 do
     query
     |> limit(^number)
   end

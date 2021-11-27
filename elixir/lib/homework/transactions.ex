@@ -8,6 +8,7 @@ defmodule Homework.Transactions do
 
   alias Homework.Transactions.Transaction
   alias Homework.Companies.Company
+  alias Homework.Paginator
 
   @doc """
   Returns the list of transactions.
@@ -18,8 +19,9 @@ defmodule Homework.Transactions do
       [%Transaction{}, ...]
 
   """
-  def list_transactions(_args) do
-    Repo.all(Transaction)
+  def list_transactions(args) do
+    Transaction
+    |> Paginator.page(args)
      |> Enum.map(fn el -> Map.put(el, :amount, Decimal.div(Decimal.new(el.amount), Decimal.new(100))) end)
   end
 

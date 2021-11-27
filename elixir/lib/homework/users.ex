@@ -7,6 +7,7 @@ defmodule Homework.Users do
   alias Homework.Repo
 
   alias Homework.Users.User
+  alias Homework.Paginator
 
   @doc """
   Returns the list of users.
@@ -17,8 +18,9 @@ defmodule Homework.Users do
       [%User{}, ...]
 
   """
-  def list_users(_args) do
-    Repo.all(User)
+  def list_users(args) do
+    User
+    |> Paginator.page(args)
   end
 
   @doc """

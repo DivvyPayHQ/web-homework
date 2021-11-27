@@ -13,11 +13,15 @@ defmodule HomeworkWeb.Schema do
   query do
     @desc "Get all Transactions"
     field(:transactions, list_of(:transaction)) do
+      arg(:limit, :integer, default_value: -1)
+      arg(:offset, :integer, default_value: 0)
       resolve(&TransactionsResolver.transactions/3)
     end
 
     @desc "Get all Users"
     field(:users, list_of(:user)) do
+      arg(:limit, :integer, default_value: -1)
+      arg(:offset, :integer, default_value: 0)
       resolve(&UsersResolver.users/3)
     end
 
