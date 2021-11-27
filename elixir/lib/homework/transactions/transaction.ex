@@ -48,4 +48,7 @@ defmodule Homework.Transactions.Transaction do
     |> validate_required([:user_id, :amount, :credit, :debit, :description, :merchant_id, :company_id])
   end
 
+  def int_to_dec(amount) do
+    Decimal.div(Decimal.new(amount), Decimal.new(100))
+  end
 end

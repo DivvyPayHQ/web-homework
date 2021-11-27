@@ -22,7 +22,7 @@ defmodule Homework.Transactions do
   def list_transactions(args) do
     Transaction
     |> Paginator.page(args)
-     |> Enum.map(fn el -> Map.put(el, :amount, Decimal.div(Decimal.new(el.amount), Decimal.new(100))) end)
+     |> Enum.map(fn el -> Map.put(el, :amount, Transaction.int_to_dec(el.amount)) end)
   end
 
   @doc """

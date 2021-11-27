@@ -42,7 +42,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
     case Transactions.create_transaction(company, args) do
       {:ok, transaction} ->
         %{amount: amount} = transaction
-        {:ok, %{transaction | amount: Decimal.div(Decimal.new(amount), Decimal.new(100))}}
+        {:ok, %{transaction | amount: Transaction.int_to_dec(amount)}}
 
       error ->
         {:error, "could not create transaction: #{inspect(error)}"}
@@ -59,7 +59,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
     case Transactions.update_transaction(transaction, company, args) do
       {:ok, transaction} ->
         %{amount: amount} = transaction
-        {:ok, %{transaction | amount: Decimal.div(Decimal.new(amount), Decimal.new(100))}}
+        {:ok, %{transaction | amount: Transaction.int_to_dec(amount)}}
 
       error ->
         {:error, "could not update transaction: #{inspect(error)}"}
@@ -76,7 +76,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
     case Transactions.delete_transaction(transaction, company) do
       {:ok, transaction} ->
         %{amount: amount} = transaction
-        {:ok, %{transaction | amount: Decimal.div(Decimal.new(amount), Decimal.new(100))}}
+        {:ok, %{transaction | amount: Transaction.int_to_dec(amount)}}
 
       error ->
         {:error, "could not update transaction: #{inspect(error)}"}
