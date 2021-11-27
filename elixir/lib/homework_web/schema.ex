@@ -7,6 +7,7 @@ defmodule HomeworkWeb.Schema do
   alias HomeworkWeb.Resolvers.MerchantsResolver
   alias HomeworkWeb.Resolvers.TransactionsResolver
   alias HomeworkWeb.Resolvers.UsersResolver
+  alias HomeworkWeb.Resolvers.CompaniesResolver
   import_types(HomeworkWeb.Schemas.Types)
 
   query do

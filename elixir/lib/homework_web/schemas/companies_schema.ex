@@ -25,6 +25,7 @@ defmodule HomeworkWeb.Schemas.CompaniesSchema do
 
     @desc "Update a new company"
     field :update_company, :company do
+      arg(:id, non_null(:id))
       arg(:name, non_null(:string))
       arg(:credit_line, non_null(:integer))
       arg(:availiable_credit, non_null(:integer))

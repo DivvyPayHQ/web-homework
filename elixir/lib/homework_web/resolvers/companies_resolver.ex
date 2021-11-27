@@ -42,7 +42,7 @@ defmodule HomeworkWeb.Resolvers.CompaniesResolver do
   def delete_company(_root, %{id: id}, _info) do
     company = Companies.get_company!(id)
 
-    case Companies.delete_companies(company) do
+    case Companies.delete_company(company) do
       {:ok, company} ->
         {:ok, company}
 
