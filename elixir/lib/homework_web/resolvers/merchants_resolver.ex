@@ -9,6 +9,13 @@ defmodule HomeworkWeb.Resolvers.MerchantsResolver do
   end
 
   @doc """
+  Get a count of merchants
+  """
+  def merchant_count(_root, _args, _info) do
+    {:ok, Merchants.count_merchants()}
+  end
+
+  @doc """
   Create a new merchant
   """
   def create_merchant(_root, args, _info) do

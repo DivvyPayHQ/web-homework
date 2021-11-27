@@ -14,6 +14,18 @@ defmodule HomeworkWeb.Schemas.MerchantsSchema do
     field(:updated_at, :naive_datetime)
   end
 
+  object :merchant_page do
+    field :merchants, list_of(:merchant) do
+      arg(:limit, :integer, default_value: -1)
+      arg(:offset, :integer, default_value: 0)
+      resolve(&MerchantsResolver.merchants/3)
+    end
+
+    field :total_rows, :integer do
+      resolve(&MerchantsResolver.merchant_count/3)
+    end
+  end
+
   object :merchant_mutations do
     @desc "Create a new merchant"
     field :create_merchant, :merchant do

@@ -22,15 +22,10 @@ defmodule HomeworkWeb.Schema do
     end
 
     @desc "Get all Merchants"
-    field(:merchants, list_of(:merchant)) do
-      resolve(&MerchantsResolver.merchants/3)
-    end
+    import_fields(:merchant_page)
 
-
-    @desc "Get all Companies"
-    field(:companies, list_of(:company)) do
-      resolve(&CompaniesResolver.companies/3)
-    end
+    @desc "Get all companies"
+    import_fields(:company_page)
   end
 
   mutation do

@@ -7,6 +7,7 @@ defmodule Homework.Merchants do
   alias Homework.Repo
 
   alias Homework.Merchants.Merchant
+  alias Homework.Paginator
 
   @doc """
   Returns the list of merchants.
@@ -17,8 +18,23 @@ defmodule Homework.Merchants do
       [%Merchant{}, ...]
 
   """
-  def list_merchants(_args) do
-    Repo.all(Merchant)
+  def list_merchants(args) do
+    Merchant
+    |> Paginator.page(args)
+  end
+
+    @doc """
+  Returns the count of merchants.
+
+  ## Examples
+
+      iex> count_merchants([])
+      Integer
+
+  """
+  def count_merchants() do
+    Merchant
+    |> Paginator.total_rows
   end
 
   @doc """

@@ -9,6 +9,13 @@ defmodule HomeworkWeb.Resolvers.CompaniesResolver do
   end
 
   @doc """
+  Get a count of companies
+  """
+  def company_count(_root, _args, _info) do
+    {:ok, Companies.count_companies()}
+  end
+
+  @doc """
   Create a new company
   """
   def create_company(_root, args, _info) do

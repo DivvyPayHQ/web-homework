@@ -13,6 +13,18 @@ defmodule HomeworkWeb.Schemas.CompaniesSchema do
     field(:availiable_credit, :integer)
   end
 
+  object :company_page do
+    field :companies, list_of(:company) do
+      arg(:limit, :integer, default_value: -1)
+      arg(:offset, :integer, default_value: 0)
+      resolve(&CompaniesResolver.companies/3)
+    end
+
+    field :total_rows, :integer do
+      resolve(&CompaniesResolver.company_count/3)
+    end
+  end
+
   object :company_mutations do
     @desc "Create a new company"
     field :create_company, :company do

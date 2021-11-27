@@ -7,6 +7,7 @@ defmodule Homework.Companies do
   alias Homework.Repo
 
   alias Homework.Companies.Company
+  alias Homework.Paginator
 
   @doc """
   Returns the list of companies.
@@ -17,8 +18,23 @@ defmodule Homework.Companies do
       [%Company{}, ...]
 
   """
-  def list_companies(_args) do
-    Repo.all(Company)
+  def list_companies(args) do
+    Company
+    |> Paginator.page(args)
+  end
+
+  @doc """
+  Returns the count of companies.
+
+  ## Examples
+
+      iex> count_companies([])
+      Integer
+
+  """
+  def count_companies() do
+    Company
+    |> Paginator.total_rows
   end
 
   @doc """
