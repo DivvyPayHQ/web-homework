@@ -43,13 +43,13 @@ merchant_2 = Homework.Repo.insert!(%Merchant{
 company_2 = Homework.Repo.insert!(%Company{
   name: "Galatic Arms INC.",
   credit_line: 5000,
-  availiable_credit: 5000
+  availiable_credit: 3485
 })
 
 company_1 = Homework.Repo.insert!(%Company{
   name: "Eitan Incorporated",
   credit_line: 10000,
-  availiable_credit: 10000
+  availiable_credit: 9905
 })
 
 transaction_1 = Homework.Repo.insert!(%Transaction{
@@ -62,7 +62,7 @@ transaction_1 = Homework.Repo.insert!(%Transaction{
 })
 
 transaction_2 = Homework.Repo.insert!(%Transaction{
-  amount: 15394,
+  amount: 1515,
   credit: true,
   description: "Nothing like a plasma pistol",
   user: user_2,
