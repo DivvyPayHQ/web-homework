@@ -6,12 +6,11 @@ defmodule Homework.Companies.Company do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "companies" do
-    field :available_credit, :float
-    field :credit_line, :integer
-    field :name, :string
-    has_many :users, User
-    has_many :transactions, Transaction
-
+    field(:available_credit, :float)
+    field(:credit_line, :integer)
+    field(:name, :string)
+    has_many(:users, User)
+    has_many(:transactions, Transaction)
 
     timestamps()
   end

@@ -36,10 +36,11 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   Create a new transaction
   """
   def create_transaction(_root, args, _info) do
-    case Transactions.create_transaction(args) do
-      {:ok, transaction} ->
-        {:ok, transaction}
-
+    with {:ok, transaction} <- Transactions.create_transaction(args),
+         {:ok, _company} <-
+           Companies.update_company_credit(transaction.company_id, transaction.amount) do
+      {:ok, transaction}
+    else
       error ->
         {:error, "could not create transaction: #{inspect(error)}"}
     end

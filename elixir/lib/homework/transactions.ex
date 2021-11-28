@@ -51,13 +51,9 @@ defmodule Homework.Transactions do
 
   """
   def create_transaction(attrs \\ %{}) do
-    # Build foriegn Key associations
     %Transaction{}
     |> Transaction.changeset(attrs)
     |> Repo.insert()
-
-    # Update available credit
-    Companies.update_company_credit(attrs.company_id, attrs.amount)
   end
 
   @doc """

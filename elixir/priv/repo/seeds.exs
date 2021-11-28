@@ -72,6 +72,7 @@ alias Homework.Transactions
     user_id: user1.id,
     company_id: company1.id
 })
+Companies.update_company_credit(transaction1.company_id, transaction1.amount)
 
 {:ok, transaction2} =
   Transactions.create_transaction(%{
@@ -83,3 +84,4 @@ alias Homework.Transactions
     user_id: user2.id,
     company_id: company2.id
 })
+Companies.update_company_credit(transaction2.company_id, transaction2.amount)

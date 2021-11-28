@@ -2,7 +2,6 @@ defmodule Homework.CompaniesTest do
   use Homework.DataCase
 
   alias Homework.Companies
-  alias Homework.Repo
 
   describe "companies" do
     alias Homework.Companies.Company
@@ -33,7 +32,7 @@ defmodule Homework.CompaniesTest do
     test "create_company/1 with valid data creates a company" do
       assert {:ok, %Company{} = company} = Companies.create_company(@valid_attrs)
       assert company.available_credit == 120.5
-      assert company.credit_line == 42
+      assert company.credit_line == 200
       assert company.name == "some name"
     end
 
@@ -45,7 +44,7 @@ defmodule Homework.CompaniesTest do
       company = company_fixture()
       assert {:ok, %Company{} = company} = Companies.update_company(company, @update_attrs)
       assert company.available_credit == 456.7
-      assert company.credit_line == 43
+      assert company.credit_line == 600
       assert company.name == "some updated name"
     end
 

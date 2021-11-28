@@ -87,6 +87,7 @@ defmodule Homework.Companies do
   """
   def update_company_credit(id, amount) do
     company = Repo.get(Company, id)
+
     Ecto.Changeset.change(company, available_credit: company.available_credit - amount)
     |> Repo.update()
   end
