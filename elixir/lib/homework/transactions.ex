@@ -50,18 +50,14 @@ defmodule Homework.Transactions do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_transaction(attrs \\ %{}, company, merchant, user) do
+  def create_transaction(attrs \\ %{}) do
     # Build foriegn Key associations
-    merchant
-    |> Ecto.build_assoc(:transactions, attrs)
-    |> Ecto.Changeset.change()
-    |> Ecto.Changeset.put_assoc(:user, user)
-    |> Ecto.Changeset.change()
-    |> Ecto.Changeset.put_assoc(:company, company)
+    %Transaction{}
+    |> Transaction.changeset(attrs)
     |> Repo.insert()
 
     # Update available credit
-    Companies.update_company_credit(company.id, attrs.amount)
+    Companies.update_company_credit(attrs.company_id, attrs.amount)
   end
 
   @doc """

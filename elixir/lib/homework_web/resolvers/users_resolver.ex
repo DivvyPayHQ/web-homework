@@ -1,5 +1,6 @@
 defmodule HomeworkWeb.Resolvers.UsersResolver do
   alias Homework.Users
+  alias Homework.Companies
 
   @doc """
   Get a list of users

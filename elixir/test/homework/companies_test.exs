@@ -2,12 +2,13 @@ defmodule Homework.CompaniesTest do
   use Homework.DataCase
 
   alias Homework.Companies
+  alias Homework.Repo
 
   describe "companies" do
     alias Homework.Companies.Company
 
-    @valid_attrs %{available_credit: 120.5, credit_line: 42, name: "some name"}
-    @update_attrs %{available_credit: 456.7, credit_line: 43, name: "some updated name"}
+    @valid_attrs %{available_credit: 120.5, credit_line: 200, name: "some name"}
+    @update_attrs %{available_credit: 456.7, credit_line: 600, name: "some updated name"}
     @invalid_attrs %{available_credit: nil, credit_line: nil, name: nil}
 
     def company_fixture(attrs \\ %{}) do
@@ -21,7 +22,7 @@ defmodule Homework.CompaniesTest do
 
     test "list_companies/0 returns all companies" do
       company = company_fixture()
-      assert Companies.list_companies() == [company]
+      assert Companies.list_companies([]) == [company]
     end
 
     test "get_company!/1 returns the company with given id" do
