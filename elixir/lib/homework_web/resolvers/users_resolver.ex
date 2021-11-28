@@ -37,6 +37,13 @@ defmodule HomeworkWeb.Resolvers.UsersResolver do
   end
 
   @doc """
+  Get the company associated with a transaction
+  """
+  def company(_root, _args, %{source: %{company_id: company_id}}) do
+    {:ok, Companies.get_company!(company_id)}
+  end
+
+  @doc """
   Deletes a user for an id
   """
   def delete_user(_root, %{id: id}, _info) do

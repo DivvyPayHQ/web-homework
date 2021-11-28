@@ -17,7 +17,7 @@ defmodule Homework.Companies do
       [%Company{}, ...]
 
   """
-  def list_companies do
+  def list_companies(_args) do
     Repo.all(Company)
   end
 

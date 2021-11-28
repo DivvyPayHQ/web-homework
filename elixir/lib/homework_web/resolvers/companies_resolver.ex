@@ -5,7 +5,7 @@ defmodule HomeworkWeb.Resolvers.CompaniesResolver do
   Get a list of companies
   """
   def companies(_root, args, _info) do
-    {:ok, companies.list_companies(args)}
+    {:ok, Companies.list_companies(args)}
   end
 
   @doc """
@@ -40,9 +40,9 @@ defmodule HomeworkWeb.Resolvers.CompaniesResolver do
   Deletes a company for an id
   """
   def delete_company(_root, %{id: id}, _info) do
-    company = companies.get_company!(id)
+    company = Companies.get_company!(id)
 
-    case companies.delete_company(company) do
+    case Companies.delete_company(company) do
       {:ok, company} ->
         {:ok, company}
 
