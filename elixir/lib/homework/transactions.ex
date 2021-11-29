@@ -7,7 +7,6 @@ defmodule Homework.Transactions do
   alias Homework.Repo
 
   alias Homework.Transactions.Transaction
-  alias Homework.Companies
 
   @doc """
   Returns the list of transactions.

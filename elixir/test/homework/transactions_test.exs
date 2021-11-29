@@ -186,7 +186,7 @@ defmodule Homework.TransactionsTest do
       transaction = transaction_fixture(valid_attrs)
       result = TransactionsResolver.transactions(nil, Transaction, %{})
 
-      assert {:ok, [transaction]} == result
+      assert {:ok, [transaction |> Map.put(:amount, 0.42)]} == result
     end
 
     test "createTransaction/7 creates a new transaction using the resolver mutation", %{valid_attrs: valid_attrs} do
