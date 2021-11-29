@@ -2,6 +2,9 @@ defmodule Homework.CompaniesTest do
   use Homework.DataCase
 
   alias Homework.Companies
+  alias HomeworkWeb.Schema
+  alias HomeworkWeb.Resolvers.CompaniesResolver
+
 
   describe "companies" do
     alias Homework.Companies.Company
@@ -64,5 +67,72 @@ defmodule Homework.CompaniesTest do
       company = company_fixture()
       assert %Ecto.Changeset{} = Companies.change_company(company)
     end
+
+    test "companies/3 returns all companies using the company resolver" do
+      company = company_fixture()
+      result = CompaniesResolver.companies(nil, Company, %{})
+
+      assert {:ok, [company]} == result
+    end
+
+    test "createCompany/3 creates a new company using the resolver mutation" do
+      mutation = """
+      mutation createCompany($availableCredit: Float!, $creditLine: Integer!, $name: String!) {
+        createCompany(availableCredit: $availableCredit, creditLine: $creditLine, name: $name) {
+          availableCredit
+          creditLine
+          name
+        }
+      }
+      """
+
+      variables = %{"availableCredit" => 100.00, "creditLine" => 200, "name" => "temp"}
+
+      result = Absinthe.run(mutation, Schema, variables: variables)
+
+      assert result ==
+               {:ok,
+                %{data: %{"createCompany" => variables}}}
+    end
+
+    test "updateCompany/4 updates an existing company using the resolver mutation" do
+      mutation = """
+      mutation updateCompany($availableCredit: Float!, $creditLine: Integer!, $name: String!, $id: id!) {
+        updateCompany(availableCredit: $availableCredit, creditLine: $creditLine, name: $name, id: $id) {
+          availableCredit
+          creditLine
+          name
+          id
+        }
+      }
+      """
+      company = company_fixture()
+      variables = %{"availableCredit" => 150.00, "creditLine" => 200, "name" => "temp", "id" => company.id}
+
+      result = Absinthe.run(mutation, Schema, variables: variables)
+
+      assert result ==
+               {:ok,
+                %{data: %{"updateCompany" => variables}}}
+    end
+
+    test "deleteCompany/1 deletes an existing company using the resolver mutation" do
+      mutation = """
+      mutation deleteCompany($id: id!) {
+        deleteCompany(id: $id) {
+          id
+        }
+      }
+      """
+      company = company_fixture()
+      variables = %{"id" => company.id}
+
+      result = Absinthe.run(mutation, Schema, variables: variables)
+
+      assert result ==
+               {:ok,
+                %{data: %{"deleteCompany" => variables}}}
+    end
+
   end
 end

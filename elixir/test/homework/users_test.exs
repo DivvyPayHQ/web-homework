@@ -1,9 +1,10 @@
 defmodule Homework.UsersTest do
   use Homework.DataCase
 
-  alias Ecto.UUID
   alias Homework.Users
   alias Homework.Companies
+  alias HomeworkWeb.Resolvers.UsersResolver
+  alias HomeworkWeb.Schema
 
   describe "users" do
     alias Homework.Users.User
@@ -116,6 +117,72 @@ defmodule Homework.UsersTest do
     test "change_user/1 returns a user changeset", %{valid_attrs: valid_attrs} do
       user = user_fixture(valid_attrs)
       assert %Ecto.Changeset{} = Users.change_user(user)
+    end
+
+    test "users/3 returns all users using the users resolver", %{valid_attrs: valid_attrs} do
+      user = user_fixture(valid_attrs)
+      result = UsersResolver.users(nil, User, %{})
+
+      assert {:ok, [user]} == result
+    end
+
+    test "createUser/4 creates a new user using the resolver mutation", %{valid_attrs: valid_attrs} do
+      mutation = """
+      mutation createUser($companyId: ID!, $dob: String!, $firstName: String!, $lastName: String!) {
+        createUser(companyId: $companyId, dob: $dob, firstName: $firstName, lastName: $lastName) {
+          companyId
+          dob
+          firstName
+          lastName
+        }
+      }
+      """
+      user = user_fixture(valid_attrs)
+      variables = %{ "companyId" => user.company_id, "dob" => "01/01/2000", "firstName" => "Name", "lastName" => "Name"}
+      result = Absinthe.run(mutation, Schema, variables: variables)
+
+      assert result ==
+               {:ok,
+                %{data: %{"createUser" => variables}}}
+    end
+
+    test "updateUser/5 creates an updated user using the resolver mutation", %{valid_attrs: valid_attrs} do
+      mutation = """
+      mutation updateUser($companyId: ID!, $dob: String!, $firstName: String!, $lastName: String!, $id: id!) {
+        updateUser(companyId: $companyId, dob: $dob, firstName: $firstName, lastName: $lastName, id: $id) {
+          companyId
+          dob
+          firstName
+          lastName
+          id
+        }
+      }
+      """
+      user = user_fixture(valid_attrs)
+      variables = %{ "companyId" => user.company_id, "dob" => "01/01/2000", "firstName" => "Name", "lastName" => "Name", "id" => user.id}
+      result = Absinthe.run(mutation, Schema, variables: variables)
+
+      assert result ==
+               {:ok,
+                %{data: %{"updateUser" => variables}}}
+    end
+
+    test "deleteUser/1 deletes an existing user using the resolver mutation", %{valid_attrs: valid_attrs}  do
+      mutation = """
+      mutation deleteUser($id: id!) {
+        deleteUser(id: $id) {
+          id
+        }
+      }
+      """
+      user = user_fixture(valid_attrs)
+      variables = %{"id" => user.id}
+
+      result = Absinthe.run(mutation, Schema, variables: variables)
+
+      assert result ==
+               {:ok,
+                %{data: %{"deleteUser" => variables}}}
     end
   end
 end

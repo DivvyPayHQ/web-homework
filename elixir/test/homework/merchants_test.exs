@@ -2,6 +2,8 @@ defmodule Homework.MerchantsTest do
   use Homework.DataCase
 
   alias Homework.Merchants
+  alias HomeworkWeb.Resolvers.MerchantsResolver
+  alias HomeworkWeb.Schema
 
   describe "merchants" do
     alias Homework.Merchants.Merchant
@@ -64,6 +66,70 @@ defmodule Homework.MerchantsTest do
     test "change_merchant/1 returns a merchant changeset" do
       merchant = merchant_fixture()
       assert %Ecto.Changeset{} = Merchants.change_merchant(merchant)
+    end
+
+    test "merchants/3 returns all merchants using the company resolver" do
+      merchant = merchant_fixture()
+      result = MerchantsResolver.merchants(nil, Merchant, %{})
+
+      assert {:ok, [merchant]} == result
+    end
+
+    test "createMerchant/2 creates a new merchant using the resolver mutation" do
+      mutation = """
+      mutation createMerchant($description: String!, $name: String!) {
+        createMerchant(description: $description, name: $name) {
+          description
+          name
+        }
+      }
+      """
+
+      variables = %{"description" => "Something", "name" => "temp"}
+
+      result = Absinthe.run(mutation, Schema, variables: variables)
+
+      assert result ==
+               {:ok,
+                %{data: %{"createMerchant" => variables}}}
+    end
+
+    test "updateMerchant/3 updates an existing merchant using the resolver mutation" do
+      mutation = """
+      mutation updateMerchant($description: String!, $name: String!, $id: id!) {
+        updateMerchant(description: $description, name: $name, id: $id) {
+          description
+          name
+          id
+        }
+      }
+      """
+      merchant = merchant_fixture()
+      variables = %{"description" => "Something", "name" => "temp", "id" => merchant.id}
+
+      result = Absinthe.run(mutation, Schema, variables: variables)
+
+      assert result ==
+               {:ok,
+                %{data: %{"updateMerchant" => variables}}}
+    end
+
+    test "deleteMerchant/1 deletes an existing merchant using the resolver mutation" do
+      mutation = """
+      mutation deleteMerchant($id: id!) {
+        deleteMerchant(id: $id) {
+          id
+        }
+      }
+      """
+      merchant = merchant_fixture()
+      variables = %{"id" => merchant.id}
+
+      result = Absinthe.run(mutation, Schema, variables: variables)
+
+      assert result ==
+               {:ok,
+                %{data: %{"deleteMerchant" => variables}}}
     end
   end
 end

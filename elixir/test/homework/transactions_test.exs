@@ -1,11 +1,14 @@
 defmodule Homework.TransactionsTest do
   use Homework.DataCase
+  use Absinthe.Schema.Notation
 
-  alias Ecto.UUID
   alias Homework.Merchants
+  alias HomeworkWeb.Schema
   alias Homework.Transactions
   alias Homework.Users
   alias Homework.Companies
+  alias HomeworkWeb
+  alias HomeworkWeb.Resolvers.TransactionsResolver
 
   describe "transactions" do
     alias Homework.Transactions.Transaction
@@ -178,5 +181,79 @@ defmodule Homework.TransactionsTest do
       transaction = transaction_fixture(valid_attrs)
       assert %Ecto.Changeset{} = Transactions.change_transaction(transaction)
     end
+
+    test "transactions/3 returns all transactions using the transaction resolver", %{valid_attrs: valid_attrs} do
+      transaction = transaction_fixture(valid_attrs)
+      result = TransactionsResolver.transactions(nil, Transaction, %{})
+
+      assert {:ok, [transaction]} == result
+    end
+
+    test "createTransaction/7 creates a new transaction using the resolver mutation", %{valid_attrs: valid_attrs} do
+      mutation = """
+      mutation createTransaction($amount: Float!, $credit: Boolean!, $debit: Boolean!, $description: String!, $merchantId: ID!, $userId: ID! ,$companyId: ID!) {
+        createTransaction(amount: $amount, credit: $credit, debit: $debit, description: $description, merchantId: $merchantId, userId: $userId, companyId: $companyId) {
+          amount
+          credit
+          debit
+          description
+          merchantId
+          userId
+          companyId
+        }
+      }
+      """
+      transaction = transaction_fixture(valid_attrs)
+      variables = %{"amount" => 10.50, "credit" => true, "debit" => false, "description" => "Bought something", "merchantId" => transaction.merchant_id, "userId" => transaction.user_id, "companyId" => transaction.company_id}
+      result = Absinthe.run(mutation, Schema, variables: variables)
+
+      assert result ==
+               {:ok,
+                %{data: %{"createTransaction" => %{"amount" => 1050, "credit" => true, "debit" => false, "description" => "Bought something", "merchantId" => transaction.merchant_id, "userId" => transaction.user_id, "companyId" => transaction.company_id}}}}
+    end
+
+    test "updateTransaction/8 creates an updated transaction using the resolver mutation", %{valid_attrs: valid_attrs} do
+      mutation = """
+      mutation updateTransaction($amount: Float!, $credit: Boolean!, $debit: Boolean!, $description: String!, $merchantId: ID!, $userId: ID! ,$companyId: ID!, $id: ID!) {
+        updateTransaction(amount: $amount, credit: $credit, debit: $debit, description: $description, merchantId: $merchantId, userId: $userId, companyId: $companyId, id: $id) {
+          amount
+          credit
+          debit
+          description
+          merchantId
+          userId
+          companyId
+          id
+        }
+      }
+      """
+      transaction = transaction_fixture(valid_attrs)
+      variables = %{"amount" => 10.50, "credit" => true, "debit" => false, "description" => "Bought something", "merchantId" => transaction.merchant_id, "userId" => transaction.user_id, "companyId" => transaction.company_id, "id" => transaction.id}
+      result = Absinthe.run(mutation, Schema, variables: variables)
+
+      assert result ==
+               {:ok,
+                %{data: %{"updateTransaction" => %{"amount" => 1050, "credit" => true, "debit" => false, "description" => "Bought something", "merchantId" => transaction.merchant_id, "userId" => transaction.user_id, "companyId" => transaction.company_id, "id" => transaction.id}}}}
+    end
+
+    test "deleteTransaction/1 deletes an existing transaction using the resolver mutation", %{valid_attrs: valid_attrs}  do
+      mutation = """
+      mutation deleteTransaction($id: id!) {
+        deleteTransaction(id: $id) {
+          id
+        }
+      }
+      """
+      transaction = transaction_fixture(valid_attrs)
+      variables = %{"id" => transaction.id}
+
+      result = Absinthe.run(mutation, Schema, variables: variables)
+
+      assert result ==
+               {:ok,
+                %{data: %{"deleteTransaction" => variables}}}
+    end
+
+
   end
 end
