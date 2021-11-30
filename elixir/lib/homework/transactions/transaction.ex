@@ -23,6 +23,14 @@ defmodule Homework.Transactions.Transaction do
   def changeset(transaction, attrs) do
     transaction
     |> cast(attrs, [:user_id, :amount, :debit, :credit, :description, :merchant_id, :company_id])
-    |> validate_required([:user_id, :amount, :debit, :credit, :description, :merchant_id, :company_id])
+    |> validate_required([
+      :user_id,
+      :amount,
+      :debit,
+      :credit,
+      :description,
+      :merchant_id,
+      :company_id
+    ])
   end
 end

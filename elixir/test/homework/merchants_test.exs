@@ -90,8 +90,7 @@ defmodule Homework.MerchantsTest do
       result = Absinthe.run(mutation, Schema, variables: variables)
 
       assert result ==
-               {:ok,
-                %{data: %{"createMerchant" => variables}}}
+               {:ok, %{data: %{"createMerchant" => variables}}}
     end
 
     test "updateMerchant/3 updates an existing merchant using the resolver mutation" do
@@ -104,14 +103,14 @@ defmodule Homework.MerchantsTest do
         }
       }
       """
+
       merchant = merchant_fixture()
       variables = %{"description" => "Something", "name" => "temp", "id" => merchant.id}
 
       result = Absinthe.run(mutation, Schema, variables: variables)
 
       assert result ==
-               {:ok,
-                %{data: %{"updateMerchant" => variables}}}
+               {:ok, %{data: %{"updateMerchant" => variables}}}
     end
 
     test "deleteMerchant/1 deletes an existing merchant using the resolver mutation" do
@@ -122,14 +121,14 @@ defmodule Homework.MerchantsTest do
         }
       }
       """
+
       merchant = merchant_fixture()
       variables = %{"id" => merchant.id}
 
       result = Absinthe.run(mutation, Schema, variables: variables)
 
       assert result ==
-               {:ok,
-                %{data: %{"deleteMerchant" => variables}}}
+               {:ok, %{data: %{"deleteMerchant" => variables}}}
     end
   end
 end

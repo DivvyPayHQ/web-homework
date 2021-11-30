@@ -5,7 +5,6 @@ defmodule Homework.CompaniesTest do
   alias HomeworkWeb.Schema
   alias HomeworkWeb.Resolvers.CompaniesResolver
 
-
   describe "companies" do
     alias Homework.Companies.Company
 
@@ -91,8 +90,7 @@ defmodule Homework.CompaniesTest do
       result = Absinthe.run(mutation, Schema, variables: variables)
 
       assert result ==
-               {:ok,
-                %{data: %{"createCompany" => variables}}}
+               {:ok, %{data: %{"createCompany" => variables}}}
     end
 
     test "updateCompany/4 updates an existing company using the resolver mutation" do
@@ -106,14 +104,20 @@ defmodule Homework.CompaniesTest do
         }
       }
       """
+
       company = company_fixture()
-      variables = %{"availableCredit" => 150.00, "creditLine" => 200, "name" => "temp", "id" => company.id}
+
+      variables = %{
+        "availableCredit" => 150.00,
+        "creditLine" => 200,
+        "name" => "temp",
+        "id" => company.id
+      }
 
       result = Absinthe.run(mutation, Schema, variables: variables)
 
       assert result ==
-               {:ok,
-                %{data: %{"updateCompany" => variables}}}
+               {:ok, %{data: %{"updateCompany" => variables}}}
     end
 
     test "deleteCompany/1 deletes an existing company using the resolver mutation" do
@@ -124,15 +128,14 @@ defmodule Homework.CompaniesTest do
         }
       }
       """
+
       company = company_fixture()
       variables = %{"id" => company.id}
 
       result = Absinthe.run(mutation, Schema, variables: variables)
 
       assert result ==
-               {:ok,
-                %{data: %{"deleteCompany" => variables}}}
+               {:ok, %{data: %{"deleteCompany" => variables}}}
     end
-
   end
 end

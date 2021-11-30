@@ -9,7 +9,11 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   """
   def transactions(_root, args, _info) do
     list_transactions = Transactions.list_transactions(args)
-    {:ok, Enum.map(list_transactions, fn data -> data |> Map.put(:amount, integer_to_decimal(data.amount)) end)}
+
+    {:ok,
+     Enum.map(list_transactions, fn data ->
+       data |> Map.put(:amount, integer_to_decimal(data.amount))
+     end)}
   end
 
   @doc """
@@ -37,7 +41,11 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   Create a new transaction
   """
   def create_transaction(_root, args, _info) do
-    with {:ok, transaction} <- Transactions.create_transaction(args |> Map.put(:amount, decimal_to_integer(args.amount))),
+    with {:ok, transaction} <-
+           Transactions.create_transaction(
+             args
+             |> Map.put(:amount, decimal_to_integer(args.amount))
+           ),
          {:ok, _company} <-
            Companies.update_company_credit(transaction.company_id, transaction.amount) do
       {:ok, transaction}
@@ -53,10 +61,13 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   def update_transaction(_root, %{id: id} = args, _info) do
     transaction = Transactions.get_transaction!(id)
 
-    case Transactions.update_transaction(transaction, args |> Map.put(:amount, decimal_to_integer(args.amount))) do
-      {:ok, transaction} ->
-        {:ok, transaction}
-
+    with {:ok, transaction} <-
+           Transactions.update_transaction(transaction, args |> Map.put(:amount, decimal_to_integer(args.amount))
+           ),
+         {:ok, _company} <-
+           Companies.update_company_credit(transaction.company_id, decimal_to_integer(transaction.amount)) do
+      {:ok, transaction}
+    else
       error ->
         {:error, "could not update transaction: #{inspect(error)}"}
     end
@@ -78,7 +89,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   end
 
   @doc """
-  Deletes a transaction for an id
+  Converts decimal to integer format
   """
   def decimal_to_integer(amount) do
     int_amount = Money.parse(amount, :USD) |> elem(1)
@@ -86,10 +97,10 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   end
 
   @doc """
-  Converts integer to decimal
+  Converts integer to decimal format
   """
   def integer_to_decimal(amount) do
-    float_amount = :erlang.float_to_binary(amount/100, decimals: 2)
+    float_amount = :erlang.float_to_binary(amount / 100, decimals: 2)
     String.to_float(float_amount)
   end
 end
