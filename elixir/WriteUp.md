@@ -1,5 +1,5 @@
 ## Overview:
-For this exercise I worked on the backend objects; creating new schemas, queries and mutations for a company.I then seeded the database with the elixir seeds.ex file, pushing myself to write new tests for resolvers and mutations. Lastly allowing the mutations to handle decimal amounts for transactions.
+For this exercise I worked on the backend objects; creating new schemas, queries and mutations for a company. I then seeded the database with the elixir seeds.ex file, pushing myself to write new tests for resolvers and mutations. Lastly allowing the mutations to handle decimal amounts for transactions.
 
 * Total time spent: 25 Hours
 * 4 Objectives Complete
