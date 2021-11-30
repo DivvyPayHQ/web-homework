@@ -9,7 +9,7 @@ config :homework, Homework.Repo,
   username: System.get_env("POSTGRES_USER") || "postgres",
   password: System.get_env("POSTGRES_PASSWORD") || "postgres",
   hostname: System.get_env("POSTGRES_HOST") || "localhost",
-  database: System.get_env("POSTGRES_DATABASE") || "homework_dev",
+  database: System.get_env("POSTGRES_DATABASE") || "homework_test",
   pool: Ecto.Adapters.SQL.Sandbox
 
 # We don't run a server during test. If one is required,
