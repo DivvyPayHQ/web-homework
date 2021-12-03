@@ -17,8 +17,13 @@ defmodule Homework.Merchants do
       [%Merchant{}, ...]
 
   """
-  def list_merchants(_args) do
-    Repo.all(Merchant)
+  def list_merchants(args) do
+    query = if Map.has_key?(args, :name) do
+      Merchant.fuzzy_name_filter(args.name)
+    else
+      Merchant
+    end
+    Repo.all(query)
   end
 
   @doc """

@@ -1,6 +1,7 @@
 defmodule Homework.Transactions.Transaction do
   use Ecto.Schema
   import Ecto.Changeset
+  import Ecto.Query
   alias Homework.Merchants.Merchant
   alias Homework.Users.User
 
@@ -22,5 +23,13 @@ defmodule Homework.Transactions.Transaction do
     transaction
     |> cast(attrs, [:user_id, :amount, :debit, :description, :merchant_id])
     |> validate_required([:user_id, :amount, :debit, :description, :merchant_id])
+  end
+
+  def min_filter(query \\ Homework.Transactions.Transaction, min) do
+    where(query, [t], t.amount > ^min)
+  end
+
+  def max_filter(query \\ Homework.Transactions.Transaction, max) do
+    where(query, [t], t.amount < ^max)
   end
 end

@@ -17,8 +17,18 @@ defmodule Homework.Transactions do
       [%Transaction{}, ...]
 
   """
-  def list_transactions(_args) do
-    Repo.all(Transaction)
+  def list_transactions(args) do
+    query = if Map.has_key?(args, :min) do
+      Transaction.min_filter(args.min)
+    else
+      Transaction
+    end
+    query = if Map.has_key?(args, :max) do
+      Transaction.max_filter(query, args.max)
+    else
+      query
+    end
+    Repo.all(query)
   end
 
   @doc """

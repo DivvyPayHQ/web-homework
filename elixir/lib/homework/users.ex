@@ -17,8 +17,18 @@ defmodule Homework.Users do
       [%User{}, ...]
 
   """
-  def list_users(_args) do
-    Repo.all(User)
+  def list_users(args) do
+    query = if Map.has_key?(args, :first_name) do
+      User.fuzzy_first_name_filter(args.first_name)
+    else
+      User
+    end
+    query = if Map.has_key?(args, :last_name) do
+      User.fuzzy_last_name_filter(query, args.last_name)
+    else
+      query
+    end
+    Repo.all(query)
   end
 
   @doc """
