@@ -48,6 +48,7 @@ defmodule HomeworkWeb.Schema do
   def middleware(middleware, _field, %Absinthe.Type.Object{identifier: identifier}) when identifier in [:query] do
     middleware ++ [HomeworkWeb.Pagination]
   end
+  
   def middleware(middleware, _field, _object) do
     middleware
   end
