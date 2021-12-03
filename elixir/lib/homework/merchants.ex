@@ -104,10 +104,11 @@ defmodule Homework.Merchants do
   end
 
   defp apply_filters(args) do
-    if Map.has_key?(args, :name) do
-      Merchant.fuzzy_name_filter(args.name)
-    else
-      Merchant
+    cond do
+      Map.has_key?(args, :name) ->
+        Merchant.fuzzy_name_filter(args.name)
+      true ->
+        Merchant
     end
   end
 end

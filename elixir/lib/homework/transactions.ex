@@ -104,15 +104,17 @@ defmodule Homework.Transactions do
   end
 
   defp apply_filters(args) do
-    query = if Map.has_key?(args, :min) do
-      Transaction.min_filter(args.min)
-    else
-      Transaction
-    end
-    if Map.has_key?(args, :max) do
-      Transaction.max_filter(query, args.max)
-    else
-      query
+    cond do
+      Map.has_key?(args, :min) and Map.has_key?(args, :max) ->
+        Transaction
+        |> Transaction.min_filter(args.min)
+        |> Transaction.max_filter(args.max)
+      Map.has_key?(args, :min) ->
+        Transaction.min_filter(args.min)
+      Map.has_key?(args, :max) ->
+        Transaction.max_filter(args.max)
+      true ->
+        Transaction
     end
   end
 end

@@ -104,15 +104,17 @@ defmodule Homework.Users do
   end
 
   defp apply_filters(args) do
-    query = if Map.has_key?(args, :first_name) do
-      User.fuzzy_first_name_filter(args.first_name)
-    else
-      User
+    cond do
+      Map.has_key?(args, :first_name) and Map.has_key?(args, :last_name) ->
+        User
+        |> User.fuzzy_first_name_filter(args.first_name)
+        |> User.fuzzy_last_name_filter(args.last_name)
+      Map.has_key?(args, :first_name) ->
+        User.fuzzy_first_name_filter(args.first_name)
+      Map.has_key?(args, :last_name) ->
+        User.fuzzy_last_name_filter(args.last_name)
+      true ->
+        User
     end
-    if Map.has_key?(args, :last_name) do
-      User.fuzzy_last_name_filter(query, args.last_name)
-    else
-      query
-    end  
   end
 end
