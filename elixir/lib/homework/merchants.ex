@@ -18,11 +18,7 @@ defmodule Homework.Merchants do
 
   """
   def list_merchants(args) do
-    query = if Map.has_key?(args, :name) do
-      Merchant.fuzzy_name_filter(args.name)
-    else
-      Merchant
-    end
+    query = apply_filters(args)
     Repo.all(query)
   end
 
@@ -105,5 +101,13 @@ defmodule Homework.Merchants do
   """
   def change_merchant(%Merchant{} = merchant, attrs \\ %{}) do
     Merchant.changeset(merchant, attrs)
+  end
+
+  defp apply_filters(args) do
+    if Map.has_key?(args, :name) do
+      Merchant.fuzzy_name_filter(args.name)
+    else
+      Merchant
+    end
   end
 end

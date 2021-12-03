@@ -18,16 +18,7 @@ defmodule Homework.Users do
 
   """
   def list_users(args) do
-    query = if Map.has_key?(args, :first_name) do
-      User.fuzzy_first_name_filter(args.first_name)
-    else
-      User
-    end
-    query = if Map.has_key?(args, :last_name) do
-      User.fuzzy_last_name_filter(query, args.last_name)
-    else
-      query
-    end
+    query = apply_filters(args)
     Repo.all(query)
   end
 
@@ -110,5 +101,18 @@ defmodule Homework.Users do
   """
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
+  end
+
+  defp apply_filters(args) do
+    query = if Map.has_key?(args, :first_name) do
+      User.fuzzy_first_name_filter(args.first_name)
+    else
+      User
+    end
+    if Map.has_key?(args, :last_name) do
+      User.fuzzy_last_name_filter(query, args.last_name)
+    else
+      query
+    end  
   end
 end

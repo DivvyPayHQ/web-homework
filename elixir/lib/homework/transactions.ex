@@ -18,16 +18,7 @@ defmodule Homework.Transactions do
 
   """
   def list_transactions(args) do
-    query = if Map.has_key?(args, :min) do
-      Transaction.min_filter(args.min)
-    else
-      Transaction
-    end
-    query = if Map.has_key?(args, :max) do
-      Transaction.max_filter(query, args.max)
-    else
-      query
-    end
+    query = apply_filters(args)
     Repo.all(query)
   end
 
@@ -110,5 +101,18 @@ defmodule Homework.Transactions do
   """
   def change_transaction(%Transaction{} = transaction, attrs \\ %{}) do
     Transaction.changeset(transaction, attrs)
+  end
+
+  defp apply_filters(args) do
+    query = if Map.has_key?(args, :min) do
+      Transaction.min_filter(args.min)
+    else
+      Transaction
+    end
+    if Map.has_key?(args, :max) do
+      Transaction.max_filter(query, args.max)
+    else
+      query
+    end
   end
 end
