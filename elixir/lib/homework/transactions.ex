@@ -103,6 +103,13 @@ defmodule Homework.Transactions do
     Transaction.changeset(transaction, attrs)
   end
 
+  def get_total_spent_by_company(company_id) do
+    case ret = Repo.aggregate(Transaction.aggregate_query(company_id), :sum, :amount) do
+      nil -> 0
+      _ -> ret
+    end
+  end
+
   defp apply_filters(args) do
     cond do
       Map.has_key?(args, :min) and Map.has_key?(args, :max) ->

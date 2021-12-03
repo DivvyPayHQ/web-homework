@@ -14,6 +14,7 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
     field(:debit, :boolean)
     field(:description, :string)
     field(:merchant_id, :id)
+    field(:company_id, :id)
     field(:inserted_at, :naive_datetime)
     field(:updated_at, :naive_datetime)
 
@@ -23,6 +24,10 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
 
     field(:merchant, :merchant) do
       resolve(&TransactionsResolver.merchant/3)
+    end
+
+    field(:company, :company) do
+      resolve(&TransactionsResolver.company/3)
     end
   end
 

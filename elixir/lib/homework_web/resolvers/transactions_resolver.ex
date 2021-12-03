@@ -2,6 +2,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   alias Homework.Merchants
   alias Homework.Transactions
   alias Homework.Users
+  alias Homework.Companies
 
   @doc """
   Get a list of transcations
@@ -25,9 +26,19 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   end
 
   @doc """
+  Get the company associated with a transaction
+  """
+  def company(_root, _args, %{source: %{company_id: company_id}}) do
+    {:ok, Companies.get_company!(company_id)}
+  end
+
+  @doc """
   Create a new transaction
   """
-  def create_transaction(_root, args, _info) do
+  def create_transaction(_root, %{user_id: user_id} = args, _info) do
+    user = Users.get_user!(user_id)
+    args = Map.put(args, :company_id, user.company_id)
+    
     case Transactions.create_transaction(args) do
       {:ok, transaction} ->
         {:ok, transaction}
