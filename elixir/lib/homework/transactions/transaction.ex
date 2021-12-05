@@ -38,6 +38,5 @@ defmodule Homework.Transactions.Transaction do
   def aggregate_query(query \\ Homework.Transactions.Transaction, company_id) do
     query
     |> where([t], t.company_id == ^company_id)
-    |> select([t], sum(t.amount))
   end
 end

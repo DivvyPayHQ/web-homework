@@ -28,7 +28,7 @@ defmodule Homework.Companies.Company do
     |> where([c], c.id in ^company_ids)
   end
 
-  def companies_available_credit_query(query \\ Homework.Companies.Company) do
+  def companies_amount_spent_query(query \\ Homework.Companies.Company) do
     query
     |> join(:inner, [c], t in Transaction, on: t.company_id == c.id)
     |> group_by([c], c.id)

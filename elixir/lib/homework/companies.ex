@@ -33,7 +33,7 @@ defmodule Homework.Companies do
   def get_companies_amount_spent(company_ids) do
     company_ids
     |> Company.companies_query()
-    |> Company.companies_available_credit_query()
+    |> Company.companies_amount_spent_query()
     |> Repo.all
     |> Enum.into(%{})
   end
