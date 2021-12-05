@@ -28,7 +28,7 @@ defmodule HomeworkWeb.Schema do
 
     @desc "Get all Companies"
     field(:companies, list_of(:company)) do
-      resolve(&CompaniesResolver.company/3)
+      resolve(&CompanyResolver.companies/3)
     end
   end
 
@@ -37,6 +37,5 @@ defmodule HomeworkWeb.Schema do
     import_fields(:user_mutations)
     import_fields(:merchant_mutations)
     import_fields(:company_mutations)
-
   end
 end
