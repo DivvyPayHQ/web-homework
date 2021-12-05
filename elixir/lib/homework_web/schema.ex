@@ -28,7 +28,7 @@ defmodule HomeworkWeb.Schema do
 
     @desc "Get all Companies"
     field(:companies, list_of(:company)) do
-      resolve(&CompanyResolver.companies/3)
+      resolve(&CompaniesResolver.companies/3)
     end
   end
 

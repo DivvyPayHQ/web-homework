@@ -4,8 +4,8 @@ defmodule HomeworkWeb.Resolvers.CompaniesResolver do
   @doc """
   Get a list of companies 
   """
-  def companies(_root, _args, _info) do
-    {:ok, Companies.list_company()}
+  def companies(_root, args, _info) do
+    {:ok, Companies.list_company(args)}
   end
 
   @doc """
