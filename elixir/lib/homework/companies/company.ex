@@ -3,6 +3,7 @@ defmodule Homework.Companies.Company do
   import Ecto.Changeset
   alias Homework.Companies.Company
 
+  @primary_key {:id, :binary_id, autogenerate: true}
   schema "company" do
     field :available_credit, :integer
     field :credit_line, :integer
