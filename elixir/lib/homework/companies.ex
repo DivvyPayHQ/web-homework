@@ -29,4 +29,12 @@ defmodule Homework.Companies do
   def delete_company(%Company{} = company) do
     Repo.delete(company)
   end
+
+  def get_companies_amount_spent(company_ids) do
+    company_ids
+    |> Company.companies_query()
+    |> Company.companies_available_credit_query()
+    |> Repo.all
+    |> Enum.into(%{})
+  end
 end

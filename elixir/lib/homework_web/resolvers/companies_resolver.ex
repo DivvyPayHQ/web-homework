@@ -55,9 +55,7 @@ defmodule HomeworkWeb.Resolvers.CompaniesResolver do
   @doc """
   Returns available credit associated with a company
   """
-  def available_credit(_root, _args, %{source: %{id: id, credit_line: credit_line}}) do
-    total_spent = Transactions.get_total_spent_by_company(id)
-
-    {:ok, credit_line - total_spent}
+  def companies_amount_spent(_, company_ids) do
+    Companies.get_companies_amount_spent(company_ids)
   end
 end

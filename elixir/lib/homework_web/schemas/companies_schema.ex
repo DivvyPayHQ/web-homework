@@ -14,7 +14,11 @@ defmodule HomeworkWeb.Schemas.CompaniesSchema do
     field(:updated_at, :naive_datetime)
 
     field(:available_credit, :integer) do
-      resolve(&CompaniesResolver.available_credit/3)
+      resolve fn company, _, _->
+        batch({CompaniesResolver, :companies_amount_spent}, company.id, fn batch_results ->
+          {:ok, company.credit_line - Map.get(batch_results, company.id, 0)}
+        end)
+      end
     end
   end
 
