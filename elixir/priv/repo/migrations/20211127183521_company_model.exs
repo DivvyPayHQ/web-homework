@@ -7,6 +7,7 @@ defmodule Homework.Repo.Migrations.CompanyModel do
       add(:credit_line, :integer)
       add(:available_credit, :integer)
       add(:name, :string)
+    timestamps()
     end
 
   end
