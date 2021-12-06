@@ -3,43 +3,43 @@
 ### Chad Jemmett Divvy Homework Project
 
 Greetings Divvy Devs. 
-I have completed the homework in the application process to a Backend Developer at Divvy.
+I have completed the homework in the application process to a Backend Developer Position at Divvy.
 This is a strong example of the work you can expect from me when I start at Divvy. You will give me a project, I will
 read and understand the documentation. Then I will implement the feature. 
-I work idependently, but I always know when to ask the right questions about the process. I enjoy collaboration and code
+I work idependently, but I always know when to ask the right questions about the process and I enjoy collaboration and code
 reviews.
 
 Please review the following two projects.
 
 
 The first is in this repository. It demonstrates my abilities in Elixir, Ecto and Phoenix.
-The second is here: [It is a demonstration of my ability to write an api in Python]()https://github.com/ceejaay/transaction_tracker
+The second is here: [It is a demonstration of my ability to write an api in
+Python.](https://github.com/ceejaay/transaction_tracker)
 
-Please visit my other repository to review my work as a current backend developer in Python.
+Please visit my other repository to review the project. It is an example of the kind of work I do at my current job.
 
-### My work in this project. 
+### My work in this Elixir project. 
 I made two accomplishments on this project.
 
 1. I wrote a python script to seed the database.
 2. I created the components of a new `Company` model.
 
-The python script to seed the database is here: [Seed File](https://github.com/ceejaay/web-homework/blob/master/seed.py)
+The python script to seed the database is here: [Seed File.](https://github.com/ceejaay/web-homework/blob/master/seed.py)
 At first I researched how to seed the database with the existing `seed` file included in the Homework app. I found the
-learning curve to be steep, so I accomplished the task with the tools I am most familiar with. So I used python and a
+learning curve to be steep, so I accomplished the task with the tools I am most familiar with. I used python and a
 couple of libraries to seed the Postgres database.
 You can read instructions to run the seed in the `seed.py` file.
 
 For the `Company` model. I researched the Ecto documentation on their website. First I generated a context for the
-Company model. I then manually created the relation among the `Company`, `User`, and `Transaction`
+Company model. I then manually created the relation among the `Company`, `User`, and `Transaction`.
+I created the shchema and resolvers for the model.
 
-During the procject I solved a number of problems. The most complex of which was using the wrong setting for the UUID ID
-number on the `Company` model. I solved the problem by setting the UUID to `:binary_id`. Through experimentation and
-research I was able to sucessfully use the models and their functions on the command line.
-
-I did complete several steps. There are a few things I am excited to ask you about in our future interview. 
-
+Thank you for your consideration. I look forward to your feedback on my work in our future interview. 
 Please contact me at your earliest convenience so we can talk about my work.
 
+- Chad Jemmett
+chad.jemmett@gmail.com
+208-305-0359
 
 
 *************************************************************************************************
