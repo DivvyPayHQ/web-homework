@@ -41,6 +41,12 @@ I did complete several steps. There are a few things I am excited to ask you abo
 Please contact me at your earliest convenience so we can talk about my work.
 
 
+
+*************************************************************************************************
+
+
+
+
 This repository provides a starting point for a basic React + GraphQL application.
 All of the configuration boilerplate is complete so you can start by writing the code that you want us to see.
 
