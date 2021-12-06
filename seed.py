@@ -8,6 +8,21 @@ from sqlalchemy.dialects.postgresql import UUID
 from faker import Faker
 
 
+#################################
+
+# How to use this file
+# Before using these steps, use mix ecto.create, mix ecto.migrate to create and migrate the database.
+# 1. Use pyenv to create a virtual environment to install the dependencies.
+# 2. Type pyenv virtualenv 3.8.4 seed-environment. This will create a python environment with Python v. 3.8.4
+# 3. Activate the environment by typing pyenv activate seed-environment
+# 4. Install the dependencies using the requiremnts.txt file. Type: pip install -r requirements.txt
+# 5. Update the path to your postgres database. Set the DATABASE_URI url to 'postgresql+psycopg2://<posgres
+# username>:<password to database>@localhost/homework_dev'
+# 5. When that is complete, type python seed.py and it will seed the database.
+#################################
+
+
+
 faker = Faker()
 DATABASE_URI = 'postgresql+psycopg2://cjem:password@localhost/homework_dev'
 Base = declarative_base()
