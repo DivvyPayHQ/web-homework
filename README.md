@@ -1,6 +1,6 @@
 # Divvy Homework Assignment
 
-### Chad Jemmett Divvy Homework Project
+### Chad Jemmett's Divvy Homework Project
 
 Greetings Divvy Devs. 
 I have completed the homework in the application process to a Backend Developer Position at Divvy.
