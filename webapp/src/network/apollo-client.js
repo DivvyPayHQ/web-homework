@@ -1,7 +1,8 @@
 import { ApolloClient, ApolloLink, HttpLink, InMemoryCache, Observable } from '@apollo/client'
 import { onError } from '@apollo/client/link/error'
 
-const SERVER_URL = 'http://localhost:8000/graphql'
+// Proxy information available in webpack.config
+const SERVER_URL = '/graphql'
 
 const request = async operation => {
   let headers = {}
