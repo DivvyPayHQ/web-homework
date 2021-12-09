@@ -90,6 +90,9 @@ const config = {
     }
   },
   resolve: {
+    alias: {
+      src: path.join(__dirname, './src'),
+    },
     extensions: ['.mjs', '.js', '.jsx', '.json']
   }
 }

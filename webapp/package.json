@@ -63,13 +63,15 @@
     "@emotion/styled": "10.0.12",
     "axios": "0.21.1",
     "emotion-theming": "10.0.10",
+    "file-loader": "^6.2.0",
     "graphql": "14.3.1",
     "graphql-tag": "^2.10.1",
     "prop-types": "15.7.2",
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "react-hot-loader": "4.11.0",
-    "react-router-dom": "5.0.1"
+    "react-router-dom": "5.0.1",
+    "url-loader": "^4.1.1"
   },
   "devDependencies": {
     "@apollo/react-testing": "4.0.0",
