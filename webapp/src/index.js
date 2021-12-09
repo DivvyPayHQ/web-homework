@@ -5,6 +5,9 @@ import { ApolloProvider } from '@apollo/client'
 import { client } from './network/apollo-client'
 
 import { Global, css } from '@emotion/core'
+import { ThemeProvider } from '@emotion/react'
+
+import THEME from 'src/constants/Theme'
 
 const globalStyles = css`
 
@@ -90,12 +93,15 @@ body {
   color: white;
 }
 `
+
 ReactDOM.render(
   (
     <div data-app-init=''>
       <Global styles={globalStyles} />
       <ApolloProvider client={client}>
-        <AppRouter />
+        <ThemeProvider theme={THEME}>
+          <AppRouter />
+        </ThemeProvider>
       </ApolloProvider>
     </div>
   ),
