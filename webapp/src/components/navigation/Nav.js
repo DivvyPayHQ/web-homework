@@ -18,8 +18,11 @@ export function Nav () {
       </div>
       <nav aria-label='Main Menu'>
         <ul>
-          <NavLink exact to={ROUTES.HOME}>Dashboard</NavLink>
+          <NavLink exact to={ROUTES.DASHBOARD}>Dashboard</NavLink>
           <NavLink to={ROUTES.TRANSACTIONS}>Transactions</NavLink>
+          <NavLink to={ROUTES.TRANSACTIONS}>Merchants</NavLink>
+          <NavLink to={ROUTES.TRANSACTIONS}>Users</NavLink>
+          <NavLink to={ROUTES.TRANSACTIONS}>Settings</NavLink>
         </ul>
       </nav>
     </header>
