@@ -22,8 +22,6 @@ const cardStyle = (theme, color) => css`
   padding: ${theme.spacing.large};
   color: black;
   border-radius: 4px;
-  min-width: 320px;
   background-color: ${theme.colors[color]};
-  flex: 1 0 auto;
   margin: 0px ${theme.spacing.medium};
 `

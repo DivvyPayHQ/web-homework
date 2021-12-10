@@ -24,6 +24,7 @@ export function TransactionsOverTime ({ error, loading, transactions }) {
 
   return (
     <div css={containerStyle(tokens)}>
+      <h3>Transactions over time</h3>
       <BarChart
         colorRange={[tokens.Color.Blue]}
         data={[

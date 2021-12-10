@@ -15,12 +15,12 @@ export function Dashboard () {
 
   return (
     <Fragment>
-      <section css={containerStyle}>
-        <TransactionsCount error={error} loading={loading} transactions={data.transactions} />
-        <MerchantsCount error={error} loading={loading} transactions={data.transactions} />
-        <UsersCount error={error} loading={loading} transactions={data.transactions} />
-      </section>
       <section>
+        <div css={containerStyle}>
+          <TransactionsCount error={error} loading={loading} transactions={data.transactions} />
+          <MerchantsCount error={error} loading={loading} transactions={data.transactions} />
+          <UsersCount error={error} loading={loading} transactions={data.transactions} />
+        </div>
         <TransactionsOverTime error={error} loading={loading} transactions={data.transactions} />
       </section>
     </Fragment>
@@ -28,8 +28,8 @@ export function Dashboard () {
 }
 
 const containerStyle = css`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-column-gap: 16px;
+  grid-row-gap:16px;
 `
