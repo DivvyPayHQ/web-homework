@@ -11,7 +11,7 @@ export function MerchantsCount ({ error, loading, transactions = [] }) {
   return (
     <Card css={cardStyle}>
       <h3>
-        Merchant Count
+        Total Merchants
       </h3>
 
       {!error && !loading && (

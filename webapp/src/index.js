@@ -2,12 +2,13 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import AppRouter from './routes'
 import { ApolloProvider } from '@apollo/client'
-import { client } from './network/apollo-client'
-
 import { Global, css } from '@emotion/core'
 import { ThemeProvider } from '@emotion/react'
 
+import { client } from './network/apollo-client'
+
 import THEME from 'src/constants/Theme'
+import { TokenProvider } from 'src/components/shared/TokenProvider'
 
 const globalStyles = css`
 
@@ -99,9 +100,11 @@ ReactDOM.render(
     <div data-app-init=''>
       <Global styles={globalStyles} />
       <ApolloProvider client={client}>
-        <ThemeProvider theme={THEME}>
-          <AppRouter />
-        </ThemeProvider>
+        <TokenProvider>
+          <ThemeProvider theme={THEME}>
+            <AppRouter />
+          </ThemeProvider>
+        </TokenProvider>
       </ApolloProvider>
     </div>
   ),

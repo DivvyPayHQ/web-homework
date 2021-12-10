@@ -14,7 +14,7 @@ export function Nav () {
   return (
     <header css={headerStyle(theme)}>
       <div className='image-container'>
-        <img alt='A collection of love' src={Header} />
+        <img alt="90's boy band memorabillia trader deluxe; A collection of love" src={Header} />
       </div>
       <nav aria-label='Main Menu'>
         <ul>

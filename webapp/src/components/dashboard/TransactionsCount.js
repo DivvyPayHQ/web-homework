@@ -9,7 +9,7 @@ export function TransactionsCount ({ error, loading, transactions = [] }) {
   return (
     <Card color='green' css={cardStyle}>
       <h3>
-        Transaction Count
+        Total Transactions
       </h3>
 
       {!error && !loading && (

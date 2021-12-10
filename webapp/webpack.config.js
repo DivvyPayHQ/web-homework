@@ -27,6 +27,16 @@ const babelConfig = {
   }
 }
 
+const kyperConfig = {
+  test: /\.js$/,
+  include: path.resolve(__dirname, 'node_modules/@kyper/'),
+  exclude: [/__tests__/],
+  loader: 'babel-loader',
+  query: {
+    presets: ['@babel/preset-react'],
+  },
+}
+
 const imageUrlConfig = {
   test: IMAGE_FILE_REGEX,
   use: 'url-loader?limit=25000'
@@ -49,6 +59,7 @@ const rules = [
   babelConfig,
   eslintConfig,
   imageUrlConfig,
+  kyperConfig,
   {
     test: /\.mjs$/,
     include: NODE_MODULES_DIR_REGEX,

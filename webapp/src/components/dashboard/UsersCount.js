@@ -11,7 +11,7 @@ export function UsersCount ({ error, loading, transactions = [] }) {
   return (
     <Card color='blue' css={cardStyle}>
       <h3>
-        User Count
+        Total Users
       </h3>
 
       {!error && !loading && (

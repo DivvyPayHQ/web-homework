@@ -7,5 +7,6 @@ query GetTransactions {
         debit
         credit
         amount
+        inserted_at
     }
 }
