@@ -37,6 +37,18 @@ const kyperConfig = {
   },
 }
 
+// Yeah this is a terrible idea.
+const midiConfig = {
+  test: /\.mid$/,
+  loader: 'url-loader',
+  options: {
+    generator: (content, mimetype, encoding, resourcePath) => {
+      return content.toString('base64')
+      // return new Uint8Array(content).buffer;
+    }
+  }
+}
+
 const imageUrlConfig = {
   test: IMAGE_FILE_REGEX,
   use: 'url-loader?limit=25000'
@@ -44,7 +56,7 @@ const imageUrlConfig = {
 
 const eslintConfig = {
   test: JS_FILE_REGEX,
-  use: 'eslint-loader',
+  use: 'eslint-loader?fix=true',
   enforce: 'pre',
   exclude: /\/node_modules\/(?!apollo-.*?|react-apollo)/
 }
@@ -60,6 +72,7 @@ const rules = [
   eslintConfig,
   imageUrlConfig,
   kyperConfig,
+  midiConfig,
   {
     test: /\.mjs$/,
     include: NODE_MODULES_DIR_REGEX,

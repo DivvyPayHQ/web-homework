@@ -7,6 +7,7 @@ import { Dashboard } from 'src/dashboard'
 import { Transactions } from 'src/transactions'
 
 import { Nav } from 'src/components/navigation/Nav'
+import { Player } from 'src/components/music/Player'
 
 import ROUTES from 'src/constants/Routes'
 
@@ -20,6 +21,7 @@ function AppRouter () {
         <Route component={Dashboard} exact path={ROUTES.DASHBOARD} />
         <Route component={Transactions} path={ROUTES.TRANSACTIONS} />
       </main>
+      <Player />
     </Router>
   )
 }
