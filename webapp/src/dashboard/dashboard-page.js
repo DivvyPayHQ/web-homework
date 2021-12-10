@@ -21,7 +21,9 @@ export function Dashboard () {
           <MerchantsCount error={error} loading={loading} transactions={data.transactions} />
           <UsersCount error={error} loading={loading} transactions={data.transactions} />
         </div>
-        <TransactionsOverTime error={error} loading={loading} transactions={data.transactions} />
+        <div css={containerStyle}>
+          <TransactionsOverTime error={error} loading={loading} transactions={data.transactions} />
+        </div>
       </section>
     </Fragment>
   )
