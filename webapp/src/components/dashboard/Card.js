@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { css } from '@emotion/core'
-import { useTheme } from '@emotion/react'
+import { useTokens } from '@kyper/tokenprovider'
 
-export function Card ({ children, color = 'primary', ...rest }) {
-  const theme = useTheme()
+export function Card ({ children, color = 'Brand300', ...rest }) {
+  const tokens = useTokens()
 
   return (
-    <article className={color} css={cardStyle(theme, color)} {...rest}>
+    <article className={color} css={cardStyle(tokens, color)} {...rest}>
       {children}
     </article>
   )
@@ -18,10 +18,10 @@ Card.propTypes = {
   color: PropTypes.string
 }
 
-const cardStyle = (theme, color) => css`
-  padding: ${theme.spacing.large};
+const cardStyle = (tokens, color) => css`
+  padding: ${tokens.Spacing.Large}px;
   color: black;
   border-radius: 4px;
-  background-color: ${theme.colors[color]};
-  margin: 0px ${theme.spacing.medium};
+  background-color: ${tokens.Color[color]};
+  margin: 0px ${tokens.Spacing.Medium}px;
 `

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import AppRouter from './routes'
 import { ApolloProvider } from '@apollo/client'
 import { Global, css } from '@emotion/core'
-import { ThemeProvider } from '@emotion/react'
 
 import { client } from './network/apollo-client'
 
@@ -101,9 +100,7 @@ ReactDOM.render(
       <Global styles={globalStyles} />
       <ApolloProvider client={client}>
         <TokenProvider>
-          <ThemeProvider theme={THEME}>
-            <AppRouter />
-          </ThemeProvider>
+          <AppRouter />
         </TokenProvider>
       </ApolloProvider>
     </div>

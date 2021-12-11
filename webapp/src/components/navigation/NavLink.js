@@ -1,19 +1,19 @@
 import React from 'react'
 import { NavLink as RouterNavLink } from 'react-router-dom'
 import { css } from '@emotion/core'
-import { useTheme } from '@emotion/react'
+import { useTokens } from '@kyper/tokenprovider'
 
 export function NavLink (props) {
-  const theme = useTheme()
+  const tokens = useTokens()
 
   return (
     <li>
-      <RouterNavLink css={linkStyles(theme)} {...props} />
+      <RouterNavLink css={linkStyles(tokens)} {...props} />
     </li>
   )
 }
 
-const linkStyles = theme => css`
+const linkStyles = tokens => css`
   display: flex;
   align-items: center;
   padding: 0px 16px;
@@ -23,12 +23,12 @@ const linkStyles = theme => css`
   border-radius: 4px 4px 0px 0px;
 
   :hover {
-    background: ${theme.colors.blue};
+    background: ${tokens.Color.Blue};
   }
 
   &.active {
     background: black;
-    color: #ff41b4;
+    color: ${tokens.Color.Brand300};
   }
 
 `

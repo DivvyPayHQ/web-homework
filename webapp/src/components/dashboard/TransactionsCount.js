@@ -7,7 +7,7 @@ import { NumberSpinner } from 'src/components/dashboard/NumberSpinner'
 
 export function TransactionsCount ({ error, loading, transactions = [] }) {
   return (
-    <Card color='green' css={cardStyle}>
+    <Card color='Green' css={cardStyle}>
       <h3>
         Total Transactions
       </h3>

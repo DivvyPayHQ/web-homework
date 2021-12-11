@@ -9,7 +9,7 @@ export function UsersCount ({ error, loading, transactions = [] }) {
   const users = [...new Set(transactions.map(transaction => transaction.user_id))]
 
   return (
-    <Card color='blue' css={cardStyle}>
+    <Card color='Blue' css={cardStyle}>
       <h3>
         Total Users
       </h3>

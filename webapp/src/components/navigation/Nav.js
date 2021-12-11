@@ -1,6 +1,6 @@
 import React from 'react'
 import { css } from '@emotion/core'
-import { useTheme } from '@emotion/react'
+import { useTokens } from '@kyper/tokenprovider'
 
 import { NavLink } from 'src/components/navigation/NavLink'
 
@@ -9,10 +9,10 @@ import ROUTES from 'src/constants/Routes'
 import Header from 'src/images/header.png'
 
 export function Nav () {
-  const theme = useTheme()
+  const tokens = useTokens()
 
   return (
-    <header css={headerStyle(theme)}>
+    <header css={headerStyle(tokens)}>
       <div className='image-container'>
         <img alt="90's boy band memorabillia trader deluxe; A collection of love" src={Header} />
       </div>
@@ -29,8 +29,8 @@ export function Nav () {
   )
 }
 
-const headerStyle = theme => css`
-  background-color: ${theme.colors.primary};
+const headerStyle = tokens => css`
+  background-color: ${tokens.Color.Brand300};
 
   & .image-container {
     max-height: 160px;
@@ -39,7 +39,7 @@ const headerStyle = theme => css`
 
   & nav {
     height: 60px;
-    padding-left: ${theme.spacing.large};
+    padding-left: ${tokens.Spacing.Large}px;
   }
 
   & nav > ul {
