@@ -80,7 +80,8 @@
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "react-hot-loader": "4.11.0",
-    "react-router-dom": "5.0.1",
+    "react-modal": "^3.14.4",
+    "react-router-dom": "6.1.1",
     "url-loader": "^4.1.1",
     "webaudiofont": "^2.7.1"
   },
