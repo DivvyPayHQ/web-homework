@@ -17,64 +17,16 @@ const dataPropShape = shape({
   amount: number
 })
 
-// const styles = css`
-//  .header {
-//    font-weight: bold;
-//  }
-// `
-
-// const makeDataTestId = (transactionId, fieldName) => `transaction-${transactionId}-${fieldName}`
-
-// export function TxTable ({ data }) {
-//   const navigate = useNavigate()
-
-//   return (
-//     <React.Fragment>
-//       <table css={styles}>
-//         <tbody>
-//           <tr className='header'>
-//             <td >ID</td>
-//             <td >User ID</td>
-//             <td >Description</td>
-//             <td >Merchant ID</td>
-//             <td >Debit</td>
-//             <td >Credit</td>
-//             <td >Amount</td>
-//             <td />
-//           </tr>
-//           {
-//             data.map(tx => {
-//               const { id, user_id: userId, description, merchant_id: merchantId, debit, credit, amount } = tx
-//               return (
-//                 <tr data-testid={`transaction-${id}`} key={`transaction-${id}`}>
-//                   <td data-testid={makeDataTestId(id, 'id')}>{id}</td>
-//                   <td data-testid={makeDataTestId(id, 'userId')}>{userId}</td>
-//                   <td data-testid={makeDataTestId(id, 'description')}>{description}</td>
-//                   <td data-testid={makeDataTestId(id, 'merchant')}>{merchantId}</td>
-//                   <td data-testid={makeDataTestId(id, 'debit')}>{debit}</td>
-//                   <td data-testid={makeDataTestId(id, 'credit')}>{credit}</td>
-//                   <td data-testid={makeDataTestId(id, 'amount')}>{amount}</td>
-//                   <td></td>
-//                 </tr>
-//               )
-//             })
-//           }
-//         </tbody>
-//       </table>
-//     </React.Fragment>
-//   )
-// }
-
 function RowRenderer ({ data, index, style }) {
   const navigate = useNavigate()
   const tokens = useTokens()
-  const { id, user_id: userId, merchant_id: merchantId, description, amount, credit } = data[index]
+  const { id, date, user, merchant, description, amount, credit } = data[index]
 
   return (
-    <TableRow index={index} style={style}>
-      <TableCell style={{ width: '16.66%' }}>Date</TableCell>
-      <TableCell style={{ width: '16.66%' }}>{userId}</TableCell>
-      <TableCell style={{ width: '16.66%' }}>{merchantId}</TableCell>
+    <TableRow data-testid={`transaction-${id}`} index={index} style={style}>
+      <TableCell style={{ width: '16.66%' }}>{date}</TableCell>
+      <TableCell style={{ width: '16.66%' }}>{user.first_name} {user.last_name}</TableCell>
+      <TableCell style={{ width: '16.66%' }}>{merchant.name}</TableCell>
       <TableCell style={{ width: '16.66%' }}>{description}</TableCell>
       <TableCell style={{ width: '16.66%', color: credit ? tokens.Color.Success300 : tokens.Color.Error300 }}>{amount}</TableCell>
       <TableCell style={{ width: '16.66%' }}>
@@ -134,7 +86,7 @@ export function TxTable ({ data = [] }) {
           <HeaderCell label='' style={{ width: '16.66%' }} />
         </TableRow>
       </TableHead>
-      <TableBodyVirtualized height={500} itemCount={data.length} itemData={sortedData} itemSize={50}>
+      <TableBodyVirtualized height={500} itemCount={data.length} itemData={sortedData} itemSize={75}>
         {RowRenderer}
       </TableBodyVirtualized>
       <TableFooter>
