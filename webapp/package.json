@@ -66,6 +66,7 @@
     "@kyper/graphs": "^0.4.0",
     "@kyper/icon": "^1.7.0",
     "@kyper/progressindicators": "^2.0.0",
+    "@kyper/table": "^0.8.0",
     "@kyper/text": "^2.0.1",
     "@kyper/tokenprovider": "^3.0.1",
     "@mxenabled/cssinjs": "^0.6.0",
@@ -82,6 +83,7 @@
     "react-hot-loader": "4.11.0",
     "react-modal": "^3.14.4",
     "react-router-dom": "6.1.1",
+    "react-window": "^1.8.6",
     "url-loader": "^4.1.1",
     "webaudiofont": "^2.7.1"
   },

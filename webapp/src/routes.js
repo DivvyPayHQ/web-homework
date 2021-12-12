@@ -15,7 +15,7 @@ function AppRouter () {
         <Route element={<App />} path='/'>
           <Route element={<Dashboard />} exact path={ROUTES.DASHBOARD} />
           <Route element={<Transactions />} path={ROUTES.TRANSACTIONS}>
-            <Route element={<TxModal />} path={':id'} />
+            <Route element={<TxModal />} path={ROUTES.TRANSACTION_DETAILS} />
           </Route>
         </Route>
       </Routes>

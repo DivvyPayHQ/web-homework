@@ -28,6 +28,11 @@ const getStyles = tokens => ({
   },
   content: {
     background: tokens.Color.Neutral900,
-    border: 'none'
+    border: 'none',
+    top: 80,
+    left: 80,
+    right: 80,
+    bottom: 80,
+    padding: tokens.Spacing.XLarge
   }
 })
