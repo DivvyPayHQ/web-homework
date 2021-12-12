@@ -32,6 +32,7 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
     field :create_transaction, :transaction do
       arg(:user_id, non_null(:id))
       arg(:merchant_id, non_null(:id))
+      arg(:date, non_null(:date))
       @desc "amount is in cents"
       arg(:amount, non_null(:float))
       arg(:credit, non_null(:boolean))

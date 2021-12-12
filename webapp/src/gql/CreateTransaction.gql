@@ -1,0 +1,29 @@
+mutation CreateTransaction(
+    $date: Date!
+    $description: String!
+    $debit: Boolean!
+    $credit: Boolean!
+    $amount: Float!
+    $merchant_id: ID!
+    $user_id: ID!
+) {
+    createTransaction(
+        date: $date
+        description: $description
+        debit: $debit
+        credit: $credit
+        amount: $amount
+        merchant_id: $merchant_id
+        user_id: $user_id
+    ) {
+        id
+        date
+        description
+        debit
+        credit
+        amount
+        merchant_id
+        user_id
+    }
+}
+

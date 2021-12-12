@@ -10,7 +10,8 @@ export function TokenProvider ({ children }) {
         Color: {
           Brand300: '#FF41B4',
           Green: '#B4FF41',
-          Blue: '#41B4FF'
+          Blue: '#41B4FF',
+          Black: '#000000'
         }
       }}
     >

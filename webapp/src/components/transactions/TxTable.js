@@ -1,5 +1,5 @@
 import { arrayOf, string, bool, number, shape, object } from 'prop-types'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // import { css } from '@emotion/core'
 import { useTokens } from '@kyper/tokenprovider'
@@ -58,11 +58,24 @@ const _sortTable = (data, sortColumn, sortDirection) => {
 }
 
 export function TxTable ({ data = [] }) {
+  const [sortInfo, setSortInfo] = useState({ sortColumn: 'date', sortDirection: 'DESC' })
+
   const sortTable = (sortColumn, sortDirection) => {
-    setSortedData(_sortTable(data, sortColumn, sortDirection))
+    setSortInfo({
+      sortColumn, sortDirection
+    })
   }
 
-  const [sortedData, setSortedData] = useState(_sortTable(data, 'id', 'DESC'))
+  const [sortedData, setSortedData] = useState(_sortTable(data, sortInfo.sortColumn, sortInfo.sortDirection))
+
+  useEffect(() => {
+    // Keeps the sort if new data comes in with our mutation refresh.
+    setSortedData(_sortTable(data, sortInfo.sortColumn, sortInfo.sortDirection))
+  }, [data, sortInfo])
+
+  // useEffect(() => {
+  //   setSortedData(_sortTable(data, sortInfo.sortColumn, sortInfo.sortDirection))
+  // }, [sortInfo])
 
   return (
     <Table component='div' rowCount={data.length} sortColumn='id' sortDirection='DESC'>
