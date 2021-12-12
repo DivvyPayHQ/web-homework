@@ -6,10 +6,11 @@ defmodule Homework.Transactions.Transaction do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "transactions" do
-    field(:amount, :integer)
+    field(:amount, :float)
     field(:credit, :boolean, default: false)
     field(:debit, :boolean, default: false)
     field(:description, :string)
+    field(:date, :date)
 
     belongs_to(:merchant, Merchant, type: :binary_id, foreign_key: :merchant_id)
     belongs_to(:user, User, type: :binary_id, foreign_key: :user_id)
