@@ -20,9 +20,7 @@ export function Nav () {
         <ul>
           <NavLink to={ROUTES.DASHBOARD}>Dashboard</NavLink>
           <NavLink to={ROUTES.TRANSACTIONS}>Transactions</NavLink>
-          <NavLink to={ROUTES.TRANSACTIONS}>Merchants</NavLink>
-          <NavLink to={ROUTES.TRANSACTIONS}>Users</NavLink>
-          <NavLink to={ROUTES.TRANSACTIONS}>Settings</NavLink>
+          <NavLink to={ROUTES.SETTINGS}>Settings</NavLink>
         </ul>
       </nav>
     </header>

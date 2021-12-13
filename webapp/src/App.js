@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import { css, Global } from '@emotion/core'
 import { useTokens } from '@kyper/tokenprovider'
@@ -6,18 +6,27 @@ import { useTokens } from '@kyper/tokenprovider'
 import { Nav } from 'src/components/navigation/Nav'
 import { Player } from 'src/components/music/Player'
 
+import { SettingsContext } from 'src/context/SettingsContext'
+
 export function App () {
   const tokens = useTokens()
 
+  const [settings, setSettings] = useState({
+    showMusic: false,
+    showRomanNumerals: false
+  })
+
   return (
-    <Fragment>
+    <SettingsContext.Provider value={{ options: settings, updateSettings: setSettings }}>
       <Global styles={globalStyles(tokens)} />
       <Nav />
       <main className='main-content' css={contentStyle(tokens)}>
         <Outlet />
       </main>
-      <Player />
-    </Fragment>
+      {settings.showMusic ? (
+        <Player />
+      ) : null}
+    </SettingsContext.Provider>
   )
 }
 

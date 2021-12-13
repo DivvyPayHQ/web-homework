@@ -7,6 +7,8 @@ import { Button } from '@kyper/button'
 import { HeaderCell, Table, TableBodyVirtualized, TableCell, TableRow, TableHead, TableFooter, TABLE_CONST } from '@kyper/table'
 import { useNavigate } from 'react-router-dom'
 
+import { FormattedNumber } from 'src/components/shared/FormattedNumber'
+
 const dataPropShape = shape({
   id: string,
   user_id: string,
@@ -28,7 +30,9 @@ function RowRenderer ({ data, index, style }) {
       <TableCell style={{ width: '16.66%' }}>{user.first_name} {user.last_name}</TableCell>
       <TableCell style={{ width: '16.66%' }}>{merchant.name}</TableCell>
       <TableCell style={{ width: '16.66%' }}>{description}</TableCell>
-      <TableCell style={{ width: '16.66%', color: credit ? tokens.Color.Success300 : tokens.Color.Error300 }}>{amount}</TableCell>
+      <TableCell style={{ width: '16.66%', color: credit ? tokens.Color.Success300 : tokens.Color.Error300 }}>
+        <FormattedNumber number={amount} />
+      </TableCell>
       <TableCell style={{ width: '16.66%' }}>
         <Button onClick={() => navigate(`./${id}`)}>Edit</Button>
       </TableCell>

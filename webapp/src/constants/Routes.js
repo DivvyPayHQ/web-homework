@@ -4,7 +4,8 @@ const ROUTES = {
   TRANSACTION_DETAILS: ':id',
   TRANSACTION_NEW: 'new',
   MERCHANTS: '/merchants',
-  USERS: '/users'
+  USERS: '/users',
+  SETTINGS: '/settings'
 }
 
 export default ROUTES
