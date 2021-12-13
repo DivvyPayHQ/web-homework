@@ -10,6 +10,7 @@ import { SelectionBox } from '@kyper/selectionbox'
 import { useMutation, useQuery, useLazyQuery } from '@apollo/client'
 
 import CreateTransaction from 'src/gql/CreateTransaction.gql'
+import DeleteTransaction from 'src/gql/DeleteTransaction.gql'
 import GetTransactions from 'src/gql/transactions.gql'
 import GetTransaction from 'src/gql/GetTransaction.gql'
 import UpdateTransaction from 'src/gql/UpdateTransaction.gql'
@@ -18,6 +19,7 @@ import GetMerchants from 'src/gql/GetMerchants.gql'
 
 import ROUTES from 'src/constants/Routes'
 
+/* eslint-disable camelcase */
 export function TxModal (props) {
   const navigate = useNavigate()
   const tokens = useTokens()
@@ -28,27 +30,23 @@ export function TxModal (props) {
   const { data: userData, loading: usersLoading } = useQuery(GetUsers)
   const { data: merchantData = {}, loading: merchantsLoading } = useQuery(GetMerchants)
 
-  const [getTransaction, { loading: transactionLoading, error, data: transactionData = {} }] = useLazyQuery(GetTransaction, {
+  const [getTransaction, { loading: transactionLoading, data: transactionData = {} }] = useLazyQuery(GetTransaction, {
     onCompleted: data => {
       setLocalTx(data.transaction)
     }
   })
 
-  const [createTransaction] = useMutation(CreateTransaction, {
+  const mutationOptions = {
     onCompleted: () => navigate(ROUTES.TRANSACTIONS),
     refetchQueries: [
       // This is definitely not optimal
       { query: GetTransactions }
     ]
-  })
+  }
 
-  const [updateTransaction] = useMutation(UpdateTransaction, {
-    onCompleted: () => navigate(ROUTES.TRANSACTIONS),
-    refetchQueries: [
-      // This is definitely not optimal
-      { query: GetTransactions }
-    ]
-  })
+  const [createTransaction] = useMutation(CreateTransaction, mutationOptions)
+  const [updateTransaction] = useMutation(UpdateTransaction, mutationOptions)
+  const [deleteTransaction] = useMutation(DeleteTransaction, mutationOptions)
 
   useEffect(() => {
     if (params.id) {
@@ -64,9 +62,7 @@ export function TxModal (props) {
   }
 
   const handleSave = () => {
-    /* eslint-disable camelcase */
     const { id, credit, debit, amount, date, description, merchant, merchant_id, user, user_id } = localTx
-    /* eslint-enable camelcase */
 
     if (params.id) {
       updateTransaction({
@@ -99,7 +95,6 @@ export function TxModal (props) {
   let isLoading = merchantsLoading || usersLoading
 
   isLoading = params.id ? transactionLoading || isLoading : isLoading
-  console.log(localTx)
 
   return (
     <Modal isOpen
@@ -138,6 +133,7 @@ export function TxModal (props) {
           />
           {!params.id || (transactionData.transaction && merchantData.merchants) ? (
             <Select
+              id='merchant'
               initialSelectedItem={params.id ? {
                 label: transactionData.transaction.merchant.name,
                 value: transactionData.transaction.merchant.id
@@ -150,6 +146,7 @@ export function TxModal (props) {
 
           {!params.id || (transactionData.transaction && userData.users) ? (
             <Select
+              id='user'
               initialSelectedItem={params.id ? {
                 label: transactionData.transaction.user.first_name,
                 value: transactionData.transaction.user.id
@@ -163,9 +160,10 @@ export function TxModal (props) {
           <div>
             <SelectionBox
               checked={localTx.credit}
+              id='credit'
               label='Credit'
               name='creditdebit'
-              onChange={() => setLocalTx(prevState => ({ ...prevState, credit: !prevState.credit, debit: !prevState.debit }))}
+              onChange={() => setLocalTx(prevState => ({ ...prevState, credit: !prevState.credit, debit: prevState.credit }))}
               style={{
                 marginBottom: 16
               }}
@@ -174,15 +172,17 @@ export function TxModal (props) {
             />
             <SelectionBox
               checked={localTx.debit}
+              id='debit'
               label='Debit'
               name='creditdebit'
-              onChange={() => setLocalTx(prevState => ({ ...prevState, credit: !prevState.credit, debit: !prevState.debit }))}
+              onChange={() => setLocalTx(prevState => ({ ...prevState, credit: !prevState.credit, debit: prevState.credit }))}
               value='debit'
               variant='radio'
             />
           </div>
 
           <Button onClick={handleSave} variant='primary'>Save</Button>
+          {params.id ? (<Button onClick={() => deleteTransaction({ variables: { id: params.id } })} variant='danger'>Delete</Button>) : null}
         </div>
       ) : null}
     </Modal>
