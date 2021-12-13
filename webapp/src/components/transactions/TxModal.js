@@ -112,13 +112,13 @@ export function TxModal (props) {
             label='Date'
             name='date'
             onChange={onChange}
-            value={localTx.date}
+            value={localTx.date || ''}
           />
           <TextInput
             label='Description'
             name='description'
             onChange={onChange}
-            value={localTx.description}
+            value={localTx.description || ''}
           />
           <TextInput
             iconLeft={(
@@ -129,7 +129,7 @@ export function TxModal (props) {
             label='Amount'
             name='amount'
             onChange={onChange}
-            value={localTx.amount}
+            value={localTx.amount || ''}
           />
           {!params.id || (transactionData.transaction && merchantData.merchants) ? (
             <Select
@@ -182,7 +182,7 @@ export function TxModal (props) {
           </div>
 
           <Button onClick={handleSave} variant='primary'>Save</Button>
-          {params.id ? (<Button onClick={() => deleteTransaction({ variables: { id: params.id } })} variant='danger'>Delete</Button>) : null}
+          {params.id ? (<Button onClick={() => deleteTransaction({ variables: { id: params.id } })}>Delete</Button>) : null}
         </div>
       ) : null}
     </Modal>
