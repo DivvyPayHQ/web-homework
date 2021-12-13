@@ -3,7 +3,5 @@ query GetUsers {
         id
         first_name
         last_name
-        dob
-        insertedAt
     }
 }

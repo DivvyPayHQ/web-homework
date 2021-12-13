@@ -56,7 +56,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   Updates a transaction for an id with args specified.
   """
   def update_transaction(_root, %{id: id} = args, _info) do
-    transaction = Transactions.get_transaction(id)
+    transaction = Transactions.get_transaction!(id)
 
     case Transactions.update_transaction(transaction, args) do
       {:ok, transaction} ->
@@ -71,7 +71,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   Deletes a transaction for an id
   """
   def delete_transaction(_root, %{id: id}, _info) do
-    transaction = Transactions.get_transaction(id)
+    transaction = Transactions.get_transaction!(id)
 
     case Transactions.delete_transaction(transaction) do
       {:ok, transaction} ->

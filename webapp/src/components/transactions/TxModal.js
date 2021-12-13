@@ -1,13 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Modal from 'react-modal'
-import { useNavigate } from 'react-router-dom'
+import { css } from '@emotion/core'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useTokens } from '@kyper/tokenprovider'
 import { Button } from '@kyper/button'
-import { useMutation } from '@apollo/client'
+import { TextInput } from '@kyper/input'
+import { Select } from '@kyper/select'
+import { SelectionBox } from '@kyper/selectionbox'
+import { useMutation, useQuery, useLazyQuery } from '@apollo/client'
 
-import GetTransactions from 'src/gql/transactions.gql'
 import CreateTransaction from 'src/gql/CreateTransaction.gql'
+import GetTransactions from 'src/gql/transactions.gql'
+import GetTransaction from 'src/gql/GetTransaction.gql'
 import UpdateTransaction from 'src/gql/UpdateTransaction.gql'
+import GetUsers from 'src/gql/GetUsers.gql'
+import GetMerchants from 'src/gql/GetMerchants.gql'
 
 import ROUTES from 'src/constants/Routes'
 
@@ -15,7 +22,20 @@ export function TxModal (props) {
   const navigate = useNavigate()
   const tokens = useTokens()
   const styles = getStyles(tokens)
+  const params = useParams()
+  const [localTx, setLocalTx] = useState({ credit: false, debit: true })
+
+  const { data: userData, loading: usersLoading } = useQuery(GetUsers)
+  const { data: merchantData = {}, loading: merchantsLoading } = useQuery(GetMerchants)
+
+  const [getTransaction, { loading: transactionLoading, error, data: transactionData = {} }] = useLazyQuery(GetTransaction, {
+    onCompleted: data => {
+      setLocalTx(data.transaction)
+    }
+  })
+
   const [createTransaction] = useMutation(CreateTransaction, {
+    onCompleted: () => navigate(ROUTES.TRANSACTIONS),
     refetchQueries: [
       // This is definitely not optimal
       { query: GetTransactions }
@@ -23,11 +43,63 @@ export function TxModal (props) {
   })
 
   const [updateTransaction] = useMutation(UpdateTransaction, {
+    onCompleted: () => navigate(ROUTES.TRANSACTIONS),
     refetchQueries: [
       // This is definitely not optimal
       { query: GetTransactions }
     ]
   })
+
+  useEffect(() => {
+    if (params.id) {
+      getTransaction({
+        variables: { id: params.id }
+      })
+    }
+  }, [params.id])
+
+  const onChange = ({ target }) => {
+    // Fancy validation could be done...maybe with types from GraphQL?
+    setLocalTx(prevState => ({ ...prevState, [target.name]: target.value }))
+  }
+
+  const handleSave = () => {
+    /* eslint-disable camelcase */
+    const { id, credit, debit, amount, date, description, merchant, merchant_id, user, user_id } = localTx
+    /* eslint-enable camelcase */
+
+    if (params.id) {
+      updateTransaction({
+        variables: {
+          id,
+          description,
+          date,
+          debit,
+          credit,
+          amount: parseFloat(amount),
+          merchant_id: merchant_id || merchant.id,
+          user_id: user_id || user.id
+        }
+      })
+    } else {
+      createTransaction({
+        variables: {
+          description,
+          date,
+          debit,
+          credit,
+          amount: parseFloat(amount),
+          merchant_id,
+          user_id
+        }
+      })
+    }
+  }
+
+  let isLoading = merchantsLoading || usersLoading
+
+  isLoading = params.id ? transactionLoading || isLoading : isLoading
+  console.log(localTx)
 
   return (
     <Modal isOpen
@@ -36,40 +108,102 @@ export function TxModal (props) {
       }}
       style={styles}
     >
-      <Button onClick={() => {
-        createTransaction({ variables: {
-          description: 'WOOT',
-          date: '2021-01-01',
-          debit: false,
-          credit: true,
-          amount: 71,
-          merchant_id: '0a5119de-fae0-4560-afbe-5a7675b655bb',
-          user_id: '2b7076b5-ba6b-46fc-9b5f-74109b1b4e2c'
-        } })
-      }}>
-        Add
-      </Button>
+      <div css={headerStyle(tokens)}>
+        <Button aria-label='Close' onClick={() => navigate(ROUTES.TRANSACTIONS)}>X</Button>
+      </div>
+      {!isLoading ? (
+        <div css={containerStyle}>
+          <TextInput
+            label='Date'
+            name='date'
+            onChange={onChange}
+            value={localTx.date}
+          />
+          <TextInput
+            label='Description'
+            name='description'
+            onChange={onChange}
+            value={localTx.description}
+          />
+          <TextInput
+            iconLeft={(
+              <span aria-hidden style={{ position: 'relative', top: -4 }}>
+                &#36;
+              </span>
+            )}
+            label='Amount'
+            name='amount'
+            onChange={onChange}
+            value={localTx.amount}
+          />
+          {!params.id || (transactionData.transaction && merchantData.merchants) ? (
+            <Select
+              initialSelectedItem={params.id ? {
+                label: transactionData.transaction.merchant.name,
+                value: transactionData.transaction.merchant.id
+              } : null}
+              items={merchantData?.merchants?.map(merchant => ({ label: merchant.name, value: merchant.id }))}
+              label='Merchant'
+              onChange={({ value }) => onChange({ target: { name: 'merchant_id', value } })}
+            />
+          ) : null}
 
-      <Button onClick={() => {
-        updateTransaction({
-          variables: {
-            id: 'fc59964d-a616-467f-a011-f9ea19906732',
-            description: 'WOOT2',
-            date: '2021-01-01',
-            debit: false,
-            credit: true,
-            amount: 100,
-            merchant_id: '0a5119de-fae0-4560-afbe-5a7675b655bb',
-            user_id: '2b7076b5-ba6b-46fc-9b5f-74109b1b4e2c'
-          }
-        })
-      }}>
-        Update
-      </Button>
+          {!params.id || (transactionData.transaction && userData.users) ? (
+            <Select
+              initialSelectedItem={params.id ? {
+                label: transactionData.transaction.user.first_name,
+                value: transactionData.transaction.user.id
+              } : null}
+              items={userData?.users?.map(user => ({ label: user.first_name, value: user.id }))}
+              label='User'
+              onChange={({ value }) => onChange({ target: { name: 'user_id', value } })}
+            />
+          ) : null}
+
+          <div>
+            <SelectionBox
+              checked={localTx.credit}
+              label='Credit'
+              name='creditdebit'
+              onChange={() => setLocalTx(prevState => ({ ...prevState, credit: !prevState.credit, debit: !prevState.debit }))}
+              style={{
+                marginBottom: 16
+              }}
+              value='credit'
+              variant='radio'
+            />
+            <SelectionBox
+              checked={localTx.debit}
+              label='Debit'
+              name='creditdebit'
+              onChange={() => setLocalTx(prevState => ({ ...prevState, credit: !prevState.credit, debit: !prevState.debit }))}
+              value='debit'
+              variant='radio'
+            />
+          </div>
+
+          <Button onClick={handleSave} variant='primary'>Save</Button>
+        </div>
+      ) : null}
     </Modal>
   )
 }
 
+const headerStyle = tokens => css`
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: ${tokens.Spacing.XLarge}px;
+`
+
+const containerStyle = css`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: px;
+  grid-row-gap: 50px;
+`
+
+// Modal
 const getStyles = tokens => ({
   overlay: {
     backgroundColor: 'rgba(0, 0, 0, 0.75)'
