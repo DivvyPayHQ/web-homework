@@ -25,6 +25,20 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
     field(:merchant, :merchant) do
       resolve(&TransactionsResolver.merchant/3)
     end
+
+    field :transaction, :transaction do
+      arg(:id, non_null(:integer))
+
+      resolve(&TransactionsResolver.get_transaction/2)
+    end
+  end
+
+  object :transaction_queries do
+    field :transaction, :transaction do
+      arg(:id, non_null(:id))
+
+      resolve(&TransactionsResolver.get_transaction/2)
+    end
   end
 
   object :transaction_mutations do
@@ -47,6 +61,7 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
       arg(:id, non_null(:id))
       arg(:user_id, non_null(:id))
       arg(:merchant_id, non_null(:id))
+      arg(:date, non_null(:date))
       @desc "amount is in cents"
       arg(:amount, non_null(:float))
       arg(:credit, non_null(:boolean))

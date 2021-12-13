@@ -25,6 +25,21 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   end
 
   @doc """
+  Get a single transaction
+  """
+  # def get_transaction(_root, %{id: id} = args, _info) do
+  #   case Transactions.get_transaction(id) do
+  #     {:ok, transaction} ->
+  #       {:ok, transaction}
+  #   error ->
+  #     {:error, "could not get transaction: #{inspect(error)}"}
+  #   end
+  # end
+  def get_transaction(%{id: id}, _info) do
+    {:ok, Transactions.get_transaction!(id)}
+  end
+
+  @doc """
   Create a new transaction
   """
   def create_transaction(_root, args, _info) do
@@ -41,7 +56,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   Updates a transaction for an id with args specified.
   """
   def update_transaction(_root, %{id: id} = args, _info) do
-    transaction = Transactions.get_transaction!(id)
+    transaction = Transactions.get_transaction(id)
 
     case Transactions.update_transaction(transaction, args) do
       {:ok, transaction} ->
@@ -56,7 +71,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   Deletes a transaction for an id
   """
   def delete_transaction(_root, %{id: id}, _info) do
-    transaction = Transactions.get_transaction!(id)
+    transaction = Transactions.get_transaction(id)
 
     case Transactions.delete_transaction(transaction) do
       {:ok, transaction} ->

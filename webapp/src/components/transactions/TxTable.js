@@ -73,10 +73,6 @@ export function TxTable ({ data = [] }) {
     setSortedData(_sortTable(data, sortInfo.sortColumn, sortInfo.sortDirection))
   }, [data, sortInfo])
 
-  // useEffect(() => {
-  //   setSortedData(_sortTable(data, sortInfo.sortColumn, sortInfo.sortDirection))
-  // }, [sortInfo])
-
   return (
     <Table component='div' rowCount={data.length} sortColumn='id' sortDirection='DESC'>
       <TableHead>

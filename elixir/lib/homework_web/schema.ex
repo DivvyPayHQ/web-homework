@@ -10,10 +10,17 @@ defmodule HomeworkWeb.Schema do
   import_types(HomeworkWeb.Schemas.Types)
 
   query do
+    import_fields(:transaction_queries)
+    
     @desc "Get all Transactions"
     field(:transactions, list_of(:transaction)) do
       resolve(&TransactionsResolver.transactions/3)
     end
+
+    # @desc "Get a single Transaction"
+    # field(:transaction, :transaction) do
+    #   resolve(&TransactionsResolver.get_transaction/2)
+    # end
 
     @desc "Get all Users"
     field(:users, list_of(:user)) do
