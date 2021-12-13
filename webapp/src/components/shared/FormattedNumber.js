@@ -5,18 +5,19 @@ import { SettingsContext } from 'src/context/SettingsContext'
 
 import { convertToRoman } from 'src/utils/numbers'
 
-export function FormattedNumber ({ number }) {
+export function FormattedNumber ({ prefix = '$', number }) {
   const { options } = useContext(SettingsContext)
 
-  if (options.showRomanNumerals) {
-    return (<Fragment>{convertToRoman(number)}</Fragment>)
+  if (options.showRomanNumerals && number >= 1) {
+    return (<Fragment>{convertToRoman(Math.floor(number))}</Fragment>)
   }
 
   return (
-    <Fragment>${number}</Fragment>
+    <Fragment>{prefix}{number}</Fragment>
   )
 }
 
 FormattedNumber.propTypes = {
-  number: PropTypes.number.isRequired
+  number: PropTypes.number.isRequired,
+  prefix: PropTypes.string
 }

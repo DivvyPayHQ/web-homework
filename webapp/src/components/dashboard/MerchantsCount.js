@@ -1,12 +1,15 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useContext } from 'react'
 import { css } from '@emotion/core'
 
 import { Card } from 'src/components/dashboard/Card'
 import { NumberSpinner } from 'src/components/dashboard/NumberSpinner'
 
+import { SettingsContext } from 'src/context/SettingsContext'
+
 export function MerchantsCount ({ error, loading, transactions = [] }) {
-  const merchants = [...new Set(transactions.map(transaction => transaction.merchant_id))]
+  const { showRomanNumerals } = useContext(SettingsContext).options
+  const merchants = [...new Set(transactions.map(transaction => transaction.merchant))]
 
   return (
     <Card css={cardStyle}>
@@ -15,7 +18,7 @@ export function MerchantsCount ({ error, loading, transactions = [] }) {
       </h3>
 
       {!error && !loading && (
-        <NumberSpinner duration={1000} end={merchants.length} />
+        <NumberSpinner duration={1000} end={merchants.length} showRomanNumerals={showRomanNumerals} />
       )}
     </Card>
   )

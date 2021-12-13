@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 
-export function NumberSpinner ({ start = 0, end = 100, duration = 2000 }) {
+import { convertToRoman } from 'src/utils/numbers'
+
+export function NumberSpinner ({ start = 0, end = 100, duration = 2000, showRomanNumerals = false }) {
   // Not my code
   const [num, setNum] = useState(start)
   const numRef = useRef(num)
@@ -29,11 +31,12 @@ export function NumberSpinner ({ start = 0, end = 100, duration = 2000 }) {
     return () => clearTimeout(interval)
   }, [numRef.current])
 
-  return <span>{Math.round(numRef.current)}</span>
+  return <span>{showRomanNumerals ? convertToRoman(Math.round(numRef.current)) : Math.round(numRef.current)}</span>
 }
 
 NumberSpinner.propTypes = {
   start: PropTypes.number,
   end: PropTypes.number,
-  duration: PropTypes.number
+  duration: PropTypes.number,
+  showRomanNumerals: PropTypes.bool
 }
