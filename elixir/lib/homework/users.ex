@@ -21,6 +21,12 @@ defmodule Homework.Users do
     Repo.all(User)
   end
 
+  def fuzzy_search_name(first_name, last_name) do
+    query = from e in User,
+        where: like(e.first_name, ^"%#{first_name}%") and like(e.last_name, ^"%#{last_name}%")
+      Repo.all(query)
+  end
+
   @doc """
   Gets a single user.
 

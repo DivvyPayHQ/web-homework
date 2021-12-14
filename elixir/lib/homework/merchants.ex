@@ -21,6 +21,13 @@ defmodule Homework.Merchants do
     Repo.all(Merchant)
   end
 
+
+  def fuzzy_search_merchant(name) do
+    query = from e in Merchant,
+        where: like(e.name, ^"%#{name}%")
+      Repo.all(query)
+  end
+
   @doc """
   Gets a single merchant.
 

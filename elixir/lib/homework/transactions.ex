@@ -73,6 +73,12 @@ defmodule Homework.Transactions do
     |> Repo.update()
   end
 
+  def get_between_min_max(min, max) do
+    query = from e in Transaction,
+        where: e.amount >= ^min and e.amount <= ^max
+      Repo.all(query)
+  end
+
   @doc """
   Deletes a transaction.
 

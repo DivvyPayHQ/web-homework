@@ -1,6 +1,7 @@
 defmodule Homework.Merchants.Merchant do
   use Ecto.Schema
   import Ecto.Changeset
+  import Ecto.Query
 
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "merchants" do
