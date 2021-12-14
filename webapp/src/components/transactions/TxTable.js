@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom'
 
 import { FormattedNumber } from 'src/components/shared/FormattedNumber'
 
+const makeDataTestId = (transactionId, fieldName) => `transaction-${transactionId}-${fieldName}`
+
 const dataPropShape = shape({
   id: string,
   user_id: string,
@@ -19,22 +21,22 @@ const dataPropShape = shape({
   amount: number
 })
 
-function RowRenderer ({ data, index, style }) {
+export function RowRenderer ({ data, index, style }) {
   const navigate = useNavigate()
   const tokens = useTokens()
   const { id, date, user, merchant, description, amount, credit } = data[index]
 
   return (
     <TableRow data-testid={`transaction-${id}`} index={index} style={style}>
-      <TableCell style={{ width: '16.66%' }}>{date}</TableCell>
-      <TableCell style={{ width: '16.66%' }}>{user.first_name} {user.last_name}</TableCell>
-      <TableCell style={{ width: '16.66%' }}>{merchant.name}</TableCell>
-      <TableCell style={{ width: '16.66%' }}>{description}</TableCell>
-      <TableCell style={{ width: '16.66%', color: credit ? tokens.Color.Success300 : tokens.Color.Error300 }}>
+      <TableCell data-testid={makeDataTestId(id, 'date')} style={{ width: '16.66%' }}>{date}</TableCell>
+      <TableCell data-testid={makeDataTestId(id, 'users-name')} style={{ width: '16.66%' }}>{user.first_name} {user.last_name}</TableCell>
+      <TableCell data-testid={makeDataTestId(id, 'merchant')} style={{ width: '16.66%' }}>{merchant.name}</TableCell>
+      <TableCell data-testid={makeDataTestId(id, 'description')} style={{ width: '16.66%' }}>{description}</TableCell>
+      <TableCell data-testid={makeDataTestId(id, 'amount')} style={{ width: '16.66%', color: credit ? tokens.Color.Success300 : tokens.Color.Error300 }}>
         <FormattedNumber number={amount} />
       </TableCell>
       <TableCell style={{ width: '16.66%' }}>
-        <Button onClick={() => navigate(`./${id}`)}>Edit</Button>
+        <Button data-testid={makeDataTestId(id, 'edit')} onClick={() => navigate(`./${id}`)}>Edit</Button>
       </TableCell>
     </TableRow>
   )
@@ -46,9 +48,9 @@ RowRenderer.propTypes = {
   style: object
 }
 
-const _sortTable = (data, sortColumn, sortDirection) => {
-  const sortASC = (a, b) => (a[sortColumn] > b[sortColumn] ? -1 : 1)
-  const sortDESC = (a, b) => (a[sortColumn] > b[sortColumn] ? 1 : -1)
+export const _sortTable = (data, sortColumn, sortDirection) => {
+  const sortASC = (a, b) => (a[sortColumn] > b[sortColumn] ? 1 : -1)
+  const sortDESC = (a, b) => (a[sortColumn] > b[sortColumn] ? -1 : 1)
 
   let sortedData = data
 
