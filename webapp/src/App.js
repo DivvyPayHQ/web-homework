@@ -20,7 +20,7 @@ export function App () {
     <SettingsContext.Provider value={{ options: settings, updateSettings: setSettings }}>
       <Global styles={globalStyles(tokens)} />
       <Nav />
-      <main className='main-content' css={contentStyle(tokens)}>
+      <main css={contentStyle(tokens)}>
         <Outlet />
       </main>
       {settings.showMusic ? (
@@ -31,6 +31,7 @@ export function App () {
 }
 
 const contentStyle = tokens => css`
+  flex: 1 0 auto;
   padding: ${tokens.Spacing.Large}px;
   padding-top: ${tokens.Spacing.XLarge}px;
 `

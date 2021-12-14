@@ -74,7 +74,7 @@ descriptions = Enum.reduce(bands, [], fn(band, acc) ->
   ] ++ acc
 end)
 
-dates = [~D[2021-01-01], ~D[2021-02-01]]
+dates = [~D[2021-01-01], ~D[2021-02-01], ~D[2021-03-01], ~D[2021-04-01], ~D[2021-05-01], ~D[2021-06-01]]
 
 # Lets create a lot of transactions
 
