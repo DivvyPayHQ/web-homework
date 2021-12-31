@@ -65,5 +65,10 @@ defmodule Homework.MerchantsTest do
       merchant = merchant_fixture()
       assert %Ecto.Changeset{} = Merchants.change_merchant(merchant)
     end
+
+    test "search_merchants/3 returns merchants" do
+      merchant = merchant_fixture()
+      assert Merchants.search_merchants(merchant.name, 3) == [merchant]
+    end
   end
 end

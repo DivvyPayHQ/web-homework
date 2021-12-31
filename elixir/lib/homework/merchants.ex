@@ -101,4 +101,19 @@ defmodule Homework.Merchants do
   def change_merchant(%Merchant{} = merchant, attrs \\ %{}) do
     Merchant.changeset(merchant, attrs)
   end
+
+  @doc """
+  Returns a list of merchants by fuzzy search on the name using the Levenshtein algorithm.
+
+  ## Examples
+
+      iex> search_merchants(name, max_distance)
+      [%Merchant{}, ...]
+
+  """
+  def search_merchants(name, max_distance) do
+    query = from merchant in Merchant,
+      where: fragment("levenshtein(?, ?)", merchant.name, ^name) <= ^max_distance
+    Repo.all(query)
+  end
 end

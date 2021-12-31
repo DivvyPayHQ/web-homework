@@ -32,6 +32,13 @@ defmodule HomeworkWeb.Schema do
     field(:merchants, list_of(:merchant)) do
       resolve(&MerchantsResolver.merchants/3)
     end
+
+    @desc "Search Merchants by name"
+    field(:search_merchants, list_of(:merchant)) do
+      arg :name, non_null(:string)
+      arg :max_distance, :integer, default_value: 3
+      resolve(&MerchantsResolver.search_merchants/3)
+    end
   end
 
   mutation do
