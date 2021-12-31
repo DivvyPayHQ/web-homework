@@ -20,11 +20,11 @@ defmodule HomeworkWeb.Schema do
       resolve(&UsersResolver.users/3)
     end
 
-    @desc "Search Users"
+    @desc "Search Users by first_name and last_name"
     field(:search_users, list_of(:user)) do
       arg :first_name, non_null(:string)
       arg :last_name, non_null(:string)
-      arg :max_distance, non_null(:integer), default_value: 3
+      arg :max_distance, :integer, default_value: 3
       resolve(&UsersResolver.search_users/3)
     end
 
