@@ -107,7 +107,7 @@ defmodule Homework.Users do
 
   ## Examples
 
-      iex> search_user(first_name, last_name, max_distance)
+      iex> search_users(first_name, last_name, max_distance)
       [%User{}, ...]
 
   """

@@ -152,5 +152,15 @@ defmodule Homework.TransactionsTest do
       transaction = transaction_fixture(valid_attrs)
       assert %Ecto.Changeset{} = Transactions.change_transaction(transaction)
     end
+
+    test "search_transactions/2 returns transactions between min and max", %{valid_attrs: valid_attrs, update_attrs: update_attrs} do
+      transaction1 = transaction_fixture(valid_attrs)
+      transaction2 = transaction_fixture(update_attrs)
+      assert Transactions.search_transactions(0, 50) == [transaction1, transaction2]
+    end
+
+    test "search_transactions/2 does not return transactions outside min and max" do
+      assert Transactions.search_transactions(0, 40) == []
+    end
   end
 end

@@ -101,4 +101,19 @@ defmodule Homework.Transactions do
   def change_transaction(%Transaction{} = transaction, attrs \\ %{}) do
     Transaction.changeset(transaction, attrs)
   end
+
+  @doc """
+  Returns a list of transactions between min and max.
+
+  ## Examples
+
+      iex> search_transactions(min, max)
+      [%Transaction{}, ...]
+
+  """
+  def search_transactions(min, max) do
+    query = from transaction in Transaction,
+      where: fragment("? BETWEEN ? AND ?", transaction.amount, ^min, ^max)
+    Repo.all(query)
+  end
 end
