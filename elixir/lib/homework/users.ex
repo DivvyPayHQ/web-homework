@@ -101,4 +101,20 @@ defmodule Homework.Users do
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
   end
+
+  @doc """
+  Returns a list of users by fuzzy search on the first_name and last_name using the Levenshtein algorithm.
+
+  ## Examples
+
+      iex> search_user(first_name, last_name, max_distance)
+      [%User{}, ...]
+
+  """
+  def search_users(first_name, last_name, max_distance) do
+    query = from user in User,
+      where: fragment("levenshtein(?, ?)", user.first_name, ^first_name) <= ^max_distance
+        and fragment("levenshtein(?, ?)", user.last_name, ^last_name) <= ^max_distance
+    Repo.all(query)
+  end
 end

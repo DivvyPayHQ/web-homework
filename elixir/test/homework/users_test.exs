@@ -68,5 +68,10 @@ defmodule Homework.UsersTest do
       user = user_fixture()
       assert %Ecto.Changeset{} = Users.change_user(user)
     end
+
+    test "search_users/3 returns users" do
+      user = user_fixture()
+      assert Users.search_users(user.first_name, user.last_name, 3) == [user]
+    end
   end
 end

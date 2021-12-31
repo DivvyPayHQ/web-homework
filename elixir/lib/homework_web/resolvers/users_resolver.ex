@@ -50,4 +50,11 @@ defmodule HomeworkWeb.Resolvers.UsersResolver do
         {:error, "could not update user: #{inspect(error)}"}
     end
   end
+
+  @doc """
+  Fuzzy search for users by first and last name
+  """
+  def search_users(_root, %{first_name: first_name, last_name: last_name, max_distance: max_distance}, _info) do
+    {:ok, Users.search_users(first_name, last_name, max_distance)}
+  end
 end
