@@ -16,3 +16,5 @@ Please include a write up of what objectives you accomplished and how long it to
 
 1. 12/30 30m - Fork project in private repository and get my bearings.
 2. 12/30 1h - Create issues with rudimentary research for fuzzy searching, Absinthe documentation and tutorial.
+3. 12/30 (9:45pm - 10:45pm) 1h - Database seeding and research on differing techniques.
+4. 
