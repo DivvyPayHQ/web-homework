@@ -19,9 +19,9 @@ defmodule Homework.CompaniesTest do
       company
     end
 
-    test "list_companies/0 returns all companies" do
+    test "list_companies/1 returns all companies" do
       company = company_fixture()
-      assert Companies.list_companies() == [company]
+      assert Companies.list_companies([]) == [company]
     end
 
     test "get_company!/1 returns the company with given id" do
@@ -63,6 +63,11 @@ defmodule Homework.CompaniesTest do
     test "change_company/1 returns a company changeset" do
       company = company_fixture()
       assert %Ecto.Changeset{} = Companies.change_company(company)
+    end
+
+    test "search_companies/3 returns companies" do
+      company = company_fixture()
+      assert Companies.search_companies(company.name, 3) == [company]
     end
   end
 end

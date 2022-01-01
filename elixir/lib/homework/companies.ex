@@ -17,7 +17,7 @@ defmodule Homework.Companies do
       [%Company{}, ...]
 
   """
-  def list_companies do
+  def list_companies(_args) do
     Repo.all(Company)
   end
 
@@ -100,5 +100,20 @@ defmodule Homework.Companies do
   """
   def change_company(%Company{} = company, attrs \\ %{}) do
     Company.changeset(company, attrs)
+  end
+
+  @doc """
+  Returns a list of companies by fuzzy search on the name using the Levenshtein algorithm.
+
+  ## Examples
+
+      iex> search_companies(name, max_distance)
+      [%Company{}, ...]
+
+  """
+  def search_companies(name, max_distance) do
+    query = from company in Company,
+      where: fragment("levenshtein(?, ?)", company.name, ^name) <= ^max_distance
+    Repo.all(query)
   end
 end

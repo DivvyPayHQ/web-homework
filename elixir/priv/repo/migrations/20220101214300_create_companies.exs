@@ -3,10 +3,10 @@ defmodule Homework.Repo.Migrations.CreateCompanies do
 
   def change do
     create table(:companies, primary_key: false) do
-      add :id, :binary_id, primary_key: true
-      add :name, :string
-      add :credit_line, :integer
-      add :available_credit, :integer
+      add(:id, :uuid, primary_key: true)
+      add(:name, :string)
+      add(:credit_line, :integer)
+      add(:available_credit, :integer)
 
       timestamps()
     end
