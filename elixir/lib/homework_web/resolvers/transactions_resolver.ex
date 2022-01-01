@@ -7,7 +7,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   Get a list of transcations
   """
   def transactions(_root, args, _info) do
-    {:ok, Transactions.list_transactions(args)}
+    {:ok, Transactions.list_transactions(args) |> Enum.map(&to_dollars/1)}
   end
 
   @doc """
@@ -28,9 +28,9 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   Create a new transaction
   """
   def create_transaction(_root, args, _info) do
-    case Transactions.create_transaction(args) do
+    case Transactions.create_transaction(args |> to_cents) do
       {:ok, transaction} ->
-        {:ok, transaction}
+        {:ok, transaction |> to_dollars}
 
       error ->
         {:error, "could not create transaction: #{inspect(error)}"}
@@ -43,9 +43,9 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   def update_transaction(_root, %{id: id} = args, _info) do
     transaction = Transactions.get_transaction!(id)
 
-    case Transactions.update_transaction(transaction, args) do
+    case Transactions.update_transaction(transaction, args |> to_cents) do
       {:ok, transaction} ->
-        {:ok, transaction}
+        {:ok, transaction |> to_dollars}
 
       error ->
         {:error, "could not update transaction: #{inspect(error)}"}
@@ -71,6 +71,24 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   Search for transactions between min and max
   """
   def search_transactions(_root, %{min: min, max: max}, _info) do
-    {:ok, Transactions.search_transactions(min, max)}
+    min_cents = min |> to_cents
+    max_cents = max |> to_cents
+    {:ok, Transactions.search_transactions(min_cents, max_cents) |> Enum.map(&to_dollars/1)}
+  end
+
+  defp to_dollars(cents) when is_integer(cents) do
+    Decimal.div(cents, 100) |> Decimal.round(2)
+  end
+
+  defp to_dollars(%{amount: cents} = transaction) do
+    %{transaction | amount: cents |> to_dollars()}
+  end
+
+  defp to_cents(%Decimal{} = dollars) do
+    Decimal.round(dollars, 2) |> Decimal.mult(100) |> Decimal.to_integer()
+  end
+
+  defp to_cents(%{amount: dollars} = transaction) do
+    %{transaction | amount: dollars |> to_cents}
   end
 end

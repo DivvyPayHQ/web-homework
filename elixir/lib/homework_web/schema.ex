@@ -17,8 +17,8 @@ defmodule HomeworkWeb.Schema do
 
     @desc "Search Transactions between min and max"
     field(:search_transactions, list_of(:transaction)) do
-      arg :min, :integer, default_value: 0
-      arg :max, non_null(:integer)
+      arg :min, :decimal, default_value: "0.00"
+      arg :max, non_null(:decimal)
       resolve(&TransactionsResolver.search_transactions/3)
     end
 
