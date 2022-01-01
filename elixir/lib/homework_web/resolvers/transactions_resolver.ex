@@ -71,9 +71,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   Search for transactions between min and max
   """
   def search_transactions(_root, %{min: min, max: max}, _info) do
-    min_cents = min |> to_cents
-    max_cents = max |> to_cents
-    {:ok, Transactions.search_transactions(min_cents, max_cents) |> Enum.map(&to_dollars/1)}
+    {:ok, Transactions.search_transactions(min |> to_cents, max |> to_cents) |> Enum.map(&to_dollars/1)}
   end
 
   defp to_dollars(cents) when is_integer(cents) do
