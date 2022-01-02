@@ -12,6 +12,7 @@
 
 alias Homework.Repo
 alias Homework.Merchants.Merchant
+alias Homework.Companies.Company
 alias Homework.Users.User
 alias Homework.Transactions.Transaction
 
@@ -19,6 +20,7 @@ alias Homework.Transactions.Transaction
 Repo.delete_all(Transaction)
 Repo.delete_all(Merchant)
 Repo.delete_all(User)
+Repo.delete_all(Company)
 
 # Merchant
 merchant1 = Repo.insert!(
@@ -39,6 +41,21 @@ merchant3 = Repo.insert!(
   %Merchant{
     name: "Divvy Divvi Divvé",
     description: "An American soul/R&B group from Oakland, California, popular during the late 1980s and early to mid-1990s."
+  }
+)
+
+# Company
+company1 = Repo.insert!(
+  %Company{
+    name: "Bergamo's Pizza & Pasta",
+    credit_line: 1000000,
+  }
+)
+
+company2 = Repo.insert!(
+  %Company{
+    name: "Grady Street Cafe",
+    credit_line: 2000000,
   }
 )
 
