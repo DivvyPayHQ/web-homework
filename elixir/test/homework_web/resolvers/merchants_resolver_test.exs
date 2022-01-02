@@ -137,6 +137,5 @@ defmodule Homework.MerchantsResolverTest do
         "data" => %{"searchMerchants" => [%{"description" => merchant.description, "id" => merchant.id, "name" => merchant.name}]}
       }
     end
-
   end
 end

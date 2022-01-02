@@ -37,16 +37,17 @@ defmodule Homework.CompaniesResolverTest do
       })
 
       assert json_response(conn, 200) == %{
-        "data" => %{"companies" => [%{"availableCredit" => company.available_credit, "creditLine" => company.credit_line, "id" => company.id, "name" => company.name}]}
+        "data" => %{"companies" => [%{"availableCredit" => "42.00", "creditLine" => "42.00", "id" => company.id, "name" => company.name}]}
       }
     end
 
     test "create with valid data creates company", %{conn: conn} do
       create_query = """
       mutation CreateCompany {
-        createCompany(name: "some name", creditLine: 4200) {
+        createCompany(name: "some name", creditLine: 42.00) {
           name
           creditLine
+          availableCredit
         }
       }
       """
@@ -62,7 +63,7 @@ defmodule Homework.CompaniesResolverTest do
       # IO.inspect(body)
 
       assert json_response(conn, 200) == %{
-        "data" => %{"createCompany" => %{"creditLine" => 4200, "name" => "some name"}}
+        "data" => %{"createCompany" => %{"creditLine" => "42.00", "name" => "some name", "availableCredit" => nil}}
       }
     end
 
@@ -71,7 +72,7 @@ defmodule Homework.CompaniesResolverTest do
 
       update_query = """
       mutation UpdateCompany {
-        updateCompany(id: "#{company.id}", name: "some updated name", creditLine: 4300) {
+        updateCompany(id: "#{company.id}", name: "some updated name", creditLine: 43.00) {
           id
           name
           creditLine
@@ -85,7 +86,7 @@ defmodule Homework.CompaniesResolverTest do
       })
 
       assert json_response(conn, 200) == %{
-        "data" => %{"updateCompany" => %{"creditLine" => 4300, "id" => company.id, "name" => "some updated name"}}
+        "data" => %{"updateCompany" => %{"creditLine" => "43.00", "id" => company.id, "name" => "some updated name"}}
       }
     end
 
@@ -105,9 +106,6 @@ defmodule Homework.CompaniesResolverTest do
         "query" => delete_query,
         "variables" => %{id: company.id}
       })
-
-      # body = json_response(conn, 200)
-      # IO.inspect(body)
 
       assert json_response(conn, 200) == %{
         "data" => %{"deleteCompany" => %{"id" => company.id, "name" => company.name}}
@@ -135,6 +133,5 @@ defmodule Homework.CompaniesResolverTest do
         "data" => %{"searchCompanies" => [%{"id" => company.id, "name" => company.name}]}
       }
     end
-
   end
 end
