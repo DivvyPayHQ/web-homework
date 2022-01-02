@@ -9,6 +9,7 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
   object :transaction do
     field(:id, non_null(:id))
     field(:user_id, :id)
+    field(:company_id, :id)
     field(:amount, :decimal)
     field(:credit, :boolean)
     field(:debit, :boolean)
@@ -21,6 +22,10 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
       resolve(&TransactionsResolver.user/3)
     end
 
+    field(:company, :company) do
+      resolve(&TransactionsResolver.company/3)
+    end
+
     field(:merchant, :merchant) do
       resolve(&TransactionsResolver.merchant/3)
     end
@@ -30,6 +35,7 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
     @desc "Create a new transaction"
     field :create_transaction, :transaction do
       arg(:user_id, non_null(:id))
+      arg(:company_id, non_null(:id))
       arg(:merchant_id, non_null(:id))
       @desc "amount is in dollars"
       arg(:amount, non_null(:decimal))
@@ -44,6 +50,7 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
     field :update_transaction, :transaction do
       arg(:id, non_null(:id))
       arg(:user_id, non_null(:id))
+      arg(:company_id, non_null(:id))
       arg(:merchant_id, non_null(:id))
       @desc "amount is in dollars"
       arg(:amount, non_null(:decimal))

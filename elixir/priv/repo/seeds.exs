@@ -62,6 +62,7 @@ company2 = Repo.insert!(
 # User
 user1 = Repo.insert!(
   %User{
+    company_id: company1.id,
     first_name: "Jeremy",
     last_name: "Brayton",
     dob: "12/27/1978",
@@ -70,22 +71,25 @@ user1 = Repo.insert!(
 
 user2 = Repo.insert!(
   %User{
+    company_id: company1.id,
     first_name: "Miranda",
     last_name: "Brayton",
     dob: "10/16/1981",
   }
 )
 
-user3 = Repo.insert!(
+_user3 = Repo.insert!(
   %User{
+    company_id: company2.id,
     first_name: "Clara",
     last_name: "Brayton",
     dob: "05/18/1981",
   }
 )
 
-user4 = Repo.insert!(
+_user4 = Repo.insert!(
   %User{
+    company_id: company2.id,
     first_name: "Abigail",
     last_name: "Brayton",
     dob: "05/18/1981",
@@ -96,6 +100,7 @@ user4 = Repo.insert!(
 Repo.insert!(
   %Transaction{
     user_id: user1.id,
+    company_id: company1.id,
     amount: 3958,
     debit: true,
     description: "Enfamil NeuroPro Baby Formula, Triple Prebiotic Immune Blend with 2'FL HMO & Expert Recommended Omega-3 DHA, Inspired by Breast Milk, Non-GMO, Refill Box, 31.4 Oz",
@@ -106,6 +111,7 @@ Repo.insert!(
 Repo.insert!(
   %Transaction{
     user_id: user2.id,
+    company_id: company1.id,
     amount: 3528,
     debit: true,
     description: "Huggies Snug & Dry Baby Diapers, Size 3, 144 Ct",
@@ -116,6 +122,7 @@ Repo.insert!(
 Repo.insert!(
   %Transaction{
     user_id: user1.id,
+    company_id: company1.id,
     amount: 1698,
     debit: true,
     description: "The Revival CD",
@@ -126,10 +133,11 @@ Repo.insert!(
 Repo.insert!(
   %Transaction{
     user_id: user2.id,
+    company_id: company1.id,
     amount: 1059,
     debit: true,
     description: "Chic-fil-a Sandwich Combo",
-    merchant_id: merchant3.id,
+    merchant_id: merchant2.id,
   }
 )
 
