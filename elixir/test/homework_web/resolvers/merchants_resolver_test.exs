@@ -1,19 +1,16 @@
 defmodule Homework.MerchantsResolverTest do
   use HomeworkWeb.ConnCase
-  import Homework.DataCase
 
   alias Homework.Merchants
 
   describe "merchants" do
-    alias Homework.Merchants.Merchant
-
     @valid_attrs %{description: "some description", name: "some name"}
     @update_attrs %{
       id: nil,
       description: "some updated description",
       name: "some updated name"
     }
-    @invalid_attrs %{description: nil, name: nil}
+    # @invalid_attrs %{description: nil, name: nil}
 
     def merchant_fixture(attrs \\ %{}) do
       {:ok, merchant} =
