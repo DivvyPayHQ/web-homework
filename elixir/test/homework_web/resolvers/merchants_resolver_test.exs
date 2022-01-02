@@ -46,7 +46,7 @@ defmodule Homework.MerchantsResolverTest do
 
     test "create with valid data creates merchant", %{conn: conn} do
       create_query = """
-      mutation {
+      mutation CreateMerchant {
         createMerchant(name: "some name", description: "some description") {
           name
           description
@@ -73,7 +73,7 @@ defmodule Homework.MerchantsResolverTest do
       merchant = merchant_fixture()
 
       update_query = """
-      mutation {
+      mutation UpdateMerchant {
         updateMerchant(id: "#{merchant.id}", name: "some updated name", description: "some updated description") {
           id
           name
@@ -96,7 +96,7 @@ defmodule Homework.MerchantsResolverTest do
       merchant = merchant_fixture()
 
       delete_query = """
-      mutation {
+      mutation DeleteMerchant {
         deleteMerchant(id: "#{merchant.id}") {
           id
           name
