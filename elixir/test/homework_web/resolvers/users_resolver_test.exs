@@ -66,7 +66,7 @@ defmodule Homework.UsersResolverTest do
 
       create_query = """
       mutation CreateUser {
-        createUser(companyID: "#{company_id}", firstName: "#{first_name}", lastName: "#{last_name}", dob: "#{dob}") {
+        createUser(companyId: "#{company_id}", firstName: "#{first_name}", lastName: "#{last_name}", dob: "#{dob}") {
           firstName
           lastName
           dob
@@ -74,15 +74,10 @@ defmodule Homework.UsersResolverTest do
       }
       """
 
-      # IO.inspect(create_query)
-
       conn = post(conn, "/api", %{
         "query" => create_query,
         "variables" => valid_attrs
       })
-
-      # body = json_response(conn, 200)
-      # IO.inspect(body)
 
       assert json_response(conn, 200) == %{
         "data" => %{"createUser" => %{"firstName" => "#{first_name}", "lastName" => "#{last_name}", "dob" => "#{dob}"}}

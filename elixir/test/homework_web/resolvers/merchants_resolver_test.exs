@@ -54,15 +54,10 @@ defmodule Homework.MerchantsResolverTest do
       }
       """
 
-      # IO.inspect(create_query)
-
       conn = post(conn, "/api", %{
         "query" => create_query,
         "variables" => @valid_attrs
       })
-
-      # body = json_response(conn, 200)
-      # IO.inspect(body)
 
       assert json_response(conn, 200) == %{
         "data" => %{"createMerchant" => %{"description" => "some description", "name" => "some name"}}

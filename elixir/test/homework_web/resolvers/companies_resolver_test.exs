@@ -37,14 +37,16 @@ defmodule Homework.CompaniesResolverTest do
       })
 
       assert json_response(conn, 200) == %{
-        "data" => %{"companies" => [%{"availableCredit" => "42.00", "creditLine" => "42.00", "id" => company.id, "name" => company.name}]}
+        "data" => %{"companies" => [%{"id" => company.id, "name" => company.name, "creditLine" => "42.00", "availableCredit" => "42.00"}]}
       }
     end
 
     test "create with valid data creates company", %{conn: conn} do
+      %{name: name} = @valid_attrs
+
       create_query = """
       mutation CreateCompany {
-        createCompany(name: "some name", creditLine: 42.00) {
+        createCompany(name: "#{name}", creditLine: 42.00) {
           name
           creditLine
           availableCredit
@@ -52,27 +54,23 @@ defmodule Homework.CompaniesResolverTest do
       }
       """
 
-      # IO.inspect(create_query)
-
       conn = post(conn, "/api", %{
         "query" => create_query,
         "variables" => @valid_attrs
       })
 
-      # body = json_response(conn, 200)
-      # IO.inspect(body)
-
       assert json_response(conn, 200) == %{
-        "data" => %{"createCompany" => %{"creditLine" => "42.00", "name" => "some name", "availableCredit" => nil}}
+        "data" => %{"createCompany" => %{"name" => "#{name}", "creditLine" => "42.00", "availableCredit" => nil}}
       }
     end
 
     test "update with valid data update company", %{conn: conn} do
       company = company_fixture()
+      %{name: name} = @update_attrs
 
       update_query = """
       mutation UpdateCompany {
-        updateCompany(id: "#{company.id}", name: "some updated name", creditLine: 43.00) {
+        updateCompany(id: "#{company.id}", name: "#{name}", creditLine: 43.00) {
           id
           name
           creditLine
@@ -86,7 +84,7 @@ defmodule Homework.CompaniesResolverTest do
       })
 
       assert json_response(conn, 200) == %{
-        "data" => %{"updateCompany" => %{"creditLine" => "43.00", "id" => company.id, "name" => "some updated name"}}
+        "data" => %{"updateCompany" => %{"id" => company.id, "name" => "#{name}", "creditLine" => "43.00"}}
       }
     end
 
@@ -98,6 +96,8 @@ defmodule Homework.CompaniesResolverTest do
         deleteCompany(id: "#{company.id}") {
           id
           name
+          creditLine
+          availableCredit
         }
       }
       """
@@ -108,7 +108,7 @@ defmodule Homework.CompaniesResolverTest do
       })
 
       assert json_response(conn, 200) == %{
-        "data" => %{"deleteCompany" => %{"id" => company.id, "name" => company.name}}
+        "data" => %{"deleteCompany" => %{"id" => company.id, "name" => company.name, "creditLine" => "42.00", "availableCredit" => "42.00"}}
       }
     end
 
@@ -120,6 +120,8 @@ defmodule Homework.CompaniesResolverTest do
         searchCompanies(name: "some gnome") {
           id
           name
+          creditLine
+          availableCredit
         }
       }
       """
@@ -130,7 +132,7 @@ defmodule Homework.CompaniesResolverTest do
       })
 
       assert json_response(conn, 200) == %{
-        "data" => %{"searchCompanies" => [%{"id" => company.id, "name" => company.name}]}
+        "data" => %{"searchCompanies" => [%{"id" => company.id, "name" => company.name, "creditLine" => "42.00", "availableCredit" => "42.00"}]}
       }
     end
   end

@@ -68,7 +68,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
 
     case Transactions.delete_transaction(transaction) do
       {:ok, transaction} ->
-        {:ok, transaction}
+        {:ok, transaction |> to_dollars}
 
       error ->
         {:error, "could not update transaction: #{inspect(error)}"}
@@ -87,7 +87,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   end
 
   defp to_dollars(%{amount: cents} = transaction) do
-    %{transaction | amount: cents |> to_dollars()}
+    %{transaction | amount: cents |> to_dollars}
   end
 
   defp to_cents(%Decimal{} = dollars) do
