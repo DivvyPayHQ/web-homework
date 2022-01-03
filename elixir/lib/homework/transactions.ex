@@ -7,6 +7,7 @@ defmodule Homework.Transactions do
   alias Homework.Repo
 
   alias Homework.Transactions.Transaction
+  alias Homework.Companies
 
   @doc """
   Returns the list of transactions.
@@ -50,6 +51,8 @@ defmodule Homework.Transactions do
 
   """
   def create_transaction(attrs \\ %{}) do
+    apply_available_credit(attrs)
+
     %Transaction{}
     |> Transaction.changeset(attrs)
     |> Repo.insert()
@@ -68,6 +71,8 @@ defmodule Homework.Transactions do
 
   """
   def update_transaction(%Transaction{} = transaction, attrs) do
+    apply_available_credit(attrs)
+
     transaction
     |> Transaction.changeset(attrs)
     |> Repo.update()
@@ -115,5 +120,15 @@ defmodule Homework.Transactions do
     query = from transaction in Transaction,
       where: fragment("? BETWEEN ? AND ?", transaction.amount, ^min, ^max)
     Repo.all(query)
+  end
+
+  defp apply_available_credit(attrs) when map_size(attrs) == 0 do attrs end
+
+  defp apply_available_credit(%{company_id: company_id, amount: amount, debit: debit} = _attrs) do
+    if debit do
+      Companies.apply_available_credit(company_id, -amount)
+    else
+      Companies.apply_available_credit(company_id, amount)
+    end
   end
 end

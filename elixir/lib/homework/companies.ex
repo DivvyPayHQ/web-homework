@@ -133,4 +133,22 @@ defmodule Homework.Companies do
   def apply_available_credit(%{credit_line: credit_line} = attrs) do
     attrs |> Map.put(:available_credit, credit_line)
   end
+
+  @doc """
+  Apply available credit per transaction credit or debit amount.
+
+  Note: The transaction determines if we're adding or subtracting by adding a negative value.
+
+  ## Examples
+
+      iex> apply_available_credit(id, amount)
+      %{:ok, %Company{}}
+
+  """
+  def apply_available_credit(id, _amount) when is_nil(id) do end
+
+  def apply_available_credit(id, amount) do
+    company = Repo.get!(Company, id)
+    update_company(company, %{available_credit: company.available_credit + amount})
+  end
 end
