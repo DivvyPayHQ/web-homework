@@ -12,6 +12,7 @@
 
 alias Homework.Repo
 alias Homework.Merchants.Merchant
+alias Homework.Companies
 alias Homework.Companies.Company
 alias Homework.Users.User
 alias Homework.Transactions.Transaction
@@ -45,19 +46,15 @@ merchant3 = Repo.insert!(
 )
 
 # Company
-company1 = Repo.insert!(
-  %Company{
-    name: "Bergamo's Pizza & Pasta",
-    credit_line: 1000000,
-  }
-)
+{:ok, %Company{} = company1} = Companies.create_company(%{
+  name: "Bergamo's Pizza & Pasta",
+  credit_line: 1000000,
+})
 
-company2 = Repo.insert!(
-  %Company{
-    name: "Grady Street Cafe",
-    credit_line: 2000000,
-  }
-)
+{:ok, %Company{} = company2} = Companies.create_company(%{
+  name: "Grady Street Cafe",
+  credit_line: 2000000,
+})
 
 # User
 user1 = Repo.insert!(

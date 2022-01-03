@@ -50,6 +50,8 @@ defmodule Homework.Companies do
 
   """
   def create_company(attrs \\ %{}) do
+    # Apply available_credit by overwriting with the credit_line
+    attrs = apply_available_credit(attrs)
     %Company{}
     |> Company.changeset(attrs)
     |> Repo.insert()
@@ -115,5 +117,20 @@ defmodule Homework.Companies do
     query = from company in Company,
       where: fragment("levenshtein(?, ?)", company.name, ^name) <= ^max_distance
     Repo.all(query)
+  end
+
+  @doc """
+  Apply available credit attributes for inserts and updates.
+
+  ## Examples
+
+      iex> apply_available_credit(attrs)
+      %{attrs}
+
+  """
+  def apply_available_credit(attrs) when map_size(attrs) == 0 do attrs end
+
+  def apply_available_credit(%{credit_line: credit_line} = attrs) do
+    attrs |> Map.put(:available_credit, credit_line)
   end
 end

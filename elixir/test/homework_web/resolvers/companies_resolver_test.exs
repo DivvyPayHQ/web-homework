@@ -60,7 +60,7 @@ defmodule Homework.CompaniesResolverTest do
       })
 
       assert json_response(conn, 200) == %{
-        "data" => %{"createCompany" => %{"name" => "#{name}", "creditLine" => "42.00", "availableCredit" => nil}}
+        "data" => %{"createCompany" => %{"name" => "#{name}", "creditLine" => "42.00", "availableCredit" => "42.00"}}
       }
     end
 
