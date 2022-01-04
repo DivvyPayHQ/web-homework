@@ -148,21 +148,21 @@ defmodule Homework.Companies do
   def apply_available_credit(%Company{} = _company, %{credit_line: credit_line, available_credit: _available_credit} = attrs) when is_nil(credit_line) do attrs end
   def apply_available_credit(%Company{} = company, %{credit_line: credit_line} = attrs) when not is_nil(credit_line) do
     difference = credit_line - company.credit_line
-    apply_available_credit(attrs, credit_line, difference)
+    apply_available_credit(attrs, company.available_credit, difference)
   end
   def apply_available_credit(%Company{} = _company, attrs) do attrs end
 
   @doc """
-  Apply available credit by adding the amount to the credit_line.
+  Apply available credit by adding the amount to the available_credit.
 
   ## Examples
 
-      iex> apply_available_credit(attrs, credit_line, amount)
+      iex> apply_available_credit(attrs, available_credit, amount)
       attrs
 
   """
-  def apply_available_credit(attrs, credit_line, amount) do
-    attrs |> Map.put(:available_credit, credit_line + amount)
+  def apply_available_credit(attrs, available_credit, amount) do
+    attrs |> Map.put(:available_credit, available_credit + amount)
   end
 
   @doc """
