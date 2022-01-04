@@ -16,27 +16,31 @@ defmodule HomeworkWeb.Schemas.CompaniesSchema do
   end
 
   object :company_mutations do
-    @desc "Create a new company"
+    @desc "Create a new Company"
     field :create_company, :company do
+      @desc "Name of the Company"
       arg(:name, non_null(:string))
-      @desc "credit line is in dollars"
+      @desc "Credit Line is in dollars"
       arg(:credit_line, non_null(:decimal))
 
       resolve(&CompaniesResolver.create_company/3)
     end
 
-    @desc "Update a new company"
+    @desc "Update a new Company"
     field :update_company, :company do
+      @desc "Record identifier"
       arg(:id, non_null(:id))
+      @desc "Name of the Company"
       arg(:name, non_null(:string))
-      @desc "credit line is in dollars"
+      @desc "Credit Line is in dollars"
       arg(:credit_line, non_null(:decimal))
 
       resolve(&CompaniesResolver.update_company/3)
     end
 
-    @desc "delete an existing company"
+    @desc "Delete an existing Company"
     field :delete_company, :company do
+      @desc "Record identifier"
       arg(:id, non_null(:id))
 
       resolve(&CompaniesResolver.delete_company/3)

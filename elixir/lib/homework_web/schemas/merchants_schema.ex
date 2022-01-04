@@ -15,25 +15,31 @@ defmodule HomeworkWeb.Schemas.MerchantsSchema do
   end
 
   object :merchant_mutations do
-    @desc "Create a new merchant"
+    @desc "Create a new Merchant"
     field :create_merchant, :merchant do
+      @desc "Name of the Merchant"
       arg(:name, non_null(:string))
+      @desc "Description of the Merchant"
       arg(:description, non_null(:string))
 
       resolve(&MerchantsResolver.create_merchant/3)
     end
 
-    @desc "Update a new merchant"
+    @desc "Update a new Merchant"
     field :update_merchant, :merchant do
+      @desc "Record identifier"
       arg(:id, non_null(:id))
+      @desc "Name of the Merchant"
       arg(:name, non_null(:string))
+      @desc "Description of the Merchant"
       arg(:description, non_null(:string))
 
       resolve(&MerchantsResolver.update_merchant/3)
     end
 
-    @desc "delete an existing merchant"
+    @desc "Delete an existing Merchant"
     field :delete_merchant, :merchant do
+      @desc "Record identifier"
       arg(:id, non_null(:id))
 
       resolve(&MerchantsResolver.delete_merchant/3)

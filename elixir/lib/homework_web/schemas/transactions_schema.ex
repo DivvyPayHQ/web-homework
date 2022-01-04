@@ -32,37 +32,51 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
   end
 
   object :transaction_mutations do
-    @desc "Create a new transaction"
+    @desc "Create a new Transaction"
     field :create_transaction, :transaction do
+      @desc "User identifier the Transaction belongs to"
       arg(:user_id, non_null(:id))
+      @desc "Company identifier the Transaction belongs to"
       arg(:company_id, non_null(:id))
+      @desc "Merchant identifier the Transaction belongs to"
       arg(:merchant_id, non_null(:id))
-      @desc "amount is in dollars"
+      @desc "Amount is in dollars"
       arg(:amount, non_null(:decimal))
+      @desc "Amount is credited"
       arg(:credit, non_null(:boolean))
+      @desc "Amount is debited"
       arg(:debit, non_null(:boolean))
+      @desc "Description of the Transaction"
       arg(:description, non_null(:string))
 
       resolve(&TransactionsResolver.create_transaction/3)
     end
 
-    @desc "Update a new transaction"
+    @desc "Update a new Transaction"
     field :update_transaction, :transaction do
+      @desc "Record identifier"
       arg(:id, non_null(:id))
+      @desc "User identifier the Transaction belongs to"
       arg(:user_id, non_null(:id))
+      @desc "Company identifier the Transaction belongs to"
       arg(:company_id, non_null(:id))
+      @desc "Merchant identifier the Transaction belongs to"
       arg(:merchant_id, non_null(:id))
-      @desc "amount is in dollars"
+      @desc "Amount is in dollars"
       arg(:amount, non_null(:decimal))
+      @desc "Amount is credited to the account"
       arg(:credit, non_null(:boolean))
+      @desc "Amount is debited from the account"
       arg(:debit, non_null(:boolean))
+      @desc "Description of the Transaction"
       arg(:description, non_null(:string))
 
       resolve(&TransactionsResolver.update_transaction/3)
     end
 
-    @desc "delete an existing transaction"
+    @desc "Delete an existing Transaction"
     field :delete_transaction, :transaction do
+      @desc "Record identifier"
       arg(:id, non_null(:id))
 
       resolve(&TransactionsResolver.delete_transaction/3)
