@@ -50,8 +50,8 @@ defmodule Homework.Companies do
 
   """
   def create_company(attrs \\ %{}) do
-    # Apply available_credit by overwriting with the credit_line
     attrs = apply_available_credit(attrs)
+
     %Company{}
     |> Company.changeset(attrs)
     |> Repo.insert()
@@ -70,6 +70,8 @@ defmodule Homework.Companies do
 
   """
   def update_company(%Company{} = company, attrs) do
+    attrs = apply_available_credit(company, attrs)
+
     company
     |> Company.changeset(attrs)
     |> Repo.update()
@@ -120,35 +122,36 @@ defmodule Homework.Companies do
   end
 
   @doc """
-  Apply available credit attributes for inserts and updates.
+  Apply available credit for inserts.
 
   ## Examples
 
       iex> apply_available_credit(attrs)
-      %{attrs}
+      attrs
 
   """
   def apply_available_credit(attrs) when map_size(attrs) == 0 do attrs end
-
-  def apply_available_credit(%{credit_line: credit_line} = attrs) do
-    attrs |> Map.put(:available_credit, credit_line)
+  def apply_available_credit(%{credit_line: credit_line} = attrs) when is_nil(credit_line) do attrs end
+  def apply_available_credit(%{credit_line: credit_line} = attrs) when not is_nil(credit_line) do
+    apply_available_credit(attrs, credit_line, 0)
   end
 
   @doc """
-  Apply available credit per transaction credit or debit amount.
-
-  Note: The transaction determines if we're adding or subtracting by adding a negative value.
+  Apply available credit for updates by difference between new and existing credit_line values.
 
   ## Examples
 
-      iex> apply_available_credit(id, amount)
-      %{:ok, %Company{}}
+      iex> apply_available_credit(company, attrs)
+      attrs
 
   """
-  def apply_available_credit(id, _amount) when is_nil(id) do end
+  def apply_available_credit(%Company{} = _company, %{credit_line: credit_line} = attrs) when is_nil(credit_line) do attrs end
+  def apply_available_credit(%Company{} = company, %{credit_line: credit_line} = attrs) when not is_nil(credit_line) do
+    difference = credit_line - company.credit_line
+    apply_available_credit(attrs, credit_line, difference)
+  end
 
-  def apply_available_credit(id, amount) do
-    company = Repo.get!(Company, id)
-    update_company(company, %{available_credit: company.available_credit + amount})
+  def apply_available_credit(attrs, credit_line, amount) do
+    attrs |> Map.put(:available_credit, credit_line + amount)
   end
 end
