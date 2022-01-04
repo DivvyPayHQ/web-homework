@@ -8,6 +8,7 @@ defmodule Homework.Users do
 
   alias Homework.Users.User
 
+  @spec list_users(map) :: list(%User{})
   @doc """
   Returns the list of users.
 
@@ -21,6 +22,7 @@ defmodule Homework.Users do
     Repo.all(User)
   end
 
+  @spec get_user!(Ecto.UUID.t()) :: %User{}
   @doc """
   Gets a single user.
 
@@ -37,6 +39,7 @@ defmodule Homework.Users do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
+  @spec create_user(map) :: {:ok, %User{}}
   @doc """
   Creates a user.
 
@@ -55,6 +58,7 @@ defmodule Homework.Users do
     |> Repo.insert()
   end
 
+  @spec update_user(%User{}, map) :: {:ok, %User{}}
   @doc """
   Updates a user.
 
@@ -73,6 +77,7 @@ defmodule Homework.Users do
     |> Repo.update()
   end
 
+  @spec delete_user(%User{}) :: {:ok, %User{}}
   @doc """
   Deletes a user.
 
@@ -89,6 +94,10 @@ defmodule Homework.Users do
     Repo.delete(user)
   end
 
+  @spec change_user(
+          %User{},
+          :invalid | %{optional(:__struct__) => none, optional(atom | binary) => any}
+        ) :: Ecto.Changeset.t()
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking user changes.
 
@@ -102,6 +111,7 @@ defmodule Homework.Users do
     User.changeset(user, attrs)
   end
 
+  @spec search_users(String.t(), String.t(), integer) :: list(%User{})
   @doc """
   Returns a list of users by fuzzy search on the first_name and last_name using the Levenshtein algorithm.
 

@@ -8,6 +8,7 @@ defmodule Homework.Merchants do
 
   alias Homework.Merchants.Merchant
 
+  @spec list_merchants(map) :: list(%Merchant{})
   @doc """
   Returns the list of merchants.
 
@@ -21,6 +22,7 @@ defmodule Homework.Merchants do
     Repo.all(Merchant)
   end
 
+  @spec get_merchant!(Ecto.UUID.t()) :: %Merchant{}
   @doc """
   Gets a single merchant.
 
@@ -37,6 +39,7 @@ defmodule Homework.Merchants do
   """
   def get_merchant!(id), do: Repo.get!(Merchant, id)
 
+  @spec create_merchant(map) :: {:ok, %Merchant{}}
   @doc """
   Creates a merchant.
 
@@ -55,6 +58,7 @@ defmodule Homework.Merchants do
     |> Repo.insert()
   end
 
+  @spec update_merchant(%Merchant{}, map) :: {:ok, %Merchant{}}
   @doc """
   Updates a merchant.
 
@@ -73,6 +77,7 @@ defmodule Homework.Merchants do
     |> Repo.update()
   end
 
+  @spec delete_merchant(%Merchant{}) :: {:ok, %Merchant{}}
   @doc """
   Deletes a merchant.
 
@@ -89,6 +94,10 @@ defmodule Homework.Merchants do
     Repo.delete(merchant)
   end
 
+  @spec change_merchant(
+          %Merchant{},
+          :invalid | %{optional(:__struct__) => none, optional(atom | binary) => any}
+        ) :: Ecto.Changeset.t()
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking merchant changes.
 
@@ -102,6 +111,7 @@ defmodule Homework.Merchants do
     Merchant.changeset(merchant, attrs)
   end
 
+  @spec search_merchants(String.t(), integer) :: list(%Merchant{})
   @doc """
   Returns a list of merchants by fuzzy search on the name using the Levenshtein algorithm.
 

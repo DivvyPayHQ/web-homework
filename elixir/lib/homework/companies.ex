@@ -8,6 +8,7 @@ defmodule Homework.Companies do
 
   alias Homework.Companies.Company
 
+  @spec list_companies(map) :: list(%Company{})
   @doc """
   Returns the list of companies.
 
@@ -21,6 +22,7 @@ defmodule Homework.Companies do
     Repo.all(Company)
   end
 
+  @spec get_company!(Ecto.UUID.t()) :: %Company{}
   @doc """
   Gets a single company.
 
@@ -37,6 +39,7 @@ defmodule Homework.Companies do
   """
   def get_company!(id), do: Repo.get!(Company, id)
 
+  @spec create_company(map) :: {:ok, %Company{}}
   @doc """
   Creates a company.
 
@@ -57,6 +60,7 @@ defmodule Homework.Companies do
     |> Repo.insert()
   end
 
+  @spec update_company(%Company{}, map) :: {:ok, %Company{}}
   @doc """
   Updates a company.
 
@@ -77,6 +81,7 @@ defmodule Homework.Companies do
     |> Repo.update()
   end
 
+  @spec delete_company(%Company{}) :: {:ok, %Company{}}
   @doc """
   Deletes a company.
 
@@ -93,6 +98,10 @@ defmodule Homework.Companies do
     Repo.delete(company)
   end
 
+  @spec change_company(
+          %Company{},
+          :invalid | %{optional(:__struct__) => none, optional(atom | binary) => any}
+        ) :: Ecto.Changeset.t()
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking company changes.
 
@@ -106,6 +115,7 @@ defmodule Homework.Companies do
     Company.changeset(company, attrs)
   end
 
+  @spec search_companies(String.t(), integer) :: list(%Company{})
   @doc """
   Returns a list of companies by fuzzy search on the name using the Levenshtein algorithm.
 
@@ -121,6 +131,7 @@ defmodule Homework.Companies do
     Repo.all(query)
   end
 
+  @spec apply_available_credit(map) :: map
   @doc """
   Apply available credit for inserts.
 
@@ -136,6 +147,7 @@ defmodule Homework.Companies do
     apply_available_credit(attrs, credit_line, 0)
   end
 
+  @spec apply_available_credit(%Company{}, map) :: map
   @doc """
   Apply available credit for updates by difference between new and existing credit_line values.
 
@@ -152,6 +164,10 @@ defmodule Homework.Companies do
   end
   def apply_available_credit(%Company{} = _company, attrs) do attrs end
 
+  @spec apply_available_credit(map, integer, integer) :: %{
+          :available_credit => number,
+          optional(any) => any
+        }
   @doc """
   Apply available credit by adding the amount to the available_credit.
 
@@ -165,6 +181,8 @@ defmodule Homework.Companies do
     attrs |> Map.put(:available_credit, available_credit + amount)
   end
 
+  @spec apply_available_credit_amount(Ecto.UUID.t(), integer) ::
+          {:ok, %Company{}}
   @doc """
   Apply available credit by the transaction amount.
 

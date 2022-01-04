@@ -9,6 +9,7 @@ defmodule Homework.Transactions do
   alias Homework.Transactions.Transaction
   alias Homework.Companies
 
+  @spec list_transactions(map) :: list(%Transaction{})
   @doc """
   Returns the list of transactions.
 
@@ -22,6 +23,7 @@ defmodule Homework.Transactions do
     Repo.all(Transaction)
   end
 
+  @spec get_transaction!(Ecto.UUID.t()) :: %Transaction{}
   @doc """
   Gets a single transaction.
 
@@ -38,6 +40,7 @@ defmodule Homework.Transactions do
   """
   def get_transaction!(id), do: Repo.get!(Transaction, id)
 
+  @spec create_transaction(map) :: {:ok, %Transaction{}}
   @doc """
   Creates a transaction.
 
@@ -58,6 +61,7 @@ defmodule Homework.Transactions do
     |> Repo.insert()
   end
 
+  @spec update_transaction(%Transaction{}, map) :: {:ok, %Transaction{}}
   @doc """
   Updates a transaction.
 
@@ -78,6 +82,7 @@ defmodule Homework.Transactions do
     |> Repo.update()
   end
 
+  @spec delete_transaction(%Transaction{}) :: {:ok, %Transaction{}}
   @doc """
   Deletes a transaction.
 
@@ -94,6 +99,10 @@ defmodule Homework.Transactions do
     Repo.delete(transaction)
   end
 
+  @spec change_transaction(
+          %Transaction{},
+          :invalid | %{optional(:__struct__) => none, optional(atom | binary) => any}
+        ) :: Ecto.Changeset.t()
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking transaction changes.
 
@@ -107,6 +116,7 @@ defmodule Homework.Transactions do
     Transaction.changeset(transaction, attrs)
   end
 
+  @spec search_transactions(integer, integer) :: list(%Transaction{})
   @doc """
   Returns a list of transactions between min and max.
 
