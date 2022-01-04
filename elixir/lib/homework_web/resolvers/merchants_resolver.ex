@@ -1,6 +1,7 @@
 defmodule HomeworkWeb.Resolvers.MerchantsResolver do
   alias Homework.Merchants
 
+  @spec merchants(any, any, any) :: {:ok, list(%Merchants.Merchant{})}
   @doc """
   Get a list of merchants
   """
@@ -8,6 +9,11 @@ defmodule HomeworkWeb.Resolvers.MerchantsResolver do
     {:ok, Merchants.list_merchants(args)}
   end
 
+  @spec create_merchant(
+          any,
+          :invalid | %{optional(:__struct__) => none, optional(atom | binary) => any},
+          any
+        ) :: {:error, String.t()} | {:ok, %Merchants.Merchant{}}
   @doc """
   Create a new merchant
   """
@@ -21,6 +27,11 @@ defmodule HomeworkWeb.Resolvers.MerchantsResolver do
     end
   end
 
+  @spec update_merchant(
+          any,
+          %{:id => any, optional(:__struct__) => none, optional(atom | binary) => any},
+          any
+        ) :: {:error, String.t()} | {:ok, %Merchants.Merchant{}}
   @doc """
   Updates a merchant for an id with args specified.
   """
@@ -36,6 +47,8 @@ defmodule HomeworkWeb.Resolvers.MerchantsResolver do
     end
   end
 
+  @spec delete_merchant(any, %{:id => any, optional(any) => any}, any) ::
+          {:error, String.t()} | {:ok, %Merchants.Merchant{}}
   @doc """
   Deletes a merchant for an id
   """
@@ -51,6 +64,8 @@ defmodule HomeworkWeb.Resolvers.MerchantsResolver do
     end
   end
 
+  @spec search_merchants(any, %{:max_distance => any, :name => any, optional(any) => any}, any) ::
+          {:ok, list(%Merchants.Merchant{})}
   @doc """
   Fuzzy search for merchants by name
   """

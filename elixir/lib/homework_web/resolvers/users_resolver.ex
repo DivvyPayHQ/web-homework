@@ -2,6 +2,7 @@ defmodule HomeworkWeb.Resolvers.UsersResolver do
   alias Homework.Users
   alias Homework.Companies
 
+  @spec users(any, any, any) :: {:ok, list(%Users.User{})}
   @doc """
   Get a list of users
   """
@@ -9,6 +10,10 @@ defmodule HomeworkWeb.Resolvers.UsersResolver do
     {:ok, Users.list_users(args)}
   end
 
+  @spec company(any, any, %{
+          :source => %{:company_id => any, optional(any) => any},
+          optional(any) => any
+        }) :: {:ok, %Companies.Company{}}
   @doc """
   Get the company associated with a user
   """
@@ -16,6 +21,11 @@ defmodule HomeworkWeb.Resolvers.UsersResolver do
     {:ok, Companies.get_company!(company_id)}
   end
 
+  @spec create_user(
+          any,
+          :invalid | %{optional(:__struct__) => none, optional(atom | binary) => any},
+          any
+        ) :: {:error, String.t()} | {:ok, %Users.User{}}
   @doc """
   Creates a user
   """
@@ -29,6 +39,11 @@ defmodule HomeworkWeb.Resolvers.UsersResolver do
     end
   end
 
+  @spec update_user(
+          any,
+          %{:id => any, optional(:__struct__) => none, optional(atom | binary) => any},
+          any
+        ) :: {:error, String.t()} | {:ok, %Users.User{}}
   @doc """
   Updates a user for an id with args specified.
   """
@@ -44,6 +59,8 @@ defmodule HomeworkWeb.Resolvers.UsersResolver do
     end
   end
 
+  @spec delete_user(any, %{:id => any, optional(any) => any}, any) ::
+          {:error, String.t()} | {:ok, %Users.User{}}
   @doc """
   Deletes a user for an id
   """
@@ -59,6 +76,11 @@ defmodule HomeworkWeb.Resolvers.UsersResolver do
     end
   end
 
+  @spec search_users(
+          any,
+          %{:first_name => any, :last_name => any, :max_distance => any, optional(any) => any},
+          any
+        ) :: {:ok, list(%Users.User{})}
   @doc """
   Fuzzy search for users by first and last name
   """

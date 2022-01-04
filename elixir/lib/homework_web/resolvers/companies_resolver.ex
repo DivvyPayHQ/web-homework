@@ -1,6 +1,7 @@
 defmodule HomeworkWeb.Resolvers.CompaniesResolver do
   alias Homework.Companies
 
+  @spec companies(any, any, any) :: {:ok, list(%Companies.Company{})}
   @doc """
   Get a list of companies
   """
@@ -8,6 +9,11 @@ defmodule HomeworkWeb.Resolvers.CompaniesResolver do
     {:ok, Companies.list_companies(args) |> Enum.map(&to_dollars/1)}
   end
 
+  @spec create_company(
+          any,
+          :invalid | %{optional(:__struct__) => none, optional(atom | binary) => any},
+          any
+        ) :: {:error, String.t()} | {:ok, %Companies.Company{}}
   @doc """
   Create a new company
   """
@@ -21,6 +27,11 @@ defmodule HomeworkWeb.Resolvers.CompaniesResolver do
     end
   end
 
+  @spec update_company(
+          any,
+          %{:id => any, optional(:__struct__) => none, optional(atom | binary) => any},
+          any
+        ) :: {:error, String.t()} | {:ok, %Companies.Company{}}
   @doc """
   Updates a company for an id with args specified.
   """
@@ -36,6 +47,8 @@ defmodule HomeworkWeb.Resolvers.CompaniesResolver do
     end
   end
 
+  @spec delete_company(any, %{:id => any, optional(any) => any}, any) ::
+          {:error, String.t()} | {:ok, %Companies.Company{}}
   @doc """
   Deletes a company for an id
   """
@@ -51,6 +64,8 @@ defmodule HomeworkWeb.Resolvers.CompaniesResolver do
     end
   end
 
+  @spec search_companies(any, %{:max_distance => any, :name => any, optional(any) => any}, any) ::
+          {:ok, list(%Companies.Company{})}
   @doc """
   Fuzzy search for companies by name
   """

@@ -4,6 +4,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   alias Homework.Users
   alias Homework.Companies
 
+  @spec transactions(any, any, any) :: {:ok, list(%Transactions.Transaction{})}
   @doc """
   Get a list of transcations
   """
@@ -11,6 +12,10 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
     {:ok, Transactions.list_transactions(args) |> Enum.map(&to_dollars/1)}
   end
 
+  @spec user(any, any, %{
+          :source => %{:user_id => any, optional(any) => any},
+          optional(any) => any
+        }) :: {:ok, %Users.User{}}
   @doc """
   Get the user associated with a transaction
   """
@@ -18,6 +23,10 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
     {:ok, Users.get_user!(user_id)}
   end
 
+  @spec merchant(any, any, %{
+          :source => %{:merchant_id => any, optional(any) => any},
+          optional(any) => any
+        }) :: {:ok, %Merchants.Merchant{}}
   @doc """
   Get the merchant associated with a transaction
   """
@@ -25,6 +34,10 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
     {:ok, Merchants.get_merchant!(merchant_id)}
   end
 
+  @spec company(any, any, %{
+          :source => %{:company_id => any, optional(any) => any},
+          optional(any) => any
+        }) :: {:ok, %Companies.Company{}}
   @doc """
   Get the company associated with a transaction
   """
@@ -32,6 +45,11 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
     {:ok, Companies.get_company!(company_id)}
   end
 
+  @spec create_transaction(
+          any,
+          :invalid | %{optional(:__struct__) => none, optional(atom | binary) => any},
+          any
+        ) :: {:error, String.t()} | {:ok, %Companies.Company{}}
   @doc """
   Create a new transaction
   """
@@ -45,6 +63,11 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
     end
   end
 
+  @spec update_transaction(
+          any,
+          %{:id => any, optional(:__struct__) => none, optional(atom | binary) => any},
+          any
+        ) :: {:error, String.t()} | {:ok, %Transactions.Transaction{}}
   @doc """
   Updates a transaction for an id with args specified.
   """
@@ -60,6 +83,8 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
     end
   end
 
+  @spec delete_transaction(any, %{:id => any, optional(any) => any}, any) ::
+          {:error, String.t()} | {:ok, %Transactions.Transaction{}}
   @doc """
   Deletes a transaction for an id
   """
@@ -75,6 +100,8 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
     end
   end
 
+  @spec search_transactions(any, %{:min => %Decimal{}, :max => %Decimal{}, optional(any) => any}, any) ::
+          {:ok, list(%Transactions.Transaction{})}
   @doc """
   Search for transactions between min and max
   """
