@@ -145,13 +145,41 @@ defmodule Homework.Companies do
       attrs
 
   """
-  def apply_available_credit(%Company{} = _company, %{credit_line: credit_line} = attrs) when is_nil(credit_line) do attrs end
+  def apply_available_credit(%Company{} = _company, %{credit_line: credit_line, available_credit: _available_credit} = attrs) when is_nil(credit_line) do attrs end
   def apply_available_credit(%Company{} = company, %{credit_line: credit_line} = attrs) when not is_nil(credit_line) do
     difference = credit_line - company.credit_line
     apply_available_credit(attrs, credit_line, difference)
   end
+  def apply_available_credit(%Company{} = _company, attrs) do attrs end
 
+  @doc """
+  Apply available credit by adding the amount to the credit_line.
+
+  ## Examples
+
+      iex> apply_available_credit(attrs, credit_line, amount)
+      attrs
+
+  """
   def apply_available_credit(attrs, credit_line, amount) do
     attrs |> Map.put(:available_credit, credit_line + amount)
+  end
+
+  @doc """
+  Apply available credit by the transaction amount.
+
+  Note: Amount may be positive for addition and negative for subtraction.
+
+  ## Examples
+
+      iex> apply_available_credit_amount(id, amount)
+      {:ok, %Company{}}
+
+  """
+  def apply_available_credit_amount(id, amount) do
+    company = Repo.get!(Company, id)
+    available_credit = company.available_credit + amount
+    attrs = %{available_credit: available_credit}
+    update_company(company, attrs)
   end
 end

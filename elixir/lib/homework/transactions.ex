@@ -71,7 +71,7 @@ defmodule Homework.Transactions do
 
   """
   def update_transaction(%Transaction{} = transaction, attrs) do
-    apply_available_credit(attrs)
+    apply_available_credit(transaction, attrs)
 
     transaction
     |> Transaction.changeset(attrs)
@@ -122,13 +122,26 @@ defmodule Homework.Transactions do
     Repo.all(query)
   end
 
+  # When we create a transaction, we apply available credit only when the company_id is present
   defp apply_available_credit(attrs) when map_size(attrs) == 0 do attrs end
-
+  defp apply_available_credit(%{company_id: company_id} = attrs) when is_nil(company_id) do attrs end
   defp apply_available_credit(%{company_id: company_id, amount: amount, debit: debit} = _attrs) do
+    apply_available_credit(company_id, amount, debit)
+  end
+
+  # When we update a transaction, we apply the available credit difference from the existing amount
+  defp apply_available_credit(%Transaction{} = _transaction, %{company_id: company_id} = attrs) when is_nil(company_id) do attrs end
+  defp apply_available_credit(%Transaction{} = transaction, %{company_id: company_id, amount: amount, debit: debit} = _attrs) when not is_nil(company_id) do
+    difference = amount - transaction.amount
+    apply_available_credit(company_id, difference, debit)
+  end
+
+  # The debit field determines if we add a negative or positive amount
+  defp apply_available_credit(company_id, amount, debit) do
     if debit do
-      Companies.apply_available_credit(company_id, -amount)
+      Companies.apply_available_credit_amount(company_id, -amount)
     else
-      Companies.apply_available_credit(company_id, amount)
+      Companies.apply_available_credit_amount(company_id, amount)
     end
   end
 end

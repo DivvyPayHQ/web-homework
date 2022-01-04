@@ -6,8 +6,8 @@ defmodule Homework.CompaniesTest do
   describe "companies" do
     alias Homework.Companies.Company
 
-    @valid_attrs %{available_credit: 4200, credit_line: 4200, name: "some name"}
-    @update_attrs %{available_credit: 4300, credit_line: 4300, name: "some updated name"}
+    @valid_attrs %{credit_line: 4200, name: "some name"}
+    @update_attrs %{credit_line: 4300, name: "some updated name"}
     @invalid_attrs %{available_credit: nil, credit_line: nil, name: nil}
 
     def company_fixture(attrs \\ %{}) do
@@ -31,6 +31,7 @@ defmodule Homework.CompaniesTest do
 
     test "create_company/1 with valid data creates a company" do
       assert {:ok, %Company{} = company} = Companies.create_company(@valid_attrs)
+      assert company.available_credit == 4200
       assert company.credit_line == 4200
       assert company.name == "some name"
     end
@@ -42,6 +43,7 @@ defmodule Homework.CompaniesTest do
     test "update_company/2 with valid data updates the company" do
       company = company_fixture()
       assert {:ok, %Company{} = company} = Companies.update_company(company, @update_attrs)
+      assert company.available_credit == 4300
       assert company.credit_line == 4300
       assert company.name == "some updated name"
     end

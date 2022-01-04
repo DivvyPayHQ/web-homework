@@ -4,8 +4,8 @@ defmodule Homework.CompaniesResolverTest do
   alias Homework.Companies
 
   describe "companies" do
-    @valid_attrs %{available_credit: 4200, credit_line: 4200, name: "some name"}
-    @update_attrs %{id: nil, available_credit: 4300, credit_line: 4300, name: "some updated name"}
+    @valid_attrs %{credit_line: 4200, name: "some name"}
+    @update_attrs %{id: nil, credit_line: 4300, name: "some updated name"}
     #@invalid_attrs %{available_credit: nil, credit_line: nil, name: nil}
 
     def company_fixture(attrs \\ %{}) do
@@ -56,7 +56,7 @@ defmodule Homework.CompaniesResolverTest do
 
       conn = post(conn, "/api", %{
         "query" => create_query,
-        "variables" => @valid_attrs
+        "variables" => %{name: name}
       })
 
       assert json_response(conn, 200) == %{
