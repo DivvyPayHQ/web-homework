@@ -1,6 +1,5 @@
-import React from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import { Home } from './home'
 
 function AppRouter () {
@@ -8,7 +7,7 @@ function AppRouter () {
     <Router>
       <div css={layoutStyle}>
         <nav css={navStyle}>
-          <ul >
+          <ul>
             <li>
               <Link to='/'>Home</Link>
             </li>

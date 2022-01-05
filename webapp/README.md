@@ -12,8 +12,6 @@ This is the completed boilerplate for a basic React application, with
 
 Please fork this project when submitting your homework assignment.
 
-<br />
-
 **Setup**
 
 A terminal multiplexer is recommended for this project, but is not needed. Multiple terminal windows work too. 
@@ -28,7 +26,6 @@ A terminal multiplexer is recommended for this project, but is not needed. Multi
 
 Defaults (host: `localhost`, port `3000`)
 
-<br />
 
 **Potential Issues**
 
@@ -39,11 +36,11 @@ If you are using a Windows operating system, please either use a [Virtual Machin
 If for any reason you still have issues, please reach out to your recruiter to explain the issue.
 
 
-<br />
-
 ## Instructions
 
 You do not have to complete all of these objectives. Do as many as you can without wasting your time.
+
+Please include a write up of what objectives you accomplished and how long it took you over all. This will be the chance to explain why you did what you did, or why you didn't go down a path that you spent time on.
 
 The completed homework assignment must have a usable interface that loads dynamically and is interactive.
 
@@ -54,13 +51,13 @@ The completed homework assignment must have a usable interface that loads dynami
 | **Mid-level (I/II) engineers**   | 3+ objectives                 | The more you demonstrate your abilities, the better your score will be                                   |
 | **Junior (Associate) engineers** | > 1 objective + > 1 jest test | This is possible with no prior knowledge of React with minimal research (10 minutes, don't overthink it) |
 
-<br />
-
 ## Objectives
 
  * Write a basic user inerface that allows users to enter, edit, and remove transactions.
 
    * Bonus points for adding other data models such as users and merchants that can be input as part of the transaction.
+
+* Use the provided design spec to create a couple custom components matching the [designs](https://www.figma.com/file/LuytFCqxPnabX9wV59QCSU/Front-end-eng-test-subjects).
 
  * Provide a pie chart or histogram of the spend per category or spend per day, respectively.
 
@@ -73,6 +70,7 @@ The completed homework assignment must have a usable interface that loads dynami
  * Add an i18n setting.  This is easily done in a couple of ways.
    * Via URL (eg `?i18n=true`) that turns all of the display text into gibberish (eg replace the front with something that does not use a latin based charset).
    * Utilize this path in the URL (eg `/i18n/app` ) to enable an obviously i18n'd display.  You will have to modify the existing route or SPA configuration in the web server to return the index file for both the main URL and the i18n url.
+   * Support a different currency in addition to USD
 
  * Add a user experience that showcases your abilities on the front end such as:
    * better navigation
@@ -87,17 +85,15 @@ The completed homework assignment must have a usable interface that loads dynami
 
  Should your strengths be in the backend, you are free to modify anything with the webserver to demonstrate them.
 
- <br />
-
 ## Getting Started
 
 * Add more routes to the Front End application (ie [React Router](https://github.com/ReactTraining/react-router))
 
 * Use [emotion-js](https://github.com/emotion-js/emotion) for css styling.
 
-* Separate the global page layout styling from each component style so that you can move the components to any part of the layout with negatively impacting the UX of the individual component.  If you want to use a styling framework, we recommend [Material UI](https://material-ui.com/). Just don't forget about utilizing @emotion to meet your objectives.
+* If you want to use a styling framework, we recommend [Material UI](https://material-ui.com/). Just don't forget about utilizing @emotion to meet your objectives, and try to not deviate from their style guide. If you end up leaning heavily on Material, consider completing the custom component objective.
 
-* Write "unit" tests in Jest.
+* Write "unit" tests in Jest for any critical functions or components
 
    * Bonus for using [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) and using small snapshots and/or click events and asserting DOM changes.
 

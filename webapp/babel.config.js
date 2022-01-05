@@ -1,16 +1,13 @@
 module.exports = {
-  'passPerPreset': false,
-  'presets': [
-    [
-      '@babel/preset-env',
-      {
-        'targets': '> 0.25%, maintained node versions, not dead'
-      }
-    ],
-    '@babel/preset-react',
-    '@emotion/babel-preset-css-prop'
+  passPerPreset: false,
+  presets: [
+    '@babel/preset-env',
+    ['@babel/preset-react', {
+      runtime: 'automatic',
+      importSource: '@emotion/react'
+    }]
   ],
-  'plugins': [
+  plugins: [
     '@babel/plugin-transform-template-literals',
     '@babel/plugin-transform-async-to-generator',
     '@babel/plugin-proposal-object-rest-spread',
@@ -22,13 +19,13 @@ module.exports = {
     // Stage 1
     '@babel/plugin-proposal-export-default-from',
     '@babel/plugin-proposal-logical-assignment-operators',
-    ['@babel/plugin-proposal-optional-chaining', { 'loose': false }],
-    ['@babel/plugin-proposal-pipeline-operator', { 'proposal': 'minimal' }],
-    ['@babel/plugin-proposal-nullish-coalescing-operator', { 'loose': false }],
+    ['@babel/plugin-proposal-optional-chaining', { loose: false }],
+    ['@babel/plugin-proposal-pipeline-operator', { proposal: 'minimal' }],
+    ['@babel/plugin-proposal-nullish-coalescing-operator', { loose: false }],
     '@babel/plugin-proposal-do-expressions',
 
     // Stage 2
-    ['@babel/plugin-proposal-decorators', { 'legacy': true }],
+    ['@babel/plugin-proposal-decorators', { legacy: true }],
     '@babel/plugin-proposal-function-sent',
     '@babel/plugin-proposal-export-namespace-from',
     '@babel/plugin-proposal-numeric-separator',
@@ -37,13 +34,13 @@ module.exports = {
     // Stage 3
     '@babel/plugin-syntax-dynamic-import',
     '@babel/plugin-syntax-import-meta',
-    ['@babel/plugin-proposal-class-properties', { 'loose': false }],
+    ['@babel/plugin-proposal-class-properties', { loose: false }],
     '@babel/plugin-proposal-json-strings',
-    'emotion'
+    '@emotion'
   ],
-  'env': {
-    'test': {
-      'plugins': ['transform-require-context']
+  env: {
+    test: {
+      plugins: ['transform-require-context']
     }
   }
 }
