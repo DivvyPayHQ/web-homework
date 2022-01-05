@@ -45,7 +45,8 @@ defmodule Homework.MixProject do
       {:poison, "~> 2.1.0"},
       {:postgrex, ">= 0.0.0"},
       {:telemetry_metrics, "~> 0.4"},
-      {:telemetry_poller, "~> 0.4"}
+      {:telemetry_poller, "~> 0.4"},
+      {:faker, "~> 0.17"}
     ]
   end
 
