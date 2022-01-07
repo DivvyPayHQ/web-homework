@@ -9,6 +9,13 @@ defmodule HomeworkWeb.Resolvers.MerchantsResolver do
   end
 
   @doc """
+  Find merchants by name
+  """
+  def find_merchants(_root, %{name: name}, _info) do
+    {:ok, Merchants.find_merchants(name)}
+  end
+
+  @doc """
   Create a new merchant
   """
   def create_merchant(_root, args, _info) do

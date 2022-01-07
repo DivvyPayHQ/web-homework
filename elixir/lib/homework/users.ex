@@ -38,6 +38,27 @@ defmodule Homework.Users do
   def get_user!(id), do: Repo.get!(User, id)
 
   @doc """
+  Fuzzy search for users by first and last name.
+
+  ## Examples
+
+      iex> find_users("Joe", "S")
+      [%User{}, ...]
+
+      iex> find_users("", "Smith")
+      [%User{}, ...]
+
+  """
+  def find_users(first, last) do
+    query =
+      from u in User,
+           where: like(u.first_name, ^("%#{first}%"))
+           and like(u.last_name, ^("%#{last}%")),
+           select: u
+    Repo.all(query)
+  end
+
+  @doc """
   Creates a user.
 
   ## Examples

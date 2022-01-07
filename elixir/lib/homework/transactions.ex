@@ -38,6 +38,23 @@ defmodule Homework.Transactions do
   def get_transaction!(id), do: Repo.get!(Transaction, id)
 
   @doc """
+  Finds all transactions with an amount within a given range.
+
+  ## Examples
+
+      iex> find_transactions(123, 456)
+      [%Transaction{}, ...]
+
+  """
+  def find_transactions(min, max) do
+    query =
+      from t in Transaction,
+           where: t.amount >= ^min and t.amount <= ^max,
+           select: t
+    Repo.all(query)
+  end
+
+  @doc """
   Creates a transaction.
 
   ## Examples

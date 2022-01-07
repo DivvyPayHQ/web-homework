@@ -38,6 +38,23 @@ defmodule Homework.Merchants do
   def get_merchant!(id), do: Repo.get!(Merchant, id)
 
   @doc """
+  Fuzzy search for merchants by name.
+
+  ## Examples
+
+      iex> find_merchants("some name")
+      [%Merchant{}, ...]
+
+  """
+  def find_merchants(name) do
+    query =
+      from m in Merchant,
+           where: like(m.name, ^("%#{name}%")),
+           select: m
+    Repo.all(query)
+  end
+
+  @doc """
   Creates a merchant.
 
   ## Examples

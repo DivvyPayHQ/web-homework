@@ -25,6 +25,13 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   end
 
   @doc """
+  Find transactions by amount
+  """
+  def find_transactions(_root, %{min: min, max: max}, _info) do
+    {:ok, Transactions.find_transactions(min, max)}
+  end
+
+  @doc """
   Create a new transaction
   """
   def create_transaction(_root, args, _info) do

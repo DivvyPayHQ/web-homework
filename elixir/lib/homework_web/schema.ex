@@ -10,20 +10,9 @@ defmodule HomeworkWeb.Schema do
   import_types(HomeworkWeb.Schemas.Types)
 
   query do
-    @desc "Get all Transactions"
-    field(:transactions, list_of(:transaction)) do
-      resolve(&TransactionsResolver.transactions/3)
-    end
-
-    @desc "Get all Users"
-    field(:users, list_of(:user)) do
-      resolve(&UsersResolver.users/3)
-    end
-
-    @desc "Get all Merchants"
-    field(:merchants, list_of(:merchant)) do
-      resolve(&MerchantsResolver.merchants/3)
-    end
+    import_fields(:transaction_queries)
+    import_fields(:user_queries)
+    import_fields(:merchant_queries)
   end
 
   mutation do
