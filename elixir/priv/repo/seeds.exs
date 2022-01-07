@@ -30,13 +30,12 @@ defmodule Homework.DatabaseSeeder do
   end
 
   def insert_user(company) do
-
-    Repo.insert! %User{
-      first_name: Faker.Person.first_name(),
-      last_name: Faker.Person.last_name(),
-      dob: Date.to_string(Faker.Date.date_of_birth(1970 .. 1990)),
-      company_id: company.id
-    }
+        Repo.insert! %User{
+        first_name: Faker.Person.first_name(),
+        last_name: Faker.Person.last_name(),
+        dob: Date.to_string(Faker.Date.date_of_birth(1970 .. 1990)),
+        company_id: Map.get(company, :id) 
+      }
   end
 
   def insert_merchant do
@@ -46,18 +45,39 @@ defmodule Homework.DatabaseSeeder do
     }
   end
 
-  def insert_transaction(merchant, user) do
+  def insert_transaction(user, company, merchant) do
     Repo.insert! %Transaction{
       amount: :rand.uniform(100),
       credit: true,
       debit: false,
       description: Faker.Commerce.En.department(),
-      merchant_id: merchant.id
+      merchant_id: merchant.id,
       user_id: user.id,
+      company_id: company.id
     }
   end
 
+  def generate_data_set() do 
+    (1 .. 5) |> Enum.each(fn _ -> Homework.DatabaseSeeder.insert_company() end)
+    
+    c = Homework.Repo.all(Homework.Companies.Company)
+    Enum.each(c, fn comp -> 
+      (1 .. 10) |> Enum.each(
+        fn _ -> Homework.DatabaseSeeder.insert_user(comp)
+        end
 
+      )
+    end)
+    #
+    # Enum.each(p, fn (person) -> IO.puts Map.get(person, :id) end)
+  end
 end
 
-(1 .. 5) |> Enum.each(fn _ -> Homework.DatabaseSeeder.insert_company |> Homework.DatabaseSeeder.create_user() |> new_merechant_transaction()  end)
+
+
+
+    # Homework.DatabaseSeeder.generate_data_set()
+# (1 .. 5) |> Enum.each(
+#   fn _ -> Homework.DatabaseSeeder.generate_data_set()
+#   end
+# )
