@@ -29,7 +29,7 @@ defmodule Homework.DatabaseSeeder do
     }
   end
 
-  def insert_transaction(user, company, merchant) do
+  def insert_transaction(user, merchant) do
     Repo.insert! %Transaction{
       amount: :rand.uniform(100),
       credit: true,
@@ -37,43 +37,33 @@ defmodule Homework.DatabaseSeeder do
       description: Faker.Commerce.En.department(),
       merchant_id: Map.get(merchant, :id),
       user_id: Map.get(user, :id),
-      company_id: Map.get(company, :id)
+      company_id: Map.get(user, :company_id)
     }
   end
 
   def generate_data_set() do 
+    # create companies and merchants
+    (1 .. 10) |> Enum.each(fn _ -> Homework.DatabaseSeeder.insert_merchant() end)
     (1 .. 5) |> Enum.each(fn _ -> Homework.DatabaseSeeder.insert_company() end)
-
+    # get companaies and merchants in a list
     c = Homework.Repo.all(Homework.Companies.Company)
-    Enum.each(c, fn comp -> 
-      (1 .. 10) |> Enum.each(
-        fn _ -> 
-          Homework.DatabaseSeeder.insert_user(comp)
-        end
-      )
-    Homework.DatabaseSeeder.insert_merchant()
     m = Homework.Repo.all(Homework.Merchants.Merchant)
+    # create users beloning to companies
+    Enum.each(c, fn comp -> (1 .. 10) |> Enum.each(fn _ -> Homework.DatabaseSeeder.insert_user(comp)end)end)
+
     u = Homework.Repo.all(Homework.Users.User)
-      Enum.each(u, fn usr -> 
-        (1 .. 20) |> Enum.each(
-          fn _ ->
-            IO.puts "hello world"
-
-          end
-        )
-
+    # loop through merchants, loop through users. Create tranactions assign transaction to user, company and merchant
+    Enum.each(m, fn (merch) -> 
+      Enum.each(u, fn (usr) -> 
+        (1 .. 10) |> Enum.each(fn _ -> Homework.DatabaseSeeder.insert_transaction(usr, merch) end)
       end)
+
     end)
-    #
-    # Enum.each(p, fn (person) -> IO.puts Map.get(person, :id) end)
+
   end
 end
 
 
 
 
-    Homework.DatabaseSeeder.generate_data_set()
-# (1 .. 5) |> Enum.each(
-#   fn _ -> Homework.DatabaseSeeder.generate_data_set()
-#   end
-# )
+Homework.DatabaseSeeder.generate_data_set()
