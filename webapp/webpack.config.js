@@ -2,6 +2,9 @@ const path = require('path')
 const root = process.cwd()
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const moment = require('moment')
+moment().format()
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 
 const outputDirectory = path.join(root, '..', 'webserver', 'public')
 
@@ -11,6 +14,10 @@ let plugins = [
     template: './index.ejs',
     title: 'Divvy Coding Challenge',
     appMountId: 'react-app'
+  }),
+  new MomentLocalesPlugin(),
+  new MomentLocalesPlugin({
+    localesToKeep: ['es-us', 'ru']
   })
 ]
 
@@ -59,7 +66,7 @@ const rules = [
 
 const config = {
   context: root,
-  entry: './src/index.js',
+  entry: path.resolve(__dirname, 'src', 'index.js'),
   mode: JSON.stringify('development'),
   output: {
     path: outputDirectory,
