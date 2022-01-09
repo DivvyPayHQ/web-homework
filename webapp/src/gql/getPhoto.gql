@@ -1,0 +1,6 @@
+query GetPhotos {
+  photoUploads {
+    user_id
+    photo
+  }
+}
