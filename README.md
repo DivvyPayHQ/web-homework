@@ -33,16 +33,17 @@ set my PostgreSQL username in my `.zshrc` file. It solved the problem and I rest
 
 #### What the risk/reward of adding Python to an Elixir project?
 
-    I would say the risks outweigh the rewards when adding Python to an Elixir application. I currently work on a Python and Django project with several apps. It’s beneficial to my team and I that we only have one language to manage when doing the majority of our work. Only a very serious problem would cause me to consider adding another language. And that problem would be one that would only be solved by an additional language. I would first attempt to solve the problem using Python. If that didn’t work, I’d consider something else.
+I would say the risks outweigh the rewards when adding Python to an Elixir application. I currently work on a Python and Django project with several apps. It’s beneficial to my team and I that we only have one language to manage when doing the majority of our work. Only a very serious problem would cause me to consider adding another language. And that problem would be one that would only be solved by an additional language. I would first attempt to solve the problem using Python. If that didn’t work, I’d consider something else.
 
 
-    I think the most frustrating risk of adding Python to an Elixir app would be a workflow problem. I personally dislike stopping my work in Python and moving to another language in my process. It’s more efficient to stay working in one language and its related framework.
+I think the most frustrating risk of adding Python to an Elixir app would be a workflow problem. I personally dislike stopping my work in Python and moving to another language in my process. It’s more efficient to stay working in one language and its related framework.
 
 
-    As far as rewards, any script or app written in Python would be easy to get up and running. For a short-term solution to a problem, Python is a good choice. Right now, [Python is the second most popular language on Github.](https://madnight.github.io/githut/#/pull_requests/2021/4) Many experienced developers would easily find the right Python library to solve the problem. You may not even need extra libraries. Python has many options right out of the box. And the popularity of Python means any future developer wouldn’t need much to write new features for the app.
+    
+As far as rewards, any script or app written in Python would be easy to get up and running. For a short-term solution to a problem, Python is a good choice. Right now, [Python is the second most popular language on Github.](https://madnight.github.io/githut/#/pull_requests/2021/4) Many experienced developers would easily find the right Python library to solve the problem. You may not even need extra libraries. Python has many options right out of the box. And the popularity of Python means any future developer wouldn’t need much to write new features for the app.
 
 
-    Overall, It wouldn’t be my first choice to add Python to an Elixir app. But if I had to, Python wouldn’t be a bad choice.
+Overall, It wouldn’t be my first choice to add Python to an Elixir app. But if I had to, Python wouldn’t be a bad choice.
 
 #### How will you plan to learn Elixir?
 
@@ -55,15 +56,15 @@ while elixir_expert == False:
 
 ```
 
-    I’ve already started the feedback process. I’ve taken a Udemy course on Elixir. It’s a bit dated but I learned the
-    basics of the language. The tutorial builds two small programs. [The first is a basic program to shuffle and deal a
-    deck of cards.](https://github.com/ceejaay/elixir_card_shuffler) The second is far more interesting and fun. [It’s a script that generates identicon images.](https://github.com/ceejaay/elixir_project) Identicons are those random geometric images you see as profile pictures on some websites. 
+I’ve already started the feedback process. I’ve taken a Udemy course on Elixir. It’s a bit dated but I learned the
+basics of the language. The tutorial builds two small programs. [The first is a basic program to shuffle and deal a
+deck of cards.](https://github.com/ceejaay/elixir_card_shuffler) The second is far more interesting and fun. [It’s a script that generates identicon images.](https://github.com/ceejaay/elixir_project) Identicons are those random geometric images you see as profile pictures on some websites. 
 
-    As for questions and feedback. I’ve asked some questions in the Discord Elixir channel. The people there are very helpful. I look forward to working on the Divvy team and getting feedback from experienced developers.
+As for questions and feedback. I’ve asked some questions in the Discord Elixir channel. The people there are very helpful. I look forward to working on the Divvy team and getting feedback from experienced developers.
 
-    Part of my strategy is looking for interesting problem when building a simple project.I really enjoyed the problems presented in writing the `seed.exs` file for the homework. I understood the basics of creating and inserting an item into the database. But I needed a lot of research on how to handle the relationships and inserting a large amount of data. 
+Part of my strategy is looking for interesting problem when building a simple project.I really enjoyed the problems presented in writing the `seed.exs` file for the homework. I understood the basics of creating and inserting an item into the database. But I needed a lot of research on how to handle the relationships and inserting a large amount of data. 
 
-    This process has resulted in success for me. Doing hobby projects in Ruby laid the foundation for the work I would do in my bootcamp, and that success brought me to my current job. You’ll see that this process will make me an excellent addition to the Divvy team.
+This process has resulted in success for me. Doing hobby projects in Ruby laid the foundation for the work I would do in my bootcamp, and that success brought me to my current job. You’ll see that this process will make me an excellent addition to the Divvy team.
 
 
 Below is my original homework project you gave feedback on.
