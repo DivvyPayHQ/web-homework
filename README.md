@@ -1,15 +1,72 @@
 # Divvy Homework Assignment
 
-### Chad Jemmett's Divvy Homework Project
+### Chad Jemmett's Divvy Homework Project -- Updated Jan 9, 2022
 
-Greetings Divvy Devs. 
-I have completed the homework in the application process to a Backend Developer Position at Divvy.
-This is a strong example of the work you can expect from me when I start at Divvy. You will give me a project, I will
-read and understand the documentation. Then I will implement the feature. 
-I work idependently, but I always know when to ask the right questions about the process and I enjoy collaboration and code
-reviews.
+To Divvy Devs,
+Thank you for your feedback on my homework project. Kris Rickard sent me the feedback you gave on my work. I've copied
+the pros and cons list here for your convenience.
+To reiterate, this is the kind of work you can expect from me as a memeber of the Divvy team. I welcome feedback. I
+research my mistakes and upate my work in a timely manner. I enjoy collaboration and being part of a team. I look
+forward to doing an in-person code review with the Divvy Team.
 
-Please review the following two projects.
+> Pros:
+> Company addition is clean and tests look good
+> Seeds file is really robust… but it’s in python
+> Cons:
+> Definitely signs of a mid-level. Replaced default database creds instead of using system env, wrote a python seeds file instead of using elixir because it was more familiar.
+> Questions:
+> What is the risk/reward of adding python to an elixir project?
+> How will you plan to learn elixir?
+
+The following are my corrections listed under CONS.
+
+I've written a [seed file in Elixir here.](https://github.com/ceejaay/web-homework/blob/master/elixir/priv/repo/seeds.exs)
+This is written entirely in Elixir. I enumerate over a range of integers and lists of items retreived from the database
+to insert Companies, Users, Merchants and Transactions into the database. I used the Faker module to write dummy data.
+
+I solved the problem of altering the default database credentials. I did research on Elixir's `System` module. I
+set my PostgreSQL username in my `.zshrc` file. It solved the problem and I restored the default variables in the
+[config/dev.exs](https://github.com/ceejaay/web-homework/blob/master/elixir/config/dev.exs) and the [prod.secret.exs](https://github.com/ceejaay/web-homework/blob/master/elixir/config/prod.secret.exs) files.
+
+
+### Answers to Questions
+
+#### What the risk/reward of adding Python to an Elixir project?
+
+    I would say the risks outweigh the rewards when adding Python to an Elixir application. I currently work on a Python and Django project with several apps. It’s beneficial to my team and I that we only have one language to manage when doing the majority of our work. Only a very serious problem would cause me to consider adding another language. And that problem would be one that would only be solved by an additional language. I would first attempt to solve the problem using Python. If that didn’t work, I’d consider something else.
+
+
+    I think the most frustrating risk of adding Python to an Elixir app would be a workflow problem. I personally dislike stopping my work in Python and moving to another language in my process. It’s more efficient to stay working in one language and its related framework.
+
+
+    As far as rewards, any script or app written in Python would be easy to get up and running. For a short-term solution to a problem, Python is a good choice. Right now, [Python is the second most popular language on Github.](https://madnight.github.io/githut/#/pull_requests/2021/4) Many experienced developers would easily find the right Python library to solve the problem. You may not even need extra libraries. Python has many options right out of the box. And the popularity of Python means any future developer wouldn’t need much to write new features for the app.
+
+
+    Overall, It wouldn’t be my first choice to add Python to an Elixir app. But if I had to, Python wouldn’t be a bad choice.
+
+#### How will you plan to learn Elixir?
+
+This bit of pseudo-code illustrates my learning process.
+```
+while elixir_expert == False:
+    study_elixir_topic()
+    apply_knowledge_to_simple_project()
+    ask_for_feedback_from_experienced_devs()
+
+```
+
+    I’ve already started the feedback process. I’ve taken a Udemy course on Elixir. It’s a bit dated but I learned the
+    basics of the language. The tutorial builds two small programs. [The first is a basic program to shuffle and deal a
+    deck of cards.](https://github.com/ceejaay/elixir_card_shuffler) The second is far more interesting and fun. [It’s a script that generates identicon images.](https://github.com/ceejaay/elixir_project) Identicons are those random geometric images you see as profile pictures on some websites. 
+
+    As for questions and feedback. I’ve asked some questions in the Discord Elixir channel. The people there are very helpful. I look forward to working on the Divvy team and getting feedback from experienced developers.
+
+    Part of my strategy is looking for interesting problem when building a simple project.I really enjoyed the problems presented in writing the `seed.exs` file for the homework. I understood the basics of creating and inserting an item into the database. But I needed a lot of research on how to handle the relationships and inserting a large amount of data. 
+
+    This process has resulted in success for me. Doing hobby projects in Ruby laid the foundation for the work I would do in my bootcamp, and that success brought me to my current job. You’ll see that this process will make me an excellent addition to the Divvy team.
+
+
+Below is my original homework project you gave feedback on.
 
 
 The first is in this repository. It demonstrates my abilities in Elixir, Ecto and Phoenix.
