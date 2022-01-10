@@ -6,7 +6,7 @@ async function find (criteria) {
     ? PhotoUploadModel.find(criteria)
     : PhotoUploadModel.find()
 
-  const transactions = await query.exec()
+  const photos = await query.exec()
 
   return packageModel(transactions)
 }
