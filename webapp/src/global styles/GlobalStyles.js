@@ -92,35 +92,3 @@ export const errorMessage = css`
   text-align: center;
   margin-top: 20px;
 `
-
-export const firstColor = css`
-background: #f4f7f7; 
-`
-
-export const secondColor = css`
-background: #aacfd0; 
-`
-
-export const thirdColor = css`
-background: #5da0a2; 
-`
-
-export const fourthColor = css`
-background: #34495e; 
-`
-
-export const primaryTextColor = css`
-color: #212121; 
-`
-
-export const secondaryTextColor = css`
-color: #757575; 
-`
-
-export const dividerColor = css`
-color: #BDBDBD; 
-`
-
-export const iconColor = css`
-color: #000000; 
-`

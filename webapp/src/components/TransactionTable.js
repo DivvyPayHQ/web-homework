@@ -1,9 +1,7 @@
-/* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 import React from 'react'
-import { arrayOf, string, bool, number, shape } from 'prop-types'
-import * as globalStyles from '../global styles/GlobalStyles'
 import { useFirestore } from '../hooks/useFirestore'
+import * as globalStyles from '../global styles/GlobalStyles'
 import * as transactionStyles from './TransactionTableStyles'
 import moment from 'moment'
 
@@ -21,11 +19,11 @@ export default function TransactionTable ({ data }) {
           return (
             <>
               <li className='grid' key={transaction.id}>
-                <div className='id'>{id}</div>
-                <div className='created-at'>{createdAt}</div>
-                <div className='description'>{ description }</div>
-                <div className='amount'>$ {amount}</div>
-                <div className='merchant'>{merchantId}</div>
+                <div className='id' data-testid={makeDataTestId(id, 'id')}>{id}</div>
+                <div className='created-at' data-testid={makeDataTestId(id, 'createdAt')}>{createdAt}</div>
+                <div className='description' data-testid={makeDataTestId(id, 'description')}>{ description }</div>
+                <div className='amount' data-testid={makeDataTestId(id, 'amount')}>$ {amount}</div>
+                <div className='merchant' data-testid={makeDataTestId(id, 'merchantId')}>{merchantId}</div>
                 {credit && <div className='type' data-testid={makeDataTestId(id, 'credit')}>Credit</div>}
                 {debit && <div className='type' data-testid={makeDataTestId(id, 'debit')}>Debit</div>}
                 <button className='delete-button' css={globalStyles.buttonTwo} onClick={() => deleteDocument(transaction.id)}>x</button>
@@ -34,18 +32,6 @@ export default function TransactionTable ({ data }) {
           )
         }
         )}
-
     </ul>
   )
-}
-TransactionTable.propTypes = {
-  data: arrayOf(shape({
-    id: string,
-    user_id: string,
-    description: string,
-    merchant_id: string,
-    debit: bool,
-    credit: bool,
-    amount: number
-  }))
 }

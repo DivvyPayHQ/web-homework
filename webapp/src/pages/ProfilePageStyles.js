@@ -1,7 +1,7 @@
 import { css } from '@emotion/core'
 
 export const profile = css`
-  .profile-info {
+.profile-info {
   max-width: 360px;
   padding: 30px;
   background: #aacfd0; 

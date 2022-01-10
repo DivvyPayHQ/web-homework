@@ -1,9 +1,6 @@
-/* eslint-disable no-console */
 import React from 'react'
-
 import TransactionTable from '../components/TransactionTable'
 import AddTransactionForm from '../components/AddTransactionForm'
-
 import { useAuthContext } from '../hooks/useAuthContext'
 import { useCollection } from '../hooks/useCollection'
 import * as globalStyles from '../global styles/GlobalStyles'
