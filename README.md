@@ -67,7 +67,7 @@ Part of my strategy is looking for interesting problem when building a simple pr
 This process has resulted in success for me. Doing hobby projects in Ruby laid the foundation for the work I would do in my bootcamp, and that success brought me to my current job. You’ll see that this process will make me an excellent addition to the Divvy team.
 
 
-Below is my original homework project you gave feedback on.
+# Below is my original homework project you gave feedback on.
 
 
 The first is in this repository. It demonstrates my abilities in Elixir, Ecto and Phoenix.
