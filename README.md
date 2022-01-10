@@ -33,7 +33,7 @@ set my PostgreSQL username in my `.zshrc` file. It solved the problem and I rest
 
 #### What is the risk/reward of adding Python to an Elixir project?
 
-I would say the risks outweigh the rewards when adding Python to an Elixir application. I currently work on a Python and Django project with several apps. It’s beneficial to my team and I that we only have one language to manage when doing the majority of our work. Only a very serious problem would cause me to consider adding another language. And that problem would be one that would only be solved by an additional language. I would first attempt to solve the problem using Python. If that didn’t work, I’d consider something else.
+I would say the risks outweigh the rewards when adding Python to an Elixir application. I currently work on a Python and Django project with several apps. It’s beneficial to my team and I that we only have one language to manage when doing the majority of our work. Only a very serious problem would cause me to consider adding another language. And the solution to that problem would be something that *only* a new language could solve. I would first attempt to solve the problem using Python. If that didn’t work, I’d consider something else.
 
 
 I think the most frustrating risk of adding Python to an Elixir app would be a workflow problem. I personally dislike stopping my work in Python and moving to another language in my process. It’s more efficient to stay working in one language and its related framework.
