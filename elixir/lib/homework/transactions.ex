@@ -7,6 +7,8 @@ defmodule Homework.Transactions do
   alias Homework.Repo
 
   alias Homework.Transactions.Transaction
+  alias Homework.Users.User
+  alias Homework.Companies.Company
 
   @doc """
   Returns the list of transactions.
@@ -55,7 +57,8 @@ defmodule Homework.Transactions do
   end
 
   @doc """
-  Creates a transaction.
+  Creates a transaction. Also updates the available credit for the
+  company associated with the transaction.
 
   ## Examples
 
@@ -66,7 +69,16 @@ defmodule Homework.Transactions do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_transaction(attrs \\ %{}) do
+  def create_transaction(%{amount: amount, credit: credit, user_id: user_id} = attrs \\ %{}) do
+    change_amount = (if credit, do: 1, else: -1) * amount
+
+    query =
+      from c in Company,
+        join: u in User,
+        on: c.id == u.company_id,
+        where: u.id == ^user_id
+    Repo.update_all(query, inc: [available_credit: change_amount])
+
     %Transaction{}
     |> Transaction.changeset(attrs)
     |> Repo.insert()

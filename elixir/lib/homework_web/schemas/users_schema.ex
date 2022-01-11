@@ -11,6 +11,7 @@ defmodule HomeworkWeb.Schemas.UsersSchema do
     field(:dob, :string)
     field(:first_name, :string)
     field(:last_name, :string)
+    field(:company_id, non_null(:id))
     field(:inserted_at, :naive_datetime)
     field(:updated_at, :naive_datetime)
   end
@@ -36,6 +37,7 @@ defmodule HomeworkWeb.Schemas.UsersSchema do
       arg(:dob, non_null(:string))
       arg(:first_name, non_null(:string))
       arg(:last_name, non_null(:string))
+      arg(:company_id, non_null(:id))
 
       resolve(&UsersResolver.create_user/3)
     end
