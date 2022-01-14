@@ -10,6 +10,13 @@ defmodule Homework.Users do
   ##########################################
   ### Batching for nested graphql schemas
   ##########################################
+  def batch_company_users(company_ids) do
+    User
+    |> where([u], u.company_id in ^company_ids)
+    |> Repo.all()
+    |> Enum.group_by(& &1.company_id, & &1)
+  end
+
   def batch_transaction_user(user_ids) do
     User
     |> where([u], u.id in ^user_ids)
@@ -35,13 +42,6 @@ defmodule Homework.Users do
   def list_users(params \\ %{}), do: filter_users(params)
   defdelegate search_users_by_dob(params), to: SearchUsersByDob, as: :call
   defdelegate search_users_by_name(params), to: SearchUsersByName, as: :call
-
-  def batch_company_users(company_ids) do
-    User
-    |> where([u], u.company_id in ^company_ids)
-    |> Repo.all()
-    |> Enum.group_by(& &1.company_id, & &1)
-  end
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking user changes.
