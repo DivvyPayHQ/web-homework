@@ -41,5 +41,15 @@ defmodule Homework.Users.SearchUsersByNameTest do
       # requires 4 changes
       assert Enum.at(users, 2).first_name === "Doctor"
     end
+
+    test "success: ascending list of users whose last name closest to starting with 'max'",
+         _context do
+      users = Users.search_users_by_name(%{search_by: [:last_name], search_term: "max"})
+      assert 4 = length(users)
+      # requires 1 changes
+      assert Enum.at(users, 0).last_name === "Man"
+      # requires 5 changes
+      assert Enum.at(users, 3).last_name === "Machine"
+    end
   end
 end

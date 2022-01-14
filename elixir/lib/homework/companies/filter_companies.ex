@@ -26,7 +26,7 @@ defmodule Homework.Companies.FilterCompanies do
                optional(:id_in) => list(),
                optional(:fuzzy_name) => fuzzy_name_params(),
                optional(:name) => String.t(),
-               optional(:order_by) => :inserted_at_asc | :inserted_at_desc,
+               optional(:order_by) => :inserted_at_asc | :inserted_at_desc | :fuzzy_name,
                optional(:preload) => list()
              }
   def call(params),
@@ -42,6 +42,9 @@ defmodule Homework.Companies.FilterCompanies do
 
   defp filter_order_by(:inserted_at_desc, _),
     do: [desc: dynamic([c], c.inserted_at)]
+
+  defp filter_order_by(:fuzzy_name, %{fuzzy_name: %{search_term: search_term}}),
+    do: [asc: dynamic([c], fragment("LEVENSHTEIN(?,?)", c.name, ^search_term))]
 
   defp filter_order_by(_, _),
     do: []

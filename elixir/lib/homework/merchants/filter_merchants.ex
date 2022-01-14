@@ -25,7 +25,7 @@ defmodule Homework.Merchants.FilterMerchants do
         when params: %{
                optional(:fuzzy_name) => fuzzy_name_params(),
                optional(:name) => String.t(),
-               optional(:order_by) => :inserted_at_asc | :inserted_at_desc,
+               optional(:order_by) => :inserted_at_asc | :inserted_at_desc | :fuzzy_name,
                optional(:preload) => list()
              }
   def call(params),
@@ -41,6 +41,9 @@ defmodule Homework.Merchants.FilterMerchants do
 
   defp filter_order_by(:inserted_at_desc, _),
     do: [desc: dynamic([m], m.inserted_at)]
+
+  defp filter_order_by(:fuzzy_name, %{fuzzy_name: %{search_term: search_term}}),
+    do: [asc: dynamic([m], fragment("LEVENSHTEIN(?,?)", m.name, ^search_term))]
 
   defp filter_order_by(_, _),
     do: []
