@@ -29,16 +29,16 @@ defmodule HomeworkWeb.Schema.CompaniesTest do
   """
 
   @company """
-    {
-      available_credit
-      credit_line
-      id
-      inserted_at
-      name
-      transactions #{@transaction}
-      updated_at
-      users #{@user}
-    }
+  {
+    available_credit
+    credit_line
+    id
+    inserted_at
+    name
+    transactions #{@transaction}
+    updated_at
+    users #{@user}
+  }
   """
 
   @companies_query """
@@ -210,8 +210,8 @@ defmodule HomeworkWeb.Schema.CompaniesTest do
 
     test "creates a company", %{conn: conn} do
       variables = %{
-        availableCredit: 10000,
-        creditLine: 10000,
+        availableCredit: 10_000,
+        creditLine: 10_000,
         name: "Worthington Industries"
       }
 

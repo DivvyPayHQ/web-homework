@@ -1,4 +1,5 @@
 defmodule HomeworkWeb.Resolvers.UsersResolver do
+  @moduledoc false
   alias Absinthe.Resolution.Helpers
   alias Homework.{Companies, Users}
 
@@ -11,11 +12,9 @@ defmodule HomeworkWeb.Resolvers.UsersResolver do
   Get an existing user
   """
   def user(_root, %{id: id}, _info) do
-    try do
-      {:ok, Users.get_user!(id)}
-    rescue
-      Ecto.NoResultsError -> {:error, "could not get user: no result"}
-    end
+    {:ok, Users.get_user!(id)}
+  rescue
+    Ecto.NoResultsError -> {:error, "could not get user: no result"}
   end
 
   @doc """

@@ -1,4 +1,5 @@
 defmodule Homework.Merchants.Merchant do
+  @moduledoc false
   import Ecto.Changeset
   use Ecto.Schema
 

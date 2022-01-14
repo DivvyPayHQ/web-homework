@@ -13,7 +13,7 @@ defmodule Homework.DataCase do
   by setting `use Homework.DataCase, async: true`, although
   this option is not recommended for other databases.
   """
-
+  alias Ecto.Adapters.SQL.Sandbox
   use ExUnit.CaseTemplate
 
   using do
@@ -28,10 +28,10 @@ defmodule Homework.DataCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Homework.Repo)
+    :ok = Sandbox.checkout(Homework.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Homework.Repo, {:shared, self()})
+      Sandbox.mode(Homework.Repo, {:shared, self()})
     end
 
     :ok

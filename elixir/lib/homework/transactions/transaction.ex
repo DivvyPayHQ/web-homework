@@ -1,7 +1,8 @@
 defmodule Homework.Transactions.Transaction do
-  alias Homework.Repo
+  @moduledoc false
   alias Homework.Companies.Company
   alias Homework.Merchants.Merchant
+  alias Homework.Repo
   alias Homework.Users.User
   import Ecto.Changeset
   import Ecto.Query, warn: false

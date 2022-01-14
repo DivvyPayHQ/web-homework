@@ -1,4 +1,5 @@
 defmodule HomeworkWeb.Resolvers.CompaniesResolver do
+  @moduledoc false
   alias Absinthe.Resolution.Helpers
   alias Homework.{Companies, Transactions, Users}
 
@@ -11,11 +12,9 @@ defmodule HomeworkWeb.Resolvers.CompaniesResolver do
   Get an existing company
   """
   def company(_root, %{id: id}, _info) do
-    try do
-      {:ok, Companies.get_company!(id)}
-    rescue
-      Ecto.NoResultsError -> {:error, "could not get company: no result"}
-    end
+    {:ok, Companies.get_company!(id)}
+  rescue
+    Ecto.NoResultsError -> {:error, "could not get company: no result"}
   end
 
   @doc """

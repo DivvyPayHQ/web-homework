@@ -91,37 +91,60 @@ defmodule Homework.Users.FilterUsers do
     end
   end
 
-  defp handle_fuzzy_name_condition(%{
-         search_by: search_by,
-         search_term: search_term,
-         start_character: start_character
-       }) do
+  defp handle_fuzzy_name_condition(
+         %{
+           search_by: search_by,
+           search_term: _search_term,
+           start_character: _start_character
+         } = params
+       ) do
     cond do
       Enum.member?(search_by, :first_name) &&
           Enum.member?(search_by, :last_name) ->
-        dynamic(
-          [u],
-          (ilike(u.first_name, ^start_character) and
-             fragment("SIMILARITY(?,?) > 0", u.first_name, ^search_term)) or
-            (ilike(u.last_name, ^start_character) and
-               fragment("SIMILARITY(?,?) > 0", u.last_name, ^search_term))
-        )
+        fuzzy_first_last_name(params)
 
       Enum.member?(search_by, :first_name) ->
-        dynamic(
-          [u],
-          ilike(u.first_name, ^start_character) and
-            fragment("SIMILARITY(?,?) > 0", u.first_name, ^search_term)
-        )
+        fuzzy_first_name(params)
 
       Enum.member?(search_by, :last_name) ->
-        dynamic(
-          [u],
-          ilike(u.last_name, ^start_character) and
-            fragment("SIMILARITY(?,?) > 0", u.last_name, ^search_term)
-        )
+        fuzzy_last_name(params)
     end
   end
+
+  defp fuzzy_first_name(%{
+         search_term: search_term,
+         start_character: start_character
+       }),
+       do:
+         dynamic(
+           [u],
+           ilike(u.first_name, ^start_character) and
+             fragment("SIMILARITY(?,?) > 0", u.first_name, ^search_term)
+         )
+
+  defp fuzzy_first_last_name(%{
+         search_term: search_term,
+         start_character: start_character
+       }),
+       do:
+         dynamic(
+           [u],
+           (ilike(u.first_name, ^start_character) and
+              fragment("SIMILARITY(?,?) > 0", u.first_name, ^search_term)) or
+             (ilike(u.last_name, ^start_character) and
+                fragment("SIMILARITY(?,?) > 0", u.last_name, ^search_term))
+         )
+
+  defp fuzzy_last_name(%{
+         search_term: search_term,
+         start_character: start_character
+       }),
+       do:
+         dynamic(
+           [u],
+           ilike(u.last_name, ^start_character) and
+             fragment("SIMILARITY(?,?) > 0", u.last_name, ^search_term)
+         )
 
   # ordering by levenshtein distance. see: https://en.wikipedia.org/wiki/Levenshtein_distance
   defp handle_fuzzy_name_order_by(%{

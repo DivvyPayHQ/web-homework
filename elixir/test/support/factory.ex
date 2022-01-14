@@ -11,8 +11,8 @@ defmodule Homework.Factory do
 
   def build(:company) do
     %Company{
-      available_credit: 10000,
-      credit_line: 10000,
+      available_credit: 10_000,
+      credit_line: 10_000,
       name: "some name"
     }
   end

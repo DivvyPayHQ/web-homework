@@ -1,4 +1,5 @@
 defmodule HomeworkWeb.Resolvers.MerchantsResolver do
+  @moduledoc false
   alias Homework.Merchants
 
   @doc """
@@ -12,11 +13,9 @@ defmodule HomeworkWeb.Resolvers.MerchantsResolver do
   Get an existing merchant
   """
   def merchant(_root, %{id: id}, _info) do
-    try do
-      {:ok, Merchants.get_merchant!(id)}
-    rescue
-      Ecto.NoResultsError -> {:error, "could not get merchant: no result"}
-    end
+    {:ok, Merchants.get_merchant!(id)}
+  rescue
+    Ecto.NoResultsError -> {:error, "could not get merchant: no result"}
   end
 
   @doc """

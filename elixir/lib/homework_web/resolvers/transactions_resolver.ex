@@ -1,4 +1,5 @@
 defmodule HomeworkWeb.Resolvers.TransactionsResolver do
+  @moduledoc false
   alias Absinthe.Resolution.Helpers
   alias Homework.{Companies, Merchants, Transactions, Users}
 
@@ -17,11 +18,9 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   Get an existing transaction
   """
   def transaction(_root, %{id: id}, _info) do
-    try do
-      {:ok, Transactions.get_transaction!(id)}
-    rescue
-      Ecto.NoResultsError -> {:error, "could not get transaction: no result"}
-    end
+    {:ok, Transactions.get_transaction!(id)}
+  rescue
+    Ecto.NoResultsError -> {:error, "could not get transaction: no result"}
   end
 
   @doc """

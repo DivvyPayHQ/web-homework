@@ -347,11 +347,11 @@ defmodule HomeworkWeb.Schema.TransactionsTest do
       Enum.each(
         [
           amount: 1234,
-          amount: 12345,
-          amount: 12347,
+          amount: 12_345,
+          amount: 12_347,
           amount: 124,
           amount: 134,
-          amount: 15345,
+          amount: 15_345,
           amount: 3
         ],
         fn {:amount, amount} -> insert!(:transaction, %{amount: amount}) end
@@ -372,8 +372,8 @@ defmodule HomeworkWeb.Schema.TransactionsTest do
 
       # integer support
       variables = %{
-        max: 12350,
-        min: 12300
+        max: 12_350,
+        min: 12_300
       }
 
       conn = Map.get(context, :conn)
