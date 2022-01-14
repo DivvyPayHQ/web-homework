@@ -9,8 +9,35 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
   ##########################################
   ### Types
   ##########################################
+  @desc "can be with or without decimal. eg: 1000 or 10.00"
+  scalar :amount, name: "Amount" do
+    serialize(&serialize_amount/1)
+    parse(&parse_amount/1)
+  end
+
+  defp serialize_amount(value), do: value
+
+  defp parse_amount(%{value: v}) do
+    with {:integer, v} when not is_integer(v) <- {:integer, v},
+         {:float, v} when is_float(v) <- {:float, v},
+         v_string <- Float.to_string(v),
+         [v_dollar, v_cents] <- String.split(v_string, "."),
+         {cents, _} when cents < 100 <- Integer.parse(v_cents),
+         {v_int, _} <- Integer.parse("#{v_dollar}#{v_cents}") do
+      {:ok, v_int}
+    else
+      {:integer, v} ->
+        {:ok, v}
+
+      _ ->
+        :error
+    end
+  end
+
   object :transaction do
-    field(:amount, :integer)
+    field(:amount, :float) do
+      resolve(&TransactionsResolver.float_parse_amount/3)
+    end
 
     field(:company, :company) do
       resolve(&TransactionsResolver.company/3)
@@ -61,7 +88,7 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
     @desc "Create a new transaction"
     field :create_transaction, :transaction do
       @desc "amount is in cents"
-      arg(:amount, non_null(:integer))
+      arg(:amount, non_null(:amount))
       arg(:credit, non_null(:boolean))
       arg(:company_id, non_null(:id))
       arg(:debit, non_null(:boolean))
@@ -90,7 +117,7 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
     @desc "Update a transaction"
     field :update_transaction, :transaction do
       arg(:id, non_null(:id))
-      @desc "amount is in cents"
+      @desc "amount INCLUDES cents"
       arg(:amount, :integer)
       arg(:credit, :boolean)
       arg(:debit, :boolean)

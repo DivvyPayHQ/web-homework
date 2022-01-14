@@ -2,6 +2,12 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   alias Absinthe.Resolution.Helpers
   alias Homework.{Companies, Merchants, Transactions, Users}
 
+  ###################################################
+  ### Transforming internal schema to external schema
+  ###################################################
+  def float_parse_amount(_root, _args, %{source: %{amount: amount}}),
+    do: {:ok, amount / 100}
+
   @doc """
   Get a list of transcations
   """
