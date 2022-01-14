@@ -70,7 +70,7 @@ defmodule HomeworkWeb.Schema.TransactionsTest do
 
   @create_transaction_query """
   mutation CreateTransaction(
-    $amount: Int!
+    $amount: Amount!
     $credit: Boolean!
     $companyId: ID!
     $debit: Boolean!
@@ -102,8 +102,8 @@ defmodule HomeworkWeb.Schema.TransactionsTest do
 
   @search_transactions_query """
   mutation SearchTransactionsByMaxMin(
-    $max: Int!
-    $min: Int!
+    $max: Amount!
+    $min: Amount!
   ){
     searchTransactionsByMaxMin(
       max: $max
@@ -115,7 +115,7 @@ defmodule HomeworkWeb.Schema.TransactionsTest do
   @update_transaction_query """
   mutation UpdateTransaction(
     $id: ID!
-    $amount: Int
+    $amount: Amount
     $credit: Boolean
     $debit: Boolean
     $description: String
@@ -237,7 +237,8 @@ defmodule HomeworkWeb.Schema.TransactionsTest do
       t = body["data"]["transaction"]
 
       assert Map.get(t, "id") == transaction.id
-      assert Map.get(t, "amount") == transaction.amount
+      # stored as integer in database, received as decimal/float
+      assert Map.get(t, "amount") == transaction.amount / 100
       assert Map.get(t, "credit") == transaction.credit
       assert Map.get(t, "companyId") == transaction.company_id
       assert Map.get(t, "debit") == transaction.debit
@@ -263,16 +264,12 @@ defmodule HomeworkWeb.Schema.TransactionsTest do
       assert errors["message"] =~ "could not get transaction: no result"
     end
 
-    test "creates a transaction", context do
-      conn = Map.get(context, :conn)
-
-      transaction =
-        context
-        |> Map.get(:transactions)
-        |> Enum.at(0)
+    test "creates a transaction with float amount", context do
+      transaction = Enum.at(context.transactions, 0)
 
       variables = %{
-        amount: 1005,
+        # amount as decimal/float
+        amount: 10.05,
         credit: true,
         # use existing company
         companyId: transaction.company_id,
@@ -284,6 +281,7 @@ defmodule HomeworkWeb.Schema.TransactionsTest do
         userId: transaction.user_id
       }
 
+      conn = Map.get(context, :conn)
       body = graphql_host(conn, query: @create_transaction_query, variables: variables)
       refute body["errors"]
       t = body["data"]["createTransaction"]
@@ -298,6 +296,29 @@ defmodule HomeworkWeb.Schema.TransactionsTest do
       assert Map.get(t, "description") == variables.description
       assert Map.get(t, "merchantId") == variables.merchantId
       assert Map.get(t, "userId") == variables.userId
+    end
+
+    test "creates a transaction with integer amount", context do
+      transaction = Enum.at(context.transactions, 0)
+
+      variables = %{
+        # amount as integer
+        amount: 1390,
+        companyId: transaction.company_id,
+        credit: true,
+        debit: false,
+        description: "bought a lot of Bluetooth speakers",
+        merchantId: transaction.merchant_id,
+        userId: transaction.user_id
+      }
+
+      conn = Map.get(context, :conn)
+      body = graphql_host(conn, query: @create_transaction_query, variables: variables)
+      refute body["errors"]
+      t = body["data"]["createTransaction"]
+
+      # confirm received amount is variable amount in decimal/float form
+      assert Map.get(t, "amount") == variables.amount / 100
     end
 
     test "deletes a transaction", context do
@@ -336,9 +357,23 @@ defmodule HomeworkWeb.Schema.TransactionsTest do
         fn {:amount, amount} -> insert!(:transaction, %{amount: amount}) end
       )
 
+      # decimal support
+      variables = %{
+        max: 123.50,
+        min: 123.00
+      }
+
+      conn = Map.get(context, :conn)
+      body = graphql_host(conn, query: @search_transactions_query, variables: variables)
+      refute body["errors"]
+      users = body["data"]["searchTransactionsByMaxMin"]
+
+      assert 2 = length(users)
+
+      # integer support
       variables = %{
         max: 12350,
-        min: 12340
+        min: 12300
       }
 
       conn = Map.get(context, :conn)
@@ -358,14 +393,15 @@ defmodule HomeworkWeb.Schema.TransactionsTest do
         |> Enum.at(0)
 
       variables = %{
-        amount: 1005,
+        amount: 10.05,
         credit: false,
         debit: false,
         description: "bought a lot of Bluetooth speakers",
         id: transaction.id
       }
 
-      assert transaction.amount != variables.amount
+      # stored as integer in database, amount variable can be integer or decimal/float
+      assert transaction.amount / 100 != variables.amount
       assert transaction.credit != variables.credit
       assert transaction.debit != variables.debit
       assert transaction.description != variables.description

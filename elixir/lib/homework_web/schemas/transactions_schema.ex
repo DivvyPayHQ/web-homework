@@ -20,9 +20,8 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
   defp parse_amount(%{value: v}) do
     with {:integer, v} when not is_integer(v) <- {:integer, v},
          {:float, v} when is_float(v) <- {:float, v},
-         v_string <- Float.to_string(v),
+         v_string <- :erlang.float_to_binary(v, decimals: 2),
          [v_dollar, v_cents] <- String.split(v_string, "."),
-         {cents, _} when cents < 100 <- Integer.parse(v_cents),
          {v_int, _} <- Integer.parse("#{v_dollar}#{v_cents}") do
       {:ok, v_int}
     else
@@ -108,8 +107,8 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
 
     @desc "Search existing users by the provided search term"
     field :search_transactions_by_max_min, list_of(:transaction) do
-      arg(:max, non_null(:integer))
-      arg(:min, non_null(:integer))
+      arg(:max, non_null(:amount))
+      arg(:min, non_null(:amount))
 
       resolve(&TransactionsResolver.search_transactions_by_max_min/3)
     end
@@ -118,7 +117,7 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
     field :update_transaction, :transaction do
       arg(:id, non_null(:id))
       @desc "amount INCLUDES cents"
-      arg(:amount, :integer)
+      arg(:amount, :amount)
       arg(:credit, :boolean)
       arg(:debit, :boolean)
       arg(:description, :string)
