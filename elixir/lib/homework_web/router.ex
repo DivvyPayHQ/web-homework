@@ -5,6 +5,14 @@ defmodule HomeworkWeb.Router do
     plug(:accepts, ["json"])
   end
 
+  scope "/graphql" do
+    forward("/", Absinthe.Plug,
+      schema: HomeworkWeb.Schema,
+      interface: :simple,
+      context: %{pubsub: HomeworkWeb.Endpoint}
+    )
+  end
+
   scope "/" do
     pipe_through(:api)
 

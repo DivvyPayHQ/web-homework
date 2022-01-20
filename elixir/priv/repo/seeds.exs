@@ -143,7 +143,7 @@ defmodule Homework.Seeding do
 
     companies =
       Enum.map(company_names, fn {:name, c_n} ->
-        amount = Enum.random(5..10) * 1000
+        amount = Enum.random(5..10) * 100_000
 
         Repo.insert!(%Company{
           available_credit: amount,

@@ -52,5 +52,21 @@ defmodule HomeworkWeb.Endpoint do
   plug(Plug.MethodOverride)
   plug(Plug.Head)
   plug(Plug.Session, @session_options)
+
+  plug(Corsica,
+    origins: {__MODULE__, :origin_allowed?},
+    allow_headers: ~w(Accept Authorization Content-Type),
+    allow_methods: ~w(GET POST),
+    allow_credentials: true,
+    log: [rejected: :info, accepted: false]
+  )
+
   plug(HomeworkWeb.Router)
+
+  def origin_allowed?(origin) do
+    :homework
+    |> Application.fetch_env!(:cors_allowed_origins)
+    |> Regex.compile!()
+    |> Regex.match?(origin)
+  end
 end
