@@ -7,6 +7,7 @@ import styled from 'styled-components'
 const Content = styled.div`
   align-items: center;
   display: flex;
+  flex-direction: column;
   font-size: 32px;
   font-weight: 700;
   justify-content: center;
@@ -47,6 +48,8 @@ function Home () {
       </Header>
       <Content>
         <NothingToSee src={NOTHING_TO_SEE_URL} />
+        <h2>Nothing to see here. . .</h2>
+        <h3>But *Click* on that NavBar, Yo!</h3>
       </Content>
     </Wrapper>
   )
