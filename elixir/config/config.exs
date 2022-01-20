@@ -8,6 +8,7 @@
 use Mix.Config
 
 config :homework,
+  cors_allowed_origins: "http://localhost:(3000|8000)",
   ecto_repos: [Homework.Repo]
 
 # Configures the endpoint

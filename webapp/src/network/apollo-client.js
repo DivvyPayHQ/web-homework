@@ -4,7 +4,7 @@ import { onError } from '@apollo/client/link/error'
 const SERVER_URL = 'http://localhost:8000/graphql'
 
 const request = async operation => {
-  let headers = {}
+  let headers = { accept: 'application/json' }
   operation.setContext({ headers })
 }
 
@@ -43,7 +43,8 @@ export const client = new ApolloClient({
     }),
     requestLink,
     new HttpLink({
-      uri: SERVER_URL
+      uri: SERVER_URL,
+      credentials: 'include'
     })
   ]),
   cache
