@@ -12,6 +12,9 @@ defmodule HomeworkWeb.Schema do
   query do
     @desc "Get all Transactions"
     field(:transactions, list_of(:transaction)) do
+      # TODO: Is this idiomatic or is a separate schema definition w/ required dates (e.g. "transactions_by_date")?
+      arg(:start_date, :date)
+      arg(:end_date, :date)
       resolve(&TransactionsResolver.transactions/3)
     end
 
@@ -22,6 +25,7 @@ defmodule HomeworkWeb.Schema do
 
     @desc "Get all Merchants"
     field(:merchants, list_of(:merchant)) do
+      arg(:name, :string)
       resolve(&MerchantsResolver.merchants/3)
     end
   end

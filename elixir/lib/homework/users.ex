@@ -17,6 +17,18 @@ defmodule Homework.Users do
       [%User{}, ...]
 
   """
+  def list_users(%{first_name: first_name, last_name: last_name} = _args) do
+    Repo.all_by_fuzzy_strings([%{first_name: first_name}, %{last_name: last_name}], User)
+  end
+
+  def list_users(%{first_name: _first_name} = args) do
+    Repo.all_by_fuzzy_strings([args], User)
+  end
+
+  def list_users(%{last_name: _last_name} = args) do
+    Repo.all_by_fuzzy_strings([args], User)
+  end
+
   def list_users(_args) do
     Repo.all(User)
   end
