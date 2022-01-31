@@ -20,6 +20,8 @@ defmodule HomeworkWeb.Schema do
 
     @desc "Get all Users"
     field(:users, list_of(:user)) do
+      arg(:first_name, :string)
+      arg(:last_name, :string)
       resolve(&UsersResolver.users/3)
     end
 
