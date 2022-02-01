@@ -4,6 +4,7 @@ defmodule HomeworkWeb.Schema do
   """
   use Absinthe.Schema
 
+  alias HomeworkWeb.Resolvers.CompaniesResolver
   alias HomeworkWeb.Resolvers.MerchantsResolver
   alias HomeworkWeb.Resolvers.TransactionsResolver
   alias HomeworkWeb.Resolvers.UsersResolver
@@ -29,6 +30,12 @@ defmodule HomeworkWeb.Schema do
     field(:merchants, list_of(:merchant)) do
       arg(:name, :string)
       resolve(&MerchantsResolver.merchants/3)
+    end
+
+    @desc "Get all Companies"
+    field(:companies, list_of(:company)) do
+      arg(:name, :string)
+      resolve(&CompaniesResolver.companies/3)
     end
   end
 
