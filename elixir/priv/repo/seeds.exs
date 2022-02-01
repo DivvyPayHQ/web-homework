@@ -216,6 +216,7 @@ transactions = [
 Repo.delete_all(Transaction)
 Repo.delete_all(User)
 Repo.delete_all(Merchant)
+Repo.delete_all(Company)
 
 # Seed companies and merchants, getting the first of each to satisfy foreign key constraints
 [first_company | _ ] = Seeds.safe_insert_many(companies)
