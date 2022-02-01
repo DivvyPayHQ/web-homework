@@ -17,10 +17,6 @@ defmodule Homework.Companies do
       [%Company{}, ...]
 
   """
-  def list_companies(%{name: _name} = args) do
-    Repo.all_by_fuzzy_strings([args], Company)
-  end
-
   def list_companies(_args) do
     Repo.all(Company)
   end
