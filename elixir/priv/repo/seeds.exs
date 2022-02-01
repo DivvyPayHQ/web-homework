@@ -63,13 +63,11 @@ end
 companies = [
   %Company{
     name: "Divvy",
-    credit_line: 1000,
-    available_credit: 1000
+    credit_line: 10000,
   },
   %Company{
     name: "Some LLC",
-    credit_line: 1000,
-    available_credit: 1000
+    credit_line: 100000000,
   },
 ]
 

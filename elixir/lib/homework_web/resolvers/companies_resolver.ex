@@ -5,7 +5,8 @@ defmodule HomeworkWeb.Resolvers.CompaniesResolver do
   Get a list of companies
   """
   def companies(_root, args, _info) do
-    {:ok, Companies.list_companies(args)}
+    companies = Companies.list_companies(args) |> Companies.get_available_credit()
+    {:ok, companies}
   end
 
   @doc """
@@ -14,7 +15,7 @@ defmodule HomeworkWeb.Resolvers.CompaniesResolver do
   def create_company(_root, args, _info) do
     case Companies.create_company(args) do
       {:ok, company} ->
-        {:ok, company}
+        {:ok, company |> Companies.get_available_credit()}
 
       error ->
         {:error, "could not create company: #{inspect(error)}"}
@@ -29,7 +30,7 @@ defmodule HomeworkWeb.Resolvers.CompaniesResolver do
 
     case Companies.update_company(company, args) do
       {:ok, company} ->
-        {:ok, company}
+        {:ok, company |> Companies.get_available_credit()}
 
       error ->
         {:error, "could not update company: #{inspect(error)}"}

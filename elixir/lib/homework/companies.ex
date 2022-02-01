@@ -7,6 +7,8 @@ defmodule Homework.Companies do
 
   alias Homework.Repo
   alias Homework.Companies.Company
+  alias Homework.Transactions.Transaction
+  alias Homework.Users.User
 
   @doc """
   Returns the list of companies.
@@ -104,5 +106,33 @@ defmodule Homework.Companies do
   """
   def change_company(%Company{} = company, attrs \\ %{}) do
     Company.changeset(company, attrs)
+  end
+
+  @doc """
+    Gets the available credit for one or more companies by calculating the total number or transactions against the companies credit line.
+  """
+  # TODO: There's got to be a better way to manage this then calculating every single transaction
+  def get_available_credit([] = companies) when is_list(companies) do
+    []
+  end
+
+  def get_available_credit([h | t] = companies) when is_list(companies) do
+    [ get_available_credit(h) | get_available_credit(t)]
+  end
+
+  def get_available_credit(company) do
+    {_transactions, total} = related_transactions(company.id) |> Enum.map_reduce(0, fn transaction, total -> {transaction, total + transaction.amount} end)
+    available_credit = company.credit_line - total
+    IO.puts("total: #{available_credit}")
+    IO.puts("available credit: #{available_credit}")
+    Map.update(company, :available_credit, available_credit, fn _existing_value -> available_credit end)
+  end
+
+  defp related_transactions(company_id) do
+    from(
+      t in Transaction,
+      join: u in User, on: u.id == t.user_id and field(u, :company_id) == ^company_id
+    )
+    |> Repo.all()
   end
 end
