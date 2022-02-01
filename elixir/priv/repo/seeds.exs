@@ -10,6 +10,7 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
+alias Homework.Companies.Company
 alias Homework.Merchants.Merchant
 alias Homework.Repo
 alias Homework.Transactions.Transaction
@@ -51,12 +52,26 @@ defmodule Seeds do
   end
 
   def add_foreign_keys_to_entity(entity, [h | t]) do
+    #    IO.puts("HERE: #{h}")
     { column, value } = Map.to_list(h) |> List.first()
     entity
     |> Map.put(column, value)
     |> add_foreign_keys_to_entity(t)
   end
 end
+
+companies = [
+  %Company{
+    name: "Divvy",
+    credit_line: 1000,
+    available_credit: 1000
+  },
+  %Company{
+    name: "Some LLC",
+    credit_line: 1000,
+    available_credit: 1000
+  },
+]
 
 merchants = [
   %Merchant{
@@ -202,10 +217,12 @@ Repo.delete_all(Transaction)
 Repo.delete_all(User)
 Repo.delete_all(Merchant)
 
-# Seed merchants, getting the first to satisfy foreign key constraints
+# Seed companies and merchants, getting the first of each to satisfy foreign key constraints
+[first_company | _ ] = Seeds.safe_insert_many(companies)
 [first_merchant | _ ] = Seeds.safe_insert_many(merchants)
-# Seed users, getting the first to satisfy foreign key constraints
-[first_user | _ ] = Seeds.safe_insert_many(users)
+
+# Seed users with the the first company, getting the first to satisfy foreign key constraints
+[first_user | _ ] = Seeds.add_foreign_keys_to_entities(users, [%{company_id: first_company.id}]) |> Seeds.safe_insert_many()
 
 # Seed transactions with first merchant and user
 Seeds.add_foreign_keys_to_entities(transactions, [%{merchant_id: first_merchant.id}, %{user_id: first_user.id}])
