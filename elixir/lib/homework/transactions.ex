@@ -17,6 +17,10 @@ defmodule Homework.Transactions do
       [%Transaction{}, ...]
 
   """
+  def list_transactions(%{start_date: _start_date, end_date: _end_date} = args) do
+    Repo.all_by_date_range(args, Transaction, :inserted_at)
+  end
+
   def list_transactions(_args) do
     Repo.all(Transaction)
   end
