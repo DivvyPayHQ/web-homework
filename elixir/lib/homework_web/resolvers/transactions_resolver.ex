@@ -2,6 +2,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   alias Homework.Merchants
   alias Homework.Transactions
   alias Homework.Users
+  alias HomeworkWeb.Resolvers.Utils.MoneyTypeConverter
 
   @money_fields [:amount]
 
@@ -9,7 +10,8 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   Get a list of transactions
   """
   def transactions(_root, %{start_date: _start_date, end_date: _end_date} = args, _info) do
-    {:ok, Transactions.list_transactions(args)}
+    transactions = Transactions.list_transactions(args) |> MoneyTypeConverter.convert_structs(@money_fields)
+    {:ok, transactions}
   end
 
   def transactions(_root, %{start_date: _start_date} = _args, _info) do
@@ -21,7 +23,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   end
 
   def transactions(_root, args, _info) do
-    transactions = Transactions.list_transactions(args) |> HomeworkWeb.Resolvers.Utils.MoneyTypeConverter.convert_structs(@money_fields)
+    transactions = Transactions.list_transactions(args) |> MoneyTypeConverter.convert_structs(@money_fields)
     {:ok, transactions}
   end
 
@@ -45,7 +47,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   def create_transaction(_root, args, _info) do
     case Transactions.create_transaction(args) do
       {:ok, transaction} ->
-        {:ok, HomeworkWeb.Resolvers.Utils.MoneyTypeConverter.convert_fields(transaction, @money_fields)}
+        {:ok, MoneyTypeConverter.convert_fields(transaction, @money_fields)}
 
       error ->
         {:error, "could not create transaction: #{inspect(error)}"}
@@ -56,13 +58,13 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   Updates a transaction for an id with args specified.
   """
   def update_transaction(_root, %{id: id} = args, _info) do
-    converted_args = HomeworkWeb.Resolvers.Utils.MoneyTypeConverter.convert_fields(args, @money_fields)
+    converted_args = MoneyTypeConverter.convert_fields(args, @money_fields)
 
     transaction = Transactions.get_transaction!(id)
 
     case Transactions.update_transaction(transaction, converted_args) do
       {:ok, transaction} ->
-        {:ok, HomeworkWeb.Resolvers.Utils.MoneyTypeConverter.convert_fields(transaction, @money_fields)}
+        {:ok, MoneyTypeConverter.convert_fields(transaction, @money_fields)}
 
       error ->
         {:error, "could not update transaction: #{inspect(error)}"}
@@ -77,7 +79,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
 
     case Transactions.delete_transaction(transaction) do
       {:ok, transaction} ->
-        {:ok, HomeworkWeb.Resolvers.Utils.MoneyTypeConverter.convert_fields(transaction, @money_fields)}
+        {:ok, MoneyTypeConverter.convert_fields(transaction, @money_fields)}
 
       error ->
         {:error, "could not update transaction: #{inspect(error)}"}

@@ -9,16 +9,16 @@ defmodule HomeworkWeb.Schemas.CompaniesSchema do
   object :company do
     field(:id, non_null(:id))
     field(:name, :string)
-    field(:credit_line, :integer)
-    field(:available_credit, :integer)
+    field(:credit_line, :float)
+    field(:available_credit, :float)
   end
 
   object :company_mutations do
     @desc "Create a company"
     field :create_company, :company do
       arg(:name, non_null(:string))
-      arg(:credit_line, non_null(:integer))
-      arg(:available_credit, non_null(:integer))
+      arg(:credit_line, non_null(:float))
+      arg(:available_credit, non_null(:float))
 
       resolve(&CompaniesResolver.create_company/3)
     end
@@ -26,8 +26,8 @@ defmodule HomeworkWeb.Schemas.CompaniesSchema do
     @desc "Update a company"
     field :update_company, :company do
       arg(:name, non_null(:string))
-      arg(:credit_line, non_null(:integer))
-      arg(:available_credit, non_null(:integer))
+      arg(:credit_line, non_null(:float))
+      arg(:available_credit, non_null(:float))
 
       resolve(&CompaniesResolver.update_company/3)
     end

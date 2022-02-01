@@ -1,11 +1,15 @@
 defmodule HomeworkWeb.Resolvers.CompaniesResolver do
   alias Homework.Companies
+  alias HomeworkWeb.Resolvers.Utils.MoneyTypeConverter
+
+  @money_fields [:credit_line, :available_credit]
 
   @doc """
   Get a list of companies
   """
   def companies(_root, args, _info) do
-    {:ok, Companies.list_companies(args)}
+    companies = Companies.list_companies(args) |> MoneyTypeConverter.convert_structs(@money_fields)
+    {:ok, companies}
   end
 
   @doc """
@@ -14,7 +18,7 @@ defmodule HomeworkWeb.Resolvers.CompaniesResolver do
   def create_company(_root, args, _info) do
     case Companies.create_company(args) do
       {:ok, company} ->
-        {:ok, company}
+        {:ok, MoneyTypeConverter.convert_fields(company, @money_fields)}
 
       error ->
         {:error, "could not create company: #{inspect(error)}"}
@@ -25,11 +29,13 @@ defmodule HomeworkWeb.Resolvers.CompaniesResolver do
   Updates a company for an id with args specified.
   """
   def update_company(_root, %{id: id} = args, _info) do
+    converted_args = MoneyTypeConverter.convert_fields(args, @money_fields)
+
     company = Companies.get_company!(id)
 
-    case Companies.update_company(company, args) do
+    case Companies.update_company(company, converted_args) do
       {:ok, company} ->
-        {:ok, company}
+        {:ok, MoneyTypeConverter.convert_fields(company, @money_fields)}
 
       error ->
         {:error, "could not update company: #{inspect(error)}"}
@@ -44,7 +50,7 @@ defmodule HomeworkWeb.Resolvers.CompaniesResolver do
 
     case Companies.delete_company(company) do
       {:ok, company} ->
-        {:ok, company}
+        {:ok, MoneyTypeConverter.convert_fields(company, @money_fields)}
 
       error ->
         {:error, "could not update company: #{inspect(error)}"}
