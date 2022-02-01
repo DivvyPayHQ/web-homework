@@ -17,6 +17,10 @@ defmodule Homework.Merchants do
       [%Merchant{}, ...]
 
   """
+  def list_merchants(%{name: _name} = args) do
+    Repo.all_by_fuzzy_strings([args], Merchant)
+  end
+
   def list_merchants(_args) do
     Repo.all(Merchant)
   end
