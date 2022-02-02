@@ -10,8 +10,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   Get a list of transactions
   """
   def transactions(_root, %{start_date: _start_date, end_date: _end_date} = args, _info) do
-    transactions = Transactions.list_transactions(args) |> MoneyTypeConverter.convert_structs(@money_fields)
-    {:ok, transactions}
+    {:ok, Transactions.list_transactions(args) |> MoneyTypeConverter.convert_structs(@money_fields)}
   end
 
   def transactions(_root, %{start_date: _start_date} = _args, _info) do
@@ -23,8 +22,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   end
 
   def transactions(_root, args, _info) do
-    transactions = Transactions.list_transactions(args) |> MoneyTypeConverter.convert_structs(@money_fields)
-    {:ok, transactions}
+    {:ok, Transactions.list_transactions(args) |> MoneyTypeConverter.convert_structs(@money_fields)}
   end
 
   @doc """
@@ -47,7 +45,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   def create_transaction(_root, args, _info) do
     case Transactions.create_transaction(args) do
       {:ok, transaction} ->
-        {:ok, MoneyTypeConverter.convert_fields(transaction, @money_fields)}
+        {:ok, transaction |> MoneyTypeConverter.convert_fields(@money_fields)}
 
       error ->
         {:error, "could not create transaction: #{inspect(error)}"}
@@ -64,7 +62,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
 
     case Transactions.update_transaction(transaction, converted_args) do
       {:ok, transaction} ->
-        {:ok, MoneyTypeConverter.convert_fields(transaction, @money_fields)}
+        {:ok, transaction |> MoneyTypeConverter.convert_fields(@money_fields)}
 
       error ->
         {:error, "could not update transaction: #{inspect(error)}"}
