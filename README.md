@@ -7,8 +7,6 @@ Please **fork** this repo a **private repo** on your GitHub account.
 
 Please share your finished project repo with @thawk55 and @jakerichan as part of your submission.
 
-<br />
-
 
 ## Project Setup
 

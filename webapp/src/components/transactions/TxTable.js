@@ -1,6 +1,5 @@
-import React from 'react'
 import { arrayOf, string, bool, number, shape } from 'prop-types'
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 
 const styles = css`
  .header {
@@ -10,18 +9,18 @@ const styles = css`
 
 const makeDataTestId = (transactionId, fieldName) => `transaction-${transactionId}-${fieldName}`
 
-export function TxTable ({ data }) {
+const TxTable = ({ data }) => {
   return (
     <table css={styles}>
       <tbody>
         <tr className='header'>
-          <td >ID</td>
-          <td >User ID</td>
-          <td >Description</td>
-          <td >Merchant ID</td>
-          <td >Debit</td>
-          <td >Credit</td>
-          <td >Amount</td>
+          <td>ID</td>
+          <td>User ID</td>
+          <td>Description</td>
+          <td>Merchant ID</td>
+          <td>Debit</td>
+          <td>Credit</td>
+          <td>Amount</td>
         </tr>
         {
           data.map(tx => {
@@ -56,3 +55,5 @@ TxTable.propTypes = {
     amount: number
   }))
 }
+
+export default TxTable
