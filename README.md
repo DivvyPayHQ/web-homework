@@ -3,9 +3,11 @@
 This repository provides a starting point for a basic React + GraphQL application.
 All of the configuration boilerplate is complete so you can start by writing the code that you want us to see.
 
-Please **fork** this repo a **private repo** on your GitHub account.
+Somebody from Divvy will create a private repo cloned from this template and send you an invitation to contribute. 
 
-Please share your finished project repo with @thawk55 and @jakerichan as part of your submission.
+Please do all your work in a feature branch. When you're finished, create a PR back into the `master` branch. This PR is a great opportunity to describe the objectives you completed and any notes you'd like us to know when reviewing your submission.
+
+> If you don't want this to show publicly, double check your profile settings. You'll want to disable "Include private contributions on my profile" under "Contributions". Otherwise your activity will still be publicly visible.
 
 
 ## Project Setup
