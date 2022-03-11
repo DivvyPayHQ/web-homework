@@ -3,6 +3,7 @@ import { css } from '@emotion/react'
 export const CutomButtonStyles = css`
 
   width: 50px;
+  margin: 25px;
 
   .button {
       border-radius: 4px;
@@ -38,7 +39,7 @@ export const CutomButtonStyles = css`
       }
  
       90% {
-          top: -6px;
+          top: -7px;
       }
  
       100% {

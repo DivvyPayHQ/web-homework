@@ -62,6 +62,7 @@
     "@emotion/core": "10.0.10",
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
+    "@mui/material": "^5.5.0",
     "axios": "0.21.1",
     "emotion-theming": "10.0.10",
     "graphql": "14.3.1",

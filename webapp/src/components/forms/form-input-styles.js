@@ -1,36 +1,32 @@
 import { css } from '@emotion/react'
 
 export const formInputStyle = (width) => css`
+width: auto;
 
 .group {
   position: relative;
-  margin: 45px 0;
 }
 
   .form-input {
     background: none;
     background-color: white;
     color: grey;
-    font-size: 18px;
+    font-size: 2vw;
     padding: 10px 10px 10px 5px;
-    display: block;
     border: none;
-    border-radius: 0;
     border-bottom: 1px solid grey;
-    margin: 25px 5px;
+    margin: 0px 5px;
     &:focus {
       outline: none;
     }
   }
 
-  .id {
-    width: 10%;
-  }
 
   .form-input:focus ~ .form-input-label {
-    top: -14px;
+    left: -${width}px;
     font-size: 12px;
     color: black;
+    opacity: 0
   }
 
   .form-input-label {
@@ -45,9 +41,9 @@ export const formInputStyle = (width) => css`
   }
 
   .form-input-label.shrink {
-    top: -14px;
     font-size: 12px;
     color: black;
+    opacity: 0
   } 
 
 

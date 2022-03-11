@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import FormInput from '../forms/form-input-component'
+import { FormInput } from '../forms/form-input-component'
 import { formContainerStyles } from './form-container-styles'
+import { Button } from '../buttons/plusButton'
 
 export function FormContainer () {
   const [state, setState] = useState({
@@ -12,9 +13,38 @@ export function FormContainer () {
     setState({ ...state, [name]: value })
   }
 
+  const onSubmit = () => {
+
+  }
+
   return (
     <div css={formContainerStyles}>
       <form className='transaction-form' >
+        <FormInput
+          label='Id'
+          name='Id'
+          onChange={handleChange}
+          required
+          type='text'
+          value={`${state.Id}`}
+          width='10px'
+        />
+        <FormInput
+          label='User Id'
+          name='UserId'
+          onChange={handleChange}
+          required
+          type='text'
+          value={`${state.UserId}`}
+        />
+        <FormInput
+          label='User Id'
+          name='UserId'
+          onChange={handleChange}
+          required
+          type='text'
+          value={`${state.UserId}`}
+        />
         <FormInput
           label='Id'
           name='Id'
@@ -32,6 +62,15 @@ export function FormContainer () {
           type='text'
           value={`${state.UserId}`}
         />
+        <FormInput
+          label='User Id'
+          name='UserId'
+          onChange={handleChange}
+          required
+          type='text'
+          value={`${state.UserId}`}
+        />
+        <Button onClickfunction={onSubmit} />
       </form>
     </div>
   )
