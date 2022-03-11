@@ -1,0 +1,20 @@
+[
+    { 
+        "id": "1", 
+        "user_id": "Bill",
+        "description:": "A crunchy taco",
+        "merchant_id": "Taco Bell",
+        "debit": false,
+        "credit": true,
+        "amount": 5.32
+    },
+    { 
+        "id": "2", 
+        "user_id": "Ted",
+        "description:": "A crunchy salad",
+        "merchant_id": "Walmart",
+        "debit": false,
+        "credit": true,
+        "amount": 7.45
+    }
+]

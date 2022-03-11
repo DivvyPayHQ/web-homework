@@ -21,8 +21,12 @@ tr:nth-child(even){background-color: #f2f2f2}
 tr:hover {background-color: #ddd;}
 
 th {
-  background-color: #04AA6D;
+  background-color: #0067b7;
   color: white;
+}
+
+.buttons {
+  display:flex;
 }
 
 `

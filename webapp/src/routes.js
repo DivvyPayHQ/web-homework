@@ -10,10 +10,13 @@ function AppRouter () {
         <nav css={navStyle}>
           <ul >
             <li>
-              <Link to='/'>Home</Link>
+              <Link to='/'>Transactions</Link>
             </li>
             <li>
-              <Link to='/another'>Another route</Link>
+              |
+            </li>
+            <li>
+              <Link to='/another'>Test</Link>
             </li>
           </ul>
         </nav>
@@ -36,11 +39,20 @@ const layoutStyle = css`
 
 const navStyle = css`
   grid-row: 1;
+  background: #40a8f8;
+  padding: 10px 20px;
+  background: linear-gradient(#40a8f8, #2791e3);
+
+  a {
+    text-decoration: none;
+    color: white
+  }
 
   & > ul {
       display: flex;
       flex-direction: row;
       list-style-type: none;
+      color: white;
   }
   
   & > ul > li:not(:first-of-type) {

@@ -70,7 +70,7 @@ export function FormContainer () {
           type='text'
           value={`${state.UserId}`}
         />
-        <Button onClickfunction={onSubmit} />
+        <Button icon={'+'} onClickfunction={onSubmit} />
       </form>
     </div>
   )

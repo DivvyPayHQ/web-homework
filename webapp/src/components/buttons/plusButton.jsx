@@ -2,9 +2,9 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState } from 'react'
 import { CutomButtonStyles } from './custom-buttons-styles'
-import { func } from 'prop-types'
+import { func, string } from 'prop-types'
 
-export function Button ({ onClickfunction }) {
+export function Button ({ onClickfunction, icon }) {
   const [isActive, setActive] = useState(false)
   const active = isActive ? 'active' : null
   const classes = `button3 button ${active}`
@@ -19,7 +19,7 @@ export function Button ({ onClickfunction }) {
       <div className='button button1'>
         <div className='button button2'>
           <div className={classes}>
-            <div className='symbol'>+</div>
+            <div className='symbol'><span aria-label='emoji' role='img'>{icon}</span></div>
           </div>
         </div>
       </div>
@@ -28,5 +28,6 @@ export function Button ({ onClickfunction }) {
 }
 
 Button.propTypes = {
-  onClickfunction: func
+  onClickfunction: func,
+  icon: string
 }

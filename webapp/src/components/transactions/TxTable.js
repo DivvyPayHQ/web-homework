@@ -10,6 +10,14 @@ export function TxTable ({ data }) {
     setHidden(!hidden)
   }
 
+  const onEdit = () => {
+
+  }
+
+  const onDelete = () => {
+
+  }
+
   return (
     <div css={txTableStyles}>
       <table>
@@ -47,12 +55,18 @@ export function TxTable ({ data }) {
                   <td />
                   <td />
                   <td />
+                  <td>
+                    <div className='buttons'>
+                      <Button icon={'✏️'} onClickfunction={onEdit} />
+                      <Button icon={'🗑️'} onClickfunction={onDelete} />
+                    </div>
+                  </td>
                 </tr>
               )
           }
         </tbody>
       </table>
-      <Button onClickfunction={toggleForm} />
+      <Button icon={'+'} onClickfunction={toggleForm} />
       {hidden ? null : <FormContainer />}
     </div>
   )

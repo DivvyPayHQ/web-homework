@@ -1,9 +1,8 @@
 import { css } from '@emotion/react'
 
 export const CutomButtonStyles = css`
-
-  width: 50px;
-  margin: 25px;
+padding: 15px;
+width: 26px;
 
   .button {
       border-radius: 4px;
@@ -55,7 +54,7 @@ export const CutomButtonStyles = css`
   }
  
   .button3 {
-      background: linear-gradient(#40a8f8, #40a8f8);
+      background: linear-gradient(#40a8f8, #2791e3);
       top: -5px;
       position: relative;
       display: flex;
@@ -71,6 +70,7 @@ export const CutomButtonStyles = css`
       justify-content: center;
       align-items: center;
       user-select: none;
+      font-size: 1rem;
   }
 
 }

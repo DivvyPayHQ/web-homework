@@ -5,6 +5,7 @@ width: auto;
 
 .group {
   position: relative;
+  display: flex;
 }
 
   .form-input {
