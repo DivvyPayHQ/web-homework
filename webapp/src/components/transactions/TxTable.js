@@ -5,10 +5,13 @@ import { Button } from '../buttons/plusButton'
 import { txTableStyles } from './TxTable-styles'
 import { romanNumeralConverter } from '../../utils/romanNumeralConverter'
 import { gibberishConverter } from '../../utils/i18nConverter'
+import { deleteTransaction, GetTransactions } from '../../gql/transactions.gql.js'
+import { useMutation } from '@apollo/client'
 export function TxTable ({ data, convertRoman }) {
   const [hidden, setHidden] = useState(true)
+  const [isEditing, setIsEditing] = useState(false)
   const emptyState = {
-    'Id': '',
+    'id': '',
     'user_id': '',
     'description': '',
     'merchant_id': '',
@@ -19,17 +22,25 @@ export function TxTable ({ data, convertRoman }) {
   const isI18nEnabled = window.location.search.includes('i18n=true')
   const [state, setState] = useState(emptyState)
   const [qData, setQData] = useState(data)
+  const [deleteTransactionMutation] = useMutation(deleteTransaction, {
+    refetchQueries: [
+      { query: GetTransactions },
+      'GetTransactions'
+    ]
+  })
 
   function toggleForm () {
     setHidden(!hidden)
+    setIsEditing(false)
     setState(emptyState)
   }
 
   function onEdit (params) {
+    setIsEditing(true)
     setHidden(false)
     const result = qData.find(({ id }) => id === params)
     setState({
-      'Id': params,
+      'id': params,
       'user_id': result.user_id,
       'description': result.description,
       'merchant_id': result.merchant_id,
@@ -39,8 +50,8 @@ export function TxTable ({ data, convertRoman }) {
     })
   }
 
-  function onDelete () {
-
+  function onDelete (id) {
+    deleteTransactionMutation({ variables: { id } })
   }
 
   return (
@@ -71,7 +82,7 @@ export function TxTable ({ data, convertRoman }) {
                   <td>
                     <div className='buttons'>
                       <Button icon={'✏️'} id={id} onClickfunction={onEdit} />
-                      <Button icon={'🗑️'} onClickfunction={onDelete} />
+                      <Button icon={'🗑️'} id={id} onClickfunction={onDelete} />
                     </div>
                   </td>
                 </tr>
@@ -98,7 +109,7 @@ export function TxTable ({ data, convertRoman }) {
         </tbody>
       </table>
       <Button icon={'+'} onClickfunction={toggleForm} />
-      {hidden ? null : <FormContainer setHidden={setHidden} setQData={setQData} setState={setState} {...state} />}
+      {hidden ? null : <FormContainer isEditing={isEditing} setHidden={setHidden} setQData={setQData} setState={setState} {...state} />}
     </div>
   )
 }

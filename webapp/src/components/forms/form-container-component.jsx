@@ -2,32 +2,39 @@ import React from 'react'
 import { FormInput } from '../forms/form-input-component'
 import { formContainerStyles } from './form-container-styles'
 import { Button } from '../buttons/plusButton'
-import { array, func } from 'prop-types'
-import { useMutation, useQuery } from '@apollo/client'
-import { addTransaction, GetTransactions } from '../../gql/transactions.gql.js'
+import { array, func, bool } from 'prop-types'
+import { useMutation } from '@apollo/client'
+import { addTransaction, GetTransactions, updateTransaction } from '../../gql/transactions.gql.js'
 
-export function FormContainer ({ setState, setHidden, setQData, ...state }) {
+export function FormContainer ({ setState, setHidden, setQData, isEditing, ...state }) {
   const handleChange = (event) => {
     const { name, value } = event.target
     setState({ ...state, [name]: value })
   }
   const [createTransactionMutation] = useMutation(addTransaction, {
     refetchQueries: [
+      { query: GetTransactions },
+      'GetTransactions'
+    ]
+  })
+  const [createUpdateTransaction] = useMutation(updateTransaction, {
+    refetchQueries: [
+      { query: GetTransactions },
       'GetTransactions'
     ]
   })
 
-  const { data = {} } = useQuery(GetTransactions)
-  if (data.length) {
-    setQData(data)
-  }
-
   const onSubmit = () => {
-    // This is where I would send the Gql mutate call if the backend  had one set up
-    setState({ ...state, amount: parseInt(state.amount) })
-    createTransactionMutation({ variables: state })
-    setHidden(true)
-    window.location.reload(false)
+    state.amount = parseInt(state.amount)
+    state.credit = (state.credit === 'true' || state.credit === true)
+    state.debit = (state.debit === 'true' || state.debit === true)
+    if (isEditing) {
+      createUpdateTransaction({ variables: state })
+      setHidden(true)
+    } else {
+      createTransactionMutation({ variables: state })
+      setHidden(true)
+    }
   }
 
   return (
@@ -92,5 +99,6 @@ FormContainer.propTypes = {
   state: array,
   setState: func,
   setHidden: func,
-  setQData: func
+  setQData: func,
+  isEditing: bool
 }

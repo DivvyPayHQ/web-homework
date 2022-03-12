@@ -58,23 +58,23 @@ The completed homework assignment must have a usable interface that loads dynami
 
 ## Objectives
 
- * Write a basic user inerface that allows users to enter, edit, and remove transactions.
+ ✔️ Write a basic user inerface that allows users to enter, edit, and remove transactions.
 
    * Bonus points for adding other data models such as users and merchants that can be input as part of the transaction.
 
  * Provide a pie chart or histogram of the spend per category or spend per day, respectively.
 
- * Create a user setting that can convert the displayed numbers to Roman Numerals.  This is a problem that we may cover in your interview, so be able to walk us through the code f or this feature.
+ ✔️ Create a user setting that can convert the displayed numbers to Roman Numerals.  This is a problem that we may cover in your interview, so be able to walk us through the code f or this feature.
 
- * Seed the database.  Possible solutions include:
+ ✔️ Seed the database.  Possible solutions include:
    * producing a CSV file and endpoint that allows the file to be uploaded through the web server
    * modifying the web server post install script to ensure the databse is correctly seeded instead
 
- * Add an i18n setting.  This is easily done in a couple of ways.
+ ✔️ Add an i18n setting.  This is easily done in a couple of ways.
    * Via URL (eg `?i18n=true`) that turns all of the display text into gibberish (eg replace the front with something that does not use a latin based charset).
    * Utilize this path in the URL (eg `/i18n/app` ) to enable an obviously i18n'd display.  You will have to modify the existing route or SPA configuration in the web server to return the index file for both the main URL and the i18n url.
 
- * Add a user experience that showcases your abilities on the front end such as:
+ ✔️ Add a user experience that showcases your abilities on the front end such as:
    * better navigation
    * improved styling
    * nested views

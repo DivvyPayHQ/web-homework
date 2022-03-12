@@ -3,10 +3,6 @@
 // require the necessary libraries
 const MongoClient = require('mongodb').MongoClient
 
-function randomIntFromInterval (min, max) { // min and max included
-  return Math.floor(Math.random() * (max - min + 1) + min)
-}
-
 async function seedDB () {
   // Connection URL
   const uri = 'mongodb://localhost:27017'
@@ -64,7 +60,7 @@ async function seedDB () {
 
     collection.insertMany(timeSeriesData)
 
-    console.log('Database seeded! :)')
+    console.log('Database seeded!')
     client.close()
   } catch (err) {
     console.log(err.stack)
