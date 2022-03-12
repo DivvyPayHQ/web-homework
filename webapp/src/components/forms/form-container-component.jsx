@@ -4,6 +4,7 @@ import { formContainerStyles } from './form-container-styles'
 import { Button } from '../buttons/plusButton'
 import { array, func, bool } from 'prop-types'
 import { useMutation } from '@apollo/client'
+import { isNumeric } from '../../utils/isNumeric'
 import { addTransaction, GetTransactions, updateTransaction } from '../../gql/transactions.gql.js'
 
 export function FormContainer ({ setState, setHidden, setQData, isEditing, ...state }) {
@@ -25,7 +26,11 @@ export function FormContainer ({ setState, setHidden, setQData, isEditing, ...st
   })
 
   const onSubmit = () => {
-    state.amount = parseInt(state.amount)
+    if (isNumeric(state.amount)) {
+      state.amount = parseFloat(state.amount)
+    } else {
+      state.amount = 0
+    }
     state.credit = (state.credit === 'true' || state.credit === true)
     state.debit = (state.debit === 'true' || state.debit === true)
     if (isEditing) {

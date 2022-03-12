@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import { css } from '@emotion/core'
 import { Home } from './home'
 import { gibberishConverter } from './utils/i18nConverter'
+import { PieChartPage } from './components/graphs/pieChartPage.jsx'
 
 function AppRouter () {
   const [convertRoman, setConvertRoman] = useState(true)
@@ -24,7 +25,7 @@ function AppRouter () {
               |
             </li>
             <li>
-              <Link to='/another'>{gibberishConverter('Graphs', isI18nEnabled)}</Link>
+              <Link to='/graphs'>{gibberishConverter('Graphs', isI18nEnabled)}</Link>
             </li>
           </ul>
           <div className='romanNumeral'>
@@ -37,7 +38,9 @@ function AppRouter () {
             <Route exact path='/'>
               <Home convertRoman={convertRoman} />
             </Route>
-            <Route component={() => (<div>Content for /another route</div>)} exact path='/another' />
+            <Route exact path='/graphs'>
+              <PieChartPage />
+            </Route>
           </Switch>
         </div>
       </div>
@@ -97,9 +100,9 @@ const toggleStyle = css`
 `
 
 const layoutStyle = css`
-    display: grid;
-    grid-row-gap: 24px;
-    padding: 8px;
+    display: flex;
+    padding: 8px 10%;
+    flex-direction: column;
 `
 
 const navStyle = css`
@@ -131,8 +134,14 @@ const navStyle = css`
   & > ul > li:not(:first-of-type) {
     margin-left: 16px;
   }
+
+  li {
+    font-size: 3vw;
+  }
 `
 
 const contentStyle = css`
-  grid-row: 2;
+  display: flex;
+  justify-content:center;
+  margin: 10px;
 `

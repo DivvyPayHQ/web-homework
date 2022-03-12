@@ -4,7 +4,7 @@ export const txTableStyles = css`
 display: flex;
 flex-direction: column;
 align-items: center;
-width: 100%
+width: 70%;
 
 table {
   border-collapse: collapse;
@@ -12,8 +12,8 @@ table {
 
 th, td {
   text-align: center;
-  padding: 2px;
-  font-size: 2vw;
+  padding: 5px;
+  font-size: 1.5vw;
 }
 
 tr:nth-child(even){background-color: #f2f2f2}
