@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import { css } from '@emotion/core'
 import { Home } from './home'
+import { gibberishConverter } from './utils/i18nConverter'
 
 function AppRouter () {
   const [convertRoman, setConvertRoman] = useState(true)
+  const [isI18nEnabled] = useState(window.location.search.includes('i18n=true'))
 
   function handleClick () {
     setConvertRoman(!convertRoman)
@@ -16,17 +18,17 @@ function AppRouter () {
         <nav css={navStyle}>
           <ul >
             <li>
-              <Link to='/'>Transactions</Link>
+              <Link to='/'>{gibberishConverter('Transactions', isI18nEnabled)}</Link>
             </li>
             <li>
               |
             </li>
             <li>
-              <Link to='/another'>Graphs</Link>
+              <Link to='/another'>{gibberishConverter('Graphs', isI18nEnabled)}</Link>
             </li>
           </ul>
           <div className='romanNumeral'>
-            <div>Roman Numeral Converter</div>
+            <div>{gibberishConverter('Roman Numeral Converter', isI18nEnabled)}</div>
             <input className='toggle' css={toggleStyle} onClick={handleClick} type='checkbox' />
           </div>
         </nav>

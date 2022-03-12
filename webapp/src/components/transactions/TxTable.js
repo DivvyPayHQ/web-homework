@@ -4,19 +4,42 @@ import { FormContainer } from '../forms/form-container-component'
 import { Button } from '../buttons/plusButton'
 import { txTableStyles } from './TxTable-styles'
 import { romanNumeralConverter } from '../../utils/romanNumeralConverter'
+import { gibberishConverter } from '../../utils/i18nConverter'
 export function TxTable ({ data, convertRoman }) {
   const [hidden, setHidden] = useState(true)
-  // const [isI18nEnabled] = useState(window.location.search.includes('i18n=true'))
+  const emptyState = {
+    'Id': '',
+    'user_id': '',
+    'description': '',
+    'merchant_id': '',
+    'debit': '',
+    'credit': '',
+    'amount': ''
+  }
+  const isI18nEnabled = window.location.search.includes('i18n=true')
+  const [state, setState] = useState(emptyState)
+  const [qData, setQData] = useState(data)
 
   function toggleForm () {
     setHidden(!hidden)
+    setState(emptyState)
   }
 
-  const onEdit = () => {
-
+  function onEdit (params) {
+    setHidden(false)
+    const result = qData.find(({ id }) => id === params)
+    setState({
+      'Id': params,
+      'user_id': result.user_id,
+      'description': result.description,
+      'merchant_id': result.merchant_id,
+      'debit': result.debit,
+      'credit': result.credit,
+      'amount': result.amount
+    })
   }
 
-  const onDelete = () => {
+  function onDelete () {
 
   }
 
@@ -25,29 +48,29 @@ export function TxTable ({ data, convertRoman }) {
       <table>
         <tbody>
           <tr className='header'>
-            <th >ID</th>
-            <th >User ID</th>
-            <th >Description</th>
-            <th >Merchant ID</th>
-            <th >Debit</th>
-            <th >Credit</th>
-            <th >Amount</th>
+            <th >{gibberishConverter('ID', isI18nEnabled)}</th>
+            <th >{gibberishConverter('User ID', isI18nEnabled)}</th>
+            <th >{gibberishConverter('Description', isI18nEnabled)}</th>
+            <th >{gibberishConverter('Merchant ID', isI18nEnabled)}</th>
+            <th >{gibberishConverter('Debit', isI18nEnabled)}</th>
+            <th >{gibberishConverter('Credit', isI18nEnabled)}</th>
+            <th >{gibberishConverter('Amount', isI18nEnabled)}</th>
           </tr>
           {
-            data.length ? data.map(tx => {
+            qData.length ? qData.map(tx => {
               const { id, user_id: userId, description, merchant_id: merchantId, debit, credit, amount } = tx
               return (
                 <tr key={`transaction-${id}`}>
-                  <td>{convertRoman ? `${id.substring(0, 8)}...` : `${romanNumeralConverter(id).substring(0, 8)}...`}</td>
-                  <td>{convertRoman ? userId : romanNumeralConverter(userId)}</td>
-                  <td>{convertRoman ? description : romanNumeralConverter(description)}</td>
-                  <td>{convertRoman ? merchantId : romanNumeralConverter(merchantId)}</td>
-                  <td>{debit ? `✔️` : '❌' }</td>
-                  <td>{credit ? `✔️` : '❌' }</td>
-                  <td>{convertRoman ? amount : romanNumeralConverter(amount)}</td>
+                  <td>{gibberishConverter(convertRoman ? `${id.substring(0, 8)}...` : `${romanNumeralConverter(id).substring(0, 8)}...`, isI18nEnabled)}</td>
+                  <td>{gibberishConverter(convertRoman ? userId : romanNumeralConverter(userId), isI18nEnabled)}</td>
+                  <td>{gibberishConverter(convertRoman ? description : romanNumeralConverter(description), isI18nEnabled)}</td>
+                  <td>{gibberishConverter(convertRoman ? merchantId : romanNumeralConverter(merchantId), isI18nEnabled)}</td>
+                  <td>{debit ? `✔️` : '❌'}</td>
+                  <td>{credit ? `✔️` : '❌'}</td>
+                  <td>{gibberishConverter(convertRoman ? amount : romanNumeralConverter(amount), isI18nEnabled)}</td>
                   <td>
                     <div className='buttons'>
-                      <Button icon={'✏️'} onClickfunction={onEdit} />
+                      <Button icon={'✏️'} id={id} onClickfunction={onEdit} />
                       <Button icon={'🗑️'} onClickfunction={onDelete} />
                     </div>
                   </td>
@@ -75,7 +98,7 @@ export function TxTable ({ data, convertRoman }) {
         </tbody>
       </table>
       <Button icon={'+'} onClickfunction={toggleForm} />
-      {hidden ? null : <FormContainer />}
+      {hidden ? null : <FormContainer setHidden={setHidden} setQData={setQData} setState={setState} {...state} />}
     </div>
   )
 }

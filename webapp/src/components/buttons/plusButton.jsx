@@ -4,13 +4,13 @@ import React, { useState } from 'react'
 import { CutomButtonStyles } from './custom-buttons-styles'
 import { func, string } from 'prop-types'
 
-export function Button ({ onClickfunction, icon }) {
+export function Button ({ onClickfunction, icon, id }) {
   const [isActive, setActive] = useState(false)
   const active = isActive ? 'active' : null
   const classes = `button3 button ${active}`
 
   function toggleClass () {
-    onClickfunction()
+    onClickfunction(id)
     setActive(true)
   }
 
@@ -29,5 +29,6 @@ export function Button ({ onClickfunction, icon }) {
 
 Button.propTypes = {
   onClickfunction: func,
-  icon: string
+  icon: string,
+  id: string
 }
