@@ -6,7 +6,12 @@ import { Button } from '../buttons/plusButton'
 export function FormContainer () {
   const [state, setState] = useState({
     'Id': '',
-    'UserId': ''
+    'UserId': '',
+    'Description': '',
+    'MerchantId': '',
+    'Debit': '',
+    'Credit': '',
+    'Amount': ''
   })
   const handleChange = (event) => {
     const { name, value } = event.target
@@ -21,15 +26,6 @@ export function FormContainer () {
     <div css={formContainerStyles}>
       <form className='transaction-form' >
         <FormInput
-          label='Id'
-          name='Id'
-          onChange={handleChange}
-          required
-          type='text'
-          value={`${state.Id}`}
-          width='10px'
-        />
-        <FormInput
           label='User Id'
           name='UserId'
           onChange={handleChange}
@@ -38,37 +34,45 @@ export function FormContainer () {
           value={`${state.UserId}`}
         />
         <FormInput
-          label='User Id'
-          name='UserId'
+          label='Description'
+          name='Description'
           onChange={handleChange}
           required
           type='text'
-          value={`${state.UserId}`}
+          value={`${state.Description}`}
         />
         <FormInput
-          label='Id'
-          name='Id'
+          label='Merchant Id'
+          name='MerchantId'
           onChange={handleChange}
           required
           type='text'
-          value={`${state.Id}`}
+          value={`${state.MerchantId}`}
           width='20px'
         />
         <FormInput
-          label='User Id'
-          name='UserId'
+          label='Debit'
+          name='Debit'
           onChange={handleChange}
           required
           type='text'
-          value={`${state.UserId}`}
+          value={`${state.Debit}`}
         />
         <FormInput
-          label='User Id'
-          name='UserId'
+          label='Credit'
+          name='Credit'
           onChange={handleChange}
           required
           type='text'
-          value={`${state.UserId}`}
+          value={`${state.Credit}`}
+        />
+        <FormInput
+          label='Amount'
+          name='Amount'
+          onChange={handleChange}
+          required
+          type='text'
+          value={`${state.Amount}`}
         />
         <Button icon={'+'} onClickfunction={onSubmit} />
       </form>

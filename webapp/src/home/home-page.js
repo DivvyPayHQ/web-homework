@@ -2,8 +2,9 @@ import React, { Fragment } from 'react'
 import { useQuery } from '@apollo/client'
 import GetTransactions from '../gql/transactions.gql'
 import { TxTable } from '../components/transactions/TxTable'
+import { bool } from 'prop-types'
 
-export function Home () {
+export function Home ({ convertRoman }) {
   const { loading, error, data = {} } = useQuery(GetTransactions)
 
   if (loading) {
@@ -24,7 +25,11 @@ export function Home () {
 
   return (
     <Fragment>
-      <TxTable data={data.transactions} />
+      <TxTable convertRoman={convertRoman} data={data.transactions} />
     </Fragment>
   )
+}
+
+Home.propTypes = {
+  convertRoman: bool
 }

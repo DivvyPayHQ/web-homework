@@ -3,8 +3,10 @@ import { arrayOf, string, bool, number, shape } from 'prop-types'
 import { FormContainer } from '../forms/form-container-component'
 import { Button } from '../buttons/plusButton'
 import { txTableStyles } from './TxTable-styles'
-export function TxTable ({ data }) {
+import { romanNumeralConverter } from '../../utils/romanNumeralConverter'
+export function TxTable ({ data, convertRoman }) {
   const [hidden, setHidden] = useState(true)
+  // const [isI18nEnabled] = useState(window.location.search.includes('i18n=true'))
 
   function toggleForm () {
     setHidden(!hidden)
@@ -36,13 +38,19 @@ export function TxTable ({ data }) {
               const { id, user_id: userId, description, merchant_id: merchantId, debit, credit, amount } = tx
               return (
                 <tr key={`transaction-${id}`}>
-                  <td>{id}</td>
-                  <td>{userId}</td>
-                  <td>{description}</td>
-                  <td>{merchantId}</td>
-                  <td>{debit}</td>
-                  <td>{credit}</td>
-                  <td>{amount}</td>
+                  <td>{convertRoman ? `${id.substring(0, 8)}...` : `${romanNumeralConverter(id).substring(0, 8)}...`}</td>
+                  <td>{convertRoman ? userId : romanNumeralConverter(userId)}</td>
+                  <td>{convertRoman ? description : romanNumeralConverter(description)}</td>
+                  <td>{convertRoman ? merchantId : romanNumeralConverter(merchantId)}</td>
+                  <td>{debit ? `✔️` : '❌' }</td>
+                  <td>{credit ? `✔️` : '❌' }</td>
+                  <td>{convertRoman ? amount : romanNumeralConverter(amount)}</td>
+                  <td>
+                    <div className='buttons'>
+                      <Button icon={'✏️'} onClickfunction={onEdit} />
+                      <Button icon={'🗑️'} onClickfunction={onDelete} />
+                    </div>
+                  </td>
                 </tr>
               )
             })
@@ -81,5 +89,6 @@ TxTable.propTypes = {
     debit: bool,
     credit: bool,
     amount: number
-  }))
+  })),
+  convertRoman: bool
 }
