@@ -62,7 +62,7 @@ The completed homework assignment must have a usable interface that loads dynami
 
    * Bonus points for adding other data models such as users and merchants that can be input as part of the transaction.
 
- * Provide a pie chart or histogram of the spend per category or spend per day, respectively.
+ ✔️ Provide a pie chart or histogram of the spend per category or spend per day, respectively.
 
  ✔️ Create a user setting that can convert the displayed numbers to Roman Numerals.  This is a problem that we may cover in your interview, so be able to walk us through the code f or this feature.
 
@@ -76,7 +76,7 @@ The completed homework assignment must have a usable interface that loads dynami
 
  ✔️ Add a user experience that showcases your abilities on the front end such as:
    * better navigation
-   * improved styling
+   ✔️ improved styling
    * nested views
    * multiple routes with content (budgets, vendors, users, etc)
 

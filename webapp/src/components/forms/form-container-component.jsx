@@ -42,8 +42,14 @@ export function FormContainer ({ setState, setHidden, setQData, isEditing, ...st
     }
   }
 
+  const outsideClick = () => {
+    setHidden(true)
+  }
+
   return (
     <div css={formContainerStyles}>
+      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+      <div className='blocker' onClick={outsideClick} onKeyDown={outsideClick} />
       <form className='transaction-form' >
         <FormInput
           label='User Id'

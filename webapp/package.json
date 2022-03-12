@@ -73,7 +73,7 @@
     "react-dom": "16.8.6",
     "react-hot-loader": "4.11.0",
     "react-minimal-pie-chart": "^8.2.0",
-    "react-router-dom": "5.0.1",
+    "react-router-dom": "5.1.0",
     "styled-components": "^5.3.3"
   },
   "devDependencies": {

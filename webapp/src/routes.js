@@ -1,38 +1,19 @@
 import React, { useState } from 'react'
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { css } from '@emotion/core'
 import { Home } from './home'
-import { gibberishConverter } from './utils/i18nConverter'
+
 import { PieChartPage } from './components/graphs/pieChartPage.jsx'
+import Header from './components/header.jsx'
 
 function AppRouter () {
   const [convertRoman, setConvertRoman] = useState(true)
-  const [isI18nEnabled] = useState(window.location.search.includes('i18n=true'))
-
-  function handleClick () {
-    setConvertRoman(!convertRoman)
-  }
+  const [isI18nEnabled, setIsI18nEnabled] = useState(window.location.search.includes('i18n=true'))
 
   return (
     <Router>
       <div css={layoutStyle}>
-        <nav css={navStyle}>
-          <ul >
-            <li>
-              <Link to='/'>{gibberishConverter('Transactions', isI18nEnabled)}</Link>
-            </li>
-            <li>
-              |
-            </li>
-            <li>
-              <Link to='/graphs'>{gibberishConverter('Graphs', isI18nEnabled)}</Link>
-            </li>
-          </ul>
-          <div className='romanNumeral'>
-            <div>{gibberishConverter('Roman Numeral Converter', isI18nEnabled)}</div>
-            <input className='toggle' css={toggleStyle} onClick={handleClick} type='checkbox' />
-          </div>
-        </nav>
+        <Header convertRoman={convertRoman} isI18nEnabled={isI18nEnabled} setConvertRoman={setConvertRoman} setIsI18nEnabled={setIsI18nEnabled} />
         <div className='main-content' css={contentStyle}>
           <Switch>
             <Route exact path='/'>
@@ -50,96 +31,11 @@ function AppRouter () {
 
 export default AppRouter
 
-const toggleStyle = css`
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  width: 62px;
-  height: 32px;
-  display: inline-block;
-  position: relative;
-  border-radius: 50px;
-  overflow: hidden;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  background-color: #707070;
-  transition: background-color ease 0.3s;
-  transform: scale(.7);
-
-:before {
-  content: "   ";
-  display: block;
-  position: absolute;
-  z-index: 2;
-  width: 28px;
-  height: 28px;
-  background: #fff;
-  left: 2px;
-  top: 2px;
-  border-radius: 50%;
-  font: 10px/28px Helvetica;
-  text-transform: uppercase;
-  font-weight: bold;
-  text-indent: -22px;
-  word-spacing: 37px;
-  color: #fff;
-  text-shadow: -1px -1px rgba(0,0,0,0.15);
-  white-space: nowrap;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-  transition: all cubic-bezier(0.3, 1.5, 0.7, 1) 0.3s;
-}
-
-:checked {
-  background-color: #4CD964;
-}
-
-:checked:before {
-  left: 32px;
-}
-`
-
 const layoutStyle = css`
     display: flex;
     padding: 8px 10%;
     flex-direction: column;
 `
-
-const navStyle = css`
-  display: flex;
-  justify-content: space-between;
-  background: #40a8f8;
-  padding: 10px 20px;
-  background: linear-gradient(#40a8f8, #2791e3);
-
-  .romanNumeral {
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  a {
-    text-decoration: none;
-    color: white
-  }
-
-  & > ul {
-      display: flex;
-      flex-direction: row;
-      list-style-type: none;
-      color: white;
-  }
-  
-  & > ul > li:not(:first-of-type) {
-    margin-left: 16px;
-  }
-
-  li {
-    font-size: 3vw;
-  }
-`
-
 const contentStyle = css`
   display: flex;
   justify-content:center;
