@@ -16,7 +16,7 @@ table {
 }
 
 .header {
-  background-color: #009879;
+  background-color: #40a8f8;
   color: #ffffff;
   text-align: left;
 }
@@ -34,10 +34,10 @@ tr:nth-of-type(even) {
 }
 
 tr:last-of-type {
-  border-bottom: 2px solid #009879;
+  border-bottom: 2px solid #40a8f8;
 }
 
-tr:not(:first-child):hover {
+tr:not(:first-of-type):hover {
   color: #009879;
 }
 

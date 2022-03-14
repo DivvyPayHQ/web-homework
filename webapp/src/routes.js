@@ -4,6 +4,7 @@ import { css } from '@emotion/core'
 import { Home } from './home'
 
 import { PieChartPage } from './components/graphs/pieChartPage.jsx'
+import { ButtonPage } from './components/buttons/buttonPage.jsx'
 import Header from './components/header.jsx'
 
 function AppRouter () {
@@ -22,6 +23,9 @@ function AppRouter () {
             <Route exact path='/graphs'>
               <PieChartPage />
             </Route>
+            <Route exact path='/button'>
+              <ButtonPage convertRoman={convertRoman} />
+            </Route>
           </Switch>
         </div>
       </div>
@@ -34,9 +38,13 @@ export default AppRouter
 const layoutStyle = css`
     display: flex;
     flex-direction: column;
+
+    .main-content {
+      background-color: white;
+    }
 `
 const contentStyle = css`
   display: flex;
   justify-content:center;
-  margin: 10px;
+  padding: 10px;
 `

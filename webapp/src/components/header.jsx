@@ -17,7 +17,7 @@ export default function Header ({ convertRoman, setConvertRoman, isI18nEnabled, 
   return (
     <nav css={navStyle}>
       <div>
-        <img alt='Logo' src='./logo.svg' />
+        <Link to='/'><img alt='Logo' src='https://www.svgrepo.com/show/134943/stocks-graphic.svg' /></Link>
       </div>
       <ul >
         <li>
@@ -25,6 +25,9 @@ export default function Header ({ convertRoman, setConvertRoman, isI18nEnabled, 
         </li>
         <li>
           <Link to='/graphs'>{gibberishConverter('Graphs', isI18nEnabled)}</Link>
+        </li>
+        <li>
+          <Link to='/button'>{gibberishConverter('Button', isI18nEnabled)}</Link>
         </li>
       </ul>
       <div className='romanNumeral'>
@@ -44,7 +47,7 @@ Header.propTypes = {
 
 const navStyle = css`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   background: #2e2e2e;
   padding: 0px 0px 0px 20px;
 
@@ -54,6 +57,10 @@ const navStyle = css`
     flex-direction: column;
     align-items: center;
     margin-right: 30px;
+  }
+
+  img {
+    width: 55px;
   }
 
   a {
