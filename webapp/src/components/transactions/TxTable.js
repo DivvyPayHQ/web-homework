@@ -66,6 +66,7 @@ export function TxTable ({ data, convertRoman }) {
             <th >{gibberishConverter('Debit', isI18nEnabled)}</th>
             <th >{gibberishConverter('Credit', isI18nEnabled)}</th>
             <th >{gibberishConverter('Amount', isI18nEnabled)}</th>
+            <th >{gibberishConverter('Tools', isI18nEnabled)}</th>
           </tr>
           {
             qData.length ? qData.map(tx => {

@@ -16,12 +16,12 @@ export default function Header ({ convertRoman, setConvertRoman, isI18nEnabled, 
 
   return (
     <nav css={navStyle}>
+      <div>
+        <img alt='Logo' src='./logo.svg' />
+      </div>
       <ul >
         <li>
           <Link to='/'>{gibberishConverter('Transactions', isI18nEnabled)}</Link>
-        </li>
-        <li>
-            |
         </li>
         <li>
           <Link to='/graphs'>{gibberishConverter('Graphs', isI18nEnabled)}</Link>
@@ -45,15 +45,15 @@ Header.propTypes = {
 const navStyle = css`
   display: flex;
   justify-content: space-between;
-  background: #40a8f8;
-  padding: 10px 20px;
-  background: linear-gradient(#40a8f8, #2791e3);
+  background: #2e2e2e;
+  padding: 0px 0px 0px 20px;
 
   .romanNumeral {
     color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-right: 30px;
   }
 
   a {
@@ -61,8 +61,9 @@ const navStyle = css`
     color: white
   }
 
-  a:hover {
-    color: black
+  li:hover {
+    border-bottom: 8px solid #505050;
+    box-sizing: border-box
   }
 
   & > ul {
@@ -73,11 +74,14 @@ const navStyle = css`
   }
   
   & > ul > li:not(:first-of-type) {
-    margin-left: 16px;
+    margin-left: 35px;
   }
 
   li {
-    font-size: 3vw;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    border: 8px solid transparent;
   }
 `
 

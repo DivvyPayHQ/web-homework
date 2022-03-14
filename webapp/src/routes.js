@@ -33,7 +33,6 @@ export default AppRouter
 
 const layoutStyle = css`
     display: flex;
-    padding: 8px 10%;
     flex-direction: column;
 `
 const contentStyle = css`

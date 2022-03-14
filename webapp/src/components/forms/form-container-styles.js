@@ -5,6 +5,7 @@ export const formContainerStyles = css`
 position: absolute;
 background: white;
 top: 20%;
+border-radius: 5px;
 
 .blocker {
   position: fixed;
@@ -21,6 +22,7 @@ top: 20%;
   flex-direction: column;
   border: 1px solid black;
   align-items: center;
+  border-radius: 5px;
 }
 
 `
