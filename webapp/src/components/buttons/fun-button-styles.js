@@ -17,7 +17,7 @@ height: 200px;
  
   .active {
       animation-name: active;
-      animation-duration: .3s;
+      animation-duration: .25s;
       animation-timing-function: ease-in-out;
   }
  
@@ -30,11 +30,11 @@ height: 200px;
           top: -2px;
       }
  
-      40% {
+      45% {
           top: 0px;
       }
  
-      60% {
+      55% {
           top: 0px;
       }
  

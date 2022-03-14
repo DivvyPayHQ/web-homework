@@ -33,12 +33,20 @@ async function seedDB () {
         amount: 36.65
       },
       {
+        user_id: 'Aang',
+        description: 'Fire Flakes',
+        merchant_id: 'Fire Kingdom',
+        debit: false,
+        credit: true,
+        amount: 6.36
+      },
+      {
         user_id: 'Jenkins',
         description: '14 Fries',
         merchant_id: 'McDonalds',
         debit: false,
         credit: true,
-        amount: 974.34
+        amount: 94.34
       },
       {
         user_id: 'Ted',
@@ -46,15 +54,23 @@ async function seedDB () {
         merchant_id: 'Apple',
         debit: false,
         credit: true,
-        amount: 4326.43
+        amount: 46.43
       },
       {
         user_id: 'Jacob',
         description: '6 Board Games',
-        merchant_id: 'Local Store',
+        merchant_id: 'Minature Market',
         debit: true,
         credit: false,
         amount: 63.93
+      },
+      {
+        user_id: 'Jacob',
+        description: '22 Sodas',
+        merchant_id: 'McDonalds',
+        debit: true,
+        credit: false,
+        amount: 45.32
       }
     ]
 

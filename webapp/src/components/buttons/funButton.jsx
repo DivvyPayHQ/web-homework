@@ -8,11 +8,8 @@ export function Button ({ icon }) {
   const [isActive, setActive] = useState(false)
   const active = isActive ? 'active' : null
   const classes = `button3 button ${active}`
-  // eslint-disable-next-line no-undef
-  let clickAudio = new Audio('../click.mp3')
 
   function toggleClass () {
-    clickAudio.play()
     setActive(true)
   }
 
