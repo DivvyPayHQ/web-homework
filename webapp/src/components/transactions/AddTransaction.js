@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { transactions } from '../../../mocks/transactions-data'
+import * as addTransactionStyles from '../../styles/addTransactionStyles'
 
 const addTransactionData = {
   id: Math.floor(Math.random() * 10000),
@@ -35,8 +36,8 @@ const AddTransaction = () => {
   }
 
   return (
-    <div className='addTransactionData'>
-      <h1 className='addTransactionData'>Add A Transaction</h1>
+    <div className='addTransactionDiv' css={addTransactionStyles.addTransactionStyle}>
+      <h1 className='addTransactionHeader'>Add A Transaction</h1>
       <form className='addTransactionForm' onSubmit={onSubmit}>
         <label htmlFor='user_id'>User Id</label>
         <input
@@ -88,6 +89,7 @@ const AddTransaction = () => {
           className='addTransactionInput'
           type='text'
           name='merchant_id'
+          placeholder='Company'
           value={transactionData.merchant_id}
           onChange={onChange}
         />
