@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom'
 import { css } from '@emotion/react'
 import { Home } from './home'
 
@@ -17,8 +17,10 @@ function AppRouter () {
           </ul>
         </nav>
         <div className='main-content' css={contentStyle}>
-          <Route component={Home} exact path='/' />
-          <Route component={() => (<div>Content for /another route</div>)} exact path='/another' />
+          <Routes>
+            <Route element={<Home />} exact path='/' />
+            <Route element={<div>Content for /another route</div>} exact path='/another' />
+          </Routes>
         </div>
       </div>
     </Router>

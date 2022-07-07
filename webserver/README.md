@@ -2,20 +2,11 @@
 
 ## Setup
 
-1. Install MongoDB (Community Edition)
+1. Install MongoDB (Community Edition) or run a `mongodb` image with `docker compose up`
 
 2. Run `yarn` in /webserver (this directory)
 
 3. Run `yarn start` in /webserver
-
-You can also install **nodemon** globally for hot reloading
-
-    sudo yarn global add nodemon --prefix=/usr/local
-
-To run this server application with **nodemon** run 
-
-    nodemon ./bin/app
-
 
 ## What is this
 

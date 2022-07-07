@@ -16,7 +16,7 @@ Please fork this project when submitting your homework assignment.
 
 A terminal multiplexer is recommended for this project, but is not needed. Multiple terminal windows work too. 
   
-  1. install and start `mongodb`
+  1. install and start `mongodb` or cd into the webserver directory and run `docker compose up` to spin up a `mongodb` docker image
   2. cd into the webapp directory
   3. run `yarn`
   4. cd into the webserver directory
@@ -30,8 +30,6 @@ Defaults (host: `localhost`, port `3000`)
 **Potential Issues**
 
 If you run into trouble, make sure you are on `node` **v14+** and `yarn` **v1.19+** with an updated **master** branch.  Delete all node_modules in the webserver and webapp directories to reset if needed.
-
-If you are using a Windows operating system, please either use a [Virtual Machine](https://www.virtualbox.org/) with [Linux](https://linuxmint.com/download.php) or [install WSL](https://docs.microsoft.com/en-us/windows/nodejs/setup-on-wsl2) for this project.  There is a babel and webpack compatibility issue with the Windows + node combination.
 
 If for any reason you still have issues, please reach out to your recruiter to explain the issue.
 

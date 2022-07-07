@@ -9,7 +9,7 @@ const path = require('path')
 const pino = require('pino')
 const pinoHttp = require('pino-http')
 
-module.exports = function main (options, cb) {
+function main (options, cb) {
   // Set default options
   const ready = cb || function () { }
   const opts = Object.assign(
@@ -116,3 +116,8 @@ module.exports = function main (options, cb) {
     ready(err, app, server)
   })
 }
+
+main({
+  port: 8000,
+  host: 'localhost'
+})
