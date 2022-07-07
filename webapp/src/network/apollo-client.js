@@ -3,6 +3,7 @@ import { onError } from '@apollo/client/link/error'
 
 const SERVER_URL = 'http://localhost:8000/graphql'
 
+
 const request = async operation => {
   let headers = {}
   operation.setContext({ headers })

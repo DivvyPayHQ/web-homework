@@ -1,0 +1,42 @@
+{
+  "rules": {
+   "react/react-in-jsx-scope": "off"
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "jest/globals": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "plugins": [
+    "react",
+    "jest"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "overrides": [
+    {
+      "files": [ "webpack.config.js", "babel.config.js", "jest.config.js", "testSetup.js" ],
+      "env": {
+        "node": true
+      }
+    }
+  ]
+}

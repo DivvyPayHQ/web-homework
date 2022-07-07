@@ -1,91 +1,73 @@
-const path = require('path')
-const root = process.cwd()
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ESLintPlugin = require('eslint-webpack-plugin')
-
-const outputDirectory = path.join(root, '..', 'webserver', 'public')
-
-const plugins = [
-  new CleanWebpackPlugin(),
-  new HtmlWebpackPlugin({
-    template: './index.ejs',
-    title: 'Divvy Coding Challenge',
-    appMountId: 'react-app'
-  }),
-  new ESLintPlugin({
-    files: './src/*',
-    fix: true
-  })
-]
-
-const JS_FILE_REGEX = /\.(js|jsx)$/
-const IMAGE_FILE_REGEX = /\.(jpg|jpeg|png|svg|bmp)$/
-const NODE_MODULES_DIR_REGEX = /\/node_modules\/(?!apollo-.*?|react-apollo)/
-const GRAPH_QL_FILE_REGEX = /\.(graphql|gql)$/
-
-const babelConfig = {
-  test: JS_FILE_REGEX,
-  exclude: NODE_MODULES_DIR_REGEX,
-  use: {
-    loader: 'babel-loader'
-  }
-}
-
-const imageUrlConfig = {
-  test: IMAGE_FILE_REGEX,
-  use: 'url-loader?limit=25000'
-}
-
-const graphQlConfig = {
-  test: GRAPH_QL_FILE_REGEX,
-  exclude: NODE_MODULES_DIR_REGEX,
-  loader: 'graphql-tag/loader'
-}
-
-const rules = [
-  babelConfig,
-  imageUrlConfig,
-  {
-    test: /\.mjs$/,
-    include: NODE_MODULES_DIR_REGEX,
-    type: 'javascript/auto'
-  },
-  graphQlConfig
-]
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
-  context: root,
-  entry: './src/index.js',
-  mode: JSON.stringify('development'),
+  entry: [
+    'react-hot-loader/patch',
+    './src/index.js'
+  ],
   output: {
-    path: outputDirectory,
-    filename: '[name].[hash].js',
-    chunkFilename: '[name].[hash].js',
-    devtoolModuleFilenameTemplate: 'divvy-challenge://[resource-path]'
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[contenthash].js'
   },
-  devtool: 'eval-source-map',
-  optimization: { minimize: false },
-  plugins,
-  module: { rules },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        use: 'babel-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.(graphql|gql)$/,
+        use: 'graphql-tag/loader',
+        exclude: /node_modules/,
+      }
+    ]
+  },
   devServer: {
+    port: 3000,
     historyApiFallback: true,
-    hot: true,
-
-    // Display only errors to reduce the amount of output.
-    stats: 'errors-only',
-
-    // If you use Vagrant or Cloud9, set
-    // host: options.host || '0.0.0.0';
-    //
-    // 0.0.0.0 is available to all network devices
-    // unlike default `localhost`.
-    host: process.env.HOST || '0.0.0.0',
-    port: process.env.PORT || 3000
+    'static': {
+      directory: './dist'
+    }
   },
-  resolve: {
-    extensions: ['.mjs', '.js', '.jsx', '.json']
+  plugins: [
+    new HtmlWebpackPlugin({
+      templateContent: () => ( 
+      `<!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>React Challenge</title>
+      </head>
+      <body>
+        <div id="app">
+      </body>
+      </html>`),
+      filename: 'index.html',
+    })
+  ],
+  optimization: {
+    runtimeChunk: 'single',
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      }
+    }
   }
-}
+};
 
-module.exports = config
+module.exports = (env, argv) => {
+  if (argv.hot) {
+    // Cannot use 'contenthash' when hot reloading is enabled.
+    config.output.filename = '[name].[hash].js';
+  }
+
+  return config;
+};
