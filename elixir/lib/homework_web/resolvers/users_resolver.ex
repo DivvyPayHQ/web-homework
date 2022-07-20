@@ -9,6 +9,13 @@ defmodule HomeworkWeb.Resolvers.UsersResolver do
   end
 
   @doc """
+  Find users by first and last name
+  """
+  def find_users(_root, %{first_name: first, last_name: last}, _info) do
+    {:ok, Users.find_users(first, last)}
+  end
+
+  @doc """
   Creates a user
   """
   def create_user(_root, args, _info) do
