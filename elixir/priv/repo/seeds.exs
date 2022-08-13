@@ -66,4 +66,4 @@ end
 
 
 
-Homework.DatabaseSeeder.generate_data_set()
+# Homework.DatabaseSeeder.generate_data_set()
