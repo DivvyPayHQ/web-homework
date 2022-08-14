@@ -7,6 +7,7 @@ defmodule Homework.Transactions do
   alias Homework.Repo
 
   alias Homework.Transactions.Transaction
+  alias Homework.Companies
 
   @doc """
   Returns the list of transactions.
@@ -50,11 +51,16 @@ defmodule Homework.Transactions do
 
   """
   def create_transaction(attrs \\ %{}) do
+    company_id = Map.get(attrs, :company_id)
+    co = Companies.get_company!(company_id)
+    amount = Map.get(attrs, :amount)
+    credit = Map.get(co, :available_credit)
+    new_amount = credit - amount
+    Companies.update_company(co, %{available_credit: new_amount})
     %Transaction{}
     |> Transaction.changeset(attrs)
     |> Repo.insert()
   end
-
   @doc """
   Updates a transaction.
 
