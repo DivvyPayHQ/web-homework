@@ -54,9 +54,9 @@ defmodule Homework.CompaniesTest do
       company
     end
 
-    test "list_company/0 returns all company", %{valid_attrs: valid_attrs} do
+    test "list_company/0 returns all company", %{valid_attrs: valid_attrs, company1: company1} do
       company = company_fixture(valid_attrs)
-      assert Companies.list_company([]) == [company]
+      assert Companies.list_company([]) == [company1, company]
     end
 
     test "get_company!/1 returns the company with given id", %{valid_attrs: valid_attrs} do
