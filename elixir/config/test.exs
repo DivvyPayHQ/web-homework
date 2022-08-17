@@ -7,7 +7,7 @@ use Mix.Config
 # Run `mix help test` for more information.
 config :homework, Homework.Repo,
   username: System.get_env("POSTGRES_USER") || "postgres",
-  password: System.get_env("POSTGRES_PASSWORD") || "postgres",
+  password: System.get_env("POSTGRES_PASSWORD") || "",
   hostname: System.get_env("POSTGRES_HOST") || "localhost",
   database: System.get_env("POSTGRES_DATABASE") || "homework_test",
   pool: Ecto.Adapters.SQL.Sandbox

@@ -5,7 +5,8 @@
 # is restricted to this project.
 
 # General application configuration
-use Mix.Config
+# use Mix.Config
+import Config
 
 config :homework,
   ecto_repos: [Homework.Repo]
