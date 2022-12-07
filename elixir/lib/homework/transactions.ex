@@ -38,6 +38,26 @@ defmodule Homework.Transactions do
   def get_transaction!(id), do: Repo.get!(Transaction, id)
 
   @doc """
+  Searches transactions and filters by amount.
+
+  #Examples
+
+      iex> filter_transaction(minimum: 100, maximum: 500)
+      %Transactions{}
+
+      iex> filter_transaction(minimum: 0, maximum: 0)
+      %[]
+  """
+
+  def filter_transaction(minimum, maximum) do
+    Repo.all(
+      from(t in Transaction,
+        where: t.amount >= ^minimum and t.amount <= ^maximum
+      )
+    )
+  end
+
+  @doc """
   Creates a transaction.
 
   ## Examples

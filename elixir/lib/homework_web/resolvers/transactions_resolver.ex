@@ -25,6 +25,21 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   end
 
   @doc """
+  Search transactions and filter by amount
+  """
+  def search_transaction(_root, %{minimum: minimum, maximum: maximum}, _info) do
+
+    transactions = Transactions.filter_transaction(minimum, maximum)
+
+    if length(transactions) > 0 do
+      transactions = Enum.sort(transactions)
+      {:ok, transactions}
+    else
+      {:ok, []}
+    end
+  end
+
+  @doc """
   Create a new transaction
   """
   def create_transaction(_root, args, _info) do

@@ -46,6 +46,9 @@ defmodule Homework.Merchants do
     iex> get_by_name("Divvy")
     %Merchant{}
 
+    iex> get_by_name("X")
+    %[]
+
   """
 
   def get_merchant_by_name(name) do

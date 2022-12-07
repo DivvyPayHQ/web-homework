@@ -17,6 +17,7 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
     field(:inserted_at, :naive_datetime)
     field(:updated_at, :naive_datetime)
 
+
     field(:user, :user) do
       resolve(&TransactionsResolver.user/3)
     end
@@ -38,6 +39,14 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
       arg(:description, non_null(:string))
 
       resolve(&TransactionsResolver.create_transaction/3)
+    end
+
+    @desc "Filter and search transactions by amount"
+    field :search_transaction, list_of(:transaction) do
+      arg(:minimum, non_null(:integer))
+      arg(:maximum, non_null(:integer))
+
+      resolve(&TransactionsResolver.search_transaction/3)
     end
 
     @desc "Update a new transaction"
