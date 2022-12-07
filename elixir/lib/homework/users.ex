@@ -40,20 +40,18 @@ defmodule Homework.Users do
   @doc """
   Gets a user by first and last name.
 
-  Raises `Ecto.NoResultsError` if the User does not exist.
-
   ## Examples
 
       iex> get_by_name("Alex", "Porter")
       %User{}
 
-      iex> get_by_name("Unknown", "User")
-      ** (Ecto.NoResultsError)
   """
 
-  def get_by_name(first_name, last_name) do
+  def get_user_by_name(first_name, last_name) do
     Repo.all(
-      from(u in User, where: ilike(u.first_name, ^"%#{first_name}%") and ilike(u.last_name, ^"%#{last_name}%"))
+      from(u in User,
+        where: ilike(u.first_name, ^"%#{first_name}%") and ilike(u.last_name, ^"%#{last_name}%")
+      )
     )
   end
 

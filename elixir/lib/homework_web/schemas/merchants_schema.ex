@@ -23,6 +23,13 @@ defmodule HomeworkWeb.Schemas.MerchantsSchema do
       resolve(&MerchantsResolver.create_merchant/3)
     end
 
+    @desc "Search for a merchant by name"
+    field :search_merchant, list_of(:merchant) do
+      arg(:name, non_null(:string))
+
+      resolve(&MerchantsResolver.search_merchant/3)
+    end
+
     @desc "Update a new merchant"
     field :update_merchant, :merchant do
       arg(:id, non_null(:id))

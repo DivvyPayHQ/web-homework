@@ -9,6 +9,23 @@ defmodule HomeworkWeb.Resolvers.MerchantsResolver do
   end
 
   @doc """
+  Searches for merchants by name.
+
+  Returns the matching merchants, if found.
+  Otherwise results in an empty list.
+  """
+
+  def search_merchant(_root, %{name: name}, _info) do
+    merchants = Merchants.get_merchant_by_name(name)
+
+    if length(merchants) > 0 do
+      {:ok, merchants}
+    else
+      {:ok, []}
+    end
+  end
+
+  @doc """
   Create a new merchant
   """
   def create_merchant(_root, args, _info) do
