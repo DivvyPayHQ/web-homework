@@ -25,6 +25,14 @@ defmodule HomeworkWeb.Schemas.UsersSchema do
       resolve(&UsersResolver.create_user/3)
     end
 
+    @desc "Search for a user by first and last name"
+    field :search_user, list_of(:user) do
+      arg(:first_name, non_null(:string))
+      arg(:last_name, non_null(:string))
+
+      resolve(&UsersResolver.search_user/3)
+    end
+
     @desc "Update a new user"
     field :update_user, :user do
       arg(:id, non_null(:id))
