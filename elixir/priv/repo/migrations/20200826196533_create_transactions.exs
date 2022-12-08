@@ -10,6 +10,7 @@ defmodule Homework.Repo.Migrations.CreateTransactions do
       add(:description, :string)
       add(:user_id, references(:users, type: :uuid, on_delete: :nothing))
       add(:merchant_id, references(:merchants, type: :uuid, on_delete: :nothing))
+      add(:company_id, references(:companies, type: :uuid, on_delete: :nothing))
 
       timestamps()
     end
