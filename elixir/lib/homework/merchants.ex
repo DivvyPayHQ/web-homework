@@ -43,10 +43,10 @@ defmodule Homework.Merchants do
 
   ## Example
 
-    iex> get_by_name("Divvy")
+    iex> get_merchant_by_name("Divvy")
     %Merchant{}
 
-    iex> get_by_name("X")
+    iex> get_merchant_by_name("X")
     %[]
 
   """
@@ -58,6 +58,7 @@ defmodule Homework.Merchants do
       )
     )
   end
+
   @doc """
   Creates a merchant.
 

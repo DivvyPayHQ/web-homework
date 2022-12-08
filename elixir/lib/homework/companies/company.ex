@@ -12,9 +12,10 @@ defmodule Homework.Companies.Company do
   end
 
   @doc false
-  def changeset(user, attrs) do
-    user
+  def changeset(company, attrs) do
+    company
     |> cast(attrs, [:name, :available_credit, :credit_line])
     |> validate_required([:name, :available_credit, :credit_line])
   end
+
 end

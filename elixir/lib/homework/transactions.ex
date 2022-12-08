@@ -7,6 +7,7 @@ defmodule Homework.Transactions do
   alias Homework.Repo
 
   alias Homework.Transactions.Transaction
+  alias Homework.Companies.Company
 
   @doc """
   Returns the list of transactions.
@@ -70,9 +71,27 @@ defmodule Homework.Transactions do
 
   """
   def create_transaction(attrs \\ %{}) do
-    %Transaction{}
-    |> Transaction.changeset(attrs)
-    |> Repo.insert()
+    transaction =
+      %Transaction{}
+      |> Transaction.changeset(attrs)
+      |> Repo.insert()
+
+    {:ok, transaction} = transaction
+
+    update_company_credit(transaction)
+    {:ok, transaction}
+  end
+
+  @doc """
+  Updates a companies available_credit each time a new transaction is created
+  assoicated with the company_id.
+  """
+
+  defp update_company_credit(transaction) do
+    company = Repo.get!(Company, transaction.company_id)
+    new_available_credit = company.available_credit - transaction.amount
+    result = Company.changeset(company, %{available_credit: new_available_credit})
+    Repo.update(result)
   end
 
   @doc """
