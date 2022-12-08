@@ -17,7 +17,7 @@ defmodule HomeworkWeb.Schemas.UsersSchema do
 
 
     field(:company, :company) do
-      resolve(&UsersResolver.company_user/3)
+      resolve(&UsersResolver.company/3)
     end
   end
 
