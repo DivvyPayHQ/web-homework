@@ -62,7 +62,7 @@ defmodule Homework.UsersTest do
 
     test "list_users/1 returns all users", %{valid_attrs: valid_attrs} do
       user = user_fixture(valid_attrs)
-      assert Users.list_users([]) == [user]
+      assert user in Users.list_users([])
     end
 
     test "get_user!/1 returns the user with given id", %{valid_attrs: valid_attrs} do

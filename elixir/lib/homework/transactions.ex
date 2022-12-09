@@ -74,12 +74,15 @@ defmodule Homework.Transactions do
     transaction =
       %Transaction{}
       |> Transaction.changeset(attrs)
-      |> Repo.insert()
 
-    {:ok, transaction} = transaction
+    case Repo.insert(transaction) do
+      {:ok, transaction} ->
+        update_company_credit(transaction)
+        {:ok, transaction}
 
-    update_company_credit(transaction)
-    {:ok, transaction}
+      {:error, changeset} ->
+        {:error, changeset}
+    end
   end
 
   @doc """
@@ -87,7 +90,7 @@ defmodule Homework.Transactions do
   assoicated with the company_id.
   """
 
-  defp update_company_credit(transaction) do
+  def update_company_credit(transaction) do
     company = Repo.get!(Company, transaction.company_id)
     new_available_credit = company.available_credit - transaction.amount
     result = Company.changeset(company, %{available_credit: new_available_credit})
