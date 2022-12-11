@@ -1,6 +1,6 @@
 defmodule HomeworkWeb.Resolvers.CompaniesResolver do
 
-  alias Homework. Companies
+  alias Homework.Companies
 
   @doc """
   Get a list of companies
