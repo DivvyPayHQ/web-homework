@@ -38,6 +38,24 @@ defmodule Homework.Users do
   def get_user!(id), do: Repo.get!(User, id)
 
   @doc """
+  Gets a user by first and last name.
+
+  ## Examples
+
+      iex> get_by_name("Alex", "Porter")
+      %User{}
+
+  """
+
+  def get_user_by_name(first_name, last_name) do
+    Repo.all(
+      from(u in User,
+        where: ilike(u.first_name, ^"%#{first_name}%") and ilike(u.last_name, ^"%#{last_name}%")
+      )
+    )
+  end
+
+  @doc """
   Creates a user.
 
   ## Examples

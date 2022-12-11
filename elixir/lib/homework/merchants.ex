@@ -37,6 +37,28 @@ defmodule Homework.Merchants do
   """
   def get_merchant!(id), do: Repo.get!(Merchant, id)
 
+
+  @doc """
+  Gets a merchant by name.
+
+  ## Example
+
+    iex> get_merchant_by_name("Divvy")
+    %Merchant{}
+
+    iex> get_merchant_by_name("X")
+    %[]
+
+  """
+
+  def get_merchant_by_name(name) do
+    Repo.all(
+      from(m in Merchant,
+        where: ilike(m.name, ^"%#{name}%")
+      )
+    )
+  end
+
   @doc """
   Creates a merchant.
 
